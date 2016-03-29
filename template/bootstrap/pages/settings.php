@@ -369,7 +369,7 @@
 			<tbody>
 				<?php while($settings_members = $settings_members_query->fetch()) { ?>
 					<tr>
-						<td><img src="img/avatar/<?php echo $settings_members['avatar']; ?>" class="img-circle" alt="User Image" style="max-height:30px;" /> <?php echo $settings_members['username']; ?></td>
+						<td><img src="img/avatar/<?php echo $settings_members['avatar']; ?>" class="img-circle" alt="User Image" style="max-height:30px;" /> <a href="./?op=profile&userid=<?php echo $settings_members['id']; ?>"><?php echo $settings_members['username']; ?></a></td>
 						<td><?php echo $settings_members['mail']; ?></td>
 						<td>
 							<form method="POST">
