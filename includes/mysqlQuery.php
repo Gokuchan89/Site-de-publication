@@ -1,4 +1,5 @@
 <?php
+
 	/*
 		=================================
 		CONFIG
@@ -45,6 +46,22 @@
 	*/
 	$category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
 	$category_query->execute();
+	
+	/*
+		=================================
+		PROFIL
+		=================================
+	*/
+	if(isset($_SESSION['username']))
+	{
+		if (isset($_GET['userid']) && ($_GET['userid'])== $user['id']) $userid = (int) $_GET['userid']; else $userid = (int) $user['id'];
+		
+		$query = $db->prepare('SELECT `id`, `username`, `password`, `mail`, `date_registration`, `date_lastlogin`, `date_birthday`, `sex`, `url_website`, `url_facebook`, `url_twitter`, `url_googleplus`, `country`, `avatar`, `rank` FROM site_user WHERE `id` = :id');
+		$query->bindValue(':id', $userid, PDO::PARAM_INT);
+		$query->execute();
+		$profile = $query->fetch();
+		$query->CloseCursor();
+	}
 	
 	/*
 		=================================

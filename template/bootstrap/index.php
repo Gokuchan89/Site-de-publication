@@ -4,11 +4,6 @@
 	if (isset($_GET['op']) && preg_match('/^[a-z]*$/', $_GET['op'])) $op = $_GET['op']; else $op = '';
 	if (isset($_GET['id']) && preg_match('/^[0-9]*$/', $_GET['id'])) $id = $_GET['id']; else $id = '';
 	if (isset($_GET['tab']) && preg_match('/^[0-9]*$/', $_GET['tab'])) $tab = $_GET['tab']; else $tab = '1';
-	
-	if(isset($_SESSION['username']))
-	{
-		if (isset($_GET['userid']) && ($_GET['userid'])== $user['id']) $userid = (int) $_GET['userid']; else $userid = (int) $user['id'];
-	}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -35,7 +30,7 @@
 				
 				// if (!$op) require_once('template/bootstrap/pages/home.php');
 				// if ($op == 'list') require_once('template/bootstrap/pages/list.php');
-				// if ($op == 'profile') require_once('template/bootstrap/pages/profile.php');
+				if ($op == 'profile') require_once('template/bootstrap/pages/profile.php');
 				if ($op == 'themes') require_once('template/bootstrap/pages/themes.php');
 				if ($op == 'settings') require_once('template/bootstrap/pages/settings.php');
 				if ($op == 'logout') logout();
