@@ -3,7 +3,7 @@
 
 	if(!file_exists('./includes/mysqlConfig.php'))
 	{
-		header('location: install.php');
+		header('location: ./install.php');
 		exit();
 	}
 	else
@@ -17,7 +17,7 @@
 		{
 			if(!isset($_SESSION['username']))
 			{
-				header('location: login.php');
+				header('location: ./login.php');
 				exit();
 			}
 			else

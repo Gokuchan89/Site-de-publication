@@ -1,7 +1,7 @@
 <?php
 	if(!file_exists('./includes/mysqlConfig.php'))
 	{
-		header('location: install.php');
+		header('location: ./install.php');
 		exit();
 	}
 	
