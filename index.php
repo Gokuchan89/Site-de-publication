@@ -22,12 +22,12 @@
 			}
 			else
 			{
-				require_once('template/'.$user['theme'].'/index.php');
+				require_once('./template/'.$user['theme'].'/index.php');
 			}
 		}
 		else
 		{
-			require_once('template/bootstrap/index.php');
+			require_once('./template/bootstrap/index.php');
 		}
 	}
 ?>

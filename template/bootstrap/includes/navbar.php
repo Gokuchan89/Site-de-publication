@@ -84,7 +84,7 @@
 							$total = $total_query->fetchColumn();
 							$total_query->closeCursor();
 							if($op == 'list' && $id == $menu['id']) $active = 'class="active"'; else $active = '';
-							echo '<li '.$active.'><a href="?op=list&id='.$menu['id'].'"><i class="fa fa-'.$menu['icon'].'"></i> '.ucfirst($menu['name']).'<span class="badge pull-right">'.$total.'</span></a></li>';
+							echo '<li '.$active.'><a href="./?op=list&id='.$menu['id'].'"><i class="fa fa-'.$menu['icon'].'"></i> '.ucfirst($menu['name']).'<span class="badge pull-right">'.$total.'</span></a></li>';
 						} $menu_query->closeCursor();
 						echo '</ul>';
 						echo '</li>';
@@ -96,10 +96,10 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $user['username']; ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li <?php if($op == 'profile') echo 'class="active"'; ?>><a href="?op=profile">Profil</a></li>
-							<li <?php if($op == 'themes') echo 'class="active"'; ?>><a href="?op=themes">Thèmes</a></li>
-							<?php if($user['rank'] == '3') { ?><li <?php if($op == 'settings') echo 'class="active"'; ?>><a href="?op=settings">Paramètres</a></li><?php } ?>
-							<li><a href="?op=logout">Déconnexion</a></li>
+							<li <?php if($op == 'profile') echo 'class="active"'; ?>><a href="./?op=profile">Profil</a></li>
+							<li <?php if($op == 'themes') echo 'class="active"'; ?>><a href="./?op=themes">Thèmes</a></li>
+							<?php if($user['rank'] == '3') { ?><li <?php if($op == 'settings') echo 'class="active"'; ?>><a href="./?op=settings">Paramètres</a></li><?php } ?>
+							<li><a href="./?op=logout">Déconnexion</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -121,10 +121,10 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $user['username']; ?> <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li <?php if($op == 'profile') echo 'class="active"'; ?>><a href="?op=profile">Profil</a></li>
-								<li <?php if($op == 'themes') echo 'class="active"'; ?>><a href="?op=themes">Thèmes</a></li>
-								<?php if($user['rank'] == '3') { ?><li <?php if($op == 'settings') echo 'class="active"'; ?>><a href="?op=settings">Paramètres</a></li><?php } ?>
-								<li><a href="?op=logout">Déconnexion</a></li>
+								<li <?php if($op == 'profile') echo 'class="active"'; ?>><a href="./?op=profile">Profil</a></li>
+								<li <?php if($op == 'themes') echo 'class="active"'; ?>><a href="./?op=themes">Thèmes</a></li>
+								<?php if($user['rank'] == '3') { ?><li <?php if($op == 'settings') echo 'class="active"'; ?>><a href="./?op=settings">Paramètres</a></li><?php } ?>
+								<li><a href="./?op=logout">Déconnexion</a></li>
 							</ul>
 						</li>
 					</ul>

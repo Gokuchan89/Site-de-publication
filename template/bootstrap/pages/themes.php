@@ -38,7 +38,7 @@
 							if($file != '.' && $file != '..')
 							{
 								if($file == $user['theme']) $checked = 'checked'; else $checked = '';
-								echo '<label class="avatar-theme"><input type="radio" name="theme" value="'.$file.'" '.$checked.' /><img src="template/'.$file.'/'.$file.'.jpg" style="width:200px;" title="'.ucfirst($file).'" /></label>';
+								echo '<label class="avatar-theme"><input type="radio" name="theme" value="'.$file.'" '.$checked.' /><img src="./template/'.$file.'/'.$file.'.jpg" style="width:200px;" title="'.ucfirst($file).'" /></label>';
 							}
 						}
 						closedir($dir);

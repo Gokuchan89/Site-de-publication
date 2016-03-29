@@ -1,5 +1,5 @@
-<script src="template/bootstrap/js/jquery.min.js"></script>
-<script src="template/bootstrap/js/bootstrap.min.js"></script>
+<script src="./template/bootstrap/js/jquery.min.js"></script>
+<script src="./template/bootstrap/js/bootstrap.min.js"></script>
 <script>
 	// Modal
 	$('#modalMembersDell').on('show.bs.modal', function (event)

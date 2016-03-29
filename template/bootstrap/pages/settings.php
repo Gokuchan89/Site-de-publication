@@ -274,10 +274,10 @@
 		$query->execute();
 		$query->CloseCursor();
 		
-		if(!file_exists('profils/'.$_['menuTable']))
+		if(!file_exists('./profils/'.$_['menuTable']))
 		{
 			$old = umask(0);
-			mkdir('profils/'.$_['menuTable'], 0777);
+			mkdir('./profils/'.$_['menuTable'], 0777);
 			umask($old);
 		}
 		
