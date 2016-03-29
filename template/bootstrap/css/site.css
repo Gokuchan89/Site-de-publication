@@ -1,5 +1,25 @@
 /*
     =================================
+    AVATAR + THEMES
+    =================================
+*/
+.avatar-theme > input[type=radio]
+{
+	display:								none;
+}
+input[type=radio] + img
+{
+	cursor:									pointer;
+	border:									2px solid transparent;
+}
+input[type=radio]:checked + img
+{
+	border:									2px solid #2274a9;
+	opacity:								1;
+}
+
+/*
+    =================================
     FOOTER
     =================================
 */
