@@ -41,4 +41,17 @@
 		$sex = str_replace(array('1', '2'), array('Féminin', 'Masculin'), $sex);
 		return $sex;
 	}
+
+	/*
+		=================================
+		PROFILE -> AVATAR
+		=================================
+	*/
+	function move_avatar($avatar, $username)
+	{
+		$extension = strtolower(substr(strrchr($avatar['name'], '.'), 1));
+		$name = $username;
+		$name = 'img/avatar/'.str_replace(' ','', $name).'.'.$extension;
+		move_uploaded_file($avatar['tmp_name'], $name);
+	}
 ?>

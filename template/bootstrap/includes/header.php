@@ -5,5 +5,6 @@
 	<title><?php echo $config['title']; ?></title>
 	<link rel="stylesheet" href="./template/bootstrap/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="./template/bootstrap/css/site.css" />
-	<link rel="stylesheet" href="./template/bootstrap/plugin/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="./template/bootstrap/plugins/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="./template/bootstrap/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" />
 </head>

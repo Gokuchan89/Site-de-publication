@@ -128,6 +128,68 @@
 		AVATAR
 		=================================
 	*/
+	$avatar_extension = '"jpg", "jpeg", "png", "gif"';
+	
+	if(isset($_['avatarButton']))
+	{
+		if ($_FILES['avatar']['size'])
+		{
+			
+			$extensions_valides 		= array('jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'gif', 'GIF');
+			$maxwidth 					= $config['avatarMaxWidth']; 		// Largeur de l'image
+			$maxheight 					= $config['avatarMaxHeight']; 		// Hauteur de l'image
+			$maxweight 					= $config['avatarMaxWeight']; 		// Poid de l'image
+			
+			// Vérification de l'extension de l'avatar
+			$extension_upload = strtolower(substr(strrchr($_FILES['avatar']['name'], '.'), 1));
+			if (!in_array($extension_upload, $extensions_valides))
+			{
+				$avatarMessage[$lib_errors][] = sprintf('L\'extension du fichier est incorrecte (<strong>%s</strong> au lieu de <strong>%s</strong>).', $extension_upload, $avatar_extension);
+			}
+			
+			// Vérification de la taille de l'avatar
+			$image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
+			if ($image_sizes[0] > $maxwidth || $image_sizes[1] > $maxheight)
+			{
+				$avatarMessage[$lib_errors][] = sprintf('La taille du fichier est incorrecte (<strong>%dx%d</strong> au lieu de <strong>%dx%d</strong>).', $image_sizes[0], $image_sizes[1], $maxwidth, $maxheight);
+			}
+			
+			// Vérification du poid de l'avatar
+			if ($_FILES['avatar']['size'] > $maxweight)
+			{
+				$avatarMessage[$lib_errors][] = sprintf('Le poids du fichier est incorrect (<strong>%d ko</strong> au lieu de <strong>%d ko</strong>).', intval($_FILES['avatar']['size'] / 1024), ($maxweight / 1024));
+			}
+		}
+	}
+	
+	if(isset($_['avatarButton']) && empty($avatarMessage[$lib_errors]))
+	{
+		if ($_FILES['avatar']['size'])
+		{
+			// Déplacement du fichier
+			$avatar_name = (!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar'], $profile['username']):'1.png';
+			
+			// Intégration des données dans la table user
+			$query = $db->prepare('UPDATE site_user SET avatar = :avatar WHERE id = :id');
+			$query->bindValue(':avatar', str_replace(' ','', $profile['username']).'.'.strtolower(substr(strrchr($_FILES['avatar']['name'], '.'), 1)), PDO::PARAM_STR);
+			$query->bindValue(':id', $userid, PDO::PARAM_INT);
+			$query->execute();
+			$query->CloseCursor();
+			
+			refresh($_SERVER['REQUEST_URI']);
+		}
+		
+		if (!$_FILES['avatar']['size'])
+		{
+			$query = $db->prepare('UPDATE site_user SET avatar = :avatar WHERE id = :id');
+			$query->bindValue(':avatar', $_['avatar'], PDO::PARAM_STR);
+			$query->bindValue(':id', $userid, PDO::PARAM_INT);
+			$query->execute();
+			$query->CloseCursor();
+
+			refresh($_SERVER['REQUEST_URI']);
+		}
+	}
 ?>
 <script>document.title += ' - Profil'</script>
 <div class="row">
@@ -280,6 +342,66 @@
 						</div>
 						<div class="panel-footer clearfix">
 							<button type="submit" name="editButton" class="btn btn-success pull-right" <?php if ($user['rank'] == '1') echo 'disabled'; ?>>Modifier</button>
+						</div>
+					</form>
+				</div>
+			<?php } ?>
+			<?php if($tab == '3') { ?>
+				<div class="panel panel-default">
+					<div class="panel-heading">Modifier l'avatar</div>
+					<form method="POST" enctype="multipart/form-data">
+						<div class="panel-body">
+							<?php
+								if(isset($avatarMessage[$lib_errors]))
+								{
+									foreach($avatarMessage as $type=>$messages)
+									{
+										$class = 'alert ';
+										$class .= $lib_errors==$type?'alert-danger':'alert-success';
+										foreach ($messages as $message)
+										{
+											echo '<div class="'.$class.'">'.$message.'</div>';
+										}
+									}
+								}
+							?>
+							<h4>Votre avatar</h4>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-xs-12 col-sm-4 col-md-3">
+										<label><small class="help-block"><?php echo sprintf('Le fichier doit être au format <strong>%s</strong>, de taille <strong>%dx%d</strong> et avoir un poids de <strong>%d ko</strong> maximum.', $avatar_extension, $config['avatarMaxWidth'], $config['avatarMaxHeight'], ($config['avatarMaxWeight'] / 1024)); ?></small></label>
+									</div>
+									<div class="col-xs-12 col-sm-8 col-md-9">
+										<div class="fileinput fileinput-new" data-provides="fileinput">
+											<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width:100%;height:170px;"></div>
+											<div>
+												<span class="btn btn-default btn-file" <?php if ($user['rank'] == 1) echo 'disabled'; ?>>
+													<span class="fileinput-new">Sélectionner une image</span>
+													<span class="fileinput-exists">Modifier</span>
+													<input type="file" name="avatar" <?php if ($user['rank'] == 1) echo 'disabled'; ?> />
+												</span>
+												<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Supprimer</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br/>
+							<h4>Avatar prédéfini</h4>
+							<div class="form-group text-center">
+								<div class="col-xs-12 col-sm-12 col-md-12">
+									<?php
+										for ($i=1; $i<=6; $i++)
+										{
+											if ($profile['avatar'] == $i.'.png') $checked = 'checked'; else $checked = '';
+											echo '<label class="avatar-theme"><input type="radio" name="avatar" value="'.$i.'.png" '.$checked.' /><img src="img/avatar/'.$i.'.png" style="width:114px;" title="avatar" /></label>';
+										}
+									?>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer clearfix">
+							<button type="submit" name="avatarButton" class="btn btn-success pull-right" <?php if ($user['rank'] == '1') echo 'disabled'; ?>>Modifier</button>
 						</div>
 					</form>
 				</div>
