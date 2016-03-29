@@ -30,4 +30,15 @@
 		$rank = str_replace(array('1', '2', '3'), array('Inviter', 'Membre', 'Administrateur'), $rank);
 		return $rank;
 	}
+
+	/*
+		=================================
+		PROFILE -> SEXE
+		=================================
+	*/
+	function sex($sex)
+	{
+		$sex = str_replace(array('1', '2'), array('Féminin', 'Masculin'), $sex);
+		return $sex;
+	}
 ?>
