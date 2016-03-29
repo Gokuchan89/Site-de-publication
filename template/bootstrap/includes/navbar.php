@@ -44,7 +44,7 @@
 		}
 		if ($login_verif['access'] == 0 && empty($loginMessage[$lib_errors]))
 		{
-			$loginMessage[$lib_errors][] = 'Votre compte n\'est pas encore activé.';
+			$loginMessage[$lib_errors][] = 'Ce compte n\'est pas encore activé.';
 		}
 	}
 	

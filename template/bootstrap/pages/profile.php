@@ -40,5 +40,3 @@
 		</div></div><?php require_once('./template/bootstrap/includes/footer.php'); ?><?php require_once('./template/bootstrap/includes/javascript.php'); ?></body></html>
 	<?php exit(); } ?>
 </div>
-
-<?php echo $profile['id']; ?>
