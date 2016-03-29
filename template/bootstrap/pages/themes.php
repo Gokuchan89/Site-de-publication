@@ -1,5 +1,5 @@
 <?php
-	if(!isset($_SESSION['username']) || $user['rank'] != '3')
+	if(!isset($_SESSION['username']))
 	{
 		header('location: ./');
 		exit();
