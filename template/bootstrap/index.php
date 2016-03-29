@@ -7,7 +7,7 @@
 	
 	if(isset($_SESSION['username']))
 	{
-		if (isset($_GET['userid']) && ($_GET['userid']) > '0') $userid = (int) $_GET['userid']; else $userid = (int) $user['id'];
+		if (isset($_GET['userid']) && ($_GET['userid'])== $user['id']) $userid = (int) $_GET['userid']; else $userid = (int) $user['id'];
 	}
 ?>
 <!DOCTYPE html>
