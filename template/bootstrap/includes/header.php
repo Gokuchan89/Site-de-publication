@@ -7,4 +7,6 @@
 	<link rel="stylesheet" href="./template/bootstrap/css/site.css" />
 	<link rel="stylesheet" href="./template/bootstrap/plugins/font-awesome/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="./template/bootstrap/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" />
+	<link rel="stylesheet" href="./template/bootstrap/plugins/select2/css/select2.min.css">
+	<link rel="stylesheet" href="./template/bootstrap/plugins/select2/css/select2-bootstrap.min.css">
 </head>

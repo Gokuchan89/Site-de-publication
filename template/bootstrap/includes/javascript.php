@@ -3,6 +3,7 @@
 <script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 <script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
 <script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js" type="text/javascript"></script>
+<script src="./template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
 <script>
 	// LazyLoad
 	$('img.lazy').lazyload(
@@ -31,4 +32,43 @@
 		var modal = $(this)
 		modal.find('.modal-body input').val(recipient)
 	})
+
+	//Select2
+	$(".select2").select2({
+		minimumResultsForSearch: Infinity,
+		theme: "bootstrap"
+	});
+	$(".select2-support").select2({
+		placeholder: "Tous les supports",
+		minimumResultsForSearch: Infinity,
+		allowClear: true,
+		theme: "bootstrap"
+	});
+	$(".select2-filmvu").select2({
+		placeholder: "Tous les vu/non vu",
+		minimumResultsForSearch: Infinity,
+		allowClear: true,
+		theme: "bootstrap"
+	});
+	$(".select2-genre").select2({
+		placeholder: "Tous les genres",
+		minimumResultsForSearch: Infinity,
+		allowClear: true,
+		theme: "bootstrap"
+	});
+	$(".select2-annee").select2({
+		placeholder: "Toutes les années",
+		minimumResultsForSearch: Infinity,
+		allowClear: true,
+		theme: "bootstrap"
+	});
+	
+	// Drop-menu
+	$('.drop-menu li a').click(function()
+	{
+		var selText = $(this).text();
+		var selName = $(this).attr('name');
+		$(this).parents('.collapse').find('.champ_recherche').val(selName);
+		$(this).parents('.collapse').find('.drop-toggle').html(selText+' <i class="fa fa-caret-down"></i>');
+	});
 </script>

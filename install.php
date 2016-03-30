@@ -71,7 +71,7 @@
 		// Création du fichier mysqlConstants.php qui contiendra les infos de connexion à la BDD
 		$constant = '
 		<?php
-			class CONSTANTS
+			class CONFIG
 			{
 				public $DB_CONFIG			= \'mysql\';
 				public $DB_HOST 			= \''.$mysqlHost.'\';

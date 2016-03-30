@@ -1,7 +1,9 @@
 <?php
 	require_once('./template/bootstrap/includes/functions.php');
+	require_once('./template/bootstrap/includes/params.php');
 	
 	if (isset($_GET['op']) && preg_match('/^[a-z]*$/', $_GET['op'])) $op = $_GET['op']; else $op = '';
+	if (isset($_GET['table']) && preg_match('/^[0-9]*$/', $_GET['table'])) $table = $_GET['table']; else $table = '';
 	if (isset($_GET['id']) && preg_match('/^[0-9]*$/', $_GET['id'])) $id = $_GET['id']; else $id = '';
 	if (isset($_GET['tab']) && preg_match('/^[0-9]*$/', $_GET['tab'])) $tab = $_GET['tab']; else $tab = '1';
 ?>
@@ -29,7 +31,7 @@
 				}
 				
 				if (!$op) require_once('./template/bootstrap/pages/home.php');
-				// if ($op == 'list') require_once('./template/bootstrap/pages/list.php');
+				if ($op == 'list') require_once('./template/bootstrap/pages/list.php');
 				if ($op == 'profile') require_once('./template/bootstrap/pages/profile.php');
 				if ($op == 'themes') require_once('./template/bootstrap/pages/themes.php');
 				if ($op == 'settings') require_once('./template/bootstrap/pages/settings.php');
