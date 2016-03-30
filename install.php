@@ -69,9 +69,9 @@
 	if(isset($_['installButton']) && empty($test[$lib_errors]))
 	{
 		// Création du fichier mysqlConstants.php qui contiendra les infos de connexion à la BDD
-		$constant = '
+		$constants = '
 		<?php
-			class CONFIG
+			class CONSTANTS
 			{
 				public $DB_CONFIG			= \'mysql\';
 				public $DB_HOST 			= \''.$mysqlHost.'\';
@@ -81,7 +81,7 @@
 			}
 		?>';
 
-		file_put_contents('./includes/mysqlConstants.php', $constant);
+		file_put_contents('./includes/mysqlConstants.php', $constants);
 		if (!is_readable('./includes/mysqlConstants.php'))
 		{
 			die('"mysqlConstants.php" not found!');
