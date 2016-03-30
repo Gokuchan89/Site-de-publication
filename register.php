@@ -1,5 +1,5 @@
 <?php
-	if(!file_exists('./includes/mysqlConfig.php'))
+	if(!file_exists('./includes/mysqlConstants.php'))
 	{
 		header('location: ./install.php');
 		exit();
@@ -39,7 +39,7 @@
 			$registerMessage[$lib_errors][] = 'Il est nécessaire de fournir un nom d\'utilisateur, un email, un mot de passe et le code de sécurité.';
 		}
 
-		require_once('./includes/mysqlConfig.php');
+		require_once('./includes/mysqlConstants.php');
 		require_once('./includes/mysqlConnector.php');
 
 		// Vérification de la disponibilité du nom de l'utilisateur

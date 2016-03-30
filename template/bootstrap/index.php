@@ -28,7 +28,7 @@
 					}
 				}
 				
-				// if (!$op) require_once('./template/bootstrap/pages/home.php');
+				if (!$op) require_once('./template/bootstrap/pages/home.php');
 				// if ($op == 'list') require_once('./template/bootstrap/pages/list.php');
 				if ($op == 'profile') require_once('./template/bootstrap/pages/profile.php');
 				if ($op == 'themes') require_once('./template/bootstrap/pages/themes.php');

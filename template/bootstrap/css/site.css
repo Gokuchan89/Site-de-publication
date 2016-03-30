@@ -20,6 +20,44 @@ input[type=radio]:checked + img
 
 /*
     =================================
+    GENERAL
+    =================================
+*/
+.thumbnail
+{
+	height: 								305px;
+}
+
+/*
+    =================================
+    DERNIERS AJOUTS
+    =================================
+*/
+.lastadd
+{
+    height:									175px;
+}
+.lastadd-img
+{
+	max-width:								100%;
+	max-height:								100%;
+}
+.lastadd-bd
+{
+	background:								url(../../../img/bg_bluray.png) no-repeat top;
+	background-size: 						125px;
+}
+.lastadd-bd-img
+{
+    width:									117px;
+	height:									131px;
+	position:								relative;
+	top:									17px;
+	left:									0.4px;
+}
+
+/*
+    =================================
     FOOTER
     =================================
 */

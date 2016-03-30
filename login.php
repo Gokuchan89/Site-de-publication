@@ -1,5 +1,5 @@
 <?php
-	if(!file_exists('./includes/mysqlConfig.php'))
+	if(!file_exists('./includes/mysqlConstants.php'))
 	{
 		header('location: ./install.php');
 		exit();
@@ -37,7 +37,7 @@
 			$loginMessage[$lib_errors][] = 'Il est nécessaire de fournir un nom d\'utilisateur et un mot de passe.';
 		}
 		
-		require_once('./includes/mysqlConfig.php');
+		require_once('./includes/mysqlConstants.php');
 		require_once('./includes/mysqlConnector.php');
 		
 		$query = $db->prepare('SELECT `username`, `password`, `access` FROM site_user WHERE `username` = :username');

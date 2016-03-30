@@ -68,10 +68,10 @@
 	
 	if(isset($_['installButton']) && empty($test[$lib_errors]))
 	{
-		// Création du fichier mysqlConfig.php qui contiendra les infos de connexion à la BDD
-		$config = '
+		// Création du fichier mysqlConstants.php qui contiendra les infos de connexion à la BDD
+		$constant = '
 		<?php
-			class CONFIG
+			class CONSTANTS
 			{
 				public $DB_CONFIG			= \'mysql\';
 				public $DB_HOST 			= \''.$mysqlHost.'\';
@@ -81,10 +81,10 @@
 			}
 		?>';
 
-		file_put_contents('./includes/mysqlConfig.php', $config);
-		if (!is_readable('./includes/mysqlConfig.php'))
+		file_put_contents('./includes/mysqlConstants.php', $constant);
+		if (!is_readable('./includes/mysqlConstants.php'))
 		{
-			die('"mysqlConfig.php" not found!');
+			die('"mysqlConstants.php" not found!');
 		}
 		
 		if(!file_exists('profils'))
@@ -94,7 +94,7 @@
 			umask($old);
 		}
 		
-		require_once('./includes/mysqlConfig.php');
+		require_once('./includes/mysqlConstants.php');
 		require_once('./includes/mysqlConnector.php');
 
 		// Création de la table user
@@ -238,7 +238,7 @@
 					</div>
 					</div></div></body></html>
 				<?php exit(); } ?>
-				<?php if (file_exists('./includes/mysqlConfig.php')) { ?>
+				<?php if (file_exists('./includes/mysqlConstants.php')) { ?>
 					<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 						<div class="panel panel-default">
 							<div class="panel-heading">Installation terminée !</div>

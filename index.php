@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	if(!file_exists('./includes/mysqlConfig.php'))
+	if(!file_exists('./includes/mysqlConstants.php'))
 	{
 		header('location: ./install.php');
 		exit();
@@ -9,7 +9,7 @@
 	else
 	{
 		require_once('./includes/classFunctions.php');
-		require_once('./includes/mysqlConfig.php');
+		require_once('./includes/mysqlConstants.php');
 		require_once('./includes/mysqlConnector.php');
 		require_once('./includes/mysqlQuery.php');
 		
