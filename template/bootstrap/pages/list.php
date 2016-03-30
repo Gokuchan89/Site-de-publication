@@ -217,12 +217,14 @@
 					<div class="col-xs-12 col-sm-4 col-md-4">
 						<div class="form-group">
 							<label>Recherche</label>
-							<form method="POST">
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<input type="hidden" name="livre_search_label" value="<?php if ($_SESSION['livre_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION['livre_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-success dropdown-toggle drop-toggle" data-toggle="dropdown">
-											<?php if ($_SESSION['livre_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION['livre_search_label'] == 'Realisateurs') echo 'Auteurs'; ?> <i class="fa fa-caret-down"></i>
+										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION['livre_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION['livre_search_label'] == 'Realisateurs') echo 'Auteurs'; ?></button>
+										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
 										</button>
 										<ul class="dropdown-menu drop-menu">
 											<li><a href="#" name="TitreVF">Titre</a></li>
@@ -273,12 +275,14 @@
 					<div class="col-xs-12 col-sm-4 col-md-4">
 						<div class="form-group">
 							<label>Recherche</label>
-							<form method="POST">
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<input type="hidden" name="musique_search_label" value="<?php if ($_SESSION['musique_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION['musique_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-success dropdown-toggle drop-toggle" data-toggle="dropdown">
-											<?php if ($_SESSION['musique_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION['musique_search_label'] == 'Realisateurs') echo 'Artistes / Groupe'; ?> <i class="fa fa-caret-down"></i>
+										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION['musique_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION['musique_search_label'] == 'Realisateurs') echo 'Artistes / Groupe'; ?></button>
+										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
 										</button>
 										<ul class="dropdown-menu drop-menu">
 											<li><a href="#" name="TitreVF">Titre</a></li>
@@ -333,8 +337,10 @@
 								<input type="hidden" name="video_search_label" value="<?php if ($_SESSION['video_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION['video_search_label'] == 'Acteurs') echo 'Acteurs'; ?><?php if ($_SESSION['video_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-success dropdown-toggle drop-toggle" data-toggle="dropdown">
-											<?php if ($_SESSION['video_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION['video_search_label'] == 'Acteurs') echo 'Acteurs'; ?><?php if ($_SESSION['video_search_label'] == 'Realisateurs') echo 'Réalisateurs'; ?> <i class="fa fa-caret-down"></i>
+										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION['video_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION['video_search_label'] == 'Acteurs') echo 'Acteurs'; ?><?php if ($_SESSION['video_search_label'] == 'Realisateurs') echo 'Réalisateurs'; ?></button>
+										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
 										</button>
 										<ul class="dropdown-menu drop-menu">
 											<li><a href="#" name="TitreVF">Titre</a></li>

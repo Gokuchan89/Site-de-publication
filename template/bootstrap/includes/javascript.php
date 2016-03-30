@@ -69,6 +69,6 @@
 		var selText = $(this).text();
 		var selName = $(this).attr('name');
 		$(this).parents('.collapse').find('.champ_recherche').val(selName);
-		$(this).parents('.collapse').find('.drop-toggle').html(selText+' <i class="fa fa-caret-down"></i>');
+		$(this).parents('.collapse').find('.drop-toggle').html(selText);
 	});
 </script>
