@@ -6,6 +6,26 @@
 		Functions::secure($val);
 	}
 	
+	/*
+		=================================
+		REGLAGE
+		=================================
+	*/
+	$order_array = array('TitreVF', 'TitreVF DESC', 'Annee', 'Annee DESC');
+	if (!isset($_SESSION['option_order'])) $_SESSION['option_order'] = 'TitreVF';
+	if (isset($_POST['option_order']) && in_array($_POST['option_order'], $order_array)) $_SESSION['option_order'] = $_POST['option_order'];
+	$option_order = $_SESSION['option_order'];
+	
+	$nb_elements_array = array('6', '12', '18', '24', '30', '36');
+	if (!isset($_SESSION['option_nb_elements'])) $_SESSION['option_nb_elements'] = '24';
+	if (isset($_POST['option_nb_elements']) && in_array($_POST['option_nb_elements'], $nb_elements_array)) $_SESSION['option_nb_elements'] = $_POST['option_nb_elements'];
+	$option_nb_elements = $_SESSION['option_nb_elements'];
+
+	$dp_type_array = array('liste', 'galerie', 'table');
+	if (!isset($_SESSION['option_dp_type'])) $_SESSION['option_dp_type'] = 'galerie';
+	if (isset($_POST['option_dp_type']) && in_array($_POST['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_POST['option_dp_type'];
+	$option_dp_type = $_SESSION['option_dp_type'];
+	
 	$menu_query = $db->prepare('SELECT `id`, `table`, `type` FROM site_menu WHERE `id` = "'.$table.'"');
 	$menu_query->execute();
 	$menu = $menu_query->fetch();
@@ -23,6 +43,11 @@
 		die('Erreur : '.$e->getMessage());
 	}
 	
+	/*
+		=================================
+		LISTE
+		=================================
+	*/
 	// Total
 	$query = $db_list->prepare('SELECT COUNT(ID) FROM '.$cfg->DB_TABLE);
 	$query->execute();
@@ -30,9 +55,9 @@
 	$query->closeCursor();
 	
 	// Page
-	if (isset($_GET['page']) && is_numeric($_GET['page']))
+	if (isset($_['page']) && is_numeric($_['page']))
 	{
-		if ($_GET['page'] >= 1 && $_GET['page'] <= ceil($list_total/$option_nb_elements)) $page = intval($_GET['page']);
+		if ($_['page'] >= 1 && $_['page'] <= ceil($list_total/$option_nb_elements)) $page = intval($_['page']);
 		else $page = 1;
 	}
 	else
@@ -43,6 +68,7 @@
 		
 	$list_search = NULL;
 	
+	// Recherche + Filtres
 	if (!isset($_SESSION['livre_search_label'])) { $_SESSION['livre_search_label'] = 'TitreVF'; $_SESSION['livre_search_value'] = NULL; }
 	if (!isset($_SESSION['livre_search_label_genre'])) { $_SESSION['livre_search_label_genre'] = NULL; $_SESSION['livre_search_value_genre'] = NULL; }
 	if (!isset($_SESSION['livre_search_label_annee'])) { $_SESSION['livre_search_label_annee']= NULL; $_SESSION['livre_search_value_annee'] = NULL; }
@@ -107,7 +133,8 @@
 	$query->execute();
 	$list_search_total = $query->fetchColumn();
 	$query->closeCursor();
-		
+	
+	// Liste
 	$listing_query = $db->prepare('SELECT * FROM '.$cfg->DB_TABLE.' WHERE `Sortie` = "NON" '.$list_search.' ORDER BY '.$option_order.' LIMIT '.$option_nb_elements.' OFFSET '.$offset_list);
 	$listing_query->execute();
 
