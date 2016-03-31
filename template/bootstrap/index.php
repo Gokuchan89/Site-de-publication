@@ -1,6 +1,5 @@
 <?php
 	require_once('./template/bootstrap/includes/functions.php');
-	require_once('./template/bootstrap/includes/params.php');
 	
 	if (isset($_GET['op']) && preg_match('/^[a-z]*$/', $_GET['op'])) $op = $_GET['op']; else $op = '';
 	if (isset($_GET['table']) && preg_match('/^[0-9]*$/', $_GET['table'])) $table = $_GET['table']; else $table = '';
