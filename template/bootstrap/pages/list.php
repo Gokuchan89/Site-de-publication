@@ -537,8 +537,8 @@
 								<option value="TitreVF DESC" <?php if ($option_order == 'TitreVF DESC') echo 'selected'; ?>>Titre (desc)</option>
 								<option value="Annee" <?php if ($option_order == 'Annee') echo 'selected'; ?>>Année</option>
 								<option value="Annee DESC" <?php if ($option_order == 'Annee DESC') echo 'selected'; ?>>Année (desc)</option>
-								<option value="EntreeDate" <?php if ($option_order == 'EntreeDate') echo 'selected'; ?>>Classer par ajout</option>
-								<option value="EntreeDate DESC" <?php if ($option_order == 'EntreeDate DESC') echo 'selected'; ?>>Classer par ajout (desc)</option>
+								<option value="EntreeDate" <?php if ($option_order == 'EntreeDate') echo 'selected'; ?>>Date d'ajout</option>
+								<option value="EntreeDate DESC" <?php if ($option_order == 'EntreeDate DESC') echo 'selected'; ?>>Date d'ajout (desc)</option>
 							</select>
 						</form>
 					</div>
