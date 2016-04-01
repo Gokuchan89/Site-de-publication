@@ -44,6 +44,12 @@
 		allowClear: true,
 		theme: "bootstrap"
 	});
+	$(".select2-edition").select2({
+		placeholder: "Toutes les éditions",
+		minimumResultsForSearch: Infinity,
+		allowClear: true,
+		theme: "bootstrap"
+	});
 	$(".select2-filmvu").select2({
 		placeholder: "Tous les vu/non vu",
 		minimumResultsForSearch: Infinity,

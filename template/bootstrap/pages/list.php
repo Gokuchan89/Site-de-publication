@@ -78,7 +78,8 @@
 	if (!isset($_SESSION['musique_search_label_annee'])) { $_SESSION['musique_search_label_annee']= NULL; $_SESSION['musique_search_value_annee'] = NULL; }
 	
 	if (!isset($_SESSION['video_search_label'])) { $_SESSION['video_search_label'] = 'TitreVF'; $_SESSION['video_search_value'] = NULL; }
-	if (!isset($_SESSION['video_search_label_support'])) { $_SESSION['video_search_label_support'] = NULL; $_SESSION['video_search_value_support'] = NULL; }
+	if (!isset($_SESSION['video_search_label_support'])) { $_SESSION['video_search_label_support'] = 'Support'; $_SESSION['video_search_value_support'] = NULL; }
+	if (!isset($_SESSION['video_search_label_edition'])) { $_SESSION['video_search_label_edition'] = NULL; $_SESSION['video_search_value_edition'] = NULL; }
 	if (!isset($_SESSION['video_search_label_filmvu'])) { $_SESSION['video_search_label_filmvu'] = NULL; $_SESSION['video_search_value_filmvu'] = NULL; }
 	if (!isset($_SESSION['video_search_label_genre'])) { $_SESSION['video_search_label_genre'] = NULL; $_SESSION['video_search_value_genre'] = NULL; }
 	if (!isset($_SESSION['video_search_label_annee'])) { $_SESSION['video_search_label_annee']= NULL; $_SESSION['video_search_value_annee'] = NULL; }
@@ -106,7 +107,7 @@
 		if ($_SESSION['musique_search_value'] != NULL || $_SESSION['musique_search_value_genre'] != NULL || $_SESSION['musique_search_value_annee'] != NULL)
 		{
 			if ($_SESSION['musique_search_value'] != NULL) $list_search .= ' AND '.$_SESSION['musique_search_label'].' LIKE "%'.$_SESSION['musique_search_value'].'%"';
-			if ($_SESSION['musique_search_value_genre'] != NULL) $list_search .= ' AND '.$_SESSION['musique_search_label_genre'].' = "'.$_SESSION['musique_search_value_genre'].'"';
+			if ($_SESSION['musique_search_value_genre'] != NULL) $list_search .= ' AND '.$_SESSION['musique_search_label_genre'].' LIKE "%'.$_SESSION['musique_search_value_genre'].'%"';
 			if ($_SESSION['musique_search_value_annee'] != NULL) $list_search .= ' AND '.$_SESSION['musique_search_label_annee'].' = "'.$_SESSION['musique_search_value_annee'].'"';
 		}
 	}
@@ -115,16 +116,18 @@
 	{
 		if (isset($_['video_search_value'])) { $_SESSION['video_search_label'] = $_['video_search_label']; $_SESSION['video_search_value'] = $_['video_search_value']; }
 		if (isset($_['video_search_value_support'])) { $_SESSION['video_search_label_support'] = 'Support'; $_SESSION['video_search_value_support'] = $_['video_search_value_support']; }
+		if (isset($_['video_search_value_edition'])) { $_SESSION['video_search_label_edition'] = 'Edition'; $_SESSION['video_search_value_edition'] = $_['video_search_value_edition']; }
 		if (isset($_['video_search_value_filmvu'])) { $_SESSION['video_search_label_filmvu'] = 'FilmVu'; $_SESSION['video_search_value_filmvu'] = $_['video_search_value_filmvu']; }
 		if (isset($_['video_search_value_genre'])) { $_SESSION['video_search_label_genre'] = 'Genre'; $_SESSION['video_search_value_genre'] = $_['video_search_value_genre']; }
 		if (isset($_['video_search_value_annee'])) { $_SESSION['video_search_label_annee'] = 'Annee'; $_SESSION['video_search_value_annee'] = $_['video_search_value_annee']; }
 
-		if ($_SESSION['video_search_value'] != NULL || $_SESSION['video_search_value_support'] != NULL || $_SESSION['video_search_value_filmvu'] != NULL || $_SESSION['video_search_value_genre'] != NULL || $_SESSION['video_search_value_annee'] != NULL)
+		if ($_SESSION['video_search_value'] != NULL || $_SESSION['video_search_value_support'] != NULL || $_SESSION['video_search_value_edition'] != NULL || $_SESSION['video_search_value_filmvu'] != NULL || $_SESSION['video_search_value_genre'] != NULL || $_SESSION['video_search_value_annee'] != NULL)
 		{
 			if ($_SESSION['video_search_value'] != NULL) $list_search .= ' AND '.$_SESSION['video_search_label'].' LIKE "%'.$_SESSION['video_search_value'].'%"';
 			if ($_SESSION['video_search_value_support'] != NULL) $list_search .= ' AND '.$_SESSION['video_search_label_support'].' = "'.$_SESSION['video_search_value_support'].'"';
+			if ($_SESSION['video_search_value_edition'] != NULL) $list_search .= ' AND '.$_SESSION['video_search_label_edition'].' LIKE "%'.$_SESSION['video_search_value_edition'].'%"';
 			if ($_SESSION['video_search_value_filmvu'] != NULL) $list_search .= ' AND '.$_SESSION['video_search_label_filmvu'].' = "'.$_SESSION['video_search_value_filmvu'].'"';
-			if ($_SESSION['video_search_value_genre'] != NULL) $list_search .= ' AND '.$_SESSION['video_search_label_genre'].' = "'.$_SESSION['video_search_value_genre'].'"';
+			if ($_SESSION['video_search_value_genre'] != NULL) $list_search .= ' AND '.$_SESSION['video_search_label_genre'].' LIKE "%'.$_SESSION['video_search_value_genre'].'%"';
 			if ($_SESSION['video_search_value_annee'] != NULL) $list_search .= ' AND '.$_SESSION['video_search_label_annee'].' = "'.$_SESSION['video_search_value_annee'].'"';
 		}
 	}
@@ -135,11 +138,11 @@
 	$query->closeCursor();
 	
 	// Liste
-	$listing_query = $db->prepare('SELECT * FROM '.$cfg->DB_TABLE.' WHERE `Sortie` = "NON" '.$list_search.' ORDER BY '.$option_order.' LIMIT '.$option_nb_elements.' OFFSET '.$offset_list);
+	$listing_query = $db->prepare('SELECT * FROM '.$cfg->DB_TABLE.' WHERE `Note` >= "0" '.$list_search.' ORDER BY '.$option_order.' LIMIT '.$option_nb_elements.' OFFSET '.$offset_list);
 	$listing_query->execute();
 
 	// Liste par support
-	$query = $db->prepare('SELECT distinct Support FROM '.$cfg->DB_TABLE);
+	$query = $db->prepare('SELECT distinct Support FROM '.$cfg->DB_TABLE.' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -160,8 +163,30 @@
 	$list_support = array_unique($tempo_list);
 	sort($list_support);
 
+	// Liste par édition
+	$query = $db->prepare('SELECT distinct Edition FROM '.$cfg->DB_TABLE.' WHERE `Note` >= "0" '.$list_search);
+	$query->execute();
+	$i=0;
+	$tempo_list = array();
+	while ($nf_list = $query->fetch())
+	{
+		$unique_list = array($nf_list['Edition']);
+		foreach ($unique_list as $key => $value)
+		{
+			$unique_list2 = explode(" - ", $value);
+			foreach ($unique_list2 as $key => $value)
+			{
+				$tempo_list[$i] = $value;
+				$i++;
+			}
+		}
+	}
+	$query->closeCursor();
+	$list_edition = array_unique($tempo_list);
+	sort($list_edition);
+
 	// Liste par film vu
-	$query = $db->prepare('SELECT distinct FilmVu FROM '.$cfg->DB_TABLE);
+	$query = $db->prepare('SELECT distinct FilmVu FROM '.$cfg->DB_TABLE.' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -183,7 +208,7 @@
 	sort($list_filmvu);
 
 	// Liste par genre
-	$query = $db->prepare('SELECT distinct Genre FROM '.$cfg->DB_TABLE);
+	$query = $db->prepare('SELECT distinct Genre FROM '.$cfg->DB_TABLE.' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -206,7 +231,7 @@
 	sort($list_genre);
 	
 	// Liste par annee
-	$query = $db->prepare('SELECT distinct Annee FROM '.$cfg->DB_TABLE);
+	$query = $db->prepare('SELECT distinct Annee FROM '.$cfg->DB_TABLE.' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -357,7 +382,7 @@
 					</div>
 				<?php } ?>
 				<?php if ($menu['type'] == 'video') { ?>
-					<div class="col-xs-12 col-sm-4 col-md-4">
+					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="form-group">
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
@@ -390,6 +415,23 @@
 										foreach ($list_support as $key => $value1)
 										{
 											if ($_SESSION['video_search_value_support'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+										}
+									?>
+								</select>
+							</form>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-2">
+						<div class="form-group">
+							<label>Filtrer par édition</label>
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
+								<select name="video_search_value_edition" onchange="this.form.submit()" class="form-control select2-edition" style="width:100%;">
+									<option></option>
+									<?php
+										foreach ($list_edition as $key => $value1)
+										{
+											if ($_SESSION['video_search_value_edition'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
 											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
 										}
 									?>
@@ -482,7 +524,7 @@
 		}
 	}
 	
-	if ($_SESSION['video_search_value'] != NULL || $_SESSION['video_search_value_support'] != NULL || $_SESSION['video_search_value_filmvu'] != NULL || $_SESSION['video_search_value_genre'] != NULL || $_SESSION['video_search_value_annee'] != NULL)
+	if ($_SESSION['video_search_value'] != NULL || $_SESSION['video_search_value_support'] != NULL || $_SESSION['video_search_value_edition'] != NULL || $_SESSION['video_search_value_filmvu'] != NULL || $_SESSION['video_search_value_genre'] != NULL || $_SESSION['video_search_value_annee'] != NULL)
 	{
 		if ($list_search_total != '0')
 		{
