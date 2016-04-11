@@ -4,6 +4,7 @@
 <script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
 <script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js" type="text/javascript"></script>
 <script src="./template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
+<script src="./template/bootstrap/plugins/jquery-autocomplete/js/jquery.autocomplete.min.js"></script>
 <script>
 	// LazyLoad
 	$('img.lazy').lazyload(
@@ -76,5 +77,15 @@
 		var selName = $(this).attr('name');
 		$(this).parents('.collapse').find('.champ_recherche').val(selName);
 		$(this).parents('.collapse').find('.drop-toggle').html(selText);
+	});
+	
+	// Autocomplétion
+	$(document).ready(function()
+	{
+		var table = "<?php if(isset($_GET['table'])) echo $_GET['table']; else echo '' ?>";
+		$('#search').autocomplete({
+			serviceUrl: './template/bootstrap/pages/search.php?table='+table,
+			dataType: 'json'
+		});
 	});
 </script>
