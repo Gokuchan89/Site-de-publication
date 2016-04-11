@@ -245,6 +245,12 @@
 	sort($list_annee);
 ?>
 <script>document.title += ' - Liste'</script>
+<style>
+	.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+	.autocomplete-selected { background: #F0F0F0; }
+	.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+</style>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -267,7 +273,7 @@
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'Titre'; ?></button>
 									</div>
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" />
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="search" />
 								</div>
 							</form>
 						</div>
@@ -308,7 +314,7 @@
 											<li><a href="#" name="Realisateurs">Auteurs</a></li>
 										</ul>
 									</div>
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" />
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="search" />
 								</div>
 							</form>
 						</div>
@@ -366,7 +372,7 @@
 											<li><a href="#" name="Realisateurs">Artistes / Groupe</a></li>
 										</ul>
 									</div>
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" />
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="search" />
 								</div>
 							</form>
 						</div>
@@ -425,7 +431,7 @@
 											<li><a href="#" name="Realisateurs">Réalisateurs</a></li>
 										</ul>
 									</div>
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" />
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="search" />
 								</div>
 							</form>
 						</div>
