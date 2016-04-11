@@ -80,12 +80,9 @@
 	});
 	
 	// Autocomplétion
-	$(document).ready(function()
-	{
-		var table = "<?php if(isset($_GET['table'])) echo $_GET['table']; else echo '' ?>";
-		$('#search').autocomplete({
-			serviceUrl: './template/bootstrap/pages/search.php?table='+table,
-			dataType: 'json'
-		});
+	var table = "<?php if(isset($_GET['table'])) echo $_GET['table']; else echo '' ?>";
+	$('#search').autocomplete({
+		serviceUrl: './template/bootstrap/pages/search.php?table='+table,
+		dataType: 'json'
 	});
 </script>
