@@ -42,31 +42,26 @@
 	$(".select2-support").select2({
 		placeholder: "Tous les supports",
 		minimumResultsForSearch: Infinity,
-		allowClear: true,
 		theme: "bootstrap"
 	});
 	$(".select2-edition").select2({
 		placeholder: "Toutes les éditions",
 		minimumResultsForSearch: Infinity,
-		allowClear: true,
 		theme: "bootstrap"
 	});
 	$(".select2-filmvu").select2({
 		placeholder: "Tous les vu/non vu",
 		minimumResultsForSearch: Infinity,
-		allowClear: true,
 		theme: "bootstrap"
 	});
 	$(".select2-genre").select2({
 		placeholder: "Tous les genres",
 		minimumResultsForSearch: Infinity,
-		allowClear: true,
 		theme: "bootstrap"
 	});
 	$(".select2-annee").select2({
 		placeholder: "Toutes les années",
 		minimumResultsForSearch: Infinity,
-		allowClear: true,
 		theme: "bootstrap"
 	});
 	
