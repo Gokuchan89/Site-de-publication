@@ -509,7 +509,7 @@
 					<div class="form-group">
 						<label>Trier par</label>
 						<form method="POST">
-							<select name="option_order" onchange="this.form.submit()" class="form-control select2">
+							<select name="option_order" onchange="this.form.submit()" class="form-control select2" style="width:100%;">
 								<option value="TitreVF" <?php if ($option_order == 'TitreVF') echo 'selected'; ?>>Titre</option>
 								<option value="TitreVF DESC" <?php if ($option_order == 'TitreVF DESC') echo 'selected'; ?>>Titre (desc)</option>
 								<option value="Annee" <?php if ($option_order == 'Annee') echo 'selected'; ?>>Année</option>
@@ -524,7 +524,7 @@
 					<div class="form-group">
 						<label>Afficher x éléments</label>
 						<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-							<select name="option_nb_elements" onchange="this.form.submit()" class="form-control select2">
+							<select name="option_nb_elements" onchange="this.form.submit()" class="form-control select2" style="width:100%;">
 								<option value="6" <?php if ($option_nb_elements == '6') echo 'selected'; ?>>6</option>
 								<option value="12" <?php if ($option_nb_elements == '12') echo 'selected'; ?>>12</option>
 								<option value="18" <?php if ($option_nb_elements == '18') echo 'selected'; ?>>18</option>
@@ -539,7 +539,7 @@
 					<div class="form-group">
 						<label>Afficher en</label>
 						<form method="POST">
-							<select name="option_dp_type" onchange="this.form.submit()" class="form-control select2">
+							<select name="option_dp_type" onchange="this.form.submit()" class="form-control select2" style="width:100%;">
 								<option value="liste" <?php if ($option_dp_type == 'liste') echo 'selected'; ?>>Liste</option>
 								<option value="galerie" <?php if ($option_dp_type == 'galerie') echo 'selected'; ?>>Galerie</option>
 								<option value="table" <?php if ($option_dp_type == 'table') echo 'selected'; ?>>Table</option>
