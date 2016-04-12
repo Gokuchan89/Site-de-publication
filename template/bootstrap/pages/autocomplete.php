@@ -16,8 +16,7 @@
 		$query->CloseCursor();
  
         // Exécution de la requête SQL
-        $requete = $db->prepare('SELECT DISTINCT(TitreVF) FROM '.$menu['table'].' WHERE TitreVF LIKE :term ORDER BY TitreVF LIMIT 0, 10');
-		$requete->execute(array('term' => '%'.$term.'%'));
+        $requete = $db->query('SELECT distinct TitreVF FROM '.$menu['table'].' WHERE `TitreVF` LIKE "%'.$term.'%" OR `Acteurs` LIKE "%'.$term.'%" OR `Realisateurs` LIKE "%'.$term.'%" ORDER BY TitreVF LIMIT 0, 10');
  
         // On parcourt les résultats de la requête SQL
         while($donnee = $requete->fetch())
