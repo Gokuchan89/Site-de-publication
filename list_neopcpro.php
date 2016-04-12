@@ -253,11 +253,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -291,11 +290,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -346,11 +344,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -401,11 +398,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
