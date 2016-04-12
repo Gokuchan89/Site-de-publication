@@ -13,17 +13,17 @@
 	*/
 	$order_array = array('TitreVF', 'TitreVF DESC', 'Annee', 'Annee DESC', 'EntreeDate', 'EntreeDate DESC');
 	if (!isset($_SESSION['option_order'])) $_SESSION['option_order'] = 'TitreVF';
-	if (isset($_POST['option_order']) && in_array($_POST['option_order'], $order_array)) $_SESSION['option_order'] = $_POST['option_order'];
+	if (isset($_['option_order']) && in_array($_['option_order'], $order_array)) $_SESSION['option_order'] = $_['option_order'];
 	$option_order = $_SESSION['option_order'];
 	
 	$nb_elements_array = array('6', '12', '18', '24', '30', '36');
 	if (!isset($_SESSION['option_nb_elements'])) $_SESSION['option_nb_elements'] = '24';
-	if (isset($_POST['option_nb_elements']) && in_array($_POST['option_nb_elements'], $nb_elements_array)) $_SESSION['option_nb_elements'] = $_POST['option_nb_elements'];
+	if (isset($_['option_nb_elements']) && in_array($_['option_nb_elements'], $nb_elements_array)) $_SESSION['option_nb_elements'] = $_['option_nb_elements'];
 	$option_nb_elements = $_SESSION['option_nb_elements'];
 
 	$dp_type_array = array('liste', 'galerie', 'table');
 	if (!isset($_SESSION['option_dp_type'])) $_SESSION['option_dp_type'] = 'galerie';
-	if (isset($_POST['option_dp_type']) && in_array($_POST['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_POST['option_dp_type'];
+	if (isset($_['option_dp_type']) && in_array($_['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_['option_dp_type'];
 	$option_dp_type = $_SESSION['option_dp_type'];
 	
 	$menu_query = $db->prepare('SELECT `id`, `table`, `type` FROM site_menu WHERE `id` = "'.$table.'"');
@@ -269,16 +269,67 @@
 						<div class="form-group">
 							<label>Filtrer par année</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_annee as $key => $value2)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_annee as $key => $value2)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
+							</form>
+						</div>
+					</div>
+				<?php } ?>
+				<?php if ($menu['type'] == 'jeuxvideo') { ?>
+					<div class="col-xs-12 col-sm-4 col-md-6">
+						<div class="form-group">
+							<label>Recherche</label>
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
+								<div class="input-group">
+									<input type="text" class="form-control" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" id="autocomplete" />
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-6">
+						<div class="form-group">
+							<label>Filtrer par année</label>
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
+								<div class="input-group">
+									<select class="form-control select2-annee" name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_annee as $key => $value2)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -306,16 +357,23 @@
 						<div class="form-group">
 							<label>Filtrer par genre</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_genre as $key => $value1)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_genre as $key => $value1)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_genre" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -323,16 +381,23 @@
 						<div class="form-group">
 							<label>Filtrer par année</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_annee as $key => $value2)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_annee as $key => $value2)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -360,16 +425,23 @@
 						<div class="form-group">
 							<label>Filtrer par genre</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_genre as $key => $value1)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_genre as $key => $value1)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_genre" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -377,16 +449,23 @@
 						<div class="form-group">
 							<label>Filtrer par année</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_annee as $key => $value2)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_annee as $key => $value2)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -414,16 +493,23 @@
 						<div class="form-group">
 							<label>Filtrer par support</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_support" onchange="this.form.submit()" class="form-control select2-support" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_support as $key => $value1)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_support'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_support" onchange="this.form.submit()" class="form-control select2-support" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_support as $key => $value1)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_support'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_support'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_support" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -431,16 +517,23 @@
 						<div class="form-group">
 							<label>Filtrer par édition</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_edition" onchange="this.form.submit()" class="form-control select2-edition" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_edition as $key => $value1)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_edition'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_edition" onchange="this.form.submit()" class="form-control select2-edition" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_edition as $key => $value1)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_edition'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_edition'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_edition" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -448,16 +541,23 @@
 						<div class="form-group">
 							<label>Filtrer par vu/non vu</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_filmvu" onchange="this.form.submit()" class="form-control select2-filmvu" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_filmvu as $key => $value1)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_filmvu'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_filmvu" onchange="this.form.submit()" class="form-control select2-filmvu" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_filmvu as $key => $value1)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_filmvu'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_filmvu'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_filmvu" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -465,16 +565,23 @@
 						<div class="form-group">
 							<label>Filtrer par genre</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_genre as $key => $value1)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_genre as $key => $value1)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_genre" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -482,16 +589,23 @@
 						<div class="form-group">
 							<label>Filtrer par année</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_annee as $key => $value2)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
-											echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
-										}
-									?>
-								</select>
+								<div class="input-group">
+									<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+										<option></option>
+										<?php
+											foreach ($list_annee as $key => $value2)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
+											}
+										?>
+									</select>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
 							</form>
 						</div>
 					</div>
