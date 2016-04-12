@@ -57,6 +57,13 @@
 	$list_search = '';
 	
 	// Recherche + Filtres
+	if (!isset($_SESSION[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_edition'])) $_SESSION[$menu['table'].'_search_value_edition'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = '';
+	
 	if (isset($_[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = $_[$menu['table'].'_search_value'];
 	if (isset($_[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = $_[$menu['table'].'_search_value_support'];
 	if (isset($_[$menu['table'].'_search_value_edition'])) $_SESSION[$menu['table'].'_search_value_edition'] = $_[$menu['table'].'_search_value_edition'];
