@@ -9,4 +9,5 @@
 	<link rel="stylesheet" href="./template/bootstrap/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" />
 	<link rel="stylesheet" href="./template/bootstrap/plugins/select2/css/select2.min.css">
 	<link rel="stylesheet" href="./template/bootstrap/plugins/select2/css/select2-bootstrap.min.css">
+	<link rel="stylesheet" href="./template/bootstrap/css/jquery-themes/start/jquery-ui.min.css">
 </head>
