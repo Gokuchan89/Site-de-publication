@@ -65,7 +65,7 @@
 	if(isset($_['editButton']))
 	{
 		// Vérification de la disponibilité de l'email
-		$query = $db->prepare('SELECT COUNT(id) FROM site_user WHERE `mail` = :mail AND id != :id');
+		$query = $db->prepare('SELECT COUNT(id) FROM site_user WHERE `mail` = :mail AND `id` != :id');
 		$query->bindValue(':mail', $_['mail'], PDO::PARAM_STR);
 		$query->bindValue(':id', $userid, PDO::PARAM_INT);
 		$query->execute();
@@ -106,7 +106,7 @@
 	
 	if(isset($_['editButton']) && empty($editMessage[$lib_errors]))
 	{
-		$query = $db->prepare('UPDATE site_user SET password = :password, mail = :mail, date_birthday = :date_birthday, sex = :sex, url_website = :url_website, url_facebook = :url_facebook, url_twitter = :url_twitter, url_googleplus = :url_googleplus, country = :country WHERE id = :id');
+		$query = $db->prepare('UPDATE site_user SET `password` = :password, `mail` = :mail, `date_birthday` = :date_birthday, `sex` = :sex, `url_website` = :url_website, `url_facebook` = :url_facebook, `url_twitter` = :url_twitter, `url_googleplus` = :url_googleplus, `country` = :country WHERE id = :id');
 		if(empty($_['password'])) $query->bindValue(':password', $profile['password'], PDO::PARAM_STR); else $query->bindValue(':password', md5($_['password1']), PDO::PARAM_STR);
 		$query->bindValue(':mail', $_['mail'], PDO::PARAM_STR);
 		$query->bindValue(':date_birthday', $_['birthday'], PDO::PARAM_INT);
@@ -170,7 +170,7 @@
 			$avatar_name = (!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar'], $profile['username']):'1.png';
 			
 			// Intégration des données dans la table user
-			$query = $db->prepare('UPDATE site_user SET avatar = :avatar WHERE id = :id');
+			$query = $db->prepare('UPDATE site_user SET `avatar` = :avatar WHERE `id` = :id');
 			$query->bindValue(':avatar', str_replace(' ','', $profile['username']).'.'.strtolower(substr(strrchr($_FILES['avatar']['name'], '.'), 1)), PDO::PARAM_STR);
 			$query->bindValue(':id', $userid, PDO::PARAM_INT);
 			$query->execute();
@@ -181,7 +181,7 @@
 		
 		if (!$_FILES['avatar']['size'])
 		{
-			$query = $db->prepare('UPDATE site_user SET avatar = :avatar WHERE id = :id');
+			$query = $db->prepare('UPDATE site_user SET `avatar` = :avatar WHERE `id` = :id');
 			$query->bindValue(':avatar', $_['avatar'], PDO::PARAM_STR);
 			$query->bindValue(':id', $userid, PDO::PARAM_INT);
 			$query->execute();

@@ -97,7 +97,7 @@
 	// Modifier le rang d'un membre
 	if(isset($_['membersRankSelect']))
 	{
-		$query = $db->prepare('UPDATE site_user SET rank = :rank WHERE id = :id');
+		$query = $db->prepare('UPDATE site_user SET `rank` = :rank WHERE `id` = :id');
 		$query->bindValue(':rank', $_['membersRankSelect'], PDO::PARAM_STR);
 		$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
 		$query->execute();
@@ -111,7 +111,7 @@
 	{
 		if($_['membersAccess'] == '0')
 		{
-			$query = $db->prepare('UPDATE site_user SET access = :access WHERE id = :id');
+			$query = $db->prepare('UPDATE site_user SET `access` = :access WHERE `id` = :id');
 			$query->bindValue(':access', '1', PDO::PARAM_STR);
 			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
 			$query->execute();
@@ -119,7 +119,7 @@
 		}
 		else
 		{
-			$query = $db->prepare('UPDATE site_user SET access = :access WHERE id = :id');
+			$query = $db->prepare('UPDATE site_user SET `access` = :access WHERE `id` = :id');
 			$query->bindValue(':access', '0', PDO::PARAM_STR);
 			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
 			$query->execute();
@@ -198,6 +198,34 @@
 		MENU
 		=================================
 	*/
+	// Modifier une catégorie
+	if(isset($_['categoryEditButton']))
+	{
+		$query = $db->prepare('UPDATE site_category SET `name` = :name WHERE `id` = :id');
+		$query->bindValue(':name', $_['categoryEditName'], PDO::PARAM_STR);
+		$query->bindValue(':id', $_['categoryEditId'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+		
+		refresh($_SERVER['REQUEST_URI']);
+	
+	}
+	
+	// Modifier un menu
+	if(isset($_['menuEditButton']))
+	{
+		$query = $db->prepare('UPDATE site_menu SET `name` = :name, `icon` = :icon, `table` = :table, `type` = :type WHERE `id` = :id');
+		$query->bindValue(':name', $_['menuEditName'], PDO::PARAM_STR);
+		$query->bindValue(':icon', $_['menuEditIcon'], PDO::PARAM_STR);
+		$query->bindValue(':table', $_['menuEditTable'], PDO::PARAM_STR);
+		$query->bindValue(':type', $_['menuEditType'], PDO::PARAM_STR);
+		$query->bindValue(':id', $_['menuEditId'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+		
+		refresh($_SERVER['REQUEST_URI']);
+	}
+	
 	// Supprimer une catégorie
 	if (isset($_['categoryDell']))
 	{
@@ -284,7 +312,7 @@
 		refresh($_SERVER['REQUEST_URI']);
 	}
 ?>
-<script>document.title += ' - Paramètres'</script>		
+<script>document.title += ' - Paramètres'</script>
 <div class="btn-group btn-group-justified">
 	<div class="btn-group"><a href="?op=settings" class="btn btn-default <?php if($tab == '1') echo 'active'; ?>">Options</a></div>
 	<div class="btn-group"><a href="?op=settings&tab=2" class="btn btn-default <?php if($tab == '2') echo 'active'; ?>">Membres</a></div>
@@ -331,7 +359,7 @@
 				</div>
 			</div>
 			<div class="panel-footer clearfix">
-				<button type="submit" name="optionsButton" class="btn btn-success pull-right">Modifier</button>
+				<button type="submit" class="btn btn-success pull-right" name="optionsButton">Modifier</button>
 			</div>
 		</form>
 	</div>
@@ -385,7 +413,7 @@
 							<form method="POST">
 								<input type="hidden" name="membersId" value="<?php echo $settings_members['id']; ?>" />
 								<input type="hidden" name="membersAccess" value="<?php echo $settings_members['access']; ?>" />
-								<button type="submit" name="membersAccessButton" class="btn btn-<?php if($settings_members['access'] == '0') echo 'warning'; else echo 'primary'; ?> btn-xs" title="Accès"><i class="fa fa-<?php if($settings_members['access'] == '0') echo 'times'; else echo 'check'; ?>"></i></button>
+								<button type="submit" class="btn btn-<?php if($settings_members['access'] == '0') echo 'warning'; else echo 'primary'; ?> btn-xs" name="membersAccessButton" title="Accès"><i class="fa fa-<?php if($settings_members['access'] == '0') echo 'times'; else echo 'check'; ?>"></i></button>
 							</form>
 						</td>
 						<td>
@@ -442,7 +470,7 @@
 				</div>
 			</div>
 			<div class="panel-footer clearfix">
-				<button type="submit" name="membersAddButton" class="btn btn-success pull-right">Ajouter</button>
+				<button type="submit" class="btn btn-success pull-right" name="membersAddButton">Ajouter</button>
 			</div>
 		</form>
 	</div>
@@ -492,17 +520,13 @@
 		<?php while($settings_category = $settings_category_query->fetch()) { ?>
 			<table class="table table-bordered">
 				<tr>
-					<td style="width:96%; background-color: #f9f9f9;" colspan="3"><?php echo strtoupper($settings_category['name']); ?></td>
-					<td style="background-color: #f9f9f9;">
-						<form method="POST">
-							<button type="button" class="btn btn-primary btn-xs" title="Modifier"><i class="fa fa-check"></i></button>
-						</form>
-					</td>
-					<td style="background-color: #f9f9f9;">
-						<form method="POST">
-							<button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalCategoryDell" data-whatever="<?php echo $settings_category['id']; ?>"><i class="fa fa-trash-o"></i></button>
-						</form>
-					</td>
+					<form method="POST">
+						<input type="hidden" name="categoryEditId" value="<?php echo $settings_category['id']; ?>" />
+						<td style="width:96%; background-color: #f9f9f9;" colspan="3"><input type="text" class="form-control" name="categoryEditName" value="<?php echo $settings_category['name']; ?>" /></td>
+						<td style="background-color: #f9f9f9;"><button type="submit" class="btn btn-success btn-xs" name="categoryEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
+						<td style="background-color: #f9f9f9;"><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalCategoryDell" data-whatever="<?php echo $settings_category['id']; ?>"><i class="fa fa-trash-o"></i></button>
+						</td>
+					</form>
 				</tr>
 				<?php
 					$settings_menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type` FROM site_menu WHERE `category` = "'.$settings_category['id'].'" ORDER BY `name`');
@@ -510,19 +534,27 @@
 				?>
 				<?php while($settings_menu = $settings_menu_query->fetch()) { ?>
 					<tr>
-						<td width="32%"><i class="fa fa-<?php echo $settings_menu['icon']; ?>"></i> <?php echo ucfirst($settings_menu['name']); ?></td>
-						<td width="32%"><?php echo $settings_menu['table']; ?></td>
-						<td width="32%"><?php echo $settings_menu['type']; ?></td>
-						<td>
-							<form method="POST">
-								<button type="button" class="btn btn-primary btn-xs" title="Modifier"><i class="fa fa-check"></i></button>
-							</form>
-						</td>
-						<td>
-							<form method="POST">
-								<button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMenuDell" data-whatever="<?php echo $settings_menu['id']; ?>"><i class="fa fa-trash-o"></i></button>
-							</form>
-						</td>
+						<form method="POST">
+							<input type="hidden" name="menuEditId" value="<?php echo $settings_menu['id']; ?>" />
+							<td width="32%">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditIcon" value="<?php echo $settings_menu['icon']; ?>" /></div>
+									<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditName" value="<?php echo ucfirst($settings_menu['name']); ?>" /></div>
+								</div>
+							</td>
+							<td width="32%"><input type="text" class="form-control" name="menuEditTable" value="<?php echo $settings_menu['table']; ?>" /></td>
+							<td width="32%">
+								<select class="form-control" name="menuEditType">
+									<option value="autre" <?php if ($settings_menu['type'] == 'autre') echo 'selected'; ?>>Autre</option>
+									<option value="jeuxvideo" <?php if ($settings_menu['type'] == 'jeuxvideo') echo 'selected'; ?>>Jeux Vidéo</option>
+									<option value="livre" <?php if ($settings_menu['type'] == 'livre') echo 'selected'; ?>>Livre</option>
+									<option value="musique" <?php if ($settings_menu['type'] == 'musique') echo 'selected'; ?>>Musique</option>
+									<option value="video" <?php if ($settings_menu['type'] == 'video') echo 'selected'; ?>>Vidéo</option>
+								</select>
+							</td>
+							<td><button type="submit" class="btn btn-success btn-xs" name="menuEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
+							<td><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMenuDell" data-whatever="<?php echo $settings_menu['id']; ?>"><i class="fa fa-trash-o"></i></button></td>
+						</form>
 					</tr>
 				<?php } $settings_menu_query->closeCursor(); ?>
 			</table>
@@ -554,7 +586,7 @@
 						</div>
 					</div>
 					<div class="panel-footer clearfix">
-						<button type="submit" name="categoryButton" class="btn btn-success pull-right">Ajouter</button>
+						<button type="submit" class="btn btn-success pull-right" name="categoryButton">Ajouter</button>
 					</div>
 				</form>
 			</div>
@@ -592,7 +624,7 @@
 						</div>
 						<div class="form-group">
 							<label>Catégorie</label>
-							<select name="menuCategory" class="form-control">
+							<select class="form-control" name="menuCategory">
 								<?php
 									$menu_category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
 									$menu_category_query->execute();
@@ -604,7 +636,7 @@
 						</div>
 						<div class="form-group">
 							<label>Type</label>
-							<select name="menuType" class="form-control">
+							<select class="form-control" name="menuType">
 								<option value="autre">Autre</option>
 								<option value="jeuxvideo">Jeux Vidéo</option>
 								<option value="livre">Livre</option>
@@ -614,7 +646,7 @@
 						</div>
 					</div>
 					<div class="panel-footer clearfix">
-						<button type="submit" name="menuButton" class="btn btn-success pull-right">Ajouter</button>
+						<button type="submit" class="btn btn-success pull-right" name="menuButton">Ajouter</button>
 					</div>
 				</form>
 			</div>

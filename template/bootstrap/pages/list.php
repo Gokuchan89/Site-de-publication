@@ -88,7 +88,7 @@
 	$listing_query->execute();
 
 	// Liste par support
-	$query = $db->prepare('SELECT distinct Support FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
+	$query = $db->prepare('SELECT distinct `Support` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -110,7 +110,7 @@
 	sort($list_support);
 
 	// Liste par film vu
-	$query = $db->prepare('SELECT distinct FilmVu FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
+	$query = $db->prepare('SELECT distinct `FilmVu` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -132,7 +132,7 @@
 	sort($list_filmvu);
 
 	// Liste par genre
-	$query = $db->prepare('SELECT distinct Genre FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
+	$query = $db->prepare('SELECT distinct `Genre` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -155,7 +155,7 @@
 	sort($list_genre);
 	
 	// Liste par annee
-	$query = $db->prepare('SELECT distinct Annee FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
+	$query = $db->prepare('SELECT distinct `Annee` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
 	$i=0;
 	$tempo_list = array();
@@ -222,6 +222,43 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<div class="row">
 				<?php if ($menu['type'] == 'autre') { ?>
+					<div class="col-xs-12 col-sm-4 col-md-6">
+						<div class="form-group">
+							<label>Recherche</label>
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
+								<div class="input-group">
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-6">
+						<div class="form-group">
+							<label>Filtrer par année</label>
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
+								<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+									<option></option>
+									<?php
+										foreach ($list_annee as $key => $value2)
+										{
+											if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+											echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
+										}
+									?>
+								</select>
+							</form>
+						</div>
+					</div>
+				<?php } ?>
+				<?php if ($menu['type'] == 'jeuxvideo') { ?>
 					<div class="col-xs-12 col-sm-4 col-md-6">
 						<div class="form-group">
 							<label>Recherche</label>

@@ -80,7 +80,7 @@
 	});
 	
 	// Autocomplete
-	var table = "<?php if(isset($_GET['table'])) echo $_GET['table']; else echo '' ?>";
+	var table = '<?php if(isset($_GET['table'])) echo $_GET['table']; ?>';
 	$('#autocomplete').autocomplete(
 	{
 		source: './template/bootstrap/pages/autocomplete.php?table='+table,

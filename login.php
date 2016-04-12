@@ -127,7 +127,7 @@
 							</div>
 							<div class="panel-footer clearfix">
 								<a href="register.php" class="btn btn-primary">S'inscrire</a>
-								<button type="submit" name="loginButton" class="btn btn-success pull-right">Se connecter</button>
+								<button type="submit" class="btn btn-success pull-right" name="loginButton">Se connecter</button>
 							</div>
 						</form>
 					</div>

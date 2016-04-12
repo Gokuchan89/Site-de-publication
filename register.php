@@ -173,7 +173,7 @@
 							</div>
 							<div class="panel-footer clearfix">
 								<a href="login.php" class="btn btn-primary">Se connecter</a>
-								<button type="submit" name="registerButton" class="btn btn-success pull-right">S'inscrire</button>
+								<button type="submit" class="btn btn-success pull-right" name="registerButton">S'inscrire</button>
 							</div>
 						</form>
 					</div>

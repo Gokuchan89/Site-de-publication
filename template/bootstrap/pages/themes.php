@@ -14,7 +14,7 @@
 
 	if(isset($_['themeButton']))
 	{
-		$query = $db->prepare('UPDATE site_user SET theme = :theme WHERE id = :id');
+		$query = $db->prepare('UPDATE site_user SET `theme` = :theme WHERE `id` = :id');
 		$query->bindValue(':theme', $_['theme'], PDO::PARAM_STR);
 		$query->bindValue(':id', $userid, PDO::PARAM_INT);
 		$query->execute();
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 		<div class="panel-footer clearfix">
-			<button type="submit" name="themeButton" class="btn btn-success pull-right" <?php if ($user['rank'] == '1') echo 'disabled'; ?>>Modifier</button>
+			<button type="submit" class="btn btn-success pull-right" name="themeButton" <?php if ($user['rank'] == '1') echo 'disabled'; ?>>Modifier</button>
 		</div>
 	</form>
 </div>

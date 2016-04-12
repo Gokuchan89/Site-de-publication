@@ -305,7 +305,7 @@
 								</div>
 							</div>
 							<div class="panel-footer clearfix">
-								<button type="submit" id="installButton" name="installButton" class="btn btn-success pull-right">Lancer l'installation</button>
+								<button type="submit" class="btn btn-success pull-right" id="installButton" name="installButton">Lancer l'installation</button>
 							</div>
 						</form>
 					</div>
