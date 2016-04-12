@@ -652,7 +652,7 @@
 						</div>
 						<div class="form-group">
 							<label>Type</label>
-							<select class="form-control" name="menuType">
+							<select class="form-control select2" name="menuType" style="width:100%;">
 								<option value="autre">Autre</option>
 								<option value="jeuxvideo">Jeux Vidéo</option>
 								<option value="livre">Livre</option>
