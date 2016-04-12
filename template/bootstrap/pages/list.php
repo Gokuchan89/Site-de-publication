@@ -54,28 +54,22 @@
 	}
 	$offset_list = ($page-1) * $option_nb_elements;
 		
-	$list_search = NULL;
+	$list_search = '';
 	
 	// Recherche + Filtres
-	if (!isset($_SESSION[$menu['table'].'_search_label'])) $_SESSION[$menu['table'].'_search_value'] = NULL;
-	if (!isset($_SESSION[$menu['table'].'_search_label_support'])) $_SESSION[$menu['table'].'_search_value_support'] = NULL;
-	if (!isset($_SESSION[$menu['table'].'_search_label_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = NULL;
-	if (!isset($_SESSION[$menu['table'].'_search_label_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = NULL;
-	if (!isset($_SESSION[$menu['table'].'_search_label_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = NULL;
-	
 	if (isset($_[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = $_[$menu['table'].'_search_value'];
 	if (isset($_[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = $_[$menu['table'].'_search_value_support'];
 	if (isset($_[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = $_[$menu['table'].'_search_value_filmvu'];
 	if (isset($_[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = $_[$menu['table'].'_search_value_genre'];
 	if (isset($_[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = $_[$menu['table'].'_search_value_annee'];
 
-	if ($_SESSION[$menu['table'].'_search_value'] != NULL || $_SESSION[$menu['table'].'_search_value_support'] != NULL || $_SESSION[$menu['table'].'_search_value_filmvu'] != NULL || $_SESSION[$menu['table'].'_search_value_genre'] != NULL || $_SESSION[$menu['table'].'_search_value_annee'] != NULL)
+	if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '')
 	{
-		if ($_SESSION[$menu['table'].'_search_value'] != NULL) $list_search .= ' AND (`TitreVF` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Acteurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Realisateurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%")';
-		if ($_SESSION[$menu['table'].'_search_value_support'] != NULL) $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
-		if ($_SESSION[$menu['table'].'_search_value_filmvu'] != NULL) $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
-		if ($_SESSION[$menu['table'].'_search_value_genre'] != NULL) $list_search .= ' AND `Genre` LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
-		if ($_SESSION[$menu['table'].'_search_value_annee'] != NULL) $list_search .= ' AND `Annee` = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
+		if ($_SESSION[$menu['table'].'_search_value'] != '') $list_search .= ' AND (`TitreVF` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Acteurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Realisateurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%")';
+		if ($_SESSION[$menu['table'].'_search_value_support'] != '') $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
+		if ($_SESSION[$menu['table'].'_search_value_filmvu'] != '') $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
+		if ($_SESSION[$menu['table'].'_search_value_genre'] != '') $list_search .= ' AND `Genre` LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
+		if ($_SESSION[$menu['table'].'_search_value_annee'] != '') $list_search .= ' AND `Annee` = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
 	}
 	
 	$query = $db->prepare('SELECT COUNT(ID) FROM '.$menu['table'].' WHERE Sortie="NON" '.$list_search);
@@ -231,7 +225,7 @@
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
-									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -250,12 +244,12 @@
 										<?php
 											foreach ($list_annee as $key => $value2)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -275,7 +269,7 @@
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
-									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -294,12 +288,12 @@
 										<?php
 											foreach ($list_annee as $key => $value2)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -319,7 +313,7 @@
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
-									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -338,12 +332,12 @@
 										<?php
 											foreach ($list_genre as $key => $value1)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_genre" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -362,12 +356,12 @@
 										<?php
 											foreach ($list_annee as $key => $value2)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -387,7 +381,7 @@
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
-									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -406,12 +400,12 @@
 										<?php
 											foreach ($list_genre as $key => $value1)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_genre" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -430,12 +424,12 @@
 										<?php
 											foreach ($list_annee as $key => $value2)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -455,7 +449,7 @@
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
-									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -474,12 +468,12 @@
 										<?php
 											foreach ($list_support as $key => $value1)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_support'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_support'] == $value1) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_support'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_support'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_support" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -498,12 +492,12 @@
 										<?php
 											foreach ($list_filmvu as $key => $value1)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_filmvu'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_filmvu'] == $value1) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_filmvu'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_filmvu'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_filmvu" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -522,12 +516,12 @@
 										<?php
 											foreach ($list_genre as $key => $value1)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_genre'] == $value1) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_genre'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_genre" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -546,12 +540,12 @@
 										<?php
 											foreach ($list_annee as $key => $value2)
 											{
-												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = NULL;
+												if ($_SESSION[$menu['table'].'_search_value_annee'] == $value2) $nfselect = 'selected'; else $nfselect = '';
 												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
 											}
 										?>
 									</select>
-									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != NULL) { ?>
+									<?php if($_SESSION[$menu['table'].'_search_value_annee'] != '') { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -566,7 +560,7 @@
 	</div>
 </nav>
 <?php
-	if ($_SESSION[$menu['table'].'_search_value'] != NULL || $_SESSION[$menu['table'].'_search_value_support'] != NULL || $_SESSION[$menu['table'].'_search_value_filmvu'] != NULL || $_SESSION[$menu['table'].'_search_value_genre'] != NULL || $_SESSION[$menu['table'].'_search_value_annee'] != NULL)
+	if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '')
 	{
 		if ($list_search_total != '0')
 		{
