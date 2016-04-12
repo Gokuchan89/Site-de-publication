@@ -109,28 +109,6 @@
 	$list_support = array_unique($tempo_list);
 	sort($list_support);
 
-	// Liste par édition
-	$query = $db->prepare('SELECT distinct Edition FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
-	$query->execute();
-	$i=0;
-	$tempo_list = array();
-	while ($nf_list = $query->fetch())
-	{
-		$unique_list = array($nf_list['Edition']);
-		foreach ($unique_list as $key => $value)
-		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
-		}
-	}
-	$query->closeCursor();
-	$list_edition = array_unique($tempo_list);
-	sort($list_edition);
-
 	// Liste par film vu
 	$query = $db->prepare('SELECT distinct FilmVu FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
