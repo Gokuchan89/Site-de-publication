@@ -57,61 +57,25 @@
 	$list_search = NULL;
 	
 	// Recherche + Filtres
-	if (!isset($_SESSION[$menu['table'].'_search_label']))
-	{
-		$_SESSION[$menu['table'].'_search_label'] = 'TitreVF';
-		$_SESSION[$menu['table'].'_search_value'] = NULL;
-	}
-	if (!isset($_SESSION[$menu['table'].'_search_label_support']))
-	{
-		$_SESSION[$menu['table'].'_search_label_support'] = 'Support';
-		$_SESSION[$menu['table'].'_search_value_support'] = NULL;
-	}
-	if (!isset($_SESSION[$menu['table'].'_search_label_filmvu']))
-	{
-		$_SESSION[$menu['table'].'_search_label_filmvu'] = 'FilmVu';
-		$_SESSION[$menu['table'].'_search_value_filmvu'] = NULL;
-	}
-	if (!isset($_SESSION[$menu['table'].'_search_label_genre']))
-	{
-		$_SESSION[$menu['table'].'_search_label_genre'] = 'Genre';
-		$_SESSION[$menu['table'].'_search_value_genre'] = NULL;
-	}
-	if (!isset($_SESSION[$menu['table'].'_search_label_annee']))
-	{
-		$_SESSION[$menu['table'].'_search_label_annee'] = 'Annee';
-		$_SESSION[$menu['table'].'_search_value_annee'] = NULL;
-	}
+	if (!isset($_SESSION[$menu['table'].'_search_label'])) $_SESSION[$menu['table'].'_search_value'] = NULL;
+	if (!isset($_SESSION[$menu['table'].'_search_label_support'])) $_SESSION[$menu['table'].'_search_value_support'] = NULL;
+	if (!isset($_SESSION[$menu['table'].'_search_label_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = NULL;
+	if (!isset($_SESSION[$menu['table'].'_search_label_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = NULL;
+	if (!isset($_SESSION[$menu['table'].'_search_label_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = NULL;
 	
-	if (isset($_[$menu['table'].'_search_value']))
-	{
-		$_SESSION[$menu['table'].'_search_label'] = $_[$menu['table'].'_search_label'];
-		$_SESSION[$menu['table'].'_search_value'] = $_[$menu['table'].'_search_value'];
-	}
-	if (isset($_[$menu['table'].'_search_value_support']))
-	{
-		$_SESSION[$menu['table'].'_search_value_support'] = $_[$menu['table'].'_search_value_support'];
-	}
-	if (isset($_[$menu['table'].'_search_value_filmvu']))
-	{
-		$_SESSION[$menu['table'].'_search_value_filmvu'] = $_[$menu['table'].'_search_value_filmvu'];
-	}
-	if (isset($_[$menu['table'].'_search_value_genre']))
-	{
-		$_SESSION[$menu['table'].'_search_value_genre'] = $_[$menu['table'].'_search_value_genre'];
-	}
-	if (isset($_[$menu['table'].'_search_value_annee']))
-	{
-		$_SESSION[$menu['table'].'_search_value_annee'] = $_[$menu['table'].'_search_value_annee'];
-	}
+	if (isset($_[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = $_[$menu['table'].'_search_value'];
+	if (isset($_[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = $_[$menu['table'].'_search_value_support'];
+	if (isset($_[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = $_[$menu['table'].'_search_value_filmvu'];
+	if (isset($_[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = $_[$menu['table'].'_search_value_genre'];
+	if (isset($_[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = $_[$menu['table'].'_search_value_annee'];
 
 	if ($_SESSION[$menu['table'].'_search_value'] != NULL || $_SESSION[$menu['table'].'_search_value_support'] != NULL || $_SESSION[$menu['table'].'_search_value_filmvu'] != NULL || $_SESSION[$menu['table'].'_search_value_genre'] != NULL || $_SESSION[$menu['table'].'_search_value_annee'] != NULL)
 	{
-		if ($_SESSION[$menu['table'].'_search_value'] != NULL) $list_search .= ' AND '.$_SESSION[$menu['table'].'_search_label'].' LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%"';
-		if ($_SESSION[$menu['table'].'_search_value_support'] != NULL) $list_search .= ' AND '.$_SESSION[$menu['table'].'_search_label_support'].' = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
-		if ($_SESSION[$menu['table'].'_search_value_filmvu'] != NULL) $list_search .= ' AND '.$_SESSION[$menu['table'].'_search_label_filmvu'].' = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
-		if ($_SESSION[$menu['table'].'_search_value_genre'] != NULL) $list_search .= ' AND '.$_SESSION[$menu['table'].'_search_label_genre'].' LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
-		if ($_SESSION[$menu['table'].'_search_value_annee'] != NULL) $list_search .= ' AND '.$_SESSION[$menu['table'].'_search_label_annee'].' = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
+		if ($_SESSION[$menu['table'].'_search_value'] != NULL) $list_search .= ' AND (`TitreVF` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Acteurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Realisateurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%")';
+		if ($_SESSION[$menu['table'].'_search_value_support'] != NULL) $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
+		if ($_SESSION[$menu['table'].'_search_value_filmvu'] != NULL) $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
+		if ($_SESSION[$menu['table'].'_search_value_genre'] != NULL) $list_search .= ' AND `Genre` LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
+		if ($_SESSION[$menu['table'].'_search_value_annee'] != NULL) $list_search .= ' AND `Annee` = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
 	}
 	
 	$query = $db->prepare('SELECT COUNT(ID) FROM '.$menu['table'].' WHERE Sortie="NON" '.$list_search);
@@ -235,6 +199,38 @@
 	sort($list_annee);
 ?>
 <script>document.title += ' - Liste'</script>
+<style>
+	.ui-autocomplete
+	{
+		position: absolute;
+		z-index: 1000;
+		cursor: default;
+		padding: 0;
+		margin-top: 2px;
+		list-style: none;
+		background-color: #ffffff;
+		border: 1px solid #ccc
+		-webkit-border-radius: 5px;
+		   -moz-border-radius: 5px;
+				border-radius: 5px;
+		-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+				box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	}
+	.ui-autocomplete > li
+	{
+		padding: 3px 20px;
+	}
+	.ui-autocomplete > li.ui-state-focus
+	{
+		color: white;
+		background-color: #337ab7;
+	}
+	.ui-helper-hidden-accessible
+	{
+		display: none;
+	}
+</style>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -255,7 +251,7 @@
 								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?>" class="champ_recherche" />
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'Titre'; ?></button>
+										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
 									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
 								</div>
@@ -288,15 +284,7 @@
 								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Auteurs'; ?></button>
-										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="caret"></span>
-											<span class="sr-only">Toggle Dropdown</span>
-										</button>
-										<ul class="dropdown-menu drop-menu">
-											<li><a href="#" name="TitreVF">Titre</a></li>
-											<li><a href="#" name="Realisateurs">Auteurs</a></li>
-										</ul>
+										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
 									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
 								</div>
@@ -346,15 +334,7 @@
 								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Artistes / Groupe'; ?></button>
-										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="caret"></span>
-											<span class="sr-only">Toggle Dropdown</span>
-										</button>
-										<ul class="dropdown-menu drop-menu">
-											<li><a href="#" name="TitreVF">Titre</a></li>
-											<li><a href="#" name="Realisateurs">Artistes / Groupe</a></li>
-										</ul>
+										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
 									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
 								</div>
@@ -404,16 +384,7 @@
 								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Acteurs') echo 'Acteurs'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
 									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'Titre'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Acteurs') echo 'Acteurs'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Réalisateurs'; ?></button>
-										<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<span class="caret"></span>
-											<span class="sr-only">Toggle Dropdown</span>
-										</button>
-										<ul class="dropdown-menu drop-menu">
-											<li><a href="#" name="TitreVF">Titre</a></li>
-											<li><a href="#" name="Acteurs">Acteurs</a></li>
-											<li><a href="#" name="Realisateurs">Réalisateurs</a></li>
-										</ul>
+										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
 									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
 								</div>
