@@ -271,7 +271,7 @@
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<input type="text" class="form-control" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" id="autocomplete" />
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
@@ -289,7 +289,7 @@
 							<label>Filtrer par année</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+									<select class="form-control select2-annee" name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" style="width:100%;">
 										<option></option>
 										<?php
 											foreach ($list_annee as $key => $value2)
@@ -315,7 +315,7 @@
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<input type="text" class="form-control" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" id="autocomplete" />
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
@@ -333,7 +333,7 @@
 							<label>Filtrer par genre</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
+									<select class="form-control select2-genre" name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" style="width:100%;">
 										<option></option>
 										<?php
 											foreach ($list_genre as $key => $value1)
@@ -357,7 +357,7 @@
 							<label>Filtrer par année</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+									<select class="form-control select2-annee" name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" style="width:100%;">
 										<option></option>
 										<?php
 											foreach ($list_annee as $key => $value2)
@@ -383,7 +383,7 @@
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<input type="text" class="form-control"  name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>"id="autocomplete" />
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									</div>
@@ -401,7 +401,7 @@
 							<label>Filtrer par genre</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<select name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" class="form-control select2-genre" style="width:100%;">
+									<select class="form-control select2-genre" name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" style="width:100%;">
 										<option></option>
 										<?php
 											foreach ($list_genre as $key => $value1)
@@ -425,7 +425,7 @@
 							<label>Filtrer par année</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<select name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" class="form-control select2-annee" style="width:100%;">
+									<select class="form-control select2-annee" name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" style="width:100%;">
 										<option></option>
 										<?php
 											foreach ($list_annee as $key => $value2)
