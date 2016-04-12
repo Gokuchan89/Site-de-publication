@@ -248,12 +248,17 @@
 						<div class="form-group">
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?>" class="champ_recherche" />
 								<div class="input-group">
-									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
-									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+										</div>
+									<?php } else { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
 								</div>
 							</form>
 						</div>
@@ -281,12 +286,17 @@
 						<div class="form-group">
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
-									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
-									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+										</div>
+									<?php } else { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
 								</div>
 							</form>
 						</div>
@@ -331,12 +341,17 @@
 						<div class="form-group">
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
-									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
-									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+										</div>
+									<?php } else { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
 								</div>
 							</form>
 						</div>
@@ -381,12 +396,17 @@
 						<div class="form-group">
 							<label>Recherche</label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<input type="hidden" name="<?php echo $menu['table']; ?>_search_label" value="<?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'TitreVF'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Acteurs') echo 'Acteurs'; ?><?php if ($_SESSION[$menu['table'].'_search_label'] == 'Realisateurs') echo 'Realisateurs'; ?>" class="champ_recherche" />
 								<div class="input-group">
-									<div class="input-group-btn">
-										<button type="submit" class="btn btn-success drop-toggle"><i class="fa fa-search"></i></button>
-									</div>
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
+									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+										</div>
+									<?php } else { ?>
+										<div class="input-group-btn">
+											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
+										</div>
+									<?php } ?>
 								</div>
 							</form>
 						</div>
