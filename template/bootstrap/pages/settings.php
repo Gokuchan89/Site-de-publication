@@ -214,9 +214,10 @@
 	// Modifier un menu
 	if(isset($_['menuEditButton']))
 	{
-		$query = $db->prepare('UPDATE site_menu SET `name` = :name, `icon` = :icon, `table` = :table, `type` = :type WHERE `id` = :id');
+		$query = $db->prepare('UPDATE site_menu SET `name` = :name, `icon` = :icon, `category` = :category, `table` = :table, `type` = :type WHERE `id` = :id');
 		$query->bindValue(':name', $_['menuEditName'], PDO::PARAM_STR);
 		$query->bindValue(':icon', $_['menuEditIcon'], PDO::PARAM_STR);
+		$query->bindValue(':category', $_['menuEditCategory'], PDO::PARAM_INT);
 		$query->bindValue(':table', $_['menuEditTable'], PDO::PARAM_STR);
 		$query->bindValue(':type', $_['menuEditType'], PDO::PARAM_STR);
 		$query->bindValue(':id', $_['menuEditId'], PDO::PARAM_INT);
@@ -409,14 +410,14 @@
 								</select>
 							</form>
 						</td>
-						<td>
+						<td class="text-center">
 							<form method="POST">
 								<input type="hidden" name="membersId" value="<?php echo $settings_members['id']; ?>" />
 								<input type="hidden" name="membersAccess" value="<?php echo $settings_members['access']; ?>" />
 								<button type="submit" class="btn btn-<?php if($settings_members['access'] == '0') echo 'warning'; else echo 'primary'; ?> btn-xs" name="membersAccessButton" title="Accès"><i class="fa fa-<?php if($settings_members['access'] == '0') echo 'times'; else echo 'check'; ?>"></i></button>
 							</form>
 						</td>
-						<td>
+						<td class="text-center">
 							<form method="POST">
 								<button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMembersDell" data-whatever="<?php echo $settings_members['id']; ?>"><i class="fa fa-trash-o"></i></button>
 							</form>
@@ -522,9 +523,9 @@
 				<tr>
 					<form method="POST">
 						<input type="hidden" name="categoryEditId" value="<?php echo $settings_category['id']; ?>" />
-						<td style="width:96%; background-color: #f9f9f9;" colspan="3"><input type="text" class="form-control" name="categoryEditName" value="<?php echo $settings_category['name']; ?>" /></td>
-						<td style="background-color: #f9f9f9;"><button type="submit" class="btn btn-success btn-xs" name="categoryEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
-						<td style="background-color: #f9f9f9;"><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalCategoryDell" data-whatever="<?php echo $settings_category['id']; ?>"><i class="fa fa-trash-o"></i></button>
+						<td style="width:96%;background-color:#f9f9f9;" colspan="4"><input type="text" class="form-control" name="categoryEditName" value="<?php echo $settings_category['name']; ?>" /></td>
+						<td style="background-color:#f9f9f9;"><button type="submit" class="btn btn-success btn-xs" name="categoryEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
+						<td style="background-color:#f9f9f9;"><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalCategoryDell" data-whatever="<?php echo $settings_category['id']; ?>"><i class="fa fa-trash-o"></i></button>
 						</td>
 					</form>
 				</tr>
@@ -536,20 +537,35 @@
 					<tr>
 						<form method="POST">
 							<input type="hidden" name="menuEditId" value="<?php echo $settings_menu['id']; ?>" />
-							<td width="32%">
+							<td width="24%">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditIcon" value="<?php echo $settings_menu['icon']; ?>" /></div>
 									<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditName" value="<?php echo ucfirst($settings_menu['name']); ?>" /></div>
 								</div>
 							</td>
-							<td width="32%"><input type="text" class="form-control" name="menuEditTable" value="<?php echo $settings_menu['table']; ?>" /></td>
-							<td width="32%">
-								<select class="form-control" name="menuEditType">
+							<td width="24%"><input type="text" class="form-control" name="menuEditTable" value="<?php echo $settings_menu['table']; ?>" /></td>
+							<td width="24%">
+								<select class="form-control select2" name="menuEditType" style="width:100%;">
 									<option value="autre" <?php if ($settings_menu['type'] == 'autre') echo 'selected'; ?>>Autre</option>
 									<option value="jeuxvideo" <?php if ($settings_menu['type'] == 'jeuxvideo') echo 'selected'; ?>>Jeux Vidéo</option>
 									<option value="livre" <?php if ($settings_menu['type'] == 'livre') echo 'selected'; ?>>Livre</option>
 									<option value="musique" <?php if ($settings_menu['type'] == 'musique') echo 'selected'; ?>>Musique</option>
 									<option value="video" <?php if ($settings_menu['type'] == 'video') echo 'selected'; ?>>Vidéo</option>
+								</select>
+							</td>
+							<td width="24%">
+								<select class="form-control select2" name="menuEditCategory" style="width:100%;">
+									<?php
+										$menu_category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
+										$menu_category_query->execute();
+									?>
+									<?php
+										while($menu_category = $menu_category_query->fetch())
+										{
+											if($menu_category['id'] == $settings_menu['category']) $selected = 'selected'; else echo $selected = '';
+											echo '<option value="'.$menu_category['id'].'" '.$selected.'>'.$menu_category['name'].'</option>';
+										} $menu_category_query->closeCursor();
+									?>
 								</select>
 							</td>
 							<td><button type="submit" class="btn btn-success btn-xs" name="menuEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
@@ -624,7 +640,7 @@
 						</div>
 						<div class="form-group">
 							<label>Catégorie</label>
-							<select class="form-control" name="menuCategory">
+							<select class="form-control select2" name="menuCategory" style="width:100%;">
 								<?php
 									$menu_category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
 									$menu_category_query->execute();
