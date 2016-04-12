@@ -1,6 +1,6 @@
 <?php while($home = $home_query->fetch()) { ?>
 	<div class="panel panel-default">
-		<div class="panel-heading"><?php echo 'Les '.$config['lastaddMax'].' derniers ajouts de la catégorie '.$home['name']; ?></div>
+		<div class="panel-heading"><?php echo 'Les '.$config['lastaddMax'].' derniers ajouts de la catégorie <a href="./?op=list&table='.$home['id'].'">'.$home['name'].'</a>'; ?></div>
 		<div class="panel-body">
 			<div class="row text-center">
 				<?php
