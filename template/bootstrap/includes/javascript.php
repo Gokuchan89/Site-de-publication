@@ -1,10 +1,10 @@
 <script src="./template/bootstrap/js/jquery.min.js"></script>
+<script src="./template/bootstrap/js/jqueryui.min.js"></script>
 <script src="./template/bootstrap/js/bootstrap.min.js"></script>
 <script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 <script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
-<script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js" type="text/javascript"></script>
+<script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
 <script src="./template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
-<script src="./template/bootstrap/plugins/jquery-autocomplete/js/jquery.autocomplete.min.js"></script>
 <script>
 	// LazyLoad
 	$('img.lazy').lazyload(
@@ -79,10 +79,11 @@
 		$(this).parents('.collapse').find('.drop-toggle').html(selText);
 	});
 	
-	// Autocomplétion
+	// Autocomplete
 	var table = "<?php if(isset($_GET['table'])) echo $_GET['table']; else echo '' ?>";
-	$('#search').autocomplete({
-		serviceUrl: './template/bootstrap/pages/search.php?table='+table,
-		dataType: 'json'
-	});
+	$('#autocomplete').autocomplete(
+	{
+		source: './template/bootstrap/pages/autocomplete.php?table='+table,
+		minLength: 1
+	})
 </script>
