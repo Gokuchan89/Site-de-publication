@@ -257,7 +257,7 @@
 									<div class="input-group-btn">
 										<button type="submit" class="btn btn-success drop-toggle"><?php if ($_SESSION[$menu['table'].'_search_label'] == 'TitreVF') echo 'Titre'; ?></button>
 									</div>
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="search" />
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
 								</div>
 							</form>
 						</div>
@@ -298,7 +298,7 @@
 											<li><a href="#" name="Realisateurs">Auteurs</a></li>
 										</ul>
 									</div>
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="search" />
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
 								</div>
 							</form>
 						</div>
@@ -356,7 +356,7 @@
 											<li><a href="#" name="Realisateurs">Artistes / Groupe</a></li>
 										</ul>
 									</div>
-									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="search" />
+									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
 								</div>
 							</form>
 						</div>
