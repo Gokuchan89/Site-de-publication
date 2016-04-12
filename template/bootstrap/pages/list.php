@@ -13,17 +13,17 @@
 	*/
 	$order_array = array('TitreVF', 'TitreVF DESC', 'Annee', 'Annee DESC', 'EntreeDate', 'EntreeDate DESC');
 	if (!isset($_SESSION['option_order'])) $_SESSION['option_order'] = 'TitreVF';
-	if (isset($_POST['option_order']) && in_array($_POST['option_order'], $order_array)) $_SESSION['option_order'] = $_POST['option_order'];
+	if (isset($_['option_order']) && in_array($_['option_order'], $order_array)) $_SESSION['option_order'] = $_['option_order'];
 	$option_order = $_SESSION['option_order'];
 	
 	$nb_elements_array = array('6', '12', '18', '24', '30', '36');
 	if (!isset($_SESSION['option_nb_elements'])) $_SESSION['option_nb_elements'] = '24';
-	if (isset($_POST['option_nb_elements']) && in_array($_POST['option_nb_elements'], $nb_elements_array)) $_SESSION['option_nb_elements'] = $_POST['option_nb_elements'];
+	if (isset($_['option_nb_elements']) && in_array($_['option_nb_elements'], $nb_elements_array)) $_SESSION['option_nb_elements'] = $_['option_nb_elements'];
 	$option_nb_elements = $_SESSION['option_nb_elements'];
 
 	$dp_type_array = array('liste', 'galerie', 'table');
 	if (!isset($_SESSION['option_dp_type'])) $_SESSION['option_dp_type'] = 'galerie';
-	if (isset($_POST['option_dp_type']) && in_array($_POST['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_POST['option_dp_type'];
+	if (isset($_['option_dp_type']) && in_array($_['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_['option_dp_type'];
 	$option_dp_type = $_SESSION['option_dp_type'];
 	
 	$menu_query = $db->prepare('SELECT `id`, `table`, `type` FROM site_menu WHERE `id` = "'.$table.'"');
@@ -228,11 +228,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -266,11 +265,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -321,11 +319,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
@@ -376,11 +373,10 @@
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
 									<input type="text" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" class="form-control" id="autocomplete" />
-									<?php if($_SESSION[$menu['table'].'_search_value'] == NULL) { ?>
-										<div class="input-group-btn">
-											<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-										</div>
-									<?php } else { ?>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									</div>
+									<?php if($_SESSION[$menu['table'].'_search_value'] != NULL) { ?>
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value" value=""><i class="fa fa-close"></i></button>
 										</div>
