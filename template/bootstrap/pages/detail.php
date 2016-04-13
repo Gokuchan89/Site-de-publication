@@ -21,7 +21,7 @@
 	<!-- AFFICHE -->
 	<div class="col-xs-12 col-sm-12 col-md-8 text-center">
 		<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $detail['ID']); ?>
-		<?php if (file_exists($filename)) echo '<div class="detail"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></div>'; else echo '<div class="detail"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+		<?php if (file_exists($filename)) echo '<div class="detail"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></div>'; else echo '<div class="detail"><img data-src="holder.js/100px100p?text=aucune \n image" alt="affiche" /></div>'; ?>
 	</div>
 	<!-- DETAIL -->
 	<div class="col-xs-12 col-sm-12 col-md-4">
