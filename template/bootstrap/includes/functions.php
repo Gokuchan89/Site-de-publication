@@ -228,7 +228,7 @@
 
 	/*
 		=================================
-		DETAIL -> SEARCH
+		DETAIL -> FILTERED + SEARCH
 		=================================
 	*/
 	function filtered($label, $value, $table_id, $table_name)
@@ -237,12 +237,11 @@
 			$liste_search = explode(' / ', $value);
 			for($i=0;$i<count($liste_search);$i++)
 			{
-				echo '<input type="hidden" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'" />';
 				if (($i+1) == count($liste_search))
 				{
-					$nom_search = '<button type="submit" class="nobtn"><div class="text-primary">'.$liste_search[$i].'</div></button>';
+					$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button>';
 				} else {
-					$nom_search = '<button type="submit" class="nobtn"><div class="text-primary">'.$liste_search[$i].'</div></button> / ';
+					$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button> / ';
 				}
 				echo $nom_search;
 			}
