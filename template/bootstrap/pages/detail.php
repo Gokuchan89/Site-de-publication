@@ -40,11 +40,11 @@
 				<li class="list-group-item">
 					<div class="row text-center">
 						<div class="col-xs-6 col-lg-5">
-							<?php if($detail['FilmVu'] == 'OUI') echo '<div class="btn btn-primary" disabled="disabled"><i class="fa fa-eye"></i> '.$videos_seen.'</div>'; ?>
-							<?php if($detail['FilmVu'] == 'NON') echo '<div class="btn btn-danger" disabled="disabled"><i class="fa fa-eye-slash"></i> '.$videos_unseen.'</div>'; ?>
+							<?php if($detail['FilmVu'] == 'OUI') echo '<div class="btn btn-primary" disabled="disabled"><i class="fa fa-eye"></i> vu</div>'; ?>
+							<?php if($detail['FilmVu'] == 'NON') echo '<div class="btn btn-danger" disabled="disabled"><i class="fa fa-eye-slash"></i> non vu</div>'; ?>
 						</div>
 						<div class="col-xs-6 col-lg-7">
-							<?php if($bandeannonce == 1) { ?><a href="javascript:void(0)" class="btn btn-default" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';"><i class="fa fa-play"></i> Bande annonce</a><?php } ?>
+							<a href="javascript:void(0)" class="btn btn-default" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';"><i class="fa fa-play"></i> Bande annonce</a>
 						</div>
 					</div>
 				</li>
