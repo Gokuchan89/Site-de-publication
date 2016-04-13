@@ -16,6 +16,7 @@
 	$detail = $query->fetch();
 	$query->closeCursor();
 ?>
+<script>document.title += ' - Détail'</script>
 <?php echo $menu['table']; ?>
 <br/>
 <?php echo $id; ?>
