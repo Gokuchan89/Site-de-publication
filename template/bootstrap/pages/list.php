@@ -97,12 +97,8 @@
 		$unique_list = array($nf_list['Support']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
+			$tempo_list[$i] = $value;
+			$i++;
 		}
 	}
 	$query->closeCursor();
@@ -119,12 +115,8 @@
 		$unique_list = array($nf_list['FilmVu']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
+			$tempo_list[$i] = $value;
+			$i++;
 		}
 	}
 	$query->closeCursor();
@@ -138,11 +130,10 @@
 	$tempo_list = array();
 	while ($nf_list = $query->fetch())
 	{
-		$unique_list = array();
-		$unique_list = explode(" / ", $nf_list['Genre']);
+		$unique_list = explode(' / ', $nf_list['Genre']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
+			$unique_list2 = explode(' - ', $value);
 			foreach ($unique_list2 as $key => $value)
 			{
 				$tempo_list[$i] = $value;
@@ -164,12 +155,8 @@
 		$unique_list = array($nf_list['Annee']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
+			$tempo_list[$i] = $value;
+			$i++;
 		}
 	}
 	$query->closeCursor();
@@ -658,6 +645,7 @@
 		</div>
 	</div>
 </nav>
+<?php echo $_SESSION[$menu['table'].'_search_value_genre']; ?>
 <div class="panel panel-default">
 	<?php if ($option_dp_type == 'liste') { ?>
 		<table class="table table-bordered table-striped">
