@@ -671,7 +671,7 @@
 				<?php while ($listing = $listing_query->fetch()) { ?>
 					<tr style="height:200px">
 						<td class="text-center">
-							<?php $filename = sprintf('profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
+							<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
 							<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
 						</td>
 						<td>
@@ -713,12 +713,14 @@
 			<div class="row text-center">
 				<?php while ($listing = $listing_query->fetch()) { ?>
 					<div class="col-xs-6 col-sm-4 col-md-2">
-						<div class="thumbnail">
-							<?php $filename = sprintf('profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
-							<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
-							<div class="list-year text-danger"><?php echo $listing['Annee']; ?></div>
-							<div class="list-title text-info"><?php echo $listing['TitreVF']; ?></div>
-						</div>
+						<a href="./?op=detail&table=<?php echo $menu['id']; ?>&id=<?php echo $listing['ID']; ?>">
+							<div class="thumbnail">
+								<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
+								<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+								<div class="list-year text-danger"><?php echo $listing['Annee']; ?></div>
+								<div class="list-title text-info"><?php echo $listing['TitreVF']; ?></div>
+							</div>
+						</a>
 					</div>
 				<?php } $listing_query->closeCursor(); ?>
 			</div>
