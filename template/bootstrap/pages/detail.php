@@ -28,9 +28,9 @@
 		<div class="panel">
 			<li class="list-group-item"><i class="fa fa-pencil"></i> <?php echo $detail['TitreVF']; ?></li>
 			<?php if($detail['TitreVO'] != '') { ?><li class="list-group-item"><i class="fa fa-pencil"></i> <?php echo $detail['TitreVO']; ?></li><?php } ?>
-			<li class="list-group-item"><i class="fa fa-tag"></i> <?php echo $detail['Genre']; ?></li>
+			<li class="list-group-item"><i class="fa fa-tag"></i> <?php echo filtered('genre', $detail['Genre'], $menu['id'], $menu['table']); ?></li>
 			<li class="list-group-item">
-				<i class="fa fa-calendar"></i> <?php echo $detail['Annee']; ?><br />
+				<i class="fa fa-calendar"></i> <?php echo filtered('annee', $detail['Annee'], $menu['id'], $menu['table']); ?><br />
 				<?php if($menu['type'] == 'livre') echo '<i class="fa fa-clock-o"></i> '.$detail['Duree'].' pages<br />'; ?>
 				<?php if($menu['type'] == 'musique' || $menu['type'] == 'video') echo '<i class="fa fa-clock-o"></i> '.floor($detail['Duree']/60).'h '.($detail['Duree']%60).'min<br />'; ?>
 				<?php if($menu['type'] == 'video') { ?><i class="fa fa-globe"></i> <?php echo $detail['Pays']; ?><?php } ?>
