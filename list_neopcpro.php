@@ -100,12 +100,8 @@
 		$unique_list = array($nf_list['Support']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
+			$tempo_list[$i] = $value;
+			$i++;
 		}
 	}
 	$query->closeCursor();
@@ -122,12 +118,8 @@
 		$unique_list = array($nf_list['Edition']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
+			$tempo_list[$i] = $value;
+			$i++;
 		}
 	}
 	$query->closeCursor();
@@ -144,12 +136,8 @@
 		$unique_list = array($nf_list['FilmVu']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
+			$tempo_list[$i] = $value;
+			$i++;
 		}
 	}
 	$query->closeCursor();
@@ -164,10 +152,10 @@
 	while ($nf_list = $query->fetch())
 	{
 		$unique_list = array();
-		$unique_list = explode(" / ", $nf_list['Genre']);
+		$unique_list = explode(' / ', $nf_list['Genre']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
+			$unique_list2 = explode(' - ', $value);
 			foreach ($unique_list2 as $key => $value)
 			{
 				$tempo_list[$i] = $value;
@@ -189,12 +177,8 @@
 		$unique_list = array($nf_list['Annee']);
 		foreach ($unique_list as $key => $value)
 		{
-			$unique_list2 = explode(" - ", $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
+			$tempo_list[$i] = $value;
+			$i++;
 		}
 	}
 	$query->closeCursor();
