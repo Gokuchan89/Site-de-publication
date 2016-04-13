@@ -76,15 +76,15 @@
 			/* =================================
 			 *  Affichage du bouton [précédent]
 			 * ================================= */
-			if ($current == 2)
+			if($current == 2)
 			{
 				// la page courante est la 2, le bouton renvoie donc sur la page 1, remarquez qu'il est inutile de mettre $url{$link}1
-				$pagination .= '<li><a href="' . $url . '"><i class="fa fa-angle-double-left"></i></a></li>';
+				$pagination .= '<li><a href="'.$url.'"><i class="fa fa-angle-double-left"></i></a></li>';
 			}
-			elseif ($current > 2)
+			elseif($current > 2)
 			{
 				// la page courante est supérieure à 2, le bouton renvoie sur la page dont le numéro est immédiatement inférieur
-				$pagination .= '<li><a href="' . $url . '' . $link . '' . $prev . '"><i class="fa fa-angle-double-left"></i></a></li>';
+				$pagination .= '<li><a href="'.$url.$link.$prev.'"><i class="fa fa-angle-double-left"></i></a></li>';
 			}
 			else
 			{
@@ -101,26 +101,27 @@
 			/* ===============================================
 			 *  CAS 1 : au plus 12 pages -> pas de troncature
 			 * =============================================== */
-			if ($total < 7 + ($adj * 2))
+			if($total < 7 + ($adj * 2))
 			{
 				// Ajout de la page 1 : on la traite en dehors de la boucle pour n'avoir que index.php au lieu de index.php?p=1 et ainsi éviter le duplicate content
-				$pagination .= ($current == 1) ? '<li class="active"><a href="#">1</a></li>' : '<li><a href="' . $url . '">1</a></li>'; // Opérateur ternaire : (condition) ? 'valeur si vrai' : 'valeur si fausse'
+				$pagination .= ($current == 1) ? '<li class="active"><a href="#">1</a></li>' : '<li><a href="'.$url.'">1</a></li>'; // Opérateur ternaire : (condition) ? 'valeur si vrai' : 'valeur si fausse'
 
 				// Pour les pages restantes on utilise itère
-				for ($i=2; $i<=$total; $i++)
+				for($i=2; $i<=$total; $i++)
 				{
-					if ($i == $current)
+					if($i == $current)
 					{
 						// Le numéro de la page courante est mis en évidence
-						$pagination .= '<li class="active"><a href="#">' . $i . '</a></li>';
+						$pagination .= '<li class="active"><a href="#">'.$i.'</a></li>';
 					}
 					else
 					{
 						// Les autres sont affichées normalement
-						$pagination .= '<li><a href="' . $url . '' . $link . '' . $i . '">' . $i .'</a></li>';
+						$pagination .= '<li><a href="'.$url.$link.$i.'">'.$i.'</a></li>';
 					}
 				}
 			}
+
 			/* =========================================
 			 *  CAS 2 : au moins 13 pages -> troncature
 			 * ========================================= */
@@ -131,19 +132,21 @@
 					* l'affichage sera de neuf numéros de pages à gauche ... deux à droite
 					* 1 2 3 4 5 6 7 8 9 … 16 17
 				*/
-				if ($current < 2 + ($adj * 2))
+				if($current < 2 + ($adj * 2))
 				{
 					// Affichage du numéro de page 1
 					$pagination .= ($current == 1) ? '<li class="active"><a href="#">1</a></li>' : '<li><a href="' . $url . '">1</a></li>';
 
 					// puis des huit autres suivants
-					for ($i = 2; $i < 4 + ($adj * 2); $i++)
+					for($i = 2; $i < 4 + ($adj * 2); $i++)
 					{
-						if ($i == $current)
+						if($i == $current)
 						{
-							$pagination .= '<li class="active"><a href="#">' . $i . '</a></li>';
-						} else {
-							$pagination .= '<li><a href="' . $url . '' . $link . '' . $i . '">' . $i. '</a>';
+							$pagination .= '<li class="active"><a href="#">'.$i.'</a></li>';
+						}
+						else
+						{
+							$pagination .= '<li><a href="'.$url.$link.$i.'">'.$i.'</a>';
 						}
 					}
 
@@ -151,39 +154,39 @@
 					$pagination .= '<li><a href="#">&hellip;</a></li>';
 
 					// et enfin les deux derniers numéros
-					$pagination .= '<li><a href="' . $url . '' . $link . '' . $penultimate . '">' . $penultimate . '</a></li>';
-					$pagination .= '<li><a href="' . $url . '' . $link . '' . $total . '">' . $total . '</a></li>';
+					$pagination .= '<li><a href="'.$url.$link.$penultimate.'">'.$penultimate.'</a></li>';
+					$pagination .= '<li><a href="'.$url.$link.$total.'">'.$total.'</a></li>';
 				}
 				/*
 					* Troncature 2 : on se situe dans la partie centrale de notre pagination, on tronque donc le début et la fin de la pagination.
 					* l'affichage sera deux numéros de pages à gauche ... sept au centre ... deux à droite
 					* 1 2 … 5 6 7 8 9 10 11 … 16 17
 				*/
-				elseif ( (($adj * 2) + 1 < $current) && ($current < $total - ($adj * 2)) )
+				elseif((($adj * 2) + 1 < $current) && ($current < $total - ($adj * 2)))
 				{
 					// Affichage des numéros 1 et 2
-					$pagination .= '<li><a href="' . $url . '">1</a></li>';
-					$pagination .= '<li><a href="' . $url . '' . $link . '2">2</a></li>';
+					$pagination .= '<li><a href="'.$url.'">1</a></li>';
+					$pagination .= '<li><a href="'.$url.$link.'2">2</a></li>';
 					$pagination .= '<li><a href="#">&hellip;</a></li>';
 
 					// les pages du milieu : les trois précédant la page courante, la page courante, puis les trois lui succédant
-					for ($i = $current - $adj; $i <= $current + $adj; $i++)
+					for($i = $current - $adj; $i <= $current + $adj; $i++)
 					{
-						if ($i == $current)
+						if($i == $current)
 						{
-							$pagination .= '<li class="active"><a href="#">' . $i . '</a></li>';
+							$pagination .= '<li class="active"><a href="#">'.$i.'</a></li>';
 						}
 						else
 						{
-							$pagination .= '<li><a href="' . $url . '' . $link . '' . $i . '">' . $i . '</a></li>';
+							$pagination .= '<li><a href="'.$url.$link.$i.'">'.$i.'</a></li>';
 						}
 					}
 
 					$pagination .= '<li><a href="#">&hellip;</a></li>';
 
 					// et les deux derniers numéros
-					$pagination .= '<li><a href="' . $url . '' . $link . '' . $penultimate . '">' . $penultimate . '</a></li>';
-					$pagination .= '<li><a href="' . $url . '' . $link . '' . $total . '">' . $total . '</a></li>';
+					$pagination .= '<li><a href="'.$url.$link.$penultimate.'">'.$penultimate.'</a></li>';
+					$pagination .= '<li><a href="'.$url.$link.$total.'">'.$total.'</a></li>';
 				}
 				/*
 					* Troncature 3 : on se situe dans la partie de droite, on tronque donc le début de la pagination.
@@ -194,19 +197,19 @@
 				{
 					// Affichage des numéros 1 et 2
 					$pagination .= '<li><a href="'.$url.'">1</a></li>';
-					$pagination .= '<li><a href="'.$url.''.$link.'2">2</a></li>';
+					$pagination .= '<li><a href="'.$url.$link.'2">2</a></li>';
 					$pagination .= '<li><a href="#">&hellip;</a></li>';
 
 					// puis des neuf derniers numéros
-					for ($i = $total - (2 + ($adj * 2)); $i <= $total; $i++)
+					for($i = $total - (2 + ($adj * 2)); $i <= $total; $i++)
 					{
-						if ($i == $current)
+						if($i == $current)
 						{
 							$pagination .= '<li class="active"><a href="#">'.$i.'</a></li>';
 						}
 						else
 						{
-							$pagination .= '<li><a href="'.$url.''.$link.''.$i.'">'.$i.'</a></li>';
+							$pagination .= '<li><a href="'.$url.$link.$i.'">'.$i.'</a></li>';
 						}
 					}
 				}
@@ -215,10 +218,14 @@
 			/* ===============================
 			 *  Affichage du bouton [suivant]
 			 * =============================== */
-			if ($current == $total)
+			if($current == $total)
+			{
 				$pagination .= '<li class="disabled"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>';
+			}
 			else
-				$pagination .= '<li><a href="'.$url.''.$link.''.$next.'"><i class="fa fa-angle-double-right"></i></a></li>';
+			{
+				$pagination .= '<li><a href="'.$url.$link.$next.'"><i class="fa fa-angle-double-right"></i></a></li>';
+			}
 
 			// Fermeture de la <div> d'affichage
 			$pagination .= "\n";
@@ -235,15 +242,19 @@
 	{
 		echo '<form method="POST" action="?op=list&table='.$table_id.'" style="display:inline;">';
 			$liste_search = explode(' / ', $value);
-			for($i=0;$i<count($liste_search);$i++)
+			foreach ($liste_search as $key => $values)
 			{
-				if (($i+1) == count($liste_search))
+				$liste_search2 = explode(' - ', $value);
+				for($i=0;$i<count($liste_search2);$i++)
 				{
-					$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button>';
-				} else {
-					$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button> / ';
+					if (($i+1) == count($liste_search2))
+					{
+						$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search2[$i].'"><div class="text-primary">'.$liste_search2[$i].'</div></button>';
+					} else {
+						$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search2[$i].'"><div class="text-primary">'.$liste_search2[$i].'</div></button> / ';
+					}
+					echo $nom_search;
 				}
-				echo $nom_search;
 			}
 		echo '</form>';
 	}
