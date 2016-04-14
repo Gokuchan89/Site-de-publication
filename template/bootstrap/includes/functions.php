@@ -240,20 +240,27 @@
 	*/
 	function filtered($label, $value, $table_id, $table_name)
 	{
+		$i = 0;
 		echo '<form method="POST" action="?op=list&table='.$table_id.'" style="display:inline;">';
-			$liste_search = explode(' / ', $value);
-			foreach ($liste_search as $key => $values)
+			$liste_filtered = explode(' / ', $value);
+			foreach ($liste_filtered as $key => $values)
 			{
-				$liste_search2 = explode(' - ', $value);
-				for($i=0;$i<count($liste_search2);$i++)
+				$liste_filtered2 = explode(' - ', $values);
+				foreach ($liste_filtered2 as $key => $values)
 				{
-					if (($i+1) == count($liste_search2))
-					{
-						$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search2[$i].'"><div class="text-primary">'.$liste_search2[$i].'</div></button>';
-					} else {
-						$nom_search = '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search2[$i].'"><div class="text-primary">'.$liste_search2[$i].'</div></button> / ';
-					}
-					echo $nom_search;
+					$tempo_list[$i] = $values;
+					$i++;
+				}
+			}
+			for($i=0;$i<count($tempo_list);$i++)
+			{
+				if(($i+1) == count($tempo_list))
+				{
+					echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$tempo_list[$i].'"><div class="text-primary">'.$tempo_list[$i].'</div></button>';
+				}
+				else
+				{
+					echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$tempo_list[$i].'"><div class="text-primary">'.$tempo_list[$i].'</div></button> / ';
 				}
 			}
 		echo '</form>';
