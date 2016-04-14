@@ -84,7 +84,7 @@
 					<h3 class="panel-title"><i class="fa fa-users"></i> <?php if($menu['type'] == 'livre') echo 'Auteur(s)'; if($menu['type'] == 'musique') echo 'Artiste(s) / Groupe'; if($menu['type'] == 'video') echo 'Réalisateur(s)'; ?></h3>
 				</div>
 				<div class="panel-body">
-					<?php echo search('Realisateurs', $detail['Realisateurs'], $menu['id'], $menu['table']); ?>
+					<?php echo search('realisateurs', $detail['Realisateurs'], $menu['id'], $menu['table']); ?>
 				</div>
 			</div>
 		<?php } ?>
@@ -95,11 +95,25 @@
 					<h3 class="panel-title"><i class="fa fa-users"></i> Acteurs / Actrices</h3>
 				</div>
 				<div class="panel-body">
-					<?php echo search('Acteurs', $detail['Acteurs'], $menu['id'], $menu['table']); ?>
+					<?php echo search('acteurs', $detail['Acteurs'], $menu['id'], $menu['table']); ?>
 				</div>
 			</div>
 		<?php } ?>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-4">
+		<!-- DETAILS -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-paperclip"></i> Détails</h3>
+			</div>
+			<div class="panel-body">
+				<?php if (!empty($detail['Reference'])) { ?><i class="fa fa-barcode"></i> <strong>Code-barres :</strong> <?php echo $detail['Reference']; ?><br /><?php } ?>
+				<?php if ($detail['EntreeDate'] != '0000-00-00') { ?><i class="fa fa-calendar"></i> <strong>Sortie le :</strong> <?php if ($detail['EntreeDate'] != '0000-00-00') echo date_sortie(date('d F Y', strtotime($detail['EntreeDate']))); ?><br /><?php } ?>
+				<?php if (!empty($detail['Support']) && ($menu['type'] == 'musique' || $menu['type'] == 'video')) { ?><i class="fa fa-tasks"></i> <strong>Support :</strong> <?php echo filter('support', $detail['Support'], $menu['id'], $menu['table']); ?><br /><?php } ?>
+				<?php if (!empty($detail['NombreSupport'])) { ?><i class="fa fa-dot-circle-o"></i> <strong>Nbre support(s) :</strong> <?php echo $detail['NombreSupport']; ?><br /><?php } ?>
+				<?php if (!empty($detail['Edition'])) { ?><i class="fa fa-inbox"></i> <strong>Edition :</strong> <?php echo $detail['Edition']; ?><br /><?php } ?>
+				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php echo $detail['Zone']; ?><br /><?php } ?>
+			</div>
+		</div>
 	</div>
 </div>
