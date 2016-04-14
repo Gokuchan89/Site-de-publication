@@ -21,7 +21,7 @@
 	<!-- AFFICHE -->
 	<div class="col-xs-12 col-sm-12 col-md-8 text-center">
 		<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $detail['ID']); ?>
-		<?php if (file_exists($filename)) echo '<div class="detail"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></div>'; else echo '<div class="detail"><img data-src="holder.js/100px100p?text=aucune \n image" alt="affiche" /></div>'; ?>
+		<?php if (file_exists($filename)) echo '<div class="detail"><div id="affiche"><a href="'.$filename.'"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></a></div></div>'; else echo '<div class="detail"><img data-src="holder.js/100px100p?text=aucune \n image" alt="affiche" /></div>'; ?>
 		<br/>
 	</div>
 	<!-- DETAIL -->
@@ -44,9 +44,13 @@
 							<?php if($detail['FilmVu'] == 'OUI') echo '<div class="btn btn-primary" disabled="disabled"><i class="fa fa-eye"></i> vu</div>'; ?>
 							<?php if($detail['FilmVu'] == 'NON') echo '<div class="btn btn-danger" disabled="disabled"><i class="fa fa-eye-slash"></i> non vu</div>'; ?>
 						</div>
-						<div class="col-xs-6 col-lg-7">
-							<a href="javascript:void(0)" class="btn btn-default" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';"><i class="fa fa-play"></i> Bande annonce</a>
-						</div>
+						<?php if (!empty($detail['BAChemin']) && ($detail['BAType'] = 'URL')) { ?>
+							<div class="col-xs-6 col-lg-7">
+								<div id="bandeannonce">
+									<a href="<?php echo $detail['BAChemin']; ?>" class="btn btn-default"><i class="fa fa-play"></i> Bande annonce</a>
+								</div>
+							</div>
+						<?php } ?>
 					</div>
 				</li>
 			<?php } ?>
