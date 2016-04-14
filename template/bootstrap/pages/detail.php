@@ -21,7 +21,11 @@
 	<div class="col-xs-12 col-sm-12 col-md-8 text-center">
 		<!-- AFFICHE -->
 		<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $detail['ID']); ?>
-		<?php if (file_exists($filename)) echo '<div class="detail"><div id="affiche"><a href="'.$filename.'"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></a></div></div>'; else echo '<div class="detail"><img data-src="holder.js/100px100p?text=aucune \n image" alt="affiche" /></div>'; ?>
+		<?php if ($detail['EntreeType'] == 'BD') { ?>
+			<?php if (file_exists($filename)) echo '<div class="detail detail-bd"><img data-original="'.$filename.'" class="detail-bd-img lazy" alt="affiche" /></div>'; else echo '<div class="detail detail-bd"><img data-src="holder.js/117x131?text=aucune \n image" class="detail-bd-img" alt="affiche" /></div>'; ?>
+		<?php } else { ?>
+			<?php if (file_exists($filename)) echo '<div class="detail"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></div>'; else echo '<div class="detail"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+		<?php } ?>
 		<br/>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-4">
