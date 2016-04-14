@@ -90,7 +90,7 @@
 	// Liste par support
 	$query = $db->prepare('SELECT distinct `Support` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
-	$i=0;
+	$i = 0;
 	$tempo_list = array();
 	while ($nf_list = $query->fetch())
 	{
@@ -108,7 +108,7 @@
 	// Liste par film vu
 	$query = $db->prepare('SELECT distinct `FilmVu` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
-	$i=0;
+	$i = 0;
 	$tempo_list = array();
 	while ($nf_list = $query->fetch())
 	{
@@ -126,7 +126,7 @@
 	// Liste par genre
 	$query = $db->prepare('SELECT distinct `Genre` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
-	$i=0;
+	$i = 0;
 	$tempo_list = array();
 	while ($nf_list = $query->fetch())
 	{
@@ -148,7 +148,7 @@
 	// Liste par annee
 	$query = $db->prepare('SELECT distinct `Annee` FROM '.$menu['table'].' WHERE `Note` >= "0" '.$list_search);
 	$query->execute();
-	$i=0;
+	$i = 0;
 	$tempo_list = array();
 	while ($nf_list = $query->fetch())
 	{
@@ -645,7 +645,6 @@
 		</div>
 	</div>
 </nav>
-<?php echo $_SESSION[$menu['table'].'_search_value_genre']; ?>
 <div class="panel panel-default">
 	<?php if ($option_dp_type == 'liste') { ?>
 		<table class="table table-bordered table-striped">
