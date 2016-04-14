@@ -34,6 +34,13 @@ input[type=radio]:checked + img
     background-color:						transparent;
 	padding:								0 0 0 0;
 }
+.nobtn-actor
+{
+    border:									none;
+	outline:								none;
+    background-color:						transparent;
+	width:									100%;
+}
 
 /*
     =================================
@@ -104,6 +111,15 @@ input[type=radio]:checked + img
 {
 	max-width:								100%;
 	max-height:								370px;
+}
+.fig
+{
+    height:									155px;
+}
+.fig-img
+{
+    max-width:								100%;
+	max-height:								150px;
 }
 
 /*
