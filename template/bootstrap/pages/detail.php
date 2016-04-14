@@ -41,8 +41,8 @@
 				<li class="list-group-item text-center">
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6">
-							<?php if($detail['FilmVu'] == 'OUI') echo '<div class="btn btn-primary" disabled="disabled"><i class="fa fa-eye"></i> vu</div>'; ?>
-							<?php if($detail['FilmVu'] == 'NON') echo '<div class="btn btn-danger" disabled="disabled"><i class="fa fa-eye-slash"></i> non vu</div>'; ?>
+							<?php if($detail['FilmVu'] == 'OUI') echo '<div class="btn btn-primary" disabled="disabled"><i class="fa fa-eye"></i> Film vu</div>'; ?>
+							<?php if($detail['FilmVu'] == 'NON') echo '<div class="btn btn-danger" disabled="disabled"><i class="fa fa-eye-slash"></i> Film non vu</div>'; ?>
 						</div>
 						<?php if (!empty($detail['BAChemin']) && $detail['BAType'] = 'URL') { ?>
 							<div class="col-xs-6 col-sm-6 col-md-6">
@@ -66,6 +66,15 @@
 					<h3 class="panel-title"><i class="fa fa-bars"></i> <?php if($menu['type'] == 'livre') echo 'Description'; if($menu['type'] == 'musique') echo 'Piste(s)'; if($menu['type'] == 'video') echo 'Synopsis'; ?></h3>
 				</div>
 				<div class="panel-body"><?php echo str_replace("\r", '<br/>', $detail['Synopsis']); ?></div>
+			</div>
+		<?php } ?>
+		<!-- INFORMATIONS SUPPLEMENTAIRES -->
+		<?php if (!empty($detail['Bonus'])) { ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-info-circle"></i> Informations supplémentaires</h3>
+				</div>
+				<div class="panel-body"><?php echo str_replace("\r", '<br/>' , $detail['Bonus']); ?></div>
 			</div>
 		<?php } ?>
 		<!-- AUTEUR / ARTISTE / REALISATEUR -->
