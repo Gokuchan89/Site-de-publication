@@ -416,9 +416,7 @@
         var youtube = src.match(/\/\/(?:www\.)?youtu(?:\.be|be\.com)\/(?:watch\?v=|embed\/)?([a-z0-9\-\_\%]+)/i);
         var vimeo = src.match(/\/\/(?:www\.)?vimeo.com\/([0-9a-z\-_]+)/i);
         var dailymotion = src.match(/\/\/(?:www\.)?dai.ly\/([0-9a-z\-_]+)/i);
-		
         var allocine = src.match(/\/\/(?:www\.)?allocine.fr\/video\/(?:player_gen_cmedia=|embed\/)?([0-9a-z\-_]+)/i);
-		
         var vk = src.match(/\/\/(?:www\.)?(?:vk\.com|vkontakte\.ru)\/(?:video_ext\.php\?)(.*)/i);
 
         if (youtube) {
