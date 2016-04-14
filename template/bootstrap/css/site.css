@@ -113,6 +113,19 @@ input[type=radio]:checked + img
 	max-width:								100%;
 	max-height:								370px;
 }
+.detail-bd
+{
+	background:								url(../../../img/bg_bluray.png) no-repeat top;
+	background-size: 						295px;
+}
+.detail-bd-img
+{
+	width:									273px;
+	height:									309px;
+	position:								relative;
+	top:									40px;
+	left:									1px;
+}
 .fig
 {
     height:									155px;
