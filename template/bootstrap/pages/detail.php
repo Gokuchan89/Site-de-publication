@@ -59,6 +59,15 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-8">
+		<!-- PISTE / SYNOPSIS -->
+		<?php if (!empty($detail['Synopsis'])) { ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-bars"></i> <?php if($menu['type'] == 'livre') echo 'Description'; if($menu['type'] == 'musique') echo 'Piste(s)'; if($menu['type'] == 'video') echo 'Synopsis'; ?></h3>
+				</div>
+				<div class="panel-body"><?php echo str_replace("\r", '<br/>', $detail['Synopsis']); ?></div>
+			</div>
+		<?php } ?>
 		<!-- AUTEUR / ARTISTE / REALISATEUR -->
 		<?php if (!empty($detail['Realisateurs'])) { ?>
 			<div class="panel panel-default">
@@ -70,13 +79,15 @@
 				</div>
 			</div>
 		<?php } ?>
-		<!-- PISTE / SYNOPSIS -->
-		<?php if (!empty($detail['Synopsis'])) { ?>
+		<!-- ACTEUR -->
+		<?php if (!empty($detail['Acteurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-bars"></i> <?php if($menu['type'] == 'livre') echo 'Description'; if($menu['type'] == 'musique') echo 'Piste(s)'; if($menu['type'] == 'video') echo 'Synopsis'; ?></h3>
+					<h3 class="panel-title"><i class="fa fa-users"></i> Acteurs / Actrices</h3>
 				</div>
-				<div class="panel-body"><?php echo str_replace("\n", '<br/>', $detail['Synopsis']); ?></div>
+				<div class="panel-body">
+					<?php echo search('Acteurs', $detail['Acteurs'], $menu['id'], $menu['table']); ?>
+				</div>
 			</div>
 		<?php } ?>
 	</div>
