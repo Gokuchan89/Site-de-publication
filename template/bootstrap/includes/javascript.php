@@ -5,6 +5,8 @@
 <script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
 <script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
 <script src="./template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
+<script src="./template/bootstrap/plugins/lightgallery/js/lightgallery.js"></script>
+<script src="./template/bootstrap/plugins/lightgallery/js/lg-video.js"></script>
 <script>
 	// LazyLoad
 	$('img.lazy').lazyload(
@@ -81,4 +83,15 @@
 		source: './template/bootstrap/pages/autocomplete.php?table='+table,
 		minLength: 1
 	})
+	
+	// LightGallery
+	$("#affiche").lightGallery(
+	{
+		download: false,
+		counter: false
+	});
+	$("#bandeannonce").lightGallery(
+	{
+		counter: false
+	});
 </script>
