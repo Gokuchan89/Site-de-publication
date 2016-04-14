@@ -74,7 +74,7 @@
 		<?php if (!empty($detail['Synopsis'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-bars"></i> Synopsis</h3>
+					<h3 class="panel-title"><i class="fa fa-bars"></i> <?php if($menu['type'] == 'livre') echo 'Description'; if($menu['type'] == 'musique') echo 'Piste'; if($menu['type'] == 'video') echo 'Synopsis'; ?></h3>
 				</div>
 				<div class="panel-body"><?php echo str_replace("\r", '<br/>', $detail['Synopsis']); ?></div>
 			</div>
