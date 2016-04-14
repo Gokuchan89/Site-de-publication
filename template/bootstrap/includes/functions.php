@@ -238,30 +238,49 @@
 		DETAIL -> FILTERED + SEARCH
 		=================================
 	*/
-	function filtered($label, $value, $table_id, $table_name)
+	function filter($label, $value, $table_id, $table_name)
 	{
-		$i = 0;
 		echo '<form method="POST" action="?op=list&table='.$table_id.'" style="display:inline;">';
-			$liste_filtered = explode(' / ', $value);
-			foreach ($liste_filtered as $key => $values)
+			$liste = str_replace(' / ', ' - ', $value);
+			$liste_search = explode(' - ', $liste);
+			for($i=0;$i<count($liste_search);$i++)
 			{
-				$liste_filtered2 = explode(' - ', $values);
-				foreach ($liste_filtered2 as $key => $values)
+				if(($i+1) == count($liste_search))
 				{
-					$tempo_list[$i] = $values;
-					$i++;
-				}
-			}
-			for($i=0;$i<count($tempo_list);$i++)
-			{
-				if(($i+1) == count($tempo_list))
-				{
-					echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$tempo_list[$i].'"><div class="text-primary">'.$tempo_list[$i].'</div></button>';
+					echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button>';
 				}
 				else
 				{
-					echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$tempo_list[$i].'"><div class="text-primary">'.$tempo_list[$i].'</div></button> / ';
+					echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button> / ';
 				}
+			}
+		echo '</form>';
+	}
+	
+	function search($label, $value, $table_id, $table_name)
+	{
+		echo '<form method="POST" action="?op=list&table='.$table_id.'">';
+			$liste = str_replace("\r", '|', $value);
+			$liste_search = explode('|', $liste);
+			for($i=0;$i<count($liste_search);$i++)
+			{
+				$nom_search = explode(' : ', $liste_search[$i]);
+				if (count($nom_search) > 1)
+				{
+					$nom_membre_search = $nom_search[1];
+				} else {
+					$nom_membre_search = '';
+				}
+				echo '<div class="col-xs-12 col-sm-6 col-md-3 text-center">';
+					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$nom_search[0].'">';
+						echo '<div class="thumbnail">';
+							$filename = sprintf('./img/real_acteur/'.$nom_search[0].'.jpg');
+							if (file_exists($filename)) echo '<div class="fig"><img class="fig-img lazy" data-original="'.$filename.'" alt="vignette" /></div>'; else echo '<div class="fig"><img class="fig-img lazy" data-original="./img/nobody.jpg" alt="vignette" /></div>';
+							echo '<div class="text-danger">'.$nom_search[0].'</div>';
+							echo '<div class="text-primary">'.$nom_membre_search.'</div>';
+						echo '</div>';
+					echo '</button>';
+				echo '</div>';
 			}
 		echo '</form>';
 	}
