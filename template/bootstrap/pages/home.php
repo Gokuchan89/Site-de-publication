@@ -4,7 +4,7 @@
 		<div class="panel-body">
 			<div class="row text-center">
 				<?php
-					$lastupdate_query = $db->prepare('SELECT `ID`, `TitreVF` FROM '.$home['table'].' ORDER BY ID DESC LIMIT '.$config['lastaddMax']);
+					$lastupdate_query = $db->prepare('SELECT `ID`, `TitreVF`, `EntreeType` FROM '.$home['table'].' ORDER BY ID DESC LIMIT '.$config['lastaddMax']);
 					$lastupdate_query->execute();
 				?>
 				<?php while($lastupdate = $lastupdate_query->fetch()) { ?>
@@ -12,7 +12,11 @@
 						<a href="./?op=detail&table=<?php echo $home['id']; ?>&id=<?php echo $lastupdate['ID']; ?>">
 							<div class="thumbnail">
 								<?php $filename = sprintf('./profils/'.$home['table'].'/affiches/Filmotech_%05d.jpg', $lastupdate['ID']); ?>
-								<?php if (file_exists($filename)) echo '<div class="lastadd"><img data-original="'.$filename.'" class="lastadd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+								<?php if ($lastupdate['EntreeType'] == 'BD') { ?>
+									<?php if (file_exists($filename)) echo '<div class="lastadd lastadd-bd"><img data-original="'.$filename.'" class="lastadd-bd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd lastadd-bd"><img data-src="holder.js/117x131?text=aucune \n image" class="lastadd-bd-img" alt="affiche" /></div>'; ?>
+								<?php } else { ?>
+									<?php if (file_exists($filename)) echo '<div class="lastadd"><img data-original="'.$filename.'" class="lastadd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+								<?php } ?>
 								<div class="text-info"><?php echo $lastupdate['TitreVF']; ?></div>
 							</div>
 						</a>
