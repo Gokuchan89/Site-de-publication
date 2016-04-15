@@ -128,11 +128,10 @@
 				</div>
 				<div class="panel-body">
 					<?php
-						$soustitres = str_replace(", ", "|", $detail['SousTitres'], $count);
-						$liste_soustitres = explode('|', $soustitres);
+						$liste_soustitres = explode(', ', $detail['SousTitres']);
 						for($i=0;$i<count($liste_soustitres);$i++)
 						{
-							echo '<img src="./img/drapeaux/'.$liste_soustitres[$i].'.png" style="width:20px" /> <strong>'.$liste_soustitres[$i].'</strong><br />';
+							echo '<img src="./img/drapeaux/'.$liste_soustitres[$i].'.png" style="width:20px" /> '.$liste_soustitres[$i].'<br />';
 						}
 					?>
 				</div>
