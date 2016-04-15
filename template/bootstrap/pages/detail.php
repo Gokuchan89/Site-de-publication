@@ -131,7 +131,7 @@
 							$liste_audio = explode(', ', $detail['Audio']);
 							for($i=0;$i<count($liste_audio);$i++)
 							{
-								preg_match('/^([A-Z]+)([0-9].[0-9]+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
+								preg_match('/^([a-zA-Z]+)(\d.+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
 								echo '<tr height="30px">';
 								echo '<td style="width:35%"><img src="./img/drapeaux/'.$audio[3].'.png" style="width:20px" alt="'.$audio[3].'" /> '.$audio[3].'</td>';
 								echo '<td class="text-center"><img src="./img/audio/'.$audio[1].'.png" style="width:50px" alt="'.$audio[1].'" /></td>';
