@@ -116,8 +116,27 @@
 				<?php if (!empty($detail['Support']) && ($menu['type'] == 'musique' || $menu['type'] == 'video')) { ?><i class="fa fa-tasks"></i> <strong>Support :</strong> <?php echo filter('support', $detail['Support'], $menu['id'], $menu['table']); ?><br /><?php } ?>
 				<?php if (!empty($detail['NombreSupport'])) { ?><i class="fa fa-dot-circle-o"></i> <strong>Nbre support(s) :</strong> <?php echo $detail['NombreSupport']; ?><br /><?php } ?>
 				<?php if (!empty($detail['Edition'])) { ?><i class="fa fa-inbox"></i> <strong>Edition :</strong> <?php echo $detail['Edition']; ?><br /><?php } ?>
-				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php echo $detail['Zone']; ?><br /><?php } ?>
+				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php $filename = './img/zones/'.$detail['Zone'].'.png'; if(file_exists($filename)) echo '<img src="'.$filename.'" style="max-height:25px;" />'; else echo $detail['Zone']; ?><br /><?php } ?>
 			</div>
 		</div>
+		<!-- AUDIO -->
+		<!-- SOUS-TITRES -->
+		<?php if (!empty($detail['SousTitres'])) { ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-cc"></i> Sous-titres</h3>
+				</div>
+				<div class="panel-body">
+					<?php
+						$soustitres = str_replace(", ", "|", $detail['SousTitres'], $count);
+						$liste_soustitres = explode('|', $soustitres);
+						for($i=0;$i<count($liste_soustitres);$i++)
+						{
+							echo '<img src="./img/drapeaux/'.$liste_soustitres[$i].'.png" style="width:20px" /> <strong>'.$liste_soustitres[$i].'</strong><br />';
+						}
+					?>
+				</div>
+			</div>
+		<?php } ?>
 	</div>
 </div>
