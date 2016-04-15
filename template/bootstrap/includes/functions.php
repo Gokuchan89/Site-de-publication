@@ -245,12 +245,12 @@
 			$liste_search = explode(' - ', $liste);
 			for($i=0;$i<count($liste_search);$i++)
 			{
-				$filename = './img/'.$liste_search[$i].'.png';
+				$filename = './img/supports/'.$liste_search[$i].'.png';
 				if(($i+1) == count($liste_search))
 				{
-					if (file_exists($filename))
+					if(file_exists($filename))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="'.$filename.'" /></button>';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="'.$filename.'" style="max-height:25px;" /></button>';
 					}
 					else
 					{
@@ -259,9 +259,9 @@
 				}
 				else
 				{
-					if (file_exists($filename))
+					if(file_exists($filename))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="'.$filename.'" /></button> / ';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="'.$filename.'" style="max-height:25px;" /></button> / ';
 					}
 					else
 					{
