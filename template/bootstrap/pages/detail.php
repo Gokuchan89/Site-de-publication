@@ -120,6 +120,29 @@
 			</div>
 		</div>
 		<!-- AUDIO -->
+		<?php if (!empty($detail['Audio'])) { ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-comments"></i> Audio</h3>
+				</div>
+				<div class="panel-body">
+					<table width="100%">
+						<?php
+							$liste_audio = explode(', ', $detail['Audio']);
+							for($i=0;$i<count($liste_audio);$i++)
+							{
+								preg_match('/^([A-Z]+)([0-9].[0-9]+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
+								echo '<tr height="30px">';
+								echo '<td style="width:35%"><img src="./img/drapeaux/'.$audio[3].'.png" style="width:20px" alt="'.$audio[3].'" /> '.$audio[3].'</td>';
+								echo '<td class="text-center"><img src="./img/audio/'.$audio[1].'.png" style="width:50px" alt="'.$audio[1].'" /></td>';
+								echo '<td class="text-center" style="width:15%">'.$audio[2].'</td>';
+								echo '</tr>';
+							}
+						?>
+					</table>
+				</div>
+			</div>
+		<?php } ?>
 		<!-- SOUS-TITRES -->
 		<?php if (!empty($detail['SousTitres'])) { ?>
 			<div class="panel panel-default">
@@ -128,10 +151,10 @@
 				</div>
 				<div class="panel-body">
 					<?php
-						$liste_soustitres = explode(', ', $detail['SousTitres']);
-						for($i=0;$i<count($liste_soustitres);$i++)
+						$soustitres = explode(', ', $detail['SousTitres']);
+						for($i=0;$i<count($soustitres);$i++)
 						{
-							echo '<img src="./img/drapeaux/'.$liste_soustitres[$i].'.png" style="width:20px" /> '.$liste_soustitres[$i].'<br />';
+							echo '<img src="./img/drapeaux/'.$soustitres[$i].'.png" style="width:20px" alt="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />';
 						}
 					?>
 				</div>
