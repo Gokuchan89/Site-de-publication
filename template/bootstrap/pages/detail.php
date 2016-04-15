@@ -85,7 +85,7 @@
 		<?php if (!empty($detail['Realisateurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-users"></i> <?php if($menu['type'] == 'livre') echo 'Auteur(s)'; if($menu['type'] == 'musique') echo 'Artiste(s) / Groupe'; if($menu['type'] == 'video') echo 'Réalisateur(s)'; ?></h3>
+					<h3 class="panel-title"><i class="fa fa-users"></i> Réalisateur(s)</h3>
 				</div>
 				<div class="panel-body">
 					<?php echo search('realisateurs', $detail['Realisateurs'], $menu['id'], $menu['table']); ?>
@@ -96,7 +96,7 @@
 		<?php if (!empty($detail['Acteurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-users"></i> Acteurs / Actrices</h3>
+					<h3 class="panel-title"><i class="fa fa-users"></i> <?php if($menu['type'] == 'livre') echo 'Auteur(s)'; if($menu['type'] == 'musique') echo 'Artiste(s) / Groupe'; if($menu['type'] == 'video') echo 'Acteurs / Actrices'; ?></h3>
 				</div>
 				<div class="panel-body">
 					<?php echo search('acteurs', $detail['Acteurs'], $menu['id'], $menu['table']); ?>
