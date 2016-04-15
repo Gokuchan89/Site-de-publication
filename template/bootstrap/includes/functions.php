@@ -271,7 +271,7 @@
 				} else {
 					$nom_membre_search = '';
 				}
-				echo '<div class="col-xs-12 col-sm-6 col-md-3 text-center">';
+				echo '<div class="col-xs-6 col-sm-3 col-md-3 text-center">';
 					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$nom_search[0].'">';
 						echo '<div class="thumbnail">';
 							$filename = sprintf('./img/real_acteur/'.$nom_search[0].'.jpg');
@@ -283,5 +283,11 @@
 				echo '</div>';
 			}
 		echo '</form>';
+	}
+	
+	function date_sortie($mois)
+	{
+		$mois = str_replace(array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'), array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'), $mois);
+		return $mois;
 	}
 ?>
