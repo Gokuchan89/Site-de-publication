@@ -69,6 +69,7 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
+				<?php if($op && $op == 'detail') echo '<li><a href="javascript:history.back();"><i class="fa fa-arrow-left"></i></a></li>'; ?>
 				<li <?php if(!$op) echo 'class="active"'; ?>><a href="<?php echo $config['root']; ?>">Accueil</a></li>
 				<?php
 					while($category = $category_query->fetch())
