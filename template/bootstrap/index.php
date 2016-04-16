@@ -5,6 +5,23 @@
 	if (isset($_GET['table']) && preg_match('/^[0-9]*$/', $_GET['table'])) $table = $_GET['table']; else $table = '';
 	if (isset($_GET['id']) && preg_match('/^[0-9]*$/', $_GET['id'])) $id = $_GET['id']; else $id = '';
 	if (isset($_GET['tab']) && preg_match('/^[0-9]*$/', $_GET['tab'])) $tab = $_GET['tab']; else $tab = '1';
+	
+	if(!empty($_POST) OR !empty($_FILES))
+	{
+		$_SESSION['sauvegarde'] = $_POST ;
+		$fichierActuel = $_SERVER['PHP_SELF'] ;
+		if(!empty($_SERVER['QUERY_STRING']))
+		{
+			$fichierActuel .= '?' . $_SERVER['QUERY_STRING'] ;
+		}
+		header('Location: ' . $fichierActuel);
+		exit;
+	}
+	if(isset($_SESSION['sauvegarde']))
+	{
+		$_POST = $_SESSION['sauvegarde'] ;
+		unset($_SESSION['sauvegarde']);
+	}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
