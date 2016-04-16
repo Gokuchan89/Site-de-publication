@@ -97,6 +97,7 @@
 							<li <?php if($op == 'profile') echo 'class="active"'; ?>><a href="./?op=profile">Profil</a></li>
 							<li <?php if($op == 'themes') echo 'class="active"'; ?>><a href="./?op=themes">Thèmes</a></li>
 							<?php if($user['rank'] == '3') { ?><li <?php if($op == 'settings') echo 'class="active"'; ?>><a href="./?op=settings">Paramètres</a></li><?php } ?>
+							<li role="separator" class="divider"></li>
 							<li><a href="./?op=logout">Déconnexion</a></li>
 						</ul>
 					</li>
@@ -122,6 +123,7 @@
 								<li <?php if($op == 'profile') echo 'class="active"'; ?>><a href="./?op=profile">Profil</a></li>
 								<li <?php if($op == 'themes') echo 'class="active"'; ?>><a href="./?op=themes">Thèmes</a></li>
 								<?php if($user['rank'] == '3') { ?><li <?php if($op == 'settings') echo 'class="active"'; ?>><a href="./?op=settings">Paramètres</a></li><?php } ?>
+								<li role="separator" class="divider"></li>
 								<li><a href="./?op=logout">Déconnexion</a></li>
 							</ul>
 						</li>
