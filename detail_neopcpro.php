@@ -161,10 +161,10 @@
 				</div>
 				<div class="panel-body">
 					<?php
-						$liste_soustitres = explode(', ', $detail['SousTitres']);
-						for($i=0;$i<count($liste_soustitres);$i++)
+						$soustitres = explode(', ', $detail['SousTitres']);
+						for($i=0;$i<count($soustitres);$i++)
 						{
-							echo '<img src="./img/drapeaux/'.$liste_soustitres[$i].'.png" style="width:20px" /> '.$liste_soustitres[$i].'<br />';
+							echo '<img src="./img/drapeaux/'.$soustitres[$i].'.png" style="width:20px" alt="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />';
 						}
 					?>
 				</div>
