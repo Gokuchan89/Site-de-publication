@@ -81,12 +81,8 @@
 						$menu_query->execute();
 						while($menu = $menu_query->fetch())
 						{
-							$total_query = $db->prepare('SELECT COUNT(ID) FROM '.$menu['table']);
-							$total_query->execute();
-							$total = $total_query->fetchColumn();
-							$total_query->closeCursor();
 							if($op == 'list' && $table == $menu['id']) $active = 'class="active"'; else $active = '';
-							echo '<li '.$active.'><a href="./?op=list&table='.$menu['id'].'"><i class="fa fa-'.$menu['icon'].'"></i> '.ucfirst($menu['name']).'<span class="badge pull-right">'.$total.'</span></a></li>';
+							echo '<li '.$active.'><a href="./?op=list&table='.$menu['id'].'"><i class="fa fa-'.$menu['icon'].'"></i> '.ucfirst($menu['name']).'</a></li>';
 						} $menu_query->closeCursor();
 						echo '</ul>';
 						echo '</li>';
