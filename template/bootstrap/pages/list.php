@@ -670,7 +670,7 @@
 	</div>
 </nav>
 <div class="panel panel-default">
-	<?php if ($option_dp_type == 'liste') { ?>
+	<?php if($option_dp_type == 'liste') { ?>
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
@@ -683,7 +683,7 @@
 					<tr style="height:200px">
 						<td class="text-center">
 							<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
-							<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+							<?php if(file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
 						</td>
 						<td>
 							<div class="row">
@@ -703,7 +703,7 @@
 								<div class="col-xs-8 col-sm-8 col-lg-10"><span class="text-danger"><?php echo $listing['Annee']; ?></span></div>
 							</div>
 							<div class="row">
-								<?php if ($listing['Duree'] > '0') { if($menu['type'] == 'livre') $duree = $listing['Duree'].' pages'; if($menu['type'] == 'musique' || $menu['type'] == 'video') $duree = floor($listing['Duree']/60).'h '.($listing['Duree']%60).'min'; } else { $duree = ''; } ?>
+								<?php if($listing['Duree'] > '0') { if($menu['type'] == 'livre') $duree = $listing['Duree'].' pages'; if($menu['type'] == 'musique' || $menu['type'] == 'video') $duree = floor($listing['Duree']/60).'h '.($listing['Duree']%60).'min'; } else { $duree = ''; } ?>
 								<div class="col-xs-4 col-sm-4 col-lg-2"><strong><?php if($menu['type'] == 'livre') echo 'pages'; if($menu['type'] == 'musique' || $menu['type'] == 'video') echo 'Durée'; ?></strong></div>
 								<div class="col-xs-8 col-sm-8 col-lg-10"><span class="text-danger"><?php echo $duree; ?></span></div>
 							</div>
@@ -719,7 +719,7 @@
 			</tbody>
 		</table>
 	<?php } ?>
-	<?php if ($option_dp_type == 'galerie') { ?>
+	<?php if($option_dp_type == 'galerie') { ?>
 		<div class="panel-body">
 			<div class="row text-center">
 				<?php while ($listing = $listing_query->fetch()) { ?>
@@ -727,10 +727,10 @@
 						<a href="./?op=detail&table=<?php echo $menu['id']; ?>&id=<?php echo $listing['ID']; ?>">
 							<div class="thumbnail">
 								<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
-								<?php if ($listing['EntreeType'] == 'BD') { ?>
-									<?php if (file_exists($filename)) echo '<div class="list list-bd"><img data-original="'.$filename.'" class="list-bd-img lazy" alt="affiche" /></div>'; else echo '<div class="list list-bd"><img data-src="holder.js/117x131?text=aucune \n image" class="list-bd-img" alt="affiche" /></div>'; ?>
+								<?php if($listing['EntreeType'] == 'BD') { ?>
+									<?php if(file_exists($filename)) echo '<div class="list list-bd"><img data-original="'.$filename.'" class="list-bd-img lazy" alt="affiche" /></div>'; else echo '<div class="list list-bd"><img data-src="holder.js/117x131?text=aucune \n image" class="list-bd-img" alt="affiche" /></div>'; ?>
 								<?php } else { ?>
-									<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+									<?php if(file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
 								<?php } ?>
 								<div class="list-year text-danger"><?php echo $listing['Annee']; ?></div>
 								<div class="list-title text-info"><?php echo $listing['TitreVF']; ?></div>
@@ -741,7 +741,7 @@
 			</div>
 		</div>
 	<?php } ?>
-	<?php if ($option_dp_type == 'table') { ?>
+	<?php if($option_dp_type == 'table') { ?>
 		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
 				<thead>
@@ -760,7 +760,7 @@
 							<?php if($menu['type'] == 'video') echo '<td>'.$listing['Support'].'</td>'; ?>
 							<td><?php echo $listing['Genre']; ?></td>
 							<td><?php echo $listing['Annee']; ?></td>
-							<td><?php if ($listing['Duree'] > '0') { if($menu['type'] == 'livre') echo $listing['Duree']; if($menu['type'] == 'musique' || $menu['type'] == 'video') echo floor($listing['Duree']/60).'h '.($listing['Duree']%60).'min'; } ?></td>
+							<td><?php if($listing['Duree'] > '0') { if($menu['type'] == 'livre') echo $listing['Duree']; if($menu['type'] == 'musique' || $menu['type'] == 'video') echo floor($listing['Duree']/60).'h '.($listing['Duree']%60).'min'; } ?></td>
 						</tr>
 					<?php } $listing_query->closeCursor(); ?>
 				</tbody>
@@ -777,11 +777,11 @@
 			// Récupération du numéro de la page courante depuis l'URL avec la méthode GET
 			// S'il s'agit d'un nombre on traite, sinon on garde la valeur par défaut : 1
 			$current = 1;
-			if (isset($_GET['page']) && is_numeric($_GET['page']))
+			if(isset($_GET['page']) && is_numeric($_GET['page']))
 			{
 				$page = intval($_GET['page']);
-				if ($page >= 1 && $page <= $nbPages) $current = $page;
-				else if ($page < 1) $current = 1;
+				if($page >= 1 && $page <= $nbPages) $current = $page;
+				else if($page < 1) $current = 1;
 				else $current = 1;
 			}
 			echo paginate('?op=list&table='.$table.'', '&page=', $nbPages, $current);

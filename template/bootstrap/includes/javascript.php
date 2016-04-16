@@ -94,4 +94,5 @@
 	{
 		counter: false
 	});
+	$('#html5-videos').lightGallery(); 
 </script>

@@ -51,6 +51,7 @@
 	if(isset($_['loginButton']) && empty($loginMessage[$lib_errors]))
 	{
 		$_SESSION['username'] = $_['username'];
+		
 		refresh($_SERVER['REQUEST_URI']);
 	}
 ?>
