@@ -81,7 +81,7 @@
 				<div class="panel-body"><?php echo str_replace("\r", '<br/>' , $detail['Bonus']); ?></div>
 			</div>
 		<?php } ?>
-		<!-- AUTEUR / ARTISTE / REALISATEUR -->
+		<!-- REALISATEUR -->
 		<?php if (!empty($detail['Realisateurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -92,7 +92,7 @@
 				</div>
 			</div>
 		<?php } ?>
-		<!-- ACTEUR -->
+		<!-- AUTEUR / ARTISTE / ACTEURS -->
 		<?php if (!empty($detail['Acteurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
