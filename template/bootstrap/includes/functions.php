@@ -235,6 +235,37 @@
 
 	/*
 		=================================
+		DETAIL -> CLEAN IMG
+		=================================
+	*/
+	function clean_img($texte)
+	{
+		$texte = mb_strtolower($texte, 'UTF-8');
+		$texte = str_replace(" ", "_", $texte);
+		$texte = str_replace(
+			array(
+				'à', 'â', 'ä', 'á', 'ã', 'å',
+				'î', 'ï', 'ì', 'í',
+				'ô', 'ö', 'ò', 'ó', 'õ', 'ø', 'ð',
+				'ù', 'û', 'ü', 'ú', 'ū',
+				'é', 'è', 'ê', 'ë',
+				'ç', 'ÿ', 'ñ',
+			),
+			array(
+				'a', 'a', 'a', 'a', 'a', 'a',
+				'i', 'i', 'i', 'i',
+				'o', 'o', 'o', 'o', 'o', 'o', 'o',
+				'u', 'u', 'u', 'u', 'u',
+				'e', 'e', 'e', 'e',
+				'c', 'y', 'n',
+			),
+			$texte
+		);
+		return $texte;
+	}
+
+	/*
+		=================================
 		DETAIL -> FILTERED + SEARCH
 		=================================
 	*/
@@ -289,8 +320,8 @@
 				echo '<div class="col-xs-6 col-sm-3 col-md-3 text-center">';
 					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$nom_search[0].'">';
 						echo '<div class="thumbnail">';
-							$filename = sprintf('./img/real_acteur/'.$nom_search[0].'.jpg');
-							if (file_exists($filename)) echo '<div class="fig"><img class="fig-img lazy" data-original="'.$filename.'" alt="vignette" /></div>'; else echo '<div class="fig"><img class="fig-img lazy" data-original="./img/nobody.jpg" alt="vignette" /></div>';
+							$filename = './img/real_acteur/'.clean_img($nom_search[0]).'.jpg';
+							if(file_exists($filename)) echo '<div class="fig"><img data-original="'.$filename.'" class="fig-img lazy" alt="vignette" /></div>'; else echo '<div class="fig"><img data-original="./img/nobody.jpg" class="fig-img lazy" alt="vignette" /></div>';
 							echo '<div class="text-danger">'.$nom_search[0].'</div>';
 							echo '<div class="text-primary">'.$nom_membre_search.'</div>';
 						echo '</div>';
@@ -299,7 +330,12 @@
 			}
 		echo '</form>';
 	}
-	
+
+	/*
+		=================================
+		DETAIL -> DATE DE SORTIE
+		=================================
+	*/
 	function date_sortie($mois)
 	{
 		$mois = str_replace(array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'), array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'), $mois);
