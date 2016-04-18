@@ -78,4 +78,12 @@
 	*/
 	$settings_category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
 	$settings_category_query->execute();
+	
+	/*
+		=================================
+		DERNIERS AJOUTS
+		=================================
+	*/
+	$home_query = $db->prepare('SELECT `id`, `name`, `table` FROM site_menu ORDER BY `position`');
+	$home_query->execute();
 ?>
