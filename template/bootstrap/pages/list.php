@@ -26,7 +26,7 @@
 	if (isset($_['option_dp_type']) && in_array($_['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_['option_dp_type'];
 	$option_dp_type = $_SESSION['option_dp_type'];
 	
-	$menu_query = $db->prepare('SELECT `id`, `table`, `type` FROM site_menu WHERE `id` = "'.$table.'"');
+	$menu_query = $db->prepare('SELECT `id`, `name`, `table`, `type` FROM site_menu WHERE `id` = "'.$table.'"');
 	$menu_query->execute();
 	$menu = $menu_query->fetch();
 	$menu_query->closeCursor();
@@ -163,39 +163,7 @@
 	$list_annee = array_unique($tempo_list);
 	sort($list_annee);
 ?>
-<script>document.title += ' - Liste'</script>
-<style>
-	.ui-autocomplete
-	{
-		position: absolute;
-		z-index: 1000;
-		cursor: default;
-		padding: 0;
-		margin-top: 2px;
-		list-style: none;
-		background-color: #ffffff;
-		border: 1px solid #ccc
-		-webkit-border-radius: 5px;
-		   -moz-border-radius: 5px;
-				border-radius: 5px;
-		-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-		   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-				box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	}
-	.ui-autocomplete > li
-	{
-		padding: 3px 20px;
-	}
-	.ui-autocomplete > li.ui-state-focus
-	{
-		color: white;
-		background-color: #337ab7;
-	}
-	.ui-helper-hidden-accessible
-	{
-		display: none;
-	}
-</style>
+<script>document.title += ' - Liste - <?php echo $menu['name']; ?>'</script>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
