@@ -1,0 +1,173 @@
+/*
+    =================================
+    AVATAR + THEMES
+    =================================
+*/
+.avatar-theme > input[type=radio]
+{
+	display:								none;
+}
+input[type=radio] + img
+{
+	cursor:									pointer;
+	border:									2px solid transparent;
+}
+input[type=radio]:checked + img
+{
+	border:									2px solid #2274a9;
+	opacity:								1;
+}
+
+/*
+    =================================
+    GENERAL
+    =================================
+*/
+.thumbnail
+{
+	height: 								260px;
+}
+.nobtn
+{
+    border:									none;
+	outline: 								none;
+    background-color:						transparent;
+	padding:								0 0 0 0;
+}
+.nobtn-actor
+{
+    border:									none;
+	outline:								none;
+    background-color:						transparent;
+	padding:								0 0 0 0;
+	width:									100%;
+}
+
+/*
+    =================================
+    DERNIERS AJOUTS
+    =================================
+*/
+.lastadd-img
+{
+	max-width:								100%;
+	max-height:								100%;
+}
+.lastadd-bd
+{
+	background:								url(../../../img/bg_bluray.png) no-repeat top;
+	background-size: 						125px;
+}
+.lastadd-bd-img
+{
+    width:									117px;
+	height:									131px;
+	position:								relative;
+	top:									17px;
+	left:									0.4px;
+}
+
+/*
+    =================================
+    LISTE
+    =================================
+*/
+.list
+{
+    height:									175px;
+}
+.list-img
+{
+	max-width:								100%;
+	max-height:								100%;
+}
+.list-bd
+{
+	background:								url(../../../img/bg_bluray.png) no-repeat top;
+	background-size: 						125px;
+}
+.list-bd-img
+{
+    width:									117px;
+	height:									131px;
+	position:								relative;
+	top:									17px;
+	left:									0.4px;
+}
+
+/*
+    =================================
+    DETAIL
+    =================================
+*/
+.detail
+{
+    height:									370px;
+}
+.detail-img
+{
+	max-width:								100%;
+	max-height:								370px;
+}
+.detail-bd
+{
+	background:								url(../../../img/bg_bluray.png) no-repeat top;
+	background-size: 						295px;
+}
+.detail-bd-img
+{
+	width:									273px;
+	height:									309px;
+	position:								relative;
+	top:									40px;
+	left:									1px;
+}
+.fig
+{
+    height:									155px;
+}
+.fig-img
+{
+    max-width:								100%;
+	max-height:								150px;
+}
+
+/*
+    =================================
+    FOOTER
+    =================================
+*/
+html
+{
+	position: 								relative;
+	min-height: 							100%;
+}
+body
+{
+	margin-bottom: 							60px;
+}
+.footer
+{
+	position:								absolute;
+	bottom: 								0;
+	width: 									100%;
+	height: 								60px;
+	background-color: 						#f5f5f5;
+}
+body > .container
+{
+	padding: 								60px 15px 0;
+}
+.container .text-muted
+{
+	margin: 								20px 0;
+}
+.footer > .container
+{
+	padding-right: 							15px;
+	padding-left: 							15px;
+}
+code
+{
+	font-size: 								80%;
+}
