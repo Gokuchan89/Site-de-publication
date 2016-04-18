@@ -1,5 +1,21 @@
 /*
     =================================
+    MENU A TRIER
+    =================================
+*/
+table#list-menu
+{
+	list-style:none;
+	height:140px;
+}
+table#list-menu tr.highlight
+{
+	background:#f2f2f2;
+	border:1px dashed #212326;
+}
+
+/*
+    =================================
     AVATAR + THEMES
     =================================
 */
@@ -57,19 +73,6 @@ input[type=radio]:checked + img
 	max-width:								100%;
 	max-height:								100%;
 }
-.lastadd-bd
-{
-	background:								url(../../../img/bg_bluray.png) no-repeat top;
-	background-size: 						125px;
-}
-.lastadd-bd-img
-{
-    width:									117px;
-	height:									131px;
-	position:								relative;
-	top:									17px;
-	left:									0.4px;
-}
 
 /*
     =================================
@@ -85,19 +88,6 @@ input[type=radio]:checked + img
 	max-width:								100%;
 	max-height:								100%;
 }
-.list-bd
-{
-	background:								url(../../../img/bg_bluray.png) no-repeat top;
-	background-size: 						125px;
-}
-.list-bd-img
-{
-    width:									117px;
-	height:									131px;
-	position:								relative;
-	top:									17px;
-	left:									0.4px;
-}
 
 /*
     =================================
@@ -112,19 +102,6 @@ input[type=radio]:checked + img
 {
 	max-width:								100%;
 	max-height:								370px;
-}
-.detail-bd
-{
-	background:								url(../../../img/bg_bluray.png) no-repeat top;
-	background-size: 						295px;
-}
-.detail-bd-img
-{
-	width:									273px;
-	height:									309px;
-	position:								relative;
-	top:									40px;
-	left:									1px;
 }
 .fig
 {
