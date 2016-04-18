@@ -16,7 +16,7 @@
 	$detail = $query->fetch();
 	$query->closeCursor();
 ?>
-<script>document.title += ' - Détail'</script>
+<script>document.title += ' - Détail - <?php echo $detail['TitreVF']; ?>'</script>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-8 text-center">
 		<!-- AFFICHE -->
