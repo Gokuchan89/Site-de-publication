@@ -199,7 +199,7 @@
 		=================================
 	*/
 	// Modifier une catégorie
-	if(isset($_['categoryEditButton']))
+	if (isset($_['categoryEditButton']))
 	{
 		$query = $db->prepare('UPDATE site_category SET `name` = :name WHERE `id` = :id');
 		$query->bindValue(':name', $_['categoryEditName'], PDO::PARAM_STR);
@@ -212,14 +212,15 @@
 	}
 	
 	// Modifier un menu
-	if(isset($_['menuEditButton']))
+	if (isset($_['menuEditButton']))
 	{
-		$query = $db->prepare('UPDATE site_menu SET `name` = :name, `icon` = :icon, `category` = :category, `table` = :table, `type` = :type WHERE `id` = :id');
+		$query = $db->prepare('UPDATE site_menu SET `name` = :name, `icon` = :icon, `category` = :category, `table` = :table, `type` = :type, `position` = :position WHERE `id` = :id');
 		$query->bindValue(':name', $_['menuEditName'], PDO::PARAM_STR);
 		$query->bindValue(':icon', $_['menuEditIcon'], PDO::PARAM_STR);
 		$query->bindValue(':category', $_['menuEditCategory'], PDO::PARAM_INT);
 		$query->bindValue(':table', $_['menuEditTable'], PDO::PARAM_STR);
 		$query->bindValue(':type', $_['menuEditType'], PDO::PARAM_STR);
+		$query->bindValue(':position', $_['menuEditPosition'], PDO::PARAM_INT);
 		$query->bindValue(':id', $_['menuEditId'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
@@ -518,22 +519,81 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">Liste des menus</div>
-		<?php while($settings_category = $settings_category_query->fetch()) { ?>
-			<table class="table table-bordered">
+		<table class="table table-bordered">
+			<thead>
+				<th>Position</th>
+				<th>Icône + Nom</th>
+				<th>Nom de la table</th>
+				<th>Type de la table</th>
+				<th>Nom de la cétagorie</th>
+				<th colspan="2">Action</th>
+			</thead>
+			<?php while($settings_category = $settings_category_query->fetch()) { ?>
 				<tr>
 					<form method="POST">
 						<input type="hidden" name="categoryEditId" value="<?php echo $settings_category['id']; ?>" />
-						<td style="width:96%;background-color:#f9f9f9;" colspan="4"><input type="text" class="form-control" name="categoryEditName" value="<?php echo $settings_category['name']; ?>" /></td>
+						<td style="width:94%;background-color:#f9f9f9;" colspan="5"><input type="text" class="form-control" name="categoryEditName" value="<?php echo $settings_category['name']; ?>" /></td>
 						<td style="background-color:#f9f9f9;"><button type="submit" class="btn btn-success btn-xs" name="categoryEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
 						<td style="background-color:#f9f9f9;"><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalCategoryDell" data-whatever="<?php echo $settings_category['id']; ?>"><i class="fa fa-trash-o"></i></button>
 						</td>
 					</form>
 				</tr>
 				<?php
-					$settings_menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type` FROM site_menu WHERE `category` = "'.$settings_category['id'].'" ORDER BY `name`');
+					$settings_menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type`, `position` FROM site_menu WHERE `category` = "'.$settings_category['id'].'" ORDER BY `position`');
 					$settings_menu_query->execute();
 				?>
 				<?php while($settings_menu = $settings_menu_query->fetch()) { ?>
+					<tbody id="menu_<?php echo $settings_menu['id'] ?>">
+						<tr>
+							<form method="POST">
+								<input type="hidden" name="menuEditId" value="<?php echo $settings_menu['id']; ?>" />
+								<td width="10%"><input type="text" class="form-control" name="menuEditPosition" value="<?php echo $settings_menu['position']; ?>" /></td>
+								<td width="21%">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditIcon" value="<?php echo $settings_menu['icon']; ?>" /></div>
+										<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditName" value="<?php echo $settings_menu['name']; ?>" /></div>
+									</div>
+								</td>
+								<td width="21%"><input type="text" class="form-control" name="menuEditTable" value="<?php echo $settings_menu['table']; ?>" /></td>
+								<td width="21%">
+									<select class="form-control select2" name="menuEditType" style="width:100%;">
+										<option value="autre" <?php if ($settings_menu['type'] == 'autre') echo 'selected'; ?>>Autre</option>
+										<option value="jeuxvideo" <?php if ($settings_menu['type'] == 'jeuxvideo') echo 'selected'; ?>>Jeux Vidéo</option>
+										<option value="livre" <?php if ($settings_menu['type'] == 'livre') echo 'selected'; ?>>Livre</option>
+										<option value="musique" <?php if ($settings_menu['type'] == 'musique') echo 'selected'; ?>>Musique</option>
+										<option value="video" <?php if ($settings_menu['type'] == 'video') echo 'selected'; ?>>Vidéo</option>
+									</select>
+								</td>
+								<td width="21%">
+									<select class="form-control select2" name="menuEditCategory" style="width:100%;">
+										<?php
+											$menu_category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
+											$menu_category_query->execute();
+										?>
+										<?php
+											while($menu_category = $menu_category_query->fetch())
+											{
+												if($menu_category['id'] == $settings_menu['category']) $selected = 'selected'; else echo $selected = '';
+												echo '<option value="'.$menu_category['id'].'" '.$selected.'>'.$menu_category['name'].'</option>';
+											} $menu_category_query->closeCursor();
+										?>
+									</select>
+								</td>
+								<td><button type="submit" class="btn btn-success btn-xs" name="menuEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
+								<td><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMenuDell" data-whatever="<?php echo $settings_menu['id']; ?>"><i class="fa fa-trash-o"></i></button></td>
+							
+							
+							
+							
+							</form>
+						</tr>
+					</tbody>
+				<?php } $settings_menu_query->closeCursor(); ?>
+				
+				
+				
+				
+				<!--
 					<tr>
 						<form method="POST">
 							<input type="hidden" name="menuEditId" value="<?php echo $settings_menu['id']; ?>" />
@@ -572,9 +632,9 @@
 							<td><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMenuDell" data-whatever="<?php echo $settings_menu['id']; ?>"><i class="fa fa-trash-o"></i></button></td>
 						</form>
 					</tr>
-				<?php } $settings_menu_query->closeCursor(); ?>
-			</table>
-		<?php } $settings_category_query->closeCursor(); ?>
+				-->
+			<?php } $settings_category_query->closeCursor(); ?>
+		</table>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-6">

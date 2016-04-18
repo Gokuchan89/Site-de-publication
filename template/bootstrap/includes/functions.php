@@ -305,30 +305,26 @@
 	
 	function search($label, $value, $table_id, $table_name)
 	{
-		echo '<form method="POST" action="?op=list&table='.$table_id.'">';
-			$liste = str_replace("\r", '|', $value);
-			$liste_search = explode('|', $liste);
-			for($i=0;$i<count($liste_search);$i++)
+		$liste = str_replace("\r", '|', $value);
+		$liste_search = explode('|', $liste);
+		for($i=0;$i<count($liste_search);$i++)
+		{
+			$nom_search = explode(' : ', $liste_search[$i]);
+			if (count($nom_search) > 1)
 			{
-				$nom_search = explode(' : ', $liste_search[$i]);
-				if (count($nom_search) > 1)
-				{
-					$nom_membre_search = $nom_search[1];
-				} else {
-					$nom_membre_search = '';
-				}
-				echo '<div class="col-xs-6 col-sm-3 col-md-3 text-center">';
-					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$nom_search[0].'">';
-						echo '<div class="thumbnail">';
-							$filename = './img/real_acteur/'.clean_img($nom_search[0]).'.jpg';
-							if(file_exists($filename)) echo '<div class="fig"><img data-original="'.$filename.'" class="fig-img lazy" alt="vignette" /></div>'; else echo '<div class="fig"><img data-original="./img/nobody.jpg" class="fig-img lazy" alt="vignette" /></div>';
-							echo '<div class="text-danger">'.$nom_search[0].'</div>';
-							echo '<div class="text-primary">'.$nom_membre_search.'</div>';
-						echo '</div>';
-					echo '</button>';
-				echo '</div>';
+				$nom_membre_search = $nom_search[1];
+			} else {
+				$nom_membre_search = '';
 			}
-		echo '</form>';
+			echo '<li>';
+				echo '<form method="POST" action="?op=list&table='.$table_id.'">';
+					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$nom_search[0].'">';
+						$filename = './img/real_acteur/'.clean_img($nom_search[0]).'.jpg';
+						if(file_exists($filename)) echo '<img src="'.$filename.'" title="'.$nom_search[0].'<br/>'.$nom_membre_search.'" />'; else echo '<img src="./img/nobody.jpg" title="'.$nom_search[0].'<br/>'.$nom_membre_search.'" />';
+					echo '</button>';
+				echo '</form>';
+			echo '</li>';
+		}
 	}
 
 	/*

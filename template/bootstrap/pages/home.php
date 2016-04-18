@@ -17,11 +17,7 @@
 						<a href="./?op=detail&table=<?php echo $home['id']; ?>&id=<?php echo $lastupdate['ID']; ?>">
 							<div class="thumbnail">
 								<?php $filename = sprintf('./profils/'.$home['table'].'/affiches/Filmotech_%05d.jpg', $lastupdate['ID']); ?>
-								<?php if ($lastupdate['EntreeType'] == 'BD') { ?>
-									<?php if (file_exists($filename)) echo '<div class="lastadd lastadd-bd"><img data-original="'.$filename.'" class="lastadd-bd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd lastadd-bd"><img data-src="holder.js/117x131?text=aucune \n image" class="lastadd-bd-img" alt="affiche" /></div>'; ?>
-								<?php } else { ?>
-									<?php if (file_exists($filename)) echo '<div class="lastadd"><img data-original="'.$filename.'" class="lastadd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
-								<?php } ?>
+								<?php if (file_exists($filename)) echo '<div class="lastadd"><img data-original="'.$filename.'" class="lastadd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
 								<div class="text-info"><?php echo $lastupdate['TitreVF']; ?></div>
 							</div>
 						</a>

@@ -75,14 +75,14 @@
 					while($category = $category_query->fetch())
 					{
 						echo '<li class="dropdown">';
-						echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.ucfirst($category['name']).' <span class="caret"></span></a>';
+						echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$category['name'].' <span class="caret"></span></a>';
 						echo '<ul class="dropdown-menu">';
-						$menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type` FROM site_menu WHERE `category` = "'.$category['id'].'" ORDER BY `name`');
+						$menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type` FROM site_menu WHERE `category` = "'.$category['id'].'" ORDER BY `position`');
 						$menu_query->execute();
 						while($menu = $menu_query->fetch())
 						{
 							if($op == 'list' && $table == $menu['id']) $active = 'class="active"'; else $active = '';
-							echo '<li '.$active.'><a href="./?op=list&table='.$menu['id'].'"><i class="fa fa-'.$menu['icon'].'"></i> '.ucfirst($menu['name']).'</a></li>';
+							echo '<li '.$active.'><a href="./?op=list&table='.$menu['id'].'"><i class="fa fa-'.$menu['icon'].'"></i> '.$menu['name'].'</a></li>';
 						} $menu_query->closeCursor();
 						echo '</ul>';
 						echo '</li>';

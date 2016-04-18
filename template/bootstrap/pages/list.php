@@ -727,11 +727,7 @@
 						<a href="./?op=detail&table=<?php echo $menu['id']; ?>&id=<?php echo $listing['ID']; ?>">
 							<div class="thumbnail">
 								<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
-								<?php if($listing['EntreeType'] == 'BD') { ?>
-									<?php if(file_exists($filename)) echo '<div class="list list-bd"><img data-original="'.$filename.'" class="list-bd-img lazy" alt="affiche" /></div>'; else echo '<div class="list list-bd"><img data-src="holder.js/117x131?text=aucune \n image" class="list-bd-img" alt="affiche" /></div>'; ?>
-								<?php } else { ?>
-									<?php if(file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
-								<?php } ?>
+								<?php if(file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
 								<div class="list-year text-danger"><?php echo $listing['Annee']; ?></div>
 								<div class="list-title text-info"><?php echo $listing['TitreVF']; ?></div>
 							</div>

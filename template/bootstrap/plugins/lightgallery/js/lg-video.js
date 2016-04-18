@@ -136,7 +136,7 @@
                         dailymotionPlayer.contentWindow.postMessage('play', '*');
 
                     } else if (allocinePlayer) {
-                        allocinePlayer.contentWindow.postMessage('play', '*');
+                        allocinePlayer.contentWindow.postMessage('play');
 
                     } else if (html5Player) {
                         if (_this.core.s.videojs) {
@@ -190,7 +190,7 @@
                 dailymotionPlayer.contentWindow.postMessage('pause', '*');
 
             } else if (allocinePlayer) {
-                allocinePlayer.contentWindow.postMessage('pause', '*');
+                allocinePlayer.contentWindow.postMessage('pause');
 
             } else if (html5Player) {
                 if (_this.core.s.videojs) {
@@ -273,7 +273,7 @@
         } else if (isVideo.allocine) {
 
             video = '<iframe class="lg-video-object lg-allocine ' + addClass + '" width="560" height="315" src="http://www.allocine.fr/_video/iblogvision.aspx?cmedia=' + isVideo.allocine[1] + '" frameborder="0" allowfullscreen></iframe>';
-
+			
         } else if (isVideo.html5) {
             var fL = html.substring(0, 1);
             if (fL === '.' || fL === '#') {

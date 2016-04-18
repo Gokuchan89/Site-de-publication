@@ -21,11 +21,7 @@
 	<div class="col-xs-12 col-sm-12 col-md-8 text-center">
 		<!-- AFFICHE -->
 		<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $detail['ID']); ?>
-		<?php if ($detail['EntreeType'] == 'BD') { ?>
-			<?php if (file_exists($filename)) echo '<div class="detail detail-bd" id="affiche"><a href="'.$filename.'"><img data-original="'.$filename.'" class="detail-bd-img lazy" alt="affiche" /></a></div>'; else echo '<div class="detail detail-bd"><img data-src="holder.js/275x310?text=aucune \n image" class="detail-bd-img" alt="affiche" /></div>'; ?>
-		<?php } else { ?>
-			<?php if (file_exists($filename)) echo '<div class="detail" id="affiche"><a href="'.$filename.'"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></a></div>'; else echo '<div class="detail"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
-		<?php } ?>
+		<?php if (file_exists($filename)) echo '<div class="detail" id="affiche"><a href="'.$filename.'"><img data-original="'.$filename.'" class="detail-img lazy" alt="affiche" /></a></div>'; else echo '<div class="detail"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
 		<br/>
 	</div>
 	<div class="col-xs-12 col-sm-12 col-md-4">
@@ -72,24 +68,13 @@
 				<div class="panel-body"><?php echo str_replace("\r", '<br/>', $detail['Synopsis']); ?></div>
 			</div>
 		<?php } ?>
-		<!-- INFORMATIONS SUPPLEMENTAIRES -->
-		<?php if (!empty($detail['Bonus'])) { ?>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-info-circle"></i> Informations supplémentaires</h3>
-				</div>
-				<div class="panel-body"><?php echo str_replace("\r", '<br/>' , $detail['Bonus']); ?></div>
-			</div>
-		<?php } ?>
 		<!-- REALISATEUR -->
 		<?php if (!empty($detail['Realisateurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa-users"></i> Réalisateur(s)</h3>
 				</div>
-				<div class="panel-body">
-					<?php echo search('realisateurs', $detail['Realisateurs'], $menu['id'], $menu['table']); ?>
-				</div>
+				<ul class="slider_detail"><?php echo search('realisateurs', $detail['Realisateurs'], $menu['id'], $menu['table']); ?></ul>
 			</div>
 		<?php } ?>
 		<!-- AUTEUR / ARTISTE / ACTEURS -->
@@ -98,9 +83,16 @@
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa-users"></i> <?php if($menu['type'] == 'livre') echo 'Auteur(s)'; if($menu['type'] == 'musique') echo 'Artiste(s) / Groupe'; if($menu['type'] == 'video') echo 'Acteurs / Actrices'; ?></h3>
 				</div>
-				<div class="panel-body">
-					<?php echo search('acteurs', $detail['Acteurs'], $menu['id'], $menu['table']); ?>
+				<ul class="slider_detail"><?php echo search('acteurs', $detail['Acteurs'], $menu['id'], $menu['table']); ?></ul>
+			</div>
+		<?php } ?>
+		<!-- INFORMATIONS SUPPLEMENTAIRES -->
+		<?php if (!empty($detail['Bonus'])) { ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-info-circle"></i> Informations supplémentaires</h3>
 				</div>
+				<div class="panel-body"><?php echo str_replace("\r", '<br/>' , $detail['Bonus']); ?></div>
 			</div>
 		<?php } ?>
 	</div>
