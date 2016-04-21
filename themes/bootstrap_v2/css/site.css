@@ -25,7 +25,11 @@ input[type=radio]:checked + img
 */
 .thumbnail
 {
-	height: 								260px;
+	height: 								305px;
+}
+.thumbnail-home
+{
+	height: 								280px;
 }
 .nobtn
 {
@@ -34,37 +38,20 @@ input[type=radio]:checked + img
     background-color:						transparent;
 	padding:								0 0 0 0;
 }
-.nobtn-actor
-{
-    border:									none;
-	outline:								none;
-    background-color:						transparent;
-	padding:								0 0 0 0;
-	width:									100%;
-}
 
 /*
     =================================
     DERNIERS AJOUTS
     =================================
 */
+.lastadd
+{
+    height:									100%;
+}
 .lastadd-img
 {
 	max-width:								100%;
 	max-height:								100%;
-}
-.lastadd-bd
-{
-	background:								url(../../../img/bg_bluray.png) no-repeat top;
-	background-size: 						125px;
-}
-.lastadd-bd-img
-{
-    width:									117px;
-	height:									131px;
-	position:								relative;
-	top:									17px;
-	left:									0.4px;
 }
 
 /*
@@ -81,19 +68,6 @@ input[type=radio]:checked + img
 	max-width:								100%;
 	max-height:								100%;
 }
-.list-bd
-{
-	background:								url(../../../img/bg_bluray.png) no-repeat top;
-	background-size: 						125px;
-}
-.list-bd-img
-{
-    width:									117px;
-	height:									131px;
-	position:								relative;
-	top:									17px;
-	left:									0.4px;
-}
 
 /*
     =================================
@@ -108,28 +82,6 @@ input[type=radio]:checked + img
 {
 	max-width:								100%;
 	max-height:								370px;
-}
-.detail-bd
-{
-	background:								url(../../../img/bg_bluray.png) no-repeat top;
-	background-size: 						295px;
-}
-.detail-bd-img
-{
-	width:									273px;
-	height:									309px;
-	position:								relative;
-	top:									40px;
-	left:									1px;
-}
-.fig
-{
-    height:									155px;
-}
-.fig-img
-{
-    max-width:								100%;
-	max-height:								150px;
 }
 
 /*
