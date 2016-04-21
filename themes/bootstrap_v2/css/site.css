@@ -38,6 +38,14 @@ input[type=radio]:checked + img
     background-color:						transparent;
 	padding:								0 0 0 0;
 }
+.nobtn-actor
+{
+    border:									none;
+	outline: 								none;
+    background-color:						transparent;
+	padding:								0 0 0 0;
+	width:									100%;
+}
 
 /*
     =================================
