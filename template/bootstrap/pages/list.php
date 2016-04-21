@@ -60,13 +60,13 @@
 	if (isset($_[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = $_[$menu['table'].'_search_value_genre'];
 	if (isset($_[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = $_[$menu['table'].'_search_value_annee'];
 
-	if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '')
+	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_annee']))
 	{
-		if ($_SESSION[$menu['table'].'_search_value'] != '') $list_search .= ' AND (`TitreVF` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `TitreVO` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Acteurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Realisateurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%")';
-		if ($_SESSION[$menu['table'].'_search_value_support'] != '') $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
-		if ($_SESSION[$menu['table'].'_search_value_filmvu'] != '') $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
-		if ($_SESSION[$menu['table'].'_search_value_genre'] != '') $list_search .= ' AND `Genre` LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
-		if ($_SESSION[$menu['table'].'_search_value_annee'] != '') $list_search .= ' AND `Annee` = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value'])) $list_search .= ' AND (`TitreVF` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `TitreVO` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Acteurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Realisateurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%")';
+		if (!empty($_SESSION[$menu['table'].'_search_value_support'])) $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_filmvu'])) $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_genre'])) $list_search .= ' AND `Genre` LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_annee'])) $list_search .= ' AND `Annee` = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
 	}
 
 	$query = $db->prepare('SELECT COUNT(`ID`) FROM `'.$menu['table'].'` WHERE `Sortie` = "NON" '.$list_search);
