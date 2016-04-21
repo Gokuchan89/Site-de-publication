@@ -316,7 +316,7 @@
 							</div>
 							<div class="form-group">
 								<label>Pays</label>
-								<select class="form-control select2-pays" name="profileCountry">
+								<select class="form-control select2-pays" name="profileCountry" <?php if ($user['rank'] == '1') echo 'disabled'; ?>>
 									<option value=""></option>
 									<optgroup label="Europe">
 										<option value="Allemagne" <?php if ($profileCountry == 'Allemagne') echo 'selected'; ?>>Allemagne</option>
