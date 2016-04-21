@@ -217,7 +217,8 @@
 					<strong><?php echo $profile['username']; ?></strong><br />
 					<small><?php echo rank($profile['rank']); ?></small><br /><br />
 					<div class="btn-group">
-						<?php if (!empty($profile['mail'])) echo '<a href="mailto:'.$profile['mail'].'" class="btn btn-default"><i class="fa fa-envelope"></i></a>'; ?>
+						<?php if ($user['rank'] == '1') $disabled = 'disabled'; ?>
+						<?php if (!empty($profile['mail'])) echo '<a href="mailto:'.$profile['mail'].'" class="btn btn-default" '.$disabled.'><i class="fa fa-envelope"></i></a>'; ?>
 						<?php if (!empty($profile['url_facebook'])) echo '<a href="'.$profile['url_facebook'].'" class="btn btn-primary" target="_blank"><i class="fa fa-facebook"></i></a>'; ?>
 						<?php if (!empty($profile['url_twitter'])) echo '<a href="'.$profile['url_twitter'].'" class="btn btn-info" target="_blank"><i class="fa fa-twitter"></i></a>'; ?>
 						<?php if (!empty($profile['url_googleplus'])) echo '<a href="'.$profile['url_googleplus'].'" class="btn btn-danger" target="_blank"><i class="fa fa-google-plus"></i></a>'; ?>
@@ -542,9 +543,7 @@
 							</div>
 							<br />
 						</div>
-						<div class="panel-footer clearfix">
-							<button type="submit" class="btn btn-success pull-right" name="profileButton" <?php if ($user['rank'] == '1') echo 'disabled'; ?>>Modifier</button>
-						</div>
+						<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right" name="profileButton" <?php if ($user['rank'] == '1') echo 'disabled'; ?>>Modifier</button></div>
 					</form>
 				</div>
 			<?php } ?>
