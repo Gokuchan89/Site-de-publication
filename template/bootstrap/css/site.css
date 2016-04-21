@@ -1,0 +1,121 @@
+/*
+    =================================
+    AVATAR + THEMES
+    =================================
+*/
+.avatar-theme > input[type=radio]
+{
+	display:								none;
+}
+input[type=radio] + img
+{
+	cursor:									pointer;
+	border:									2px solid transparent;
+}
+input[type=radio]:checked + img
+{
+	border:									2px solid #2274a9;
+	opacity:								1;
+}
+
+/*
+    =================================
+    GENERAL
+    =================================
+*/
+.thumbnail
+{
+	height: 								305px;
+}
+.nobtn
+{
+    border:									none;
+	outline: 								none;
+    background-color:						transparent;
+	padding:								0 0 0 0;
+}
+
+/*
+    =================================
+    DERNIERS AJOUTS
+    =================================
+*/
+.lastadd
+{
+    height:									175px;
+}
+.lastadd-img
+{
+	max-width:								100%;
+	max-height:								100%;
+}
+
+/*
+    =================================
+    LISTE
+    =================================
+*/
+.list
+{
+    height:									175px;
+}
+.list-img
+{
+	max-width:								100%;
+	max-height:								100%;
+}
+
+/*
+    =================================
+    DETAIL
+    =================================
+*/
+.detail
+{
+    height:									370px;
+}
+.detail-img
+{
+	max-width:								100%;
+	max-height:								370px;
+}
+
+/*
+    =================================
+    FOOTER
+    =================================
+*/
+html
+{
+	position: 								relative;
+	min-height: 							100%;
+}
+body
+{
+	margin-bottom: 							60px;
+}
+.footer
+{
+	position:								absolute;
+	bottom: 								0;
+	width: 									100%;
+	height: 								60px;
+	background-color: 						#f5f5f5;
+}
+body > .container
+{
+	padding: 								60px 15px 0;
+}
+.container .text-muted
+{
+	margin: 								20px 0;
+}
+.footer > .container
+{
+	padding-right: 							15px;
+	padding-left: 							15px;
+}
+code
+{
+	font-size: 								80%;
+}
