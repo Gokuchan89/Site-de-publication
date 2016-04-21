@@ -1,21 +1,12 @@
 <?php
-	if(!isset($_SESSION['username']) || $user['rank'] != '3')
+	if (!isset($_SESSION['username']) || $user['rank'] != '3')
 	{
 		header('location: ./');
 		exit();
 	}
-	
-	if($tab > '3') $tab = '1';
-	
-	// Protection des variables
-	$_ = array_merge($_GET, $_POST);
-	foreach($_ as $key=>&$val)
-	{
-		Functions::secure($val);
-	}
 
 	// Valeurs par défaut, remplacées si une autre valeur est saisie
-	foreach (array('title', 'open', 'avatarMaxWidth', 'avatarMaxHeight', 'avatarMaxWeight', 'lastaddMax', 'username', 'mail', 'password1', 'password2', 'categoryName', 'menuName', 'menuTable', 'menuIcon') as $var)
+	foreach (array('optionsTitle', 'optionsOpen', 'optionsAvatarMaxWidth', 'optionsAvatarMaxHeight', 'optionsAvatarMaxWeight', 'optionsLastaddMax', 'membersUsername', 'membersMail', 'membersPassword1', 'membersPassword2', 'categoryName', 'menuName', 'menuTable', 'menuIcon') as $var)
 	{
 		if (!empty($_[$var]))
 		{
@@ -24,277 +15,301 @@
 			$$var = '';
 		}
 	}
-	
-	$lib_errors = 'Erreurs';
-	$lib_success = 'Succès';
-	
+
 	/*
 		=================================
 		OPTIONS
 		=================================
 	*/
-	if (empty($_['title']))
+	if (empty($_['optionsTitle']))
 	{
-		$title = $config['title'];
+		$optionsTitle = $config['title'];
 	}
-	if (empty($_['avatarMaxWidth']))
+	if (empty($_['optionsAvatarMaxWidth']))
 	{
-		$avatarMaxWidth = $config['avatarMaxWidth'];
+		$optionsAvatarMaxWidth = $config['avatarMaxWidth'];
 	}
-	if (empty($_['avatarMaxHeight']))
+	if (empty($_['optionsAvatarMaxHeight']))
 	{
-		$avatarMaxHeight = $config['avatarMaxHeight'];
+		$optionsAvatarMaxHeight = $config['avatarMaxHeight'];
 	}
-	if (empty($_['avatarMaxWeight']))
+	if (empty($_['optionsAvatarMaxWeight']))
 	{
-		$avatarMaxWeight = $config['avatarMaxWeight'];
+		$optionsAvatarMaxWeight = $config['avatarMaxWeight'];
 	}
-	if (empty($_['lastaddMax']))
+	if (empty($_['optionsLastaddMax']))
 	{
-		$lastaddMax = $config['lastaddMax'];
+		$optionsLastaddMax = $config['lastaddMax'];
 	}
-	
-	if(isset($_['optionsButton']))
+
+	if (isset($_['optionsButton']))
 	{
-		$query = $db->prepare('UPDATE site_configuration SET `value` = :value WHERE `key` = "open"');
-		$query->bindValue(':value', $_['open'], PDO::PARAM_STR);
+		$query = $db->prepare('UPDATE `site_configuration` SET `value` = :value WHERE `key` = "open"');
+		$query->bindValue(':value', $_['optionsOpen'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		$query = $db->prepare('UPDATE site_configuration SET `value` = :value WHERE `key` = "title"');
-		$query->bindValue(':value', $_['title'], PDO::PARAM_STR);
+
+		$query = $db->prepare('UPDATE `site_configuration` SET `value` = :value WHERE `key` = "title"');
+		$query->bindValue(':value', $_['optionsTitle'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		$query = $db->prepare('UPDATE site_configuration SET `value` = :value WHERE `key` = "avatarMaxWidth"');
-		$query->bindValue(':value', $_['avatarMaxWidth'], PDO::PARAM_STR);
+
+		$query = $db->prepare('UPDATE `site_configuration` SET `value` = :value WHERE `key` = "avatarMaxWidth"');
+		$query->bindValue(':value', $_['optionsAvatarMaxWidth'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		$query = $db->prepare('UPDATE site_configuration SET `value` = :value WHERE `key` = "avatarMaxHeight"');
-		$query->bindValue(':value', $_['avatarMaxHeight'], PDO::PARAM_STR);
+
+		$query = $db->prepare('UPDATE `site_configuration` SET `value` = :value WHERE `key` = "avatarMaxHeight"');
+		$query->bindValue(':value', $_['optionsAvatarMaxHeight'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		$query = $db->prepare('UPDATE site_configuration SET `value` = :value WHERE `key` = "avatarMaxWeight"');
-		$query->bindValue(':value', $_['avatarMaxWeight'], PDO::PARAM_STR);
+
+		$query = $db->prepare('UPDATE `site_configuration` SET `value` = :value WHERE `key` = "avatarMaxWeight"');
+		$query->bindValue(':value', $_['optionsAvatarMaxWeight'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		$query = $db->prepare('UPDATE site_configuration SET `value` = :value WHERE `key` = "lastaddMax"');
-		$query->bindValue(':value', $_['lastaddMax'], PDO::PARAM_STR);
+
+		$query = $db->prepare('UPDATE `site_configuration` SET `value` = :value WHERE `key` = "lastaddMax"');
+		$query->bindValue(':value', $_['optionsLastaddMax'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		refresh($_SERVER['REQUEST_URI']);
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	/*
 		=================================
 		MEMBRES
 		=================================
 	*/
 	// Modifier le rang d'un membre
-	if(isset($_['membersRankSelect']))
+	if (isset($_['membersRankSelect']))
 	{
-		$query = $db->prepare('UPDATE site_user SET `rank` = :rank WHERE `id` = :id');
+		$query = $db->prepare('UPDATE `site_user` SET `rank` = :rank WHERE `id` = :id');
 		$query->bindValue(':rank', $_['membersRankSelect'], PDO::PARAM_STR);
 		$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
-		
-		refresh($_SERVER['REQUEST_URI']);
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Modifier l'accès d'un membre
-	if(isset($_['membersAccessButton']))
+	if (isset($_['membersAccessButton']))
 	{
-		if($_['membersAccess'] == '0')
+		if ($_['membersAccess'] == '0')
 		{
-			$query = $db->prepare('UPDATE site_user SET `access` = :access WHERE `id` = :id');
+			$query = $db->prepare('UPDATE `site_user` SET `access` = :access WHERE `id` = :id');
 			$query->bindValue(':access', '1', PDO::PARAM_STR);
 			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
 			$query->execute();
 			$query->CloseCursor();
-		}
-		else
-		{
-			$query = $db->prepare('UPDATE site_user SET `access` = :access WHERE `id` = :id');
+		} else {
+			$query = $db->prepare('UPDATE `site_user` SET `access` = :access WHERE `id` = :id');
 			$query->bindValue(':access', '0', PDO::PARAM_STR);
 			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
 			$query->execute();
 			$query->CloseCursor();
 		}
-		
-		refresh($_SERVER['REQUEST_URI']);
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Supprimer un membre
 	if (isset($_['membersDell']))
 	{
-		$query = $db->prepare('DELETE FROM site_user WHERE `id` = :id');
+		$query = $db->prepare('DELETE FROM `site_user` WHERE `id` = :id');
 		$query->bindValue(':id', $_['membersDell'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
-		
+
 		$query = $db->query('ALTER TABLE `site_user` AUTO_INCREMENT = 1');
 
-		refresh($_SERVER['REQUEST_URI']);
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Ajouter un membre
-	if(isset($_['membersAddButton']))
+	if (isset($_['membersAddButton']))
 	{
-		if (empty($_['username']) || empty($_['mail']) || empty($_['password1']))
+		// Vérification que tous les champs sont renseignés
+		if (empty($_['membersUsername']) || empty($_['membersMail']) || empty($_['membersPassword1']) || empty($_['membersPassword2']))
 		{
-			$membersMessage[$lib_errors][] = 'Vous devez renseigner le nom d\'utilisateur, l\'email et le mot de passe.';
+			$membersMessage = 'Veuillez renseigner un nom d\'utilisateur, un email et un mot de passe.';
+			$i++;
 		}
 
-		// Vérification de la disponibilité du nom de l'utilisateur
-		$query = $db->prepare('SELECT COUNT(id) FROM site_user WHERE `username` = :username');
-		$query->bindValue(':username', $_['username'], PDO::PARAM_STR);
+		require_once('./includes/mysqlConstants.php');
+		require_once('./includes/mysqlConnector.php');
+
+		$query = $db->prepare('SELECT `username` FROM `site_user` WHERE `username` = :username');
+		$query->bindValue(':username', $_['membersUsername'], PDO::PARAM_STR);
 		$query->execute();
-		$user_free = $query->fetchColumn();
+		$membersVerifUsername = $query->fetch();
 		$query->CloseCursor();
-		if ($user_free > 0 && empty($membersMessage[$lib_errors]))
+
+		// Vérification si le nom d'utilisateur est présent dans la table site_user
+		if ($membersVerifUsername['username'] == $_['membersUsername'] && $i == 0)
 		{
-			$membersMessage[$lib_errors][] = 'Ce nom d\'utilisateur est déja utilisé par un autre membre.';
+			$membersMessageUsername = 'Ce nom d\'utilisateur fait déjà l\'objet d\'un compte enregistré.';
+			$i++;
 		}
 
-		// Vérification de la disponibilité de l'email
-		$query = $db->prepare('SELECT COUNT(id) FROM site_user WHERE `mail` = :mail');
-		$query->bindValue(':mail', $_['mail'], PDO::PARAM_STR);
+		$query = $db->prepare('SELECT `mail` FROM `site_user` WHERE `mail` = :mail');
+		$query->bindValue(':mail', $_['membersMail'], PDO::PARAM_STR);
 		$query->execute();
-		$mail_free = $query->fetchColumn();
+		$membersVerifMail = $query->fetch();
 		$query->CloseCursor();
-		if ($mail_free > 0 && empty($membersMessage[$lib_errors]))
+
+		// Vérification si l'email est présent dans la table site_user
+		if ($membersVerifMail['mail'] == $_['membersMail'] && $i == 0)
 		{
-			$membersMessage[$lib_errors][] = 'Cette adresse email est déja utilisée par un autre membre.';
+			$membersMessageMail = 'Cette adresse email fait déjà l\'objet d\'un compte enregistré.';
+			$i++;
 		}
-		
+
 		// Vérification des 2 mots de passe
-		if ($_['password1'] != $_['password2'] && empty($membersMessage[$lib_errors]))
+		if ($_['membersPassword1'] != $_['membersPassword2'] && $i == 0)
 		{
-			$membersMessage[$lib_errors][] = 'Le mot de passe et le mot de passe de confirmation ne sont pas identiques.';
+			$membersMessagePassword = 'Les mots de passe ne correspondent pas.';
+			$i++;
 		}
 	}
-	
-	if(isset($_['membersAddButton']) && empty($membersMessage[$lib_errors]))
+
+	// Pas d'erreur, on inscrit le membre
+	if (isset($_['membersAddButton']) && $i == 0)
 	{
-		$query = $db->prepare('INSERT INTO site_user (`username`, `password`, `mail`, `date_registration`, `rank`) VALUES (:username, :password, :mail, :date_registration, :rank)');
-		$query->bindValue(':username', $_['username'], PDO::PARAM_STR);
-		$query->bindValue(':password', md5($_['password1']), PDO::PARAM_STR);
-		$query->bindValue(':mail', $_['mail'], PDO::PARAM_STR);
+		$query = $db->prepare('INSERT INTO `site_user` (`username`, `password`, `mail`, `date_registration`, `rank`) VALUES (:username, :password, :mail, :date_registration, :rank)');
+		$query->bindValue(':username', $_['membersUsername'], PDO::PARAM_STR);
+		$query->bindValue(':password', md5($_['membersPassword1']), PDO::PARAM_STR);
+		$query->bindValue(':mail', $_['membersMail'], PDO::PARAM_STR);
 		$query->bindValue(':date_registration', date('Y-m-d'), PDO::PARAM_INT);
-		$query->bindValue(':rank', $_['rank'], PDO::PARAM_STR);
+		$query->bindValue(':rank', $_['membersRank'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
 
-		refresh($_SERVER['REQUEST_URI']);
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	/*
 		=================================
 		MENU
 		=================================
 	*/
 	// Modifier une catégorie
-	if(isset($_['categoryEditButton']))
+	if (isset($_['categoryEditButton']))
 	{
-		$query = $db->prepare('UPDATE site_category SET `name` = :name WHERE `id` = :id');
+		$query = $db->prepare('UPDATE `site_category` SET `name` = :name WHERE `id` = :id');
 		$query->bindValue(':name', $_['categoryEditName'], PDO::PARAM_STR);
 		$query->bindValue(':id', $_['categoryEditId'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
-		
-		refresh($_SERVER['REQUEST_URI']);
-	
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Modifier un menu
-	if(isset($_['menuEditButton']))
+	if (isset($_['menuEditButton']))
 	{
-		$query = $db->prepare('UPDATE site_menu SET `name` = :name, `icon` = :icon, `category` = :category, `table` = :table, `type` = :type WHERE `id` = :id');
+		$query = $db->prepare('UPDATE `site_menu` SET `name` = :name, `icon` = :icon, `category` = :category, `table` = :table, `type` = :type, `position` = :position WHERE `id` = :id');
 		$query->bindValue(':name', $_['menuEditName'], PDO::PARAM_STR);
 		$query->bindValue(':icon', $_['menuEditIcon'], PDO::PARAM_STR);
 		$query->bindValue(':category', $_['menuEditCategory'], PDO::PARAM_INT);
 		$query->bindValue(':table', $_['menuEditTable'], PDO::PARAM_STR);
 		$query->bindValue(':type', $_['menuEditType'], PDO::PARAM_STR);
+		$query->bindValue(':position', $_['menuEditPosition'], PDO::PARAM_INT);
 		$query->bindValue(':id', $_['menuEditId'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
-		
-		refresh($_SERVER['REQUEST_URI']);
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Supprimer une catégorie
 	if (isset($_['categoryDell']))
 	{
-		$query = $db->prepare('DELETE FROM site_category WHERE `id` = :id');
+		$query = $db->prepare('DELETE FROM `site_category` WHERE `id` = :id');
 		$query->bindValue(':id', $_['categoryDell'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
-		
-		$query = $db->query('ALTER TABLE site_category AUTO_INCREMENT = 1');
-		
+
+		$query = $db->query('ALTER TABLE `site_category` AUTO_INCREMENT = 1');
+
 		$query = $db->prepare('DELETE FROM `site_menu` WHERE `category` = :category');
 		$query->bindValue(':category', $_['categoryDell'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
-		
-		$query = $db->query('ALTER TABLE site_menu AUTO_INCREMENT = 1');
-		
-		refresh($_SERVER['REQUEST_URI']);
+
+		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Supprimer un menu
 	if (isset($_['menuDell']))
 	{
-		$query = $db->prepare('DELETE FROM site_menu WHERE `id` = :id');
+		$query = $db->prepare('DELETE FROM `site_menu` WHERE `id` = :id');
 		$query->bindValue(':id', $_['menuDell'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
-		
+
 		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
 
-		refresh($_SERVER['REQUEST_URI']);
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Ajouter une catégorie
-	if(isset($_['categoryButton']))
+	if (isset($_['categoryAddButton']))
 	{
+		// Vérification que le champ est renseigné
 		if (empty($_['categoryName']))
 		{
-			$categoryMessage[$lib_errors][] = 'Vous devez renseigner le nom de la catégorie.';
+			$categoryMessage = 'Veuillez renseigner le nom de la catégorie.';
+			$i++;
 		}
 	}
-	
-	if(isset($_['categoryButton']) && empty($categoryMessage[$lib_errors]))
+
+	// Pas d'erreur, on ajoute la catégorie
+	if (isset($_['categoryAddButton']) && $i == 0)
 	{
-		$query = $db->prepare('INSERT INTO site_category (`name`) VALUES (:name)');
+		$query = $db->prepare('INSERT INTO `site_category` (`name`) VALUES (:name)');
 		$query->bindValue(':name', $_['categoryName'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		refresh($_SERVER['REQUEST_URI']);
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
-	
+
 	// Ajouter un menu
-	if(isset($_['menuButton']))
+	if (isset($_['menuAddButton']))
 	{
+		// Vérification qu'il y a au moins une catégorie
 		if (empty($_['menuCategory']))
 		{
-			$menuMessage[$lib_errors][] = 'Vous devez ajouter une catégorie avant d\'ajouter un menu.';
+			$menuMessage = 'Veuillez ajouter une catégorie avant d\'ajouter un menu.';
+			$i++;
 		}
-		elseif (empty($_['menuName']) || empty($_['menuTable']) || empty($_['menuIcon']))
+		// Vérification que tous les champs sont renseignés
+		if ((empty($_['menuName']) || empty($_['menuTable']) || empty($_['menuIcon'])) && $i == 0)
 		{
-			$menuMessage[$lib_errors][] = 'Vous devez renseigner le nom du menu, le nom de la table et le nom de l\'icone.';
+			$menuMessage = 'Veuillez renseigner le nom du menu, le nom de la table et le nom de l\'icone.';
+			$i++;
 		}
 	}
-	
-	if(isset($_['menuButton']) && empty($menuMessage[$lib_errors]))
+
+	// Pas d'erreur, on ajoute le menu
+	if (isset($_['menuAddButton']) && $i == 0)
 	{
-		$query = $db->prepare('INSERT INTO site_menu (`name`, `icon`, `category`, `table`, `type`) VALUES (:name, :icon, :category, :table, :type)');
+		$query = $db->prepare('INSERT INTO `site_menu` (`name`, `icon`, `category`, `table`, `type`) VALUES (:name, :icon, :category, :table, :type)');
 		$query->bindValue(':name', $_['menuName'], PDO::PARAM_STR);
 		$query->bindValue(':icon', $_['menuIcon'], PDO::PARAM_STR);
 		$query->bindValue(':category', $_['menuCategory'], PDO::PARAM_INT);
@@ -302,26 +317,27 @@
 		$query->bindValue(':type', $_['menuType'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
-		
-		if(!file_exists('./profils/'.$_['menuTable']))
+
+		if (!file_exists('./profils/'.$_['menuTable']))
 		{
 			$old = umask(0);
 			mkdir('./profils/'.$_['menuTable'], 0777);
 			umask($old);
 		}
-		
-		refresh($_SERVER['REQUEST_URI']);
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
 	}
 ?>
-<script>document.title += ' - Paramètres'</script>
+<script>document.title += " / Paramètres"</script>
 <div class="btn-group btn-group-justified">
-	<div class="btn-group"><a href="?op=settings" class="btn btn-default <?php if($tab == '1') echo 'active'; ?>">Options</a></div>
-	<div class="btn-group"><a href="?op=settings&tab=2" class="btn btn-default <?php if($tab == '2') echo 'active'; ?>">Membres</a></div>
-	<div class="btn-group"><a href="?op=settings&tab=3" class="btn btn-default <?php if($tab == '3') echo 'active'; ?>">Menu</a></div>
+	<div class="btn-group"><a href="?op=settings" class="btn btn-default <?php if ($tab == '1') echo 'active'; ?>">Options</a></div>
+	<div class="btn-group"><a href="?op=settings&tab=2" class="btn btn-default <?php if ($tab == '2') echo 'active'; ?>">Membres</a></div>
+	<div class="btn-group"><a href="?op=settings&tab=3" class="btn btn-default <?php if ($tab == '3') echo 'active'; ?>">Menu</a></div>
 </div>
-<br/>
+<br />
 <!-- OPTIONS -->
-<?php if($tab == '1') { ?>
+<?php if ($tab == '1') { ?>
 	<div class="panel panel-default">
 		<div class="panel-heading">Options</div>
 		<form method="POST">
@@ -329,55 +345,49 @@
 				<h4>Général</h4>
 				<div class="form-group">
 					<label>Titre du site</label>
-					<input type="text" class="form-control" name="title" value="<?php echo $title; ?>" />
+					<input type="text" class="form-control" name="optionsTitle" value="<?php echo $optionsTitle; ?>" />
 				</div>
 				<div class="form-group">
 					<label>Ouvert au public</label>
 					<div class="radio">
-						<label><input type="radio" name="open" value="0" <?php if($config['open'] == '0') echo 'checked'; ?>> Non</label>
-						<label><input type="radio" name="open" value="1" <?php if($config['open'] == '1') echo 'checked'; ?>> Oui</label>
+						<label><input type="radio" name="optionsOpen" value="0" <?php if ($config['open'] == '0') echo 'checked'; ?>> Non</label>
+						<label><input type="radio" name="optionsOpen" value="1" <?php if ($config['open'] == '1') echo 'checked'; ?>> Oui</label>
 					</div>
 				</div>
-				<br/>
+				<br />
 				<h4>Avatar</h4>
 				<div class="form-group">
 					<label>Largeur maximum</label>
-					<input type="number" class="form-control" name="avatarMaxWidth" value="<?php echo $avatarMaxWidth; ?>" />
+					<input type="number" class="form-control" name="optionsAvatarMaxWidth" value="<?php echo $optionsAvatarMaxWidth; ?>" />
 				</div>
 				<div class="form-group">
 					<label>Hauteur maximum</label>
-					<input type="number" class="form-control" name="avatarMaxHeight" value="<?php echo $avatarMaxHeight; ?>" />
+					<input type="number" class="form-control" name="optionsAvatarMaxHeight" value="<?php echo $optionsAvatarMaxHeight; ?>" />
 				</div>
 				<div class="form-group">
 					<label>Poids maximum</label>
-					<input type="number" class="form-control" name="avatarMaxWeight" value="<?php echo $avatarMaxWeight; ?>" />
+					<input type="number" class="form-control" name="optionsAvatarMaxWeight" value="<?php echo $optionsAvatarMaxWeight; ?>" />
 				</div>
-				<br/>
+				<br />
 				<h4>Derniers ajouts</h4>
 				<div class="form-group">
 					<label>Nombre d'éléments</label>
-					<input type="number" class="form-control" name="lastaddMax" value="<?php echo $lastaddMax; ?>" />
+					<input type="number" class="form-control" name="optionsLastaddMax" value="<?php echo $optionsLastaddMax; ?>" />
 				</div>
 			</div>
-			<div class="panel-footer clearfix">
-				<button type="submit" class="btn btn-success pull-right" name="optionsButton">Modifier</button>
-			</div>
+			<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right" name="optionsButton">Modifier</button></div>
 		</form>
 	</div>
 <?php } ?>
-<!-- MEMBERS -->
-<?php if($tab == '2') { ?>
+<!-- MEMBRES -->
+<?php if ($tab == '2') { ?>
 	<div class="modal fade" id="modalMembersDell" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Suppression d'un membre</h4>
-				</div>
+				<div class="modal-header"><h4 class="modal-title">Suppression d'un membre</h4></div>
 				<form method="POST">
 					<input type="hidden" name="membersDell" id="recipient-name">
-					<div class="modal-body">
-						Etes vous sur de vouloir supprimer ce membre ?
-					</div>
+					<div class="modal-body">Etes vous sur de vouloir supprimer ce membre ?</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
 						<button type="submit" class="btn btn-primary">Oui</button>
@@ -396,14 +406,14 @@
 				<th colspan="2">Action</th>
 			</thead>
 			<tbody>
-				<?php while($settings_members = $settings_members_query->fetch()) { ?>
+				<?php while ($settings_members = $settings_members_query->fetch()) { ?>
 					<tr>
-						<td><img src="img/avatar/<?php echo $settings_members['avatar']; ?>" class="img-circle" alt="User Image" style="max-height:30px;" /> <a href="./?op=profile&userid=<?php echo $settings_members['id']; ?>"><?php echo $settings_members['username']; ?></a></td>
+						<td><img src="./img/avatar/<?php echo $settings_members['avatar']; ?>" class="img-circle" alt="User Image" style="max-height:30px;" /> <a href="./?op=profile&userid=<?php echo $settings_members['id']; ?>"><?php echo $settings_members['username']; ?></a></td>
 						<td><?php echo $settings_members['mail']; ?></td>
 						<td>
 							<form method="POST">
 								<input type="hidden" name="membersId" value="<?php echo $settings_members['id']; ?>" />
-								<select class="form-control" name="membersRankSelect" onchange="this.form.submit()" <?php if($settings_members['id'] == '1') echo 'disabled'; ?>>
+								<select class="form-control select2" name="membersRankSelect" onchange="this.form.submit()" style="width:100%;" <?php if ($settings_members['id'] == '1') echo 'disabled'; ?>>
 									<option value="3" <?php if ($settings_members['rank'] == '3') echo 'selected'; ?>>Administrateur</option>
 									<option value="2" <?php if ($settings_members['rank'] == '2') echo 'selected'; ?>>Membre</option>
 									<option value="1" <?php if ($settings_members['rank'] == '1') echo 'selected'; ?>>Inviter</option>
@@ -414,13 +424,11 @@
 							<form method="POST">
 								<input type="hidden" name="membersId" value="<?php echo $settings_members['id']; ?>" />
 								<input type="hidden" name="membersAccess" value="<?php echo $settings_members['access']; ?>" />
-								<button type="submit" class="btn btn-<?php if($settings_members['access'] == '0') echo 'warning'; else echo 'primary'; ?> btn-xs" name="membersAccessButton" title="Accès"><i class="fa fa-<?php if($settings_members['access'] == '0') echo 'times'; else echo 'check'; ?>"></i></button>
+								<button type="submit" class="btn btn-<?php if ($settings_members['access'] == '0') echo 'warning'; else echo 'primary'; ?> btn-xs" name="membersAccessButton" title="Accès" <?php if ($settings_members['id'] == '1') echo 'disabled'; ?>><i class="fa fa-<?php if($settings_members['access'] == '0') echo 'times'; else echo 'check'; ?>"></i></button>
 							</form>
 						</td>
 						<td class="text-center">
-							<form method="POST">
-								<button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMembersDell" data-whatever="<?php echo $settings_members['id']; ?>"><i class="fa fa-trash-o"></i></button>
-							</form>
+							<form method="POST"><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMembersDell" data-whatever="<?php echo $settings_members['id']; ?>" <?php if ($settings_members['id'] == '1') echo 'disabled'; ?>><i class="fa fa-trash-o"></i></button></form>
 						</td>
 					</tr>
 				<?php } $settings_members_query->closeCursor(); ?>
@@ -431,42 +439,32 @@
 		<div class="panel-heading">Ajouter un membre</div>
 		<form method="POST">
 			<div class="panel-body">
-				<?php
-					if(isset($membersMessage[$lib_errors]))
-					{
-						foreach($membersMessage as $type=>$messages)
-						{
-							$class = 'alert ';
-							$class .= $lib_errors==$type?'alert-danger':'alert-success';
-							foreach ($messages as $message)
-							{
-								echo '<div class="'.$class.'">'.$message.'</div>';
-							}
-						}
-					}
-				?>
-				<div class="form-group">
+				<?php if (isset($membersMessage)) echo '<div class="alert alert-danger">'.$membersMessage.'</div>'; ?>
+				<div class="form-group <?php if (isset($membersMessage) || isset($membersMessageUsername)) echo 'has-error'; ?>">
 					<label>Nom d'utilisateur</label>
-					<input type="text" class="form-control" name="username" value="<?php echo $username; ?>" />
+					<input type="text" class="form-control" name="membersUsername" value="<?php echo $membersUsername; ?>" />
 				</div>
-				<div class="form-group">
+				<?php if (isset($membersMessageUsername)) echo '<div class="alert alert-danger">'.$membersMessageUsername.'</div>'; ?>
+				<div class="form-group <?php if (isset($membersMessage) || isset($membersMessageMail)) echo 'has-error'; ?>">
 					<label>Email</label>
-					<input type="email" class="form-control" name="mail" value="<?php echo $mail; ?>" />
+					<input type="email" class="form-control" name="membersMail" value="<?php echo $membersMail; ?>" />
 				</div>
-				<div class="form-group">
+				<?php if (isset($membersMessageMail)) echo '<div class="alert alert-danger">'.$membersMessageMail.'</div>'; ?>
+				<div class="form-group <?php if (isset($membersMessage) || isset($membersMessagePassword)) echo 'has-error'; ?>">
 					<label>Mot de passe</label>
-					<input type="password" class="form-control" name="password1" value="<?php echo $password1; ?>" />
+					<input type="password" class="form-control" name="membersPassword1" value="<?php echo $membersPassword1; ?>" autocomplete="off" />
 				</div>
-				<div class="form-group">
+				<div class="form-group <?php if (isset($membersMessage) || isset($membersMessagePassword)) echo 'has-error'; ?>">
 					<label>Retapez le mot de passe</label>
-					<input type="password" class="form-control" name="password2" value="<?php echo $password2; ?>" />
+					<input type="password" class="form-control" name="membersPassword2" value="<?php echo $membersPassword2; ?>" autocomplete="off" />
 				</div>
+				<?php if (isset($membersMessagePassword)) echo '<div class="alert alert-danger">'.$membersMessagePassword.'</div>'; ?>
 				<div class="form-group">
 					<label>Rang</label>
 					<div class="radio">
-						<label><input type="radio" name="rank" value="3"> Administrateur</label>
-						<label><input type="radio" name="rank" value="2" checked> Membre</label>
-						<label><input type="radio" name="rank" value="1"> Inviter</label>
+						<label><input type="radio" name="membersRank" value="3"> Administrateur</label>
+						<label><input type="radio" name="membersRank" value="2" checked> Membre</label>
+						<label><input type="radio" name="membersRank" value="1"> Inviter</label>
 					</div>
 				</div>
 			</div>
@@ -477,13 +475,11 @@
 	</div>
 <?php } ?>
 <!-- MENU -->
-<?php if($tab == '3') { ?>
+<?php if ($tab == '3') { ?>
 	<div class="modal fade" id="modalCategoryDell" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Suppression d'une catégorie</h4>
-				</div>
+				<div class="modal-header"><h4 class="modal-title">Suppression d'une catégorie</h4></div>
 				<form method="POST">
 					<div class="modal-body">
 						Etes vous sur de vouloir supprimer cette catégorie ? Cela supprimera tous les menus qu'il contient.
@@ -500,9 +496,7 @@
 	<div class="modal fade" id="modalMenuDell" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Suppression d'un menu</h4>
-				</div>
+				<div class="modal-header"><h4 class="modal-title">Suppression d'un menu</h4></div>
 				<form method="POST">
 					<div class="modal-body">
 						Etes vous sur de vouloir supprimer ce menu ?
@@ -518,33 +512,58 @@
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">Liste des menus</div>
-		<?php while($settings_category = $settings_category_query->fetch()) { ?>
-			<table class="table table-bordered">
+		<table class="table table-bordered">
+			<thead>
+				<th>Position</th>
+				<th>Icône + Nom</th>
+				<th>Nom de la table</th>
+				<th>Nom de la cétagorie</th>
+				<th>Type de la table</th>
+				<th colspan="2">Action</th>
+			</thead>
+			<?php while ($settings_category = $settings_category_query->fetch()) { ?>
 				<tr>
 					<form method="POST">
 						<input type="hidden" name="categoryEditId" value="<?php echo $settings_category['id']; ?>" />
-						<td style="width:96%;background-color:#f9f9f9;" colspan="4"><input type="text" class="form-control" name="categoryEditName" value="<?php echo $settings_category['name']; ?>" /></td>
+						<td style="width:94%;background-color:#f9f9f9;" colspan="5"><input type="text" class="form-control" name="categoryEditName" value="<?php echo $settings_category['name']; ?>" /></td>
 						<td style="background-color:#f9f9f9;"><button type="submit" class="btn btn-success btn-xs" name="categoryEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
 						<td style="background-color:#f9f9f9;"><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalCategoryDell" data-whatever="<?php echo $settings_category['id']; ?>"><i class="fa fa-trash-o"></i></button>
 						</td>
 					</form>
 				</tr>
 				<?php
-					$settings_menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type` FROM site_menu WHERE `category` = "'.$settings_category['id'].'" ORDER BY `name`');
+					$settings_menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type`, `position` FROM `site_menu` WHERE `category` = :category ORDER BY `position`');
+					$settings_menu_query->bindValue(':category', $settings_category['id'], PDO::PARAM_STR);
 					$settings_menu_query->execute();
 				?>
-				<?php while($settings_menu = $settings_menu_query->fetch()) { ?>
+				<?php while ($settings_menu = $settings_menu_query->fetch()) { ?>
 					<tr>
 						<form method="POST">
 							<input type="hidden" name="menuEditId" value="<?php echo $settings_menu['id']; ?>" />
-							<td width="24%">
+							<td width="10%"><input type="text" class="form-control" name="menuEditPosition" value="<?php echo $settings_menu['position']; ?>" /></td>
+							<td width="21%">
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditIcon" value="<?php echo $settings_menu['icon']; ?>" /></div>
-									<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditName" value="<?php echo ucfirst($settings_menu['name']); ?>" /></div>
+									<div class="col-xs-12 col-sm-12 col-md-6"><input type="text" class="form-control" name="menuEditName" value="<?php echo $settings_menu['name']; ?>" /></div>
 								</div>
 							</td>
-							<td width="24%"><input type="text" class="form-control" name="menuEditTable" value="<?php echo $settings_menu['table']; ?>" /></td>
-							<td width="24%">
+							<td width="21%"><input type="text" class="form-control" name="menuEditTable" value="<?php echo $settings_menu['table']; ?>" /></td>
+							<td width="21%">
+								<select class="form-control select2" name="menuEditCategory" style="width:100%;">
+									<?php
+										$menu_category_query = $db->prepare('SELECT `id`, `name` FROM `site_category`');
+										$menu_category_query->execute();
+									?>
+									<?php
+										while ($menu_category = $menu_category_query->fetch())
+										{
+											if ($menu_category['id'] == $settings_menu['category']) $selected = 'selected'; else echo $selected = '';
+											echo '<option value="'.$menu_category['id'].'" '.$selected.'>'.$menu_category['name'].'</option>';
+										} $menu_category_query->closeCursor();
+									?>
+								</select>
+							</td>
+							<td width="21%">
 								<select class="form-control select2" name="menuEditType" style="width:100%;">
 									<option value="autre" <?php if ($settings_menu['type'] == 'autre') echo 'selected'; ?>>Autre</option>
 									<option value="jeuxvideo" <?php if ($settings_menu['type'] == 'jeuxvideo') echo 'selected'; ?>>Jeux Vidéo</option>
@@ -553,28 +572,13 @@
 									<option value="video" <?php if ($settings_menu['type'] == 'video') echo 'selected'; ?>>Vidéo</option>
 								</select>
 							</td>
-							<td width="24%">
-								<select class="form-control select2" name="menuEditCategory" style="width:100%;">
-									<?php
-										$menu_category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
-										$menu_category_query->execute();
-									?>
-									<?php
-										while($menu_category = $menu_category_query->fetch())
-										{
-											if($menu_category['id'] == $settings_menu['category']) $selected = 'selected'; else echo $selected = '';
-											echo '<option value="'.$menu_category['id'].'" '.$selected.'>'.$menu_category['name'].'</option>';
-										} $menu_category_query->closeCursor();
-									?>
-								</select>
-							</td>
 							<td><button type="submit" class="btn btn-success btn-xs" name="menuEditButton" title="Modifier"><i class="fa fa-check"></i></button></td>
 							<td><button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#modalMenuDell" data-whatever="<?php echo $settings_menu['id']; ?>"><i class="fa fa-trash-o"></i></button></td>
 						</form>
 					</tr>
 				<?php } $settings_menu_query->closeCursor(); ?>
-			</table>
-		<?php } $settings_category_query->closeCursor(); ?>
+			<?php } $settings_category_query->closeCursor(); ?>
+		</table>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-6">
@@ -582,28 +586,13 @@
 				<div class="panel-heading">Ajouter une catégorie</div>
 				<form method="POST">
 					<div class="panel-body">
-						<?php
-							if(isset($categoryMessage[$lib_errors]))
-							{
-								foreach($categoryMessage as $type=>$messages)
-								{
-									$class = 'alert ';
-									$class .= $lib_errors==$type?'alert-danger':'alert-success';
-									foreach ($messages as $message)
-									{
-										echo '<div class="'.$class.'">'.$message.'</div>';
-									}
-								}
-							}
-						?>
-						<div class="form-group">
+						<?php if (isset($categoryMessage)) echo '<div class="alert alert-danger">'.$categoryMessage.'</div>'; ?>
+						<div class="form-group <?php if (isset($categoryMessage)) echo 'has-error'; ?>">
 							<label>Nom de la catégorie</label>
 							<input type="text" class="form-control" name="categoryName" value="<?php echo $categoryName; ?>" />
 						</div>
 					</div>
-					<div class="panel-footer clearfix">
-						<button type="submit" class="btn btn-success pull-right" name="categoryButton">Ajouter</button>
-					</div>
+					<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right" name="categoryAddButton">Ajouter</button></div>
 				</form>
 			</div>
 		</div>
@@ -612,29 +601,16 @@
 				<div class="panel-heading">Ajouter un menu</div>
 				<form method="POST">
 					<div class="panel-body">
-						<?php
-							if(isset($menuMessage[$lib_errors]))
-							{
-								foreach($menuMessage as $type=>$messages)
-								{
-									$class = 'alert ';
-									$class .= $lib_errors==$type?'alert-danger':'alert-success';
-									foreach ($messages as $message)
-									{
-										echo '<div class="'.$class.'">'.$message.'</div>';
-									}
-								}
-							}
-						?>
-						<div class="form-group">
+						<?php if (isset($menuMessage)) echo '<div class="alert alert-danger">'.$menuMessage.'</div>'; ?>
+						<div class="form-group <?php if (isset($menuMessage)) echo 'has-error'; ?>">
 							<label>Nom du menu</label>
 							<input type="text" class="form-control" name="menuName" value="<?php echo $menuName; ?>" />
 						</div>
-						<div class="form-group">
+						<div class="form-group <?php if (isset($menuMessage)) echo 'has-error'; ?>">
 							<label>Nom de la table</label>
 							<input type="text" class="form-control" name="menuTable" value="<?php echo $menuTable; ?>" />
 						</div>
-						<div class="form-group">
+						<div class="form-group <?php if (isset($menuMessage)) echo 'has-error'; ?>">
 							<label>Nom de l'icône</label>
 							<input type="text" class="form-control" name="menuIcon" value="<?php echo $menuIcon; ?>" />
 						</div>
@@ -642,10 +618,10 @@
 							<label>Catégorie</label>
 							<select class="form-control select2" name="menuCategory" style="width:100%;">
 								<?php
-									$menu_category_query = $db->prepare('SELECT `id`, `name` FROM site_category');
+									$menu_category_query = $db->prepare('SELECT `id`, `name` FROM `site_category`');
 									$menu_category_query->execute();
 								?>
-								<?php while($menu_category = $menu_category_query->fetch()) { ?>
+								<?php while ($menu_category = $menu_category_query->fetch()) { ?>
 									<option value="<?php echo $menu_category['id']; ?>"><?php echo $menu_category['name']; ?></option>
 								<?php } $menu_category_query->closeCursor(); ?>
 							</select>
@@ -661,9 +637,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="panel-footer clearfix">
-						<button type="submit" class="btn btn-success pull-right" name="menuButton">Ajouter</button>
-					</div>
+					<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right" name="menuAddButton">Ajouter</button></div>
 				</form>
 			</div>
 		</div>
