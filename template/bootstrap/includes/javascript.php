@@ -124,11 +124,17 @@
 		});
 	
 		// bxSlider
+		function getGridSize()
+		{
+			return (window.innerWidth < 600) ? 3 :
+				   (window.innerWidth < 900) ? 3 : 4;
+		}
+		
 		$('.slider_detail').bxSlider(
 		{
 			slideWidth: 183,
-			minSlides: 4,
-			maxSlides: 4,
+			minSlides: getGridSize(),
+			maxSlides: getGridSize(),
 			slideMargin: 5,
 			moveSlides: 2,
 			captions: true,
