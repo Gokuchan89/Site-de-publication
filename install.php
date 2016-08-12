@@ -62,7 +62,7 @@
 		}
 		if (empty($_['username']) || empty($_['mail']) || empty($_['password']))
 		{
-			$test[$lib_errors][] = 'Par sécurité, il est nécessaire de fournir un nom d\'utilisateur, un email et un mot de passe pour le compte administrateur.';
+			$test[$lib_errors][] = 'Il est nécessaire de fournir un nom d\'utilisateur, un email et un mot de passe pour le compte administrateur.';
 		}
 	}
 
@@ -119,9 +119,9 @@
 			`username` varchar(225) NOT NULL,
 			`password` varchar(225) NOT NULL,
 			`mail` varchar(225) NOT NULL,
-			`date_registration` date NOT NULL DEFAULT "1900-01-01",
-			`date_lastlogin` datetime NOT NULL DEFAULT "1900-01-01 00:00:00",
-			`date_birthday` date NOT NULL DEFAULT "1900-01-01",
+			`date_registration` date NOT NULL DEFAULT "1970-01-01",
+			`date_lastlogin` datetime NOT NULL DEFAULT "1970-01-01 00:00:00",
+			`date_birthday` date NOT NULL DEFAULT "1970-01-01",
 			`sex` enum("0", "1", "2") NOT NULL DEFAULT "0",
 			`url_website` varchar(225) NOT NULL,
 			`url_facebook` varchar(225) NOT NULL,
@@ -141,7 +141,7 @@
 		$query->bindValue(':username', $username, PDO::PARAM_STR);
 		$query->bindValue(':password', md5($password), PDO::PARAM_STR);
 		$query->bindValue(':mail', $mail, PDO::PARAM_STR);
-		$query->bindValue(':date_registration', date('Y-m-d'), PDO::PARAM_INT);
+		$query->bindValue(':date_registration', date('Y-m-d'), PDO::PARAM_STR);
 		$query->bindValue(':url_website', '', PDO::PARAM_STR);
 		$query->bindValue(':url_facebook', '', PDO::PARAM_STR);
 		$query->bindValue(':url_twitter', '', PDO::PARAM_STR);
@@ -177,8 +177,7 @@
 			`icon` varchar(225) NOT NULL,
 			`category` int(11) NOT NULL,
 			`table` varchar(225) NOT NULL,
-			`type` enum("autre", "jeuxvideo", "livre", "musique", "video") NOT NULL,
-			`position` int(11) NOT NULL,
+			`type` enum("kinder", "livre", "musique", "starwars", "video") NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE MyISAM, DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 		$query->closeCursor();
