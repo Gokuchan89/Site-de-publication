@@ -117,7 +117,7 @@
 				<?php if (!empty($detail['Reference'])) { ?><i class="fa fa-barcode"></i> <strong>Code-barres :</strong> <?php echo $detail['Reference']; ?><br /><?php } ?>
 				<?php if (!empty($detail['EntreeDate'])) { ?><i class="fa fa-calendar"></i> <strong>Sortie le :</strong> <?php echo date_sortie(date('d F Y', strtotime($detail['EntreeDate']))); ?><br /><?php } ?>
 				<?php if (!empty($detail['NombreSupport'])) { ?><i class="fa fa-dot-circle-o"></i> <strong>Nbre support(s) :</strong> <?php echo $detail['NombreSupport']; ?><br /><?php } ?>
-				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php $filename = './img/zones/'.$detail['Zone'].'.png'; if (file_exists($filename)) echo '<img src="'.$filename.'" style="max-height:25px;" />'; else echo $detail['Zone']; ?><br /><?php } ?>
+				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php if (file_exists('./img/zones/'.$detail['Zone'].'.png')) echo '<img src="./img/zones/'.$detail['Zone'].'.png" style="max-height:25px;" />'; else echo $detail['Zone']; ?><br /><?php } ?>
 			</div>
 		</div>
 		<!-- AUDIO -->
