@@ -252,7 +252,7 @@
 				{
 					if (file_exists('./img/supports/'.$liste_search[$i].'.png'))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="./img/supports/'.$liste_search[$i].'.png" style="max-width:65px;max-height:25px;" /></button>';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="./img/supports/'.$liste_search[$i].'.png" style="max-width:82px;max-height:25px;" /></button>';
 					} else {
 						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button>';
 					}
@@ -261,7 +261,7 @@
 				{
 					if (file_exists('./img/supports/'.$liste_search[$i].'.png'))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="./img/supports/'.$liste_search[$i].'.png" style="max-width:65px;max-height:25px;" /></button> / ';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="./img/supports/'.$liste_search[$i].'.png" style="max-width:82px;max-height:25px;" /></button> / ';
 					} else {
 						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button> / ';
 					}
