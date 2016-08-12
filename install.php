@@ -178,6 +178,7 @@
 			`category` int(11) NOT NULL,
 			`table` varchar(225) NOT NULL,
 			`type` enum("kinder", "livre", "musique", "starwars", "video") NOT NULL,
+			`position` int(11) NOT NULL,
 			PRIMARY KEY (`id`)
 		) ENGINE MyISAM, DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 		$query->closeCursor();
