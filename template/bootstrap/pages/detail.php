@@ -133,8 +133,8 @@
 								preg_match('/^([a-zA-Z-]+)(\d.+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
 								echo '<tr height="30px">';
 								if (file_exists(utf8_decode('./img/flags/'.$audio[3].'.png'))) echo '<td style="width:33%"><img src="./img/flags/'.$audio[3].'.png" style="width:20px" title="'.$audio[3].'" /> '.$audio[3].'</td>'; else echo '<td style="width:33%">'.$audio[3].'</td>';
-								if (file_exists(utf8_decode('./img/audiocodec/'.$audio[1].'.png'))) echo '<td style="width:33%" class="text-center"><img src="./img/audiocodec/'.$audio[1].'.png" style="height:25px" title="'.$audio[1].'" /></td>'; else echo '<td style="width:33%" class="text-center">'.$audio[1].'</td>';
-								if (file_exists(utf8_decode('./img/audiochannel/'.$audio[2].'.png'))) echo '<td style="width:33%" class="text-right"><img src="./img/audiochannel/'.$audio[2].'.png" style="height:25px" title="'.$audio[1].'" /></td>'; else echo '<td style="width:33%" class="text-right">'.$audio[2].'</td>';
+								if (file_exists('./img/audiocodec/'.$audio[1].'.png')) echo '<td style="width:33%" class="text-center"><img src="./img/audiocodec/'.$audio[1].'.png" style="height:25px" title="'.$audio[1].'" /></td>'; else echo '<td style="width:33%" class="text-center">'.$audio[1].'</td>';
+								if (file_exists('./img/audiochannel/'.$audio[2].'.png')) echo '<td style="width:33%" class="text-right"><img src="./img/audiochannel/'.$audio[2].'.png" style="height:25px" title="'.$audio[1].'" /></td>'; else echo '<td style="width:33%" class="text-right">'.$audio[2].'</td>';
 								echo '</tr>';
 							}
 						?>
