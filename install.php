@@ -15,7 +15,7 @@
 	}
 
 	// Valeurs par défaut, remplacées si une autre valeur est saisie
-	foreach (array('root', 'mysqlBase', 'mysqlHost', 'mysqlUsername', 'mysqlPassword', 'username', 'password') as $var)
+	foreach (array('root', 'mysqlBase', 'mysqlHost', 'mysqlUsername', 'mysqlPassword', 'username', 'mail', 'password') as $var)
 	{
 		if (!empty($_[$var]))
 		{
@@ -49,7 +49,7 @@
 	// On vérifie que tous les champs sont remplis, ainsi que la disponibilité de la BDD.
 	if (isset($_['installButton']))
 	{
-		if (empty($_['mysqlHost']) || empty($_['mysqlUsername']) || empty($_['mysqlPassword']) || empty($_['mysqlBase']))
+		if (empty($_['mysqlHost']) || empty($_['mysqlUsername']) || empty($_['mysqlBase']))
 		{
 			$test[$lib_errors][] = 'Il est nécessaire de fournir toutes les informations sur la base de donnée.';
 		} else {
@@ -60,9 +60,9 @@
 				$test[$lib_success][] = 'Connexion à la base de données : OK';
 			}
 		}
-		if (empty($_['username']) || empty($_['password']))
+		if (empty($_['username']) || empty($_['mail']) || empty($_['password']))
 		{
-			$test[$lib_errors][] = 'Par sécurité, il est nécessaire de fournir un nom d\'utilisateur et un mot de passe pour le compte administrateur.';
+			$test[$lib_errors][] = 'Par sécurité, il est nécessaire de fournir un nom d\'utilisateur, un email et un mot de passe pour le compte administrateur.';
 		}
 	}
 
@@ -119,9 +119,9 @@
 			`username` varchar(225) NOT NULL,
 			`password` varchar(225) NOT NULL,
 			`mail` varchar(225) NOT NULL,
-			`date_registration` date NOT NULL DEFAULT "0000-00-00",
-			`date_lastlogin` datetime NOT NULL DEFAULT "0000-00-00 00:00:00",
-			`date_birthday` date NOT NULL DEFAULT "0000-00-00",
+			`date_registration` date NOT NULL DEFAULT "1900-01-01",
+			`date_lastlogin` datetime NOT NULL DEFAULT "1900-01-01 00:00:00",
+			`date_birthday` date NOT NULL DEFAULT "1900-01-01",
 			`sex` enum("0", "1", "2") NOT NULL DEFAULT "0",
 			`url_website` varchar(225) NOT NULL,
 			`url_facebook` varchar(225) NOT NULL,
@@ -137,10 +137,16 @@
 		$query->closeCursor();
 
 		// Insertion des données de l'utilisateur (administrateur) dans la table site_user
-		$query = $db->prepare('INSERT INTO `site_user` (`username`, `password`, `date_registration`, `rank`, `access`) VALUES (:username, :password, :date_registration, :rank, :access)');
+		$query = $db->prepare('INSERT INTO `site_user` (`username`, `password`, `mail`, `date_registration`, `url_website`, `url_facebook`, `url_twitter`, `url_googleplus`, `country`, `rank`, `access`) VALUES (:username, :password, :mail, :date_registration, :url_website, :url_facebook, :url_twitter, :url_googleplus, :country, :rank, :access)');
 		$query->bindValue(':username', $username, PDO::PARAM_STR);
 		$query->bindValue(':password', md5($password), PDO::PARAM_STR);
+		$query->bindValue(':mail', $mail, PDO::PARAM_STR);
 		$query->bindValue(':date_registration', date('Y-m-d'), PDO::PARAM_INT);
+		$query->bindValue(':url_website', '', PDO::PARAM_STR);
+		$query->bindValue(':url_facebook', '', PDO::PARAM_STR);
+		$query->bindValue(':url_twitter', '', PDO::PARAM_STR);
+		$query->bindValue(':url_googleplus', '', PDO::PARAM_STR);
+		$query->bindValue(':country', '', PDO::PARAM_STR);
 		$query->bindValue(':rank', '3', PDO::PARAM_INT);
 		$query->bindValue(':access', '1', PDO::PARAM_INT);
 		$query->execute();
@@ -342,8 +348,12 @@
 									<input type="text" class="form-control" name="username" value="<?php echo $username; ?>" />
 								</div>
 								<div class="form-group">
+									<label>Email</label>
+									<input type="email" class="form-control" name="mail" value="<?php echo $mail; ?>" />
+								</div>
+								<div class="form-group">
 									<label>Mot de passe</label>
-									<input type="text" class="form-control" name="password" value="<?php echo $password; ?>" placeholder="Sera affiché en clair" autocomplete="off" />
+									<input type="password" class="form-control" name="password" value="<?php echo $password; ?>" autocomplete="off" />
 								</div>
 							</div>
 							<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right" name="installButton" id="installButton">Lancer l'installation</button></div>
