@@ -112,11 +112,11 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-paperclip"></i> Détails</h3></div>
 			<div class="panel-body">
+				<?php if (!empty($detail['Support']) && ($menu['type'] == 'jeuxvideo' || $menu['type'] == 'musique' || $menu['type'] == 'video')) { ?><i class="fa fa-tasks"></i> <strong>Support :</strong> <?php echo filter('support', $detail['Support'], $menu['id'], $menu['table']); ?><br /><?php } ?>
+				<?php if (!empty($detail['Edition'])) { ?><i class="fa fa-inbox"></i> <strong>Edition :</strong> <?php echo $detail['Edition']; ?><br /><?php } ?>
 				<?php if (!empty($detail['Reference'])) { ?><i class="fa fa-barcode"></i> <strong>Code-barres :</strong> <?php echo $detail['Reference']; ?><br /><?php } ?>
 				<?php if (!empty($detail['EntreeDate'])) { ?><i class="fa fa-calendar"></i> <strong>Sortie le :</strong> <?php echo date_sortie(date('d F Y', strtotime($detail['EntreeDate']))); ?><br /><?php } ?>
-				<?php if (!empty($detail['Support']) && ($menu['type'] == 'jeuxvideo' || $menu['type'] == 'musique' || $menu['type'] == 'video')) { ?><i class="fa fa-tasks"></i> <strong>Support :</strong> <?php echo filter('support', $detail['Support'], $menu['id'], $menu['table']); ?><br /><?php } ?>
 				<?php if (!empty($detail['NombreSupport'])) { ?><i class="fa fa-dot-circle-o"></i> <strong>Nbre support(s) :</strong> <?php echo $detail['NombreSupport']; ?><br /><?php } ?>
-				<?php if (!empty($detail['Edition'])) { ?><i class="fa fa-inbox"></i> <strong>Edition :</strong> <?php echo $detail['Edition']; ?><br /><?php } ?>
 				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php $filename = './img/zones/'.$detail['Zone'].'.png'; if (file_exists($filename)) echo '<img src="'.$filename.'" style="max-height:25px;" />'; else echo $detail['Zone']; ?><br /><?php } ?>
 			</div>
 		</div>
@@ -132,9 +132,9 @@
 							{
 								preg_match('/^([a-zA-Z-]+)(\d.+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
 								echo '<tr height="30px">';
-								echo '<td style="width:35%"><img src="./img/drapeaux/'.$audio[3].'.png" style="width:20px" alt="'.$audio[3].'" /> '.$audio[3].'</td>';
-								echo '<td class="text-center"><img src="./img/audio/'.$audio[1].'.png" style="width:50px" alt="'.$audio[1].'" /></td>';
-								echo '<td class="text-center" style="width:15%">'.$audio[2].'</td>';
+								if (file_exists(utf8_decode('./img/flags/'.$audio[3].'.png'))) echo '<td style="width:33%"><img src="./img/flags/'.$audio[3].'.png" style="width:20px" title="'.$audio[3].'" /> '.$audio[3].'</td>'; else echo '<td style="width:33%">'.$audio[3].'</td>';
+								if (file_exists(utf8_decode('./img/audiocodec/'.$audio[1].'.png'))) echo '<td style="width:33%" class="text-center"><img src="./img/audiocodec/'.$audio[1].'.png" style="height:25px" title="'.$audio[1].'" /></td>'; else echo '<td style="width:33%" class="text-center">'.$audio[1].'</td>';
+								if (file_exists(utf8_decode('./img/audiochannel/'.$audio[2].'.png'))) echo '<td style="width:33%" class="text-right"><img src="./img/audiochannel/'.$audio[2].'.png" style="height:25px" title="'.$audio[1].'" /></td>'; else echo '<td style="width:33%" class="text-right">'.$audio[2].'</td>';
 								echo '</tr>';
 							}
 						?>
@@ -151,7 +151,7 @@
 						$soustitres = explode(', ', $detail['SousTitres']);
 						for ($i=0;$i<count($soustitres);$i++)
 						{
-							echo '<img src="./img/drapeaux/'.$soustitres[$i].'.png" style="width:20px" alt="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />';
+							if (file_exists(utf8_decode('./img/flags/'.$soustitres[$i].'.png'))) echo '<img src="./img/flags/'.$soustitres[$i].'.png" style="width:20px" title="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />'; else echo $soustitres[$i].'<br />';
 						}
 					?>
 				</div>
