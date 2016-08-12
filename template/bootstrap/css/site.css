@@ -7,6 +7,10 @@
 {
 	display:								none;
 }
+.theme
+{
+    height:									150px;
+}
 .theme-img
 {
 	max-width:								100%;
