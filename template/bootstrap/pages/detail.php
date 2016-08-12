@@ -117,7 +117,7 @@
 				<?php if (!empty($detail['Reference'])) { ?><i class="fa fa-barcode"></i> <strong>Code-barres :</strong> <?php echo $detail['Reference']; ?><br /><?php } ?>
 				<?php if (!empty($detail['EntreeDate'])) { ?><i class="fa fa-calendar"></i> <strong>Sortie le :</strong> <?php echo date_sortie(date('d F Y', strtotime($detail['EntreeDate']))); ?><br /><?php } ?>
 				<?php if (!empty($detail['NombreSupport'])) { ?><i class="fa fa-dot-circle-o"></i> <strong>Nbre support(s) :</strong> <?php echo $detail['NombreSupport']; ?><br /><?php } ?>
-				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php if (file_exists('./img/zones/'.$detail['Zone'].'.png')) echo '<img src="./img/zones/'.$detail['Zone'].'.png" style="max-height:25px;" />'; else echo $detail['Zone']; ?><br /><?php } ?>
+				<?php if (!empty($detail['Zone']) && $menu['type'] == 'video') { ?><i class="fa fa-flag"></i> <strong>Zone :</strong> <?php if (file_exists('./img/zones/'.$detail['Zone'].'.png')) echo '<img src="./img/zones/'.$detail['Zone'].'.png" style="max-width:65px;max-height:25px;" />'; else echo $detail['Zone']; ?><br /><?php } ?>
 			</div>
 		</div>
 		<!-- AUDIO -->
@@ -146,7 +146,7 @@
 								}
 								if (file_exists('./img/audiochannel/'.$audio[2].'.png'))
 								{
-									echo '<td style="width:33%" class="text-right"><img src="./img/audiochannel/'.$audio[2].'.png" style="max-width:65px;height:25px;" title="'.$audio[1].'" /></td>';
+									echo '<td style="width:33%" class="text-right"><img src="./img/audiochannel/'.$audio[2].'.png" style="max-width:65px;max-height:25px;" title="'.$audio[1].'" /></td>';
 								} else {
 									echo '<td style="width:33%" class="text-right">'.$audio[2].'</td>';
 								}
