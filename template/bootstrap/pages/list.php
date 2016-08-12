@@ -431,7 +431,7 @@
 						<?php if ($menu['type'] == 'video') { ?>
 							<div class="row">
 								<div class="col-xs-4 col-sm-4 col-md-3"><strong>Note</strong></div>
-								<div class="col-xs-8 col-sm-8 col-md-9"><span class="text-danger"><img src="img/stars/<?php echo $listing['Note']; ?>.png" /></span></div>
+								<div class="col-xs-8 col-sm-8 col-md-9"><span class="text-danger"><?php if (file_exists('./img/stars/'.$listing['Note'].'.png')) echo '<img src="img/stars/'.$listing['Note'].'.png" />'; else echo $listing['Note']; ?></span></div>
 							</div>
 						<?php } ?>
 					</td>
