@@ -182,11 +182,16 @@
 	// Pas d'erreur, on inscrit le membre
 	if (isset($_['membersAddButton']) && $i == 0)
 	{
-		$query = $db->prepare('INSERT INTO `site_user` (`username`, `password`, `mail`, `date_registration`, `rank`) VALUES (:username, :password, :mail, :date_registration, :rank)');
+		$query = $db->prepare('INSERT INTO `site_user` (`username`, `password`, `mail`, `date_registration`, `url_website`, `url_facebook`, `url_twitter`, `url_googleplus`, `country`, `rank`) VALUES (:username, :password, :mail, :date_registration, :url_website, :url_facebook, :url_twitter, :url_googleplus, :country, :rank)');
 		$query->bindValue(':username', $_['membersUsername'], PDO::PARAM_STR);
 		$query->bindValue(':password', md5($_['membersPassword1']), PDO::PARAM_STR);
 		$query->bindValue(':mail', $_['membersMail'], PDO::PARAM_STR);
 		$query->bindValue(':date_registration', date('Y-m-d'), PDO::PARAM_INT);
+		$query->bindValue(':url_website', '', PDO::PARAM_STR);
+		$query->bindValue(':url_facebook', '', PDO::PARAM_STR);
+		$query->bindValue(':url_twitter', '', PDO::PARAM_STR);
+		$query->bindValue(':url_googleplus', '', PDO::PARAM_STR);
+		$query->bindValue(':country', '', PDO::PARAM_STR);
 		$query->bindValue(':rank', $_['membersRank'], PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
