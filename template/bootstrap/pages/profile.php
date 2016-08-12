@@ -27,11 +27,11 @@
 	}
 	if (empty($_['profileBirthday']))
 	{
-		if ($profile['date_birthday'] != '0000-00-00')
+		if ($profile['date_birthday'] != '1970-01-01')
 		{
 			$profileBirthday = date('d/m/Y', strtotime($profile['date_birthday']));
 		} else {
-			$profileBirthday = 'jj/mm/aaaa';
+			$profileBirthday = '01/01/1970';
 		}
 	}
 	if (empty($_['profileCountry']))
@@ -247,7 +247,7 @@
 						</tr>
 						<tr>
 							<td width="30%"><strong>Date de naissance</strong></td>
-							<td><?php if ($profile['date_birthday'] != '0000-00-00') echo date('d/m/Y', strtotime($profile['date_birthday'])); ?></td>
+							<td><?php if ($profile['date_birthday'] != '1970-01-01') echo date('d/m/Y', strtotime($profile['date_birthday'])); ?></td>
 						</tr>
 						<tr>
 							<td width="30%"><strong>Pays</strong></td>
@@ -255,11 +255,11 @@
 						</tr>
 						<tr>
 							<td width="30%"><strong>Date d'inscription</strong></td>
-							<td><?php if ($profile['date_registration'] != '0000-00-00') echo date('d/m/Y', strtotime($profile['date_registration'])); ?></td>
+							<td><?php if ($profile['date_registration'] != '1970-01-01') echo date('d/m/Y', strtotime($profile['date_registration'])); ?></td>
 						</tr>
 						<tr>
 							<td width="30%"><strong>Date de dernière visite</strong></td>
-							<td><?php if ($profile['date_lastlogin'] != '0000-00-00 00:00:00') echo date('d/m/Y à H:i:s', strtotime($profile['date_lastlogin'])); ?></td>
+							<td><?php if ($profile['date_lastlogin'] != '1970-01-01 00:00:00') echo date('d/m/Y à H:i:s', strtotime($profile['date_lastlogin'])); ?></td>
 						</tr>
 						<tr>
 							<td width="30%"><strong>Site web</strong></td>
@@ -288,17 +288,17 @@
 							<?php if (isset($profileMessageMail)) echo '<div class="alert alert-danger">'.$profileMessageMail.'</div>'; ?>
 							<div class="form-group <?php if (isset($profileMessagePassword)) echo 'has-error'; ?>">
 								<label>Mot de passe actuel</label>
-								<input type="password" class="form-control" name="profilePassword" value="<?php echo $profilePassword; ?>" <?php if ($user['rank'] == '1') echo 'disabled'; ?> />
+								<input type="password" class="form-control" name="profilePassword" value="<?php echo $profilePassword; ?>" autocomplete="off" <?php if ($user['rank'] == '1') echo 'disabled'; ?> />
 							</div>
 							<?php if (isset($profileMessagePassword)) echo '<div class="alert alert-danger">'.$profileMessagePassword.'</div>'; ?>
 							<div class="form-group <?php if (isset($profileMessagePassword1) || isset($profileMessagePassword2)) echo 'has-error'; ?>">
 								<label>Nouveau mot de passe</label>
-								<input type="password" class="form-control" name="profilePassword1" value="<?php echo $profilePassword1; ?>" <?php if ($user['rank'] == '1') echo 'disabled'; ?> />
+								<input type="password" class="form-control" name="profilePassword1" value="<?php echo $profilePassword1; ?>" autocomplete="off" <?php if ($user['rank'] == '1') echo 'disabled'; ?> />
 							</div>
 							<?php if (isset($profileMessagePassword1)) echo '<div class="alert alert-danger">'.$profileMessagePassword1.'</div>'; ?>
 							<div class="form-group <?php if (isset($profileMessagePassword2)) echo 'has-error'; ?>">
 								<label>Retapez le nouveau mot de passe</label>
-								<input type="password" class="form-control" name="profilePassword2" value="<?php echo $profilePassword2; ?>" <?php if ($user['rank'] == '1') echo 'disabled'; ?> />
+								<input type="password" class="form-control" name="profilePassword2" value="<?php echo $profilePassword2; ?>" autocomplete="off" <?php if ($user['rank'] == '1') echo 'disabled'; ?> />
 							</div>
 							<?php if (isset($profileMessagePassword2)) echo '<div class="alert alert-danger">'.$profileMessagePassword2.'</div>'; ?>
 							<br />
