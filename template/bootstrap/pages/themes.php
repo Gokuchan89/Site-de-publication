@@ -34,7 +34,7 @@
 	<form method="POST">
 		<div class="panel-body">
 			<?php if (isset($themeMessage)) echo '<div class="alert alert-danger">'.$themeMessage.'</div>'; ?>
-			<div class="form-group">
+			<div class="row text-center">
 				<div class="radio">
 					<?php
 						$dirname = './template';
@@ -44,7 +44,9 @@
 							if ($file != '.' && $file != '..')
 							{
 								if ($file == $user['theme']) $checked = 'checked'; else $checked = '';
-								echo '<label class="avatar-theme"><input type="radio" name="theme" value="'.$file.'" '.$checked.' /><img src="./template/'.$file.'/'.$file.'.jpg" style="width:200px;" title="'.ucfirst($file).'" /><div class="text-center">'.ucfirst($file).'</div></label>';
+								echo '<div class="col-xs-6 col-sm-4 col-md-2">';
+								echo '<label class="avatar-theme"><input type="radio" name="theme" value="'.$file.'" '.$checked.' /><img src="./template/'.$file.'/'.$file.'.jpg" class="theme-img" title="'.ucfirst($file).'" /><div class="text-center">'.ucfirst($file).'</div></label>';
+								echo '</div>';
 							}
 						}
 						closedir($dir);
