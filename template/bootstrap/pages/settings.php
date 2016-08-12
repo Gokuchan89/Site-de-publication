@@ -309,12 +309,13 @@
 	// Pas d'erreur, on ajoute le menu
 	if (isset($_['menuAddButton']) && $i == 0)
 	{
-		$query = $db->prepare('INSERT INTO `site_menu` (`name`, `icon`, `category`, `table`, `type`) VALUES (:name, :icon, :category, :table, :type)');
+		$query = $db->prepare('INSERT INTO `site_menu` (`name`, `icon`, `category`, `table`, `type`, `position`) VALUES (:name, :icon, :category, :table, :type, :position)');
 		$query->bindValue(':name', $_['menuName'], PDO::PARAM_STR);
 		$query->bindValue(':icon', $_['menuIcon'], PDO::PARAM_STR);
 		$query->bindValue(':category', $_['menuCategory'], PDO::PARAM_INT);
 		$query->bindValue(':table', $_['menuTable'], PDO::PARAM_STR);
 		$query->bindValue(':type', $_['menuType'], PDO::PARAM_STR);
+		$query->bindValue(':position', '0', PDO::PARAM_STR);
 		$query->execute();
 		$query->CloseCursor();
 
