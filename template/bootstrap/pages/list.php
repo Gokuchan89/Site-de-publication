@@ -292,22 +292,6 @@
 		}
 	}
 ?>
-<?php
-	$total = $list_search_total;			// nombre d'entrées dans la table
-	$epp = $option_nb_elements; 			// nombre d'entrées à afficher par page
-	$nbPages = ceil($total/$epp); 			// calcul du nombre de pages $nbPages (on arrondit à l'entier supérieur avec la fonction ceil())
-	// Récupération du numéro de la page courante depuis l'URL avec la méthode GET
-	// S'il s'agit d'un nombre on traite, sinon on garde la valeur par défaut : 1
-	$current = 1;
-	if (isset($_GET['page']) && is_numeric($_GET['page']))
-	{
-		$page = intval($_GET['page']);
-		if ($page >= 1 && $page <= $nbPages) $current = $page;
-		else if ($page < 1) $current = 1;
-		else $current = 1;
-	}
-	if ($nbPages > 1) echo '<nav class="text-center"><ul class="pagination">'.paginate('?op=list&table='.$table.'', '&page=', $nbPages, $current).'</ul></nav>';
-?>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -366,6 +350,22 @@
 		</div>
 	</div>
 </nav>
+<?php
+	$total = $list_search_total;			// nombre d'entrées dans la table
+	$epp = $option_nb_elements; 			// nombre d'entrées à afficher par page
+	$nbPages = ceil($total/$epp); 			// calcul du nombre de pages $nbPages (on arrondit à l'entier supérieur avec la fonction ceil())
+	// Récupération du numéro de la page courante depuis l'URL avec la méthode GET
+	// S'il s'agit d'un nombre on traite, sinon on garde la valeur par défaut : 1
+	$current = 1;
+	if (isset($_GET['page']) && is_numeric($_GET['page']))
+	{
+		$page = intval($_GET['page']);
+		if ($page >= 1 && $page <= $nbPages) $current = $page;
+		else if ($page < 1) $current = 1;
+		else $current = 1;
+	}
+	if ($nbPages > 1) echo '<nav class="text-center"><ul class="pagination">'.paginate('?op=list&table='.$table.'', '&page=', $nbPages, $current).'</ul></nav>';
+?>
 <?php if ($option_dp_type == 'liste') { ?>
 	<table class="table table-bordered table-striped">
 		<thead>
