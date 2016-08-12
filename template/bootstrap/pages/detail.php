@@ -60,7 +60,7 @@
 				<?php if ($menu['type'] == 'video') { ?><i class="fa fa-globe"></i> <?php echo $detail['Pays']; ?><?php } ?>
 			</li>
 			<?php if ($menu['type'] == 'video') { ?>
-				<li class="list-group-item"><i class="fa fa-thumbs-o-up"></i> <img src="./img/stars/<?php echo $detail['Note']; ?>.png" alt="note"/></li>
+				<li class="list-group-item"><i class="fa fa-thumbs-o-up"></i> <?php if (file_exists('./img/stars/'.$detail['Note'].'.png')) echo '<img src="./img/stars/'.$detail['Note'].'.png" alt="note"/>'; else echo $detail['Note']; ?></li>
 				<li class="list-group-item text-center">
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6">
