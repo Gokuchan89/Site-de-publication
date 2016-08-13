@@ -9,6 +9,7 @@
 	session_start();
 
 	$i = 0;
+	$install_terminee = false;
 
 	// Protection des variables
 	$_ = array_merge($_GET, $_POST);
