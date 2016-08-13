@@ -51,7 +51,6 @@
 		<?php require_once('./template/bootstrap/includes/navbar.php'); ?>
 		<div class="container">
 			<?php
-				if (isset($loginMessage)) echo '<div class="alert alert-danger">'.$loginMessage.'</div>';
 				if (!$op) require_once('./template/bootstrap/pages/home.php');
 				if ($op == 'list') require_once('./template/bootstrap/pages/list.php');
 				if ($op == 'detail') require_once('./template/bootstrap/pages/detail.php');
