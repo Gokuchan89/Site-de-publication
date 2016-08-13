@@ -280,7 +280,7 @@
 <?php
 	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_annee']))
 	{
-		if ($list_search_total > 0)
+		if ($list_search_total == 0)
 		{
 			echo '<div class="alert alert-danger"><strong>0</strong> résultat</div>';
 		} elseif ($list_search_total == 1) {
