@@ -65,8 +65,8 @@
 	if (isset($_['loginButton']) && $i == 0)
 	{
 		$_SESSION['username'] = $_['loginUsername'];
-		header('location: ./');
-		exit();
+
+		$login_terminee = true;
 	}
 ?>
 <!DOCTYPE html>
@@ -91,6 +91,16 @@
 	<body>
 		<div class="container">
 			<div class="row">
+				<!-- Si la connexion est réussi -->
+				<?php if ($login_terminee) { ?>
+					<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+						<div class="panel panel-default">
+							<div class="panel-heading">Identification réussi !</div>
+							<div class="panel-body">Vous êtes identifié. Aller à l'<a href="./">accueil</a>.</div>
+						</div>
+					</div>
+					</div></div></body></html>
+				<?php exit(); } ?>
 				<!-- Si la session existe -->
 				<?php if (isset($_SESSION['username'])) { ?>
 					<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
