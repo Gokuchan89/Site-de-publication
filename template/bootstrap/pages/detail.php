@@ -166,7 +166,12 @@
 						$soustitres = explode(', ', $detail['SousTitres']);
 						for ($i=0;$i<count($soustitres);$i++)
 						{
-							if (file_exists(utf8_decode('./img/flags/'.$soustitres[$i].'.png'))) echo '<img src="./img/flags/'.$soustitres[$i].'.png" style="width:20px" title="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />'; else echo $soustitres[$i].'<br />';
+							if (file_exists(utf8_decode('./img/flags/'.$soustitres[$i].'.png')))
+							{
+								echo '<img src="./img/flags/'.$soustitres[$i].'.png" style="width:20px" title="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />';
+							} else {
+								echo $soustitres[$i].'<br />';
+							}
 						}
 					?>
 				</div>
