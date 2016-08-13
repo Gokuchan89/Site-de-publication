@@ -1,3 +1,12 @@
+<?php
+	/*
+		=================================
+		DERNIERS AJOUTS
+		=================================
+	*/
+	$home_query = $db->prepare('SELECT `id`, `name`, `table` FROM `site_menu` ORDER BY `position`');
+	$home_query->execute();
+?>
 <?php while($home = $home_query->fetch()) { ?>
 	<?php
 		$lastupdate_query = $db->prepare('SELECT `ID`, `TitreVF` FROM `'.$home['table'].'` ORDER BY `ID` DESC LIMIT '.$config['lastaddMax']);
