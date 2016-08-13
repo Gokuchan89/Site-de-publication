@@ -68,7 +68,7 @@
 							<?php if ($detail['FilmVu'] == 'NON') echo '<div class="btn btn-danger" disabled="disabled"><i class="fa fa-eye-slash"></i> Film non vu</div>'; ?>
 						</div>
 						<?php if (!empty($detail['BAChemin']) && $detail['BAType'] = 'URL') { ?>
-							<div class="col-xs-6 col-sm-6 col-md-6"><div id="bandeannonce"><a href="<?php echo $detail['BAChemin']; ?>" class="btn btn-default"><i class="fa fa-play"></i> Bande annonce</a></div></div>
+							<div class="col-xs-6 col-sm-6 col-md-6"><div id="bandeannonce"><a href="<?php echo $detail['BAChemin']; ?>" class="btn btn-default"><i class="fa fa-play"></i> Bande-annonce</a></div></div>
 						<?php } ?>
 					</div>
 				</li>
