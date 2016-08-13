@@ -9,6 +9,14 @@
 			$$var = '';
 		}
 	}
+
+	/*
+		=================================
+		CATEGORIES
+		=================================
+	*/
+	$category_query = $db->prepare('SELECT `id`, `name` FROM `site_category`');
+	$category_query->execute();
 ?>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
