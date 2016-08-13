@@ -9,47 +9,6 @@
 			$$var = '';
 		}
 	}
-
-	if (isset($_['loginButton']))
-	{
-		// Vérification si tous les champs sont renseignés
-		if (empty($_['loginUsername']) || empty($_['loginPassword']))
-		{
-			$loginMessage = 'Veuillez renseigner un nom d\'utilisateur et/ou un mot de passe.';
-			$i++;
-		}
-
-		require_once('./includes/mysqlConstants.php');
-		require_once('./includes/mysqlConnector.php');
-
-		$query = $db->prepare('SELECT `username`, `password`, `access` FROM `site_user` WHERE `username` = :username');
-		$query->bindValue(':username', $_['loginUsername'], PDO::PARAM_STR);
-		$query->execute();
-		$loginVerif = $query->fetch();
-		$query->CloseCursor();
-
-		// Vérification si le nom d'utilisateur est présent dans la table site_user et si le mot de passe est valide
-		if (($loginVerif['username'] != $_['loginUsername'] || $loginVerif['password'] != md5($_['loginPassword'])) && $i == 0)
-		{
-			$loginMessage = 'Nom d\'utilisateur et/ou mot de passe invalide.';
-			$i++;
-		}
-
-		// Vérification si l'utilisateur a accès au site
-		if ($loginVerif['access'] == 0 && $i == 0)
-		{
-			$loginMessage = 'Votre compte n\'est pas encore activé.';
-			$i++;
-		}
-	}
-
-	// Pas d'erreur, l'utilisateur se connecte
-	if (isset($_['loginButton']) && $i == 0)
-	{
-		$_SESSION['username'] = $_['loginUsername'];
-		header('location: ./');
-		exit();
-	}
 ?>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
@@ -84,11 +43,10 @@
 				<?php } $category_query->closeCursor(); ?>
 			</ul>
 			<?php if ($config['open'] == '1' && !isset($_SESSION['username'])) { ?>
-				<form method="POST" class="navbar-form navbar-right">
-					<div class="form-group <?php if (isset($loginMessage)) echo 'has-error'; ?>"><input type="text" class="form-control" name="loginUsername" value="<?php echo $loginUsername; ?>" placeholder="Nom d'utilisateur" /></div>
-					<div class="form-group <?php if (isset($loginMessage)) echo 'has-error'; ?>"><input type="password" class="form-control" name="loginPassword" value="<?php echo $loginPassword; ?>" placeholder="Mot de passe" /></div>
-					<button type="submit" class="btn btn-success" name="loginButton">Se connecter</button>
-				</form>
+				<div class="navbar-form navbar-right">
+					<a href="register.php" class="btn btn-primary">S'inscrire</a>
+					<a href="login.php" class="btn btn-success">Se connecter</a>
+				</div>
 			<?php } ?>
 			<?php if (isset($_SESSION['username'])) { ?>
 				<ul class="nav navbar-nav navbar-right">
