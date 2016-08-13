@@ -244,24 +244,25 @@
 	function filter($label, $value, $table_id, $table_name)
 	{
 		echo '<form method="POST" action="?op=list&table='.$table_id.'" style="display:inline;">';
-			$liste = str_replace(' / ', ' - ', $value);
-			$liste_search = explode(' - ', $liste);
-			for ($i=0;$i<count($liste_search);$i++)
+			$list = str_replace(' / ', ' - ', $value);
+			$list_filter = explode(' - ', $list);
+			for ($i=0;$i<count($list_filter);$i++)
 			{
-				if (($i+1) == count($liste_search))
+				$filename = './img/supports/'.$list_filter[$i].'.png';
+				if (($i+1) == count($list_filter))
 				{
-					if (file_exists('./img/supports/'.$liste_search[$i].'.png'))
+					if (file_exists($filename))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="./img/supports/'.$liste_search[$i].'.png" style="max-width:82px;max-height:25px;" /></button>';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button>';
 					} else {
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button>';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button>';
 					}
 				} else {
-					if (file_exists('./img/supports/'.$liste_search[$i].'.png'))
+					if (file_exists($filename))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><img src="./img/supports/'.$liste_search[$i].'.png" style="max-width:82px;max-height:25px;" /></button> / ';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button> / ';
 					} else {
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$liste_search[$i].'"><div class="text-primary">'.$liste_search[$i].'</div></button> / ';
+						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button> / ';
 					}
 				}
 			}
@@ -270,19 +271,19 @@
 
 	function search($label, $value, $table_id, $table_name)
 	{
-		$liste = str_replace("\r", '|', $value);
-		$liste_search = explode('|', $liste);
-		for ($i=0;$i<count($liste_search);$i++)
+		$list = str_replace("\r", '|', $value);
+		$list_search = explode('|', $list);
+		for ($i=0;$i<count($list_search);$i++)
 		{
 			echo '<li>';
 				echo '<form method="POST" action="?op=list&table='.$table_id.'">';
-					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$liste_search[$i].'">';
-						$filename = './img/real_acteur/'.clean_img($liste_search[$i]).'.jpg';
+					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$list_search[$i].'">';
+						$filename = './img/real_acteur/'.clean_img($list_search[$i]).'.jpg';
 						if (file_exists($filename))
 						{
-							echo '<img src="'.$filename.'" title="'.$liste_search[$i].'" />';
+							echo '<img src="'.$filename.'" title="'.$list_search[$i].'" />';
 						} else {
-							echo '<img src="./img/nobody.jpg" title="'.$liste_search[$i].'" />';
+							echo '<img src="./img/nobody.jpg" title="'.$list_search[$i].'" />';
 						}
 					echo '</button>';
 				echo '</form>';
