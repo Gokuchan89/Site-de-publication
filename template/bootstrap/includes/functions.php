@@ -276,22 +276,15 @@
 		$liste_search = explode('|', $liste);
 		for ($i=0;$i<count($liste_search);$i++)
 		{
-			$nom_search = explode(' : ', $liste_search[$i]);
-			if (count($nom_search) > 1)
-			{
-				$nom_membre_search = $nom_search[1];
-			} else {
-				$nom_membre_search = '';
-			}
 			echo '<li>';
 				echo '<form method="POST" action="?op=list&table='.$table_id.'">';
-					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$nom_search[0].'">';
-						$filename = './img/real_acteur/'.clean_img($nom_search[0]).'.jpg';
+					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$liste_search[$i].'">';
+						$filename = './img/real_acteur/'.clean_img($liste_search[$i]).'.jpg';
 						if (file_exists($filename))
 						{
-							echo '<img src="'.$filename.'" title="'.$nom_search[0].'<br/>'.$nom_membre_search.'" />';
+							echo '<img src="'.$filename.'" title="'.$liste_search[$i].'" />';
 						} else {
-							echo '<img src="./img/nobody.jpg" title="'.$nom_search[0].'<br/>'.$nom_membre_search.'" />';
+							echo '<img src="./img/nobody.jpg" title="'.$liste_search[$i].'" />';
 						}
 					echo '</button>';
 				echo '</form>';
