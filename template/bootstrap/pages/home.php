@@ -18,7 +18,7 @@
 		$total_query->closeCursor();
 	?>
 	<div class="panel panel-default">
-		<div class="panel-heading">Les derniers ajouts de la catégorie <a href="./?op=list&table=<?php echo $home['id']; ?>"><?php echo $home['name']; ?></a><div class="pull-right">(<?php echo $config['lastaddMax']; ?> sur <?php echo $total; ?>)</div></div>
+		<div class="panel-heading">Les derniers ajouts de la catégorie <a href="./?op=list&table=<?php echo $home['id']; ?>"><?php echo $home['name']; ?></a><?php if ($total != '0') echo '<div class="pull-right">('.$config['lastaddMax'].' sur '.$total.')</div>'; ?></div>
 		<div class="panel-body">
 			<div class="row text-center">
 				<?php while($lastupdate = $lastupdate_query->fetch()) { ?>
