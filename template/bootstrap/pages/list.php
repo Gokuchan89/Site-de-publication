@@ -305,15 +305,12 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-4 col-md-4">
 						<div class="form-group">
-							<label>Trier par</label>
+							<label>Afficher en</label>
 							<form method="POST">
-								<select class="form-control select2" name="option_order" onchange="this.form.submit()" style="width:100%;">
-									<option value="TitreVF" <?php if ($option_order == 'TitreVF') echo 'selected'; ?>>Titre</option>
-									<option value="TitreVF DESC" <?php if ($option_order == 'TitreVF DESC') echo 'selected'; ?>>Titre (desc)</option>
-									<option value="Annee" <?php if ($option_order == 'Annee') echo 'selected'; ?>>Année</option>
-									<option value="Annee DESC" <?php if ($option_order == 'Annee DESC') echo 'selected'; ?>>Année (desc)</option>
-									<option value="EntreeDate" <?php if ($option_order == 'EntreeDate') echo 'selected'; ?>>Date d'ajout</option>
-									<option value="EntreeDate DESC" <?php if ($option_order == 'EntreeDate DESC') echo 'selected'; ?>>Date d'ajout (desc)</option>
+								<select class="form-control select2" name="option_dp_type" onchange="this.form.submit()" style="width:100%;">
+									<option value="liste" <?php if ($option_dp_type == 'liste') echo 'selected'; ?>>Liste</option>
+									<option value="galerie" <?php if ($option_dp_type == 'galerie') echo 'selected'; ?>>Galerie</option>
+									<option value="table" <?php if ($option_dp_type == 'table') echo 'selected'; ?>>Table</option>
 								</select>
 							</form>
 						</div>
@@ -335,12 +332,15 @@
 					</div>
 					<div class="col-xs-12 col-sm-4 col-md-4">
 						<div class="form-group">
-							<label>Afficher en</label>
+							<label>Trier par</label>
 							<form method="POST">
-								<select class="form-control select2" name="option_dp_type" onchange="this.form.submit()" style="width:100%;">
-									<option value="liste" <?php if ($option_dp_type == 'liste') echo 'selected'; ?>>Liste</option>
-									<option value="galerie" <?php if ($option_dp_type == 'galerie') echo 'selected'; ?>>Galerie</option>
-									<option value="table" <?php if ($option_dp_type == 'table') echo 'selected'; ?>>Table</option>
+								<select class="form-control select2" name="option_order" onchange="this.form.submit()" style="width:100%;">
+									<option value="TitreVF" <?php if ($option_order == 'TitreVF') echo 'selected'; ?>>Titre</option>
+									<option value="TitreVF DESC" <?php if ($option_order == 'TitreVF DESC') echo 'selected'; ?>>Titre (desc)</option>
+									<option value="Annee" <?php if ($option_order == 'Annee') echo 'selected'; ?>>Année</option>
+									<option value="Annee DESC" <?php if ($option_order == 'Annee DESC') echo 'selected'; ?>>Année (desc)</option>
+									<option value="EntreeDate" <?php if ($option_order == 'EntreeDate') echo 'selected'; ?>>Date d'ajout</option>
+									<option value="EntreeDate DESC" <?php if ($option_order == 'EntreeDate DESC') echo 'selected'; ?>>Date d'ajout (desc)</option>
 								</select>
 							</form>
 						</div>
