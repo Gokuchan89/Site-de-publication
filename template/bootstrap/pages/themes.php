@@ -20,7 +20,7 @@
 	{
 		$query = $db->prepare('UPDATE `site_user` SET `theme` = :theme WHERE `id` = :id');
 		$query->bindValue(':theme', $_['theme'], PDO::PARAM_STR);
-		$query->bindValue(':id', $userid, PDO::PARAM_INT);
+		$query->bindValue(':id', $user['id'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
 
