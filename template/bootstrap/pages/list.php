@@ -4,20 +4,20 @@
 		REGLAGE
 		=================================
 	*/
-	$order_array = array('TitreVF', 'TitreVF DESC', 'Annee', 'Annee DESC', 'EntreeDate', 'EntreeDate DESC');
-	if (!isset($_SESSION['option_order'])) $_SESSION['option_order'] = 'TitreVF';
-	if (isset($_['option_order']) && in_array($_['option_order'], $order_array)) $_SESSION['option_order'] = $_['option_order'];
-	$option_order = $_SESSION['option_order'];
+	$dp_type_array = array('liste', 'galerie', 'table');
+	if (!isset($_SESSION['option_dp_type'])) $_SESSION['option_dp_type'] = 'galerie';
+	if (isset($_['option_dp_type']) && in_array($_['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_['option_dp_type'];
+	$option_dp_type = $_SESSION['option_dp_type'];
 
 	$nb_elements_array = array('6', '12', '18', '24', '30', '36');
 	if (!isset($_SESSION['option_nb_elements'])) $_SESSION['option_nb_elements'] = '24';
 	if (isset($_['option_nb_elements']) && in_array($_['option_nb_elements'], $nb_elements_array)) $_SESSION['option_nb_elements'] = $_['option_nb_elements'];
 	$option_nb_elements = $_SESSION['option_nb_elements'];
-
-	$dp_type_array = array('liste', 'galerie', 'table');
-	if (!isset($_SESSION['option_dp_type'])) $_SESSION['option_dp_type'] = 'galerie';
-	if (isset($_['option_dp_type']) && in_array($_['option_dp_type'], $dp_type_array)) $_SESSION['option_dp_type'] = $_['option_dp_type'];
-	$option_dp_type = $_SESSION['option_dp_type'];
+	
+	$order_array = array('TitreVF', 'TitreVF DESC', 'Annee', 'Annee DESC', 'EntreeDate', 'EntreeDate DESC');
+	if (!isset($_SESSION['option_order'])) $_SESSION['option_order'] = 'TitreVF';
+	if (isset($_['option_order']) && in_array($_['option_order'], $order_array)) $_SESSION['option_order'] = $_['option_order'];
+	$option_order = $_SESSION['option_order'];
 
 	$menu_query = $db->prepare('SELECT `id`, `name`, `table`, `type` FROM `site_menu` WHERE `id` = :id');
 	$menu_query->bindValue(':id', $table, PDO::PARAM_INT);
@@ -282,74 +282,74 @@
 	{
 		if ($list_search_total > 0)
 		{
-			echo '<div class="alert alert-success">';
-			echo '<strong>'.$list_search_total.'</strong> résultat(s)';
-			echo '</div>';
+			echo '<div class="alert alert-danger"><strong>0</strong> résultat</div>';
+		} elseif ($list_search_total == 1) {
+			echo '<div class="alert alert-success"><strong>'.$list_search_total.'</strong> résultat</div>';
 		} else {
-			echo '<div class="alert alert-danger">';
-			echo '<strong>0</strong> résultat';
-			echo '</div>';
+			echo '<div class="alert alert-success"><strong>'.$list_search_total.'</strong> résultats</div>';
 		}
 	}
 ?>
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<div class="form-group">
-						<label>Trier par</label>
-						<form method="POST">
-							<select class="form-control select2" name="option_order" onchange="this.form.submit()" style="width:100%;">
-								<option value="TitreVF" <?php if ($option_order == 'TitreVF') echo 'selected'; ?>>Titre</option>
-								<option value="TitreVF DESC" <?php if ($option_order == 'TitreVF DESC') echo 'selected'; ?>>Titre (desc)</option>
-								<option value="Annee" <?php if ($option_order == 'Annee') echo 'selected'; ?>>Année</option>
-								<option value="Annee DESC" <?php if ($option_order == 'Annee DESC') echo 'selected'; ?>>Année (desc)</option>
-								<option value="EntreeDate" <?php if ($option_order == 'EntreeDate') echo 'selected'; ?>>Date d'ajout</option>
-								<option value="EntreeDate DESC" <?php if ($option_order == 'EntreeDate DESC') echo 'selected'; ?>>Date d'ajout (desc)</option>
-							</select>
-						</form>
+<?php if ($list_search_total != 0) { ?>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<div class="form-group">
+							<label>Trier par</label>
+							<form method="POST">
+								<select class="form-control select2" name="option_order" onchange="this.form.submit()" style="width:100%;">
+									<option value="TitreVF" <?php if ($option_order == 'TitreVF') echo 'selected'; ?>>Titre</option>
+									<option value="TitreVF DESC" <?php if ($option_order == 'TitreVF DESC') echo 'selected'; ?>>Titre (desc)</option>
+									<option value="Annee" <?php if ($option_order == 'Annee') echo 'selected'; ?>>Année</option>
+									<option value="Annee DESC" <?php if ($option_order == 'Annee DESC') echo 'selected'; ?>>Année (desc)</option>
+									<option value="EntreeDate" <?php if ($option_order == 'EntreeDate') echo 'selected'; ?>>Date d'ajout</option>
+									<option value="EntreeDate DESC" <?php if ($option_order == 'EntreeDate DESC') echo 'selected'; ?>>Date d'ajout (desc)</option>
+								</select>
+							</form>
+						</div>
 					</div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<div class="form-group">
-						<label>Afficher x éléments</label>
-						<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-							<select class="form-control select2" name="option_nb_elements" onchange="this.form.submit()" style="width:100%;">
-								<option value="6" <?php if ($option_nb_elements == '6') echo 'selected'; ?>>6</option>
-								<option value="12" <?php if ($option_nb_elements == '12') echo 'selected'; ?>>12</option>
-								<option value="18" <?php if ($option_nb_elements == '18') echo 'selected'; ?>>18</option>
-								<option value="24" <?php if ($option_nb_elements == '24') echo 'selected'; ?>>24</option>
-								<option value="30" <?php if ($option_nb_elements == '30') echo 'selected'; ?>>30</option>
-								<option value="36" <?php if ($option_nb_elements == '36') echo 'selected'; ?>>36</option>
-							</select>
-						</form>
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<div class="form-group">
+							<label>Afficher x éléments</label>
+							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
+								<select class="form-control select2" name="option_nb_elements" onchange="this.form.submit()" style="width:100%;">
+									<option value="6" <?php if ($option_nb_elements == '6') echo 'selected'; ?>>6</option>
+									<option value="12" <?php if ($option_nb_elements == '12') echo 'selected'; ?>>12</option>
+									<option value="18" <?php if ($option_nb_elements == '18') echo 'selected'; ?>>18</option>
+									<option value="24" <?php if ($option_nb_elements == '24') echo 'selected'; ?>>24</option>
+									<option value="30" <?php if ($option_nb_elements == '30') echo 'selected'; ?>>30</option>
+									<option value="36" <?php if ($option_nb_elements == '36') echo 'selected'; ?>>36</option>
+								</select>
+							</form>
+						</div>
 					</div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<div class="form-group">
-						<label>Afficher en</label>
-						<form method="POST">
-							<select class="form-control select2" name="option_dp_type" onchange="this.form.submit()" style="width:100%;">
-								<option value="liste" <?php if ($option_dp_type == 'liste') echo 'selected'; ?>>Liste</option>
-								<option value="galerie" <?php if ($option_dp_type == 'galerie') echo 'selected'; ?>>Galerie</option>
-								<option value="table" <?php if ($option_dp_type == 'table') echo 'selected'; ?>>Table</option>
-							</select>
-						</form>
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<div class="form-group">
+							<label>Afficher en</label>
+							<form method="POST">
+								<select class="form-control select2" name="option_dp_type" onchange="this.form.submit()" style="width:100%;">
+									<option value="liste" <?php if ($option_dp_type == 'liste') echo 'selected'; ?>>Liste</option>
+									<option value="galerie" <?php if ($option_dp_type == 'galerie') echo 'selected'; ?>>Galerie</option>
+									<option value="table" <?php if ($option_dp_type == 'table') echo 'selected'; ?>>Table</option>
+								</select>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
+<?php } ?>
 <?php
 	$total = $list_search_total;			// nombre d'entrées dans la table
 	$epp = $option_nb_elements; 			// nombre d'entrées à afficher par page
