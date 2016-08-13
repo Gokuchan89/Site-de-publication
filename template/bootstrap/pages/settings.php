@@ -80,7 +80,15 @@
 
 	/*
 		=================================
-		MEMBRES
+		MEMBRES -> INFORMATIONS
+		=================================
+	*/
+	$settings_members_query = $db->prepare('SELECT `id`, `username`, `mail`, `avatar`, `rank`, `access` FROM `site_user` ORDER BY `rank` DESC, `id`');
+	$settings_members_query->execute();
+
+	/*
+		=================================
+		MEMBRES -> MODIFICATION
 		=================================
 	*/
 	// Modifier le rang d'un membre
@@ -118,6 +126,11 @@
 		exit();
 	}
 
+	/*
+		=================================
+		MEMBRES -> SUPPRESSION
+		=================================
+	*/
 	// Supprimer un membre
 	if (isset($_['membersDell']))
 	{
@@ -132,6 +145,11 @@
 		exit();
 	}
 
+	/*
+		=================================
+		MEMBRES -> AJOUT
+		=================================
+	*/
 	// Ajouter un membre
 	if (isset($_['membersAddButton']))
 	{
@@ -202,7 +220,15 @@
 
 	/*
 		=================================
-		MENU
+		MENU -> INFORMATIONS
+		=================================
+	*/
+	$settings_category_query = $db->prepare('SELECT `id`, `name` FROM `site_category`');
+	$settings_category_query->execute();
+
+	/*
+		=================================
+		MENU -> MODIFICATION
 		=================================
 	*/
 	// Modifier une catégorie
@@ -236,6 +262,11 @@
 		exit();
 	}
 
+	/*
+		=================================
+		MENU -> SUPPRESSION
+		=================================
+	*/
 	// Supprimer une catégorie
 	if (isset($_['categoryDell']))
 	{
@@ -271,6 +302,11 @@
 		exit();
 	}
 
+	/*
+		=================================
+		MENU -> AJOUT
+		=================================
+	*/
 	// Ajouter une catégorie
 	if (isset($_['categoryAddButton']))
 	{
