@@ -224,12 +224,6 @@
 		$query->closeCursor();
 
 		$query = $db->prepare('INSERT INTO `site_configuration` (`key`, `value`) VALUES (:key, :value)');
-		$query->bindValue(':key', 'lastaddMax', PDO::PARAM_STR);
-		$query->bindValue(':value', '6', PDO::PARAM_STR);
-		$query->execute();
-		$query->closeCursor();
-
-		$query = $db->prepare('INSERT INTO `site_configuration` (`key`, `value`) VALUES (:key, :value)');
 		$query->bindValue(':key', 'avatarMaxWidth', PDO::PARAM_STR);
 		$query->bindValue(':value', '128', PDO::PARAM_STR);
 		$query->execute();
@@ -244,6 +238,12 @@
 		$query = $db->prepare('INSERT INTO `site_configuration` (`key`, `value`) VALUES (:key, :value)');
 		$query->bindValue(':key', 'avatarMaxWeight', PDO::PARAM_STR);
 		$query->bindValue(':value', '51200', PDO::PARAM_STR);
+		$query->execute();
+		$query->closeCursor();
+
+		$query = $db->prepare('INSERT INTO `site_configuration` (`key`, `value`) VALUES (:key, :value)');
+		$query->bindValue(':key', 'lastaddMax', PDO::PARAM_STR);
+		$query->bindValue(':value', '6', PDO::PARAM_STR);
 		$query->execute();
 		$query->closeCursor();
 
