@@ -361,7 +361,7 @@
 	{
 		$page = intval($_GET['page']);
 		if ($page >= 1 && $page <= $nbPages) $current = $page;
-		else if ($page < 1) $current = 1;
+		elseif ($page < 1) $current = 1;
 		else $current = 1;
 	}
 	if ($nbPages > 1) echo '<nav class="text-center"><ul class="pagination">'.paginate('?op=list&table='.$table.'', '&page=', $nbPages, $current).'</ul></nav>';
@@ -514,7 +514,7 @@
 	{
 		$page = intval($_GET['page']);
 		if ($page >= 1 && $page <= $nbPages) $current = $page;
-		else if ($page < 1) $current = 1;
+		elseif ($page < 1) $current = 1;
 		else $current = 1;
 	}
 	if ($nbPages > 1) echo '<nav class="text-center"><ul class="pagination">'.paginate('?op=list&table='.$table.'', '&page=', $nbPages, $current).'</ul></nav>';
