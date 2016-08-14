@@ -1,5 +1,5 @@
 <?php
-	$menu_query = $db->prepare('SELECT `id`, `table`, `type` FROM `site_menu` WHERE `id` = :id');
+	$menu_query = $db->prepare('SELECT `id`, `name`, `table`, `type` FROM `site_menu` WHERE `id` = :id');
 	$menu_query->bindValue(':id', $table, PDO::PARAM_INT);
 	$menu_query->execute();
 	$menu = $menu_query->fetch();
@@ -11,7 +11,7 @@
 	$detail = $query->fetch();
 	$query->closeCursor();
 ?>
-<script>document.title += " / Détail / <?php echo $detail['TitreVF']; ?>"</script>
+<script>document.title += " / <?php echo menu['name']; ?> / <?php echo $detail['TitreVF']; ?>"</script>
 <div class="row">
 	<?php if ($id != $detail['ID']) { ?>
 		<div class="col-xs-12 col-sm-12 col-md-12">
