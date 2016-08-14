@@ -27,7 +27,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $category['name']; ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<?php
-								$menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type` FROM `site_menu` WHERE `category` = :category ORDER BY `name`');
+								$menu_query = $db->prepare('SELECT `id`, `name`, `icon`, `category`, `table`, `type` FROM `site_menu` WHERE `category` = :category ORDER BY `position`');
 								$menu_query->bindValue(':category', $category['id'], PDO::PARAM_STR);
 								$menu_query->execute();
 							?>
