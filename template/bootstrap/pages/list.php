@@ -277,19 +277,6 @@
 		</div>
 	</div>
 </nav>
-<?php
-	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_annee']))
-	{
-		if ($list_search_total == 0)
-		{
-			echo '<div class="alert alert-danger"><strong>0</strong> résultat</div>';
-		} elseif ($list_search_total == 1) {
-			echo '<div class="alert alert-success"><strong>'.$list_search_total.'</strong> résultat</div>';
-		} else {
-			echo '<div class="alert alert-success"><strong>'.$list_search_total.'</strong> résultats</div>';
-		}
-	}
-?>
 <?php if ($list_search_total != 0) { ?>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -350,6 +337,19 @@
 		</div>
 	</nav>
 <?php } ?>
+<?php
+	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_annee']))
+	{
+		if ($list_search_total == 0)
+		{
+			echo '<div class="alert alert-danger"><strong>0</strong> résultat</div>';
+		} elseif ($list_search_total == 1) {
+			echo '<div class="alert alert-success"><strong>'.$list_search_total.'</strong> résultat</div>';
+		} else {
+			echo '<div class="alert alert-success"><strong>'.$list_search_total.'</strong> résultats</div>';
+		}
+	}
+?>
 <?php
 	$total = $list_search_total;			// nombre d'entrées dans la table
 	$epp = $option_nb_elements; 			// nombre d'entrées à afficher par page
