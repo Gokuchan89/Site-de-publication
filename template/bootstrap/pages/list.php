@@ -154,7 +154,7 @@
 	$list_annee = array_unique($tempo_list);
 	sort($list_annee);
 ?>
-<script>document.title += " / Liste / <?php echo $menu['name']; ?>"</script>
+<script>document.title += " / <?php echo $menu['name']; ?>"</script>
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
