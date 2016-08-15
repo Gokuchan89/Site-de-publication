@@ -11,7 +11,7 @@
 	$detail = $query->fetch();
 	$query->closeCursor();
 ?>
-<script>document.title += " / <?php echo menu['name']; ?> / <?php echo $detail['TitreVF']; ?>"</script>
+<script>document.title += " / <?php echo $menu['name']; ?> / <?php echo $detail['TitreVF']; ?>"</script>
 <div class="row">
 	<?php if ($id != $detail['ID']) { ?>
 		<div class="col-xs-12 col-sm-12 col-md-12">
