@@ -14,8 +14,8 @@
 	if (isset($_['option_nb_elements']) && in_array($_['option_nb_elements'], $nb_elements_array)) $_SESSION['option_nb_elements'] = $_['option_nb_elements'];
 	$option_nb_elements = $_SESSION['option_nb_elements'];
 	
-	$order_array = array('TitreVF', 'TitreVF DESC', 'Annee', 'Annee DESC', 'ID', 'ID DESC');
-	if (!isset($_SESSION['option_order'])) $_SESSION['option_order'] = 'TitreVF';
+	$order_array = array('`TitreVF`', '`TitreVF` DESC', '`Annee`', '`Annee` DESC', '`ID`', '`ID` DESC');
+	if (!isset($_SESSION['option_order'])) $_SESSION['option_order'] = '`TitreVF`';
 	if (isset($_['option_order']) && in_array($_['option_order'], $order_array)) $_SESSION['option_order'] = $_['option_order'];
 	$option_order = $_SESSION['option_order'];
 
@@ -322,12 +322,12 @@
 							<label>Trier par</label>
 							<form method="POST">
 								<select class="form-control select2" name="option_order" onchange="this.form.submit()" style="width:100%;">
-									<option value="TitreVF" <?php if ($option_order == 'TitreVF') echo 'selected'; ?>>Titre</option>
-									<option value="TitreVF DESC" <?php if ($option_order == 'TitreVF DESC') echo 'selected'; ?>>Titre (desc)</option>
-									<option value="Annee" <?php if ($option_order == 'Annee') echo 'selected'; ?>>Année</option>
-									<option value="Annee DESC" <?php if ($option_order == 'Annee DESC') echo 'selected'; ?>>Année (desc)</option>
-									<option value="ID" <?php if ($option_order == 'ID') echo 'selected'; ?>>Date d'ajout</option>
-									<option value="ID DESC" <?php if ($option_order == 'ID DESC') echo 'selected'; ?>>Date d'ajout (desc)</option>
+									<option value="`TitreVF`" <?php if ($option_order == '`TitreVF`') echo 'selected'; ?>>Titre</option>
+									<option value="`TitreVF` DESC" <?php if ($option_order == '`TitreVF` DESC') echo 'selected'; ?>>Titre (desc)</option>
+									<option value="`Annee`" <?php if ($option_order == '`Annee`') echo 'selected'; ?>>Année</option>
+									<option value="`Annee` DESC" <?php if ($option_order == '`Annee` DESC') echo 'selected'; ?>>Année (desc)</option>
+									<option value="`ID`" <?php if ($option_order == '`ID`') echo 'selected'; ?>>Date d'ajout</option>
+									<option value="`ID` DESC" <?php if ($option_order == '`ID` DESC') echo 'selected'; ?>>Date d'ajout (desc)</option>
 								</select>
 							</form>
 						</div>
