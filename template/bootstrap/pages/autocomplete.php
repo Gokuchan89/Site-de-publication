@@ -16,13 +16,13 @@
 		$query->CloseCursor();
  
         // Exécution de la requête SQL
-        $requete = $db->query('SELECT DISTINCT `TitreVF` FROM `'.$menu['table'].'` WHERE (`TitreVF` LIKE "%'.$term.'%" OR `TitreVO` LIKE "%'.$term.'%" OR `Acteurs` LIKE "%'.$term.'%" OR `Realisateurs` LIKE "%'.$term.'%") ORDER BY `TitreVF` LIMIT 0, 10');
+        $requete = $db->query('SELECT DISTINCT `TitreVF`, `Annee` FROM `'.$menu['table'].'` WHERE (`TitreVF` LIKE "%'.$term.'%" OR `TitreVO` LIKE "%'.$term.'%" OR `Acteurs` LIKE "%'.$term.'%" OR `Realisateurs` LIKE "%'.$term.'%") ORDER BY `TitreVF` LIMIT 0, 10');
  
         // On parcourt les résultats de la requête SQL
         while ($donnee = $requete->fetch())
 		{
             // On ajoute les données dans un tableau
-            $suggestions[] = $donnee['TitreVF'];
+            $suggestions[] = $donnee['TitreVF'].' ('.$donnee['Annee'].')';
         }
  
         // On renvoie le données au format JSON pour le plugin
