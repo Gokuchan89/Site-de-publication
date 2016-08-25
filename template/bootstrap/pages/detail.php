@@ -132,9 +132,9 @@
 							{
 								preg_match('/^([a-zA-Z-]+)(\d.+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
 								echo '<tr height="30px">';
-								if (file_exists(utf8_decode('./img/flags/'.$audio[3].'.png')))
+								if (file_exists('./img/flags/'.clean_img($audio[3]).'.png'))
 								{
-									echo '<td><img src="./img/flags/'.$audio[3].'.png" style="max-width:20px;" title="'.$audio[3].'" /> '.$audio[3].'</td>';
+									echo '<td><img src="./img/flags/'.clean_img($audio[3]).'.png" style="max-width:20px;" title="'.$audio[3].'" /> '.$audio[3].'</td>';
 								} else {
 									echo '<td>'.$audio[3].'</td>';
 								}
@@ -166,9 +166,9 @@
 						$soustitres = explode(', ', $detail['SousTitres']);
 						for ($i=0;$i<count($soustitres);$i++)
 						{
-							if (file_exists(utf8_decode('./img/flags/'.$soustitres[$i].'.png')))
+							if (file_exists('./img/flags/'.clean_img($soustitres[$i]).'.png'))
 							{
-								echo '<img src="./img/flags/'.$soustitres[$i].'.png" style="width:20px" title="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />';
+								echo '<img src="./img/flags/'.clean_img($soustitres[$i]).'.png" style="width:20px" title="'.$soustitres[$i].'" /> '.$soustitres[$i].'<br />';
 							} else {
 								echo $soustitres[$i].'<br />';
 							}
