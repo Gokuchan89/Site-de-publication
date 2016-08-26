@@ -654,7 +654,19 @@
 						</div>
 						<div class="form-group <?php if (isset($menuMessage)) echo 'has-error'; ?>">
 							<label>Nom de l'icône</label>
-							<input type="text" class="form-control" name="menuIcon" value="<?php echo $menuIcon; ?>" />
+							<div class="input-group">
+								<input type="text" class="form-control" name="menuIcon" value="<?php echo $menuIcon; ?>" id="menuIcon" />
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info"></i></button>
+									<ul class="dropdown-menu">
+										<li><a href="#menuIcon" onclick="document.getElementById('menuIcon').value='align-justify'"><i class="fa fa-align-justify"></i> align-justify</a></li>
+										<li><a href="#menuIcon" onclick="document.getElementById('menuIcon').value='book'"><i class="fa fa-book"></i> book</a></li>
+										<li><a href="#menuIcon" onclick="document.getElementById('menuIcon').value='film'"><i class="fa fa-film"></i> film</a></li>
+										<li><a href="#menuIcon" onclick="document.getElementById('menuIcon').value='gamepad'"><i class="fa fa-gamepad"></i> gamepad</a></li>
+										<li><a href="#menuIcon" onclick="document.getElementById('menuIcon').value='music'"><i class="fa fa-music"></i> music</a></li>
+									</ul>
+								</div>
+							</div>
 						</div>
 						<div class="form-group">
 							<label>Catégorie</label>
