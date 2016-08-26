@@ -225,7 +225,7 @@
 
 	/*
 		=================================
-		DETAIL -> CLEAN IMG
+		DETAIL -> NETTOYAGE IMAGE
 		=================================
 	*/
 	function clean_img($texte)
@@ -238,7 +238,7 @@
 
 	/*
 		=================================
-		DETAIL -> FILTERED + SEARCH
+		DETAIL -> FILTRE + RECHERCHE
 		=================================
 	*/
 	function filter($label, $value, $table_id, $table_name)
