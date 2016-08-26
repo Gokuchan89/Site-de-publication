@@ -1,32 +1,81 @@
 <!-- JQUERY 2.2.3 -->
 <script src="./template/bootstrap/js/jquery.min.js"></script>
-<!-- JQUERYUI 1.11.4 -->
-<script src="./template/bootstrap/js/jqueryui.min.js"></script>
-<!-- BOOTSTRAP 3.3.6 -->
+<!-- BOOTSTRAP 3.3.7 -->
 <script src="./template/bootstrap/js/bootstrap.min.js"></script>
-<!-- LAZYLOAD 1.9.5 -->
+<!-- JQUERYUI 1.11.4 -->
+<script src="./template/bootstrap/plugins/jquery-ui/js/jquery-ui.min.js"></script>
+<!-- LAZYLOAD 1.9.7 -->
 <script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
-<!-- HOLDER 2.9.0 -->
-<script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
-<!-- JASNY BOOTSTRAP 3.1.3 -->
-<script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
-<!-- SELECT2 4.0.2 -->
-<script src="./template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
-<!-- SELECT2 LANG -->
-<script src="./template/bootstrap/plugins/select2/js/i18n/fr.js"></script>
 <!-- LIGHTGALLERY 1.2.18 -->
 <script src="./template/bootstrap/plugins/lightgallery/js/lightgallery.js"></script>
 <!-- LIGHTGALLERY LG-VIDEO 1.2.18 -->
 <script src="./template/bootstrap/plugins/lightgallery/js/lg-video.js"></script>
+<!-- SELECT2 4.0.3 -->
+<script src="./template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
+<!-- SELECT2 LANG 4.0.3 -->
+<script src="./template/bootstrap/plugins/select2/js/i18n/fr.js"></script>
+<!-- HOLDER 2.9.0 -->
+<script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
+<!-- JASNY BOOTSTRAP 3.1.3 -->
+<script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
 <!-- BXSLIDER 4.2.5 -->
 <script src="./template/bootstrap/plugins/bxslider/js/bxslider.min.js"></script>
 <script>
 	$(document).ready( function()
 	{
+		// Autocomplete
+		var table = '<?php if(isset($_GET['table'])) echo $_GET['table']; ?>';
+		$('#searchField').autocomplete(
+		{
+			source: './template/bootstrap/pages/autocomplete.php?table='+table,
+			minLength: 1,
+			select: function (event, ui)
+			{
+				$("#searchField").val(ui.item.label);
+				$("#searchForm").submit();
+			}
+		});
+	
+		// bxSlider
+		function getGridSize()
+		{
+			return (window.innerWidth < 600) ? 3 :
+				   (window.innerWidth < 900) ? 3 : 4;
+		}
+		
+		$('.slider_detail').bxSlider(
+		{
+			slideWidth: 183,
+			minSlides: getGridSize(),
+			maxSlides: getGridSize(),
+			slideMargin: 5,
+			moveSlides: 2,
+			captions: true,
+			infiniteLoop: false,
+			hideControlOnEnd: true
+		});
+		
+		// Datepicker
+		$("#datepicker").datepicker(
+		{
+			dateFormat: 'dd/mm/yy'
+		});
+		
 		// LazyLoad
 		$('img.lazy').lazyload(
 		{
 			effect : 'fadeIn'
+		});
+		
+		// LightGallery
+		$("#affiche").lightGallery(
+		{
+			download: false,
+			counter: false
+		});
+		$("#bandeannonce").lightGallery(
+		{
+			counter: false
 		});
 
 		// Modal
@@ -81,63 +130,5 @@
 			}
 			$select2_filter_query->closeCursor();
 		?>
-		
-		// Datepicker
-		$("#datepicker").datepicker(
-		{
-			dateFormat: 'dd/mm/yy'
-		});
-		
-		// Drop-menu
-		$('.drop-menu li a').click(function()
-		{
-			var selText = $(this).text();
-			var selName = $(this).attr('name');
-			$(this).parents('.collapse').find('.champ_recherche').val(selName);
-			$(this).parents('.collapse').find('.drop-toggle').html(selText);
-		});
-		
-		// Autocomplete
-		var table = '<?php if(isset($_GET['table'])) echo $_GET['table']; ?>';
-		$('#searchField').autocomplete(
-		{
-			source: './template/bootstrap/pages/autocomplete.php?table='+table,
-			minLength: 1,
-			select: function (event, ui)
-			{
-				$("#searchField").val(ui.item.label);
-				$("#searchForm").submit();
-			}
-		})
-		
-		// LightGallery
-		$("#affiche").lightGallery(
-		{
-			download: false,
-			counter: false
-		});
-		$("#bandeannonce").lightGallery(
-		{
-			counter: false
-		});
-	
-		// bxSlider
-		function getGridSize()
-		{
-			return (window.innerWidth < 600) ? 3 :
-				   (window.innerWidth < 900) ? 3 : 4;
-		}
-		
-		$('.slider_detail').bxSlider(
-		{
-			slideWidth: 183,
-			minSlides: getGridSize(),
-			maxSlides: getGridSize(),
-			slideMargin: 5,
-			moveSlides: 2,
-			captions: true,
-			infiniteLoop: false,
-			hideControlOnEnd: true
-		});
 	});
 </script>
