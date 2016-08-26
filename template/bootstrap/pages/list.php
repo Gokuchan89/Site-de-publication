@@ -19,11 +19,25 @@
 	if (isset($_['option_order']) && in_array($_['option_order'], $order_array)) $_SESSION['option_order'] = $_['option_order'];
 	$option_order = $_SESSION['option_order'];
 
-	$menu_query = $db->prepare('SELECT `id`, `name`, `table`, `type` FROM `site_menu` WHERE `id` = :id');
-	$menu_query->bindValue(':id', $table, PDO::PARAM_INT);
-	$menu_query->execute();
-	$menu = $menu_query->fetch();
-	$menu_query->closeCursor();
+	/*
+		=================================
+		MENU
+		=================================
+	*/
+	$query = $db->prepare('SELECT `id`, `name`, `table`, `type` FROM `site_menu` WHERE `id` = :id');
+	$query->bindValue(':id', $table, PDO::PARAM_INT);
+	$query->execute();
+	$menu = $query->fetch();
+	$query->closeCursor();
+
+	/*
+		=================================
+		LISTE -> FILTRES
+		=================================
+	*/
+	$list_filter_query = $db->prepare('SELECT `id`, `name`, `type`, `sort`, `menu`, `position` FROM `site_menu_filter` WHERE `menu` = :menu ORDER BY `position`');
+	$list_filter_query->bindValue(':menu', $table, PDO::PARAM_INT);
+	$list_filter_query->execute();
 
 	/*
 		=================================
@@ -49,24 +63,51 @@
 
 	// Recherche + Filtres
 	if (!isset($_SESSION[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = '';
 	if (!isset($_SESSION[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_pays'])) $_SESSION[$menu['table'].'_search_value_pays'] = '';
 	if (!isset($_SESSION[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = '';
-
+	if (!isset($_SESSION[$menu['table'].'_search_value_duree'])) $_SESSION[$menu['table'].'_search_value_duree'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_note'])) $_SESSION[$menu['table'].'_search_value_note'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_commentaires'])) $_SESSION[$menu['table'].'_search_value_commentaires'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_reference'])) $_SESSION[$menu['table'].'_search_value_reference'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_edition'])) $_SESSION[$menu['table'].'_search_value_edition'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_zone'])) $_SESSION[$menu['table'].'_search_value_zone'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_soustitres'])) $_SESSION[$menu['table'].'_search_value_soustitres'] = '';
+	if (!isset($_SESSION[$menu['table'].'_search_value_audio'])) $_SESSION[$menu['table'].'_search_value_audio'] = '';
+	
 	if (isset($_[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = $_[$menu['table'].'_search_value'];
-	if (isset($_[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = $_[$menu['table'].'_search_value_support'];
-	if (isset($_[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = $_[$menu['table'].'_search_value_filmvu'];
 	if (isset($_[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = $_[$menu['table'].'_search_value_genre'];
+	if (isset($_[$menu['table'].'_search_value_pays'])) $_SESSION[$menu['table'].'_search_value_pays'] = $_[$menu['table'].'_search_value_pays'];
 	if (isset($_[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = $_[$menu['table'].'_search_value_annee'];
-
-	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_annee']))
+	if (isset($_[$menu['table'].'_search_value_duree'])) $_SESSION[$menu['table'].'_search_value_duree'] = $_[$menu['table'].'_search_value_duree'];
+	if (isset($_[$menu['table'].'_search_value_note'])) $_SESSION[$menu['table'].'_search_value_note'] = $_[$menu['table'].'_search_value_note'];
+	if (isset($_[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = $_[$menu['table'].'_search_value_filmvu'];
+	if (isset($_[$menu['table'].'_search_value_commentaires'])) $_SESSION[$menu['table'].'_search_value_commentaires'] = $_[$menu['table'].'_search_value_commentaires'];
+	if (isset($_[$menu['table'].'_search_value_reference'])) $_SESSION[$menu['table'].'_search_value_reference'] = $_[$menu['table'].'_search_value_reference'];
+	if (isset($_[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = $_[$menu['table'].'_search_value_support'];
+	if (isset($_[$menu['table'].'_search_value_edition'])) $_SESSION[$menu['table'].'_search_value_edition'] = $_[$menu['table'].'_search_value_edition'];
+	if (isset($_[$menu['table'].'_search_value_zone'])) $_SESSION[$menu['table'].'_search_value_zone'] = $_[$menu['table'].'_search_value_zone'];
+	if (isset($_[$menu['table'].'_search_value_soustitres'])) $_SESSION[$menu['table'].'_search_value_soustitres'] = $_[$menu['table'].'_search_value_soustitres'];
+	if (isset($_[$menu['table'].'_search_value_audio'])) $_SESSION[$menu['table'].'_search_value_audio'] = $_[$menu['table'].'_search_value_audio'];
+	
+	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_pays']) || !empty($_SESSION[$menu['table'].'_search_value_annee']) || !empty($_SESSION[$menu['table'].'_search_value_duree']) || !empty($_SESSION[$menu['table'].'_search_value_note']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_commentaires']) || !empty($_SESSION[$menu['table'].'_search_value_reference']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_edition']) || !empty($_SESSION[$menu['table'].'_search_value_zone']) || !empty($_SESSION[$menu['table'].'_search_value_soustitres']) || !empty($_SESSION[$menu['table'].'_search_value_audio']))
 	{
 		if (!empty($_SESSION[$menu['table'].'_search_value'])) $list_search .= ' AND (`TitreVF` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `TitreVO` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Acteurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `Realisateurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%")';
-		if (!empty($_SESSION[$menu['table'].'_search_value_support'])) $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_filmvu'])) $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
 		if (!empty($_SESSION[$menu['table'].'_search_value_genre'])) $list_search .= ' AND `Genre` LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_pays'])) $list_search .= ' AND `Pays` LIKE "%'.$_SESSION[$menu['table'].'_search_value_pays'].'%"';
 		if (!empty($_SESSION[$menu['table'].'_search_value_annee'])) $list_search .= ' AND `Annee` = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_duree'])) $list_search .= ' AND `Duree` = "'.$_SESSION[$menu['table'].'_search_value_duree'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_note'])) $list_search .= ' AND `Note` = "'.$_SESSION[$menu['table'].'_search_value_note'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_filmvu'])) $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_commentaires'])) $list_search .= ' AND `Commentaires` = "'.$_SESSION[$menu['table'].'_search_value_commentaires'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_reference'])) $list_search .= ' AND `Reference` = "'.$_SESSION[$menu['table'].'_search_value_reference'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_support'])) $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_edition'])) $list_search .= ' AND `Edition` = "'.$_SESSION[$menu['table'].'_search_value_edition'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_zone'])) $list_search .= ' AND `Zone` = "'.$_SESSION[$menu['table'].'_search_value_zone'].'"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_soustitres'])) $list_search .= ' AND `SousTitres` LIKE "%'.$_SESSION[$menu['table'].'_search_value_soustitres'].'%"';
+		if (!empty($_SESSION[$menu['table'].'_search_value_audio'])) $list_search .= ' AND `Audio` LIKE "%'.$_SESSION[$menu['table'].'_search_value_audio'].'%"';
 	}
 
 	$query = $db->prepare('SELECT COUNT(`ID`) FROM `'.$menu['table'].'` WHERE `Sortie` = "NON" '.$list_search);
@@ -77,82 +118,6 @@
 	// Liste
 	$listing_query = $db->prepare('SELECT `ID`, `TitreVF`, `Genre`, `Annee`, `Duree`, `Note`, `Realisateurs`, `Support` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search.' ORDER BY '.$option_order.' LIMIT '.$option_nb_elements.' OFFSET '.$offset_list);
 	$listing_query->execute();
-
-	// Liste par support
-	$query = $db->prepare('SELECT DISTINCT `Support` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search);
-	$query->execute();
-	$i = 0;
-	$tempo_list = array();
-	while ($nf_list = $query->fetch())
-	{
-		$unique_list = array($nf_list['Support']);
-		foreach ($unique_list as $key => $value)
-		{
-			$tempo_list[$i] = $value;
-			$i++;
-		}
-	}
-	$query->closeCursor();
-	$list_support = array_unique($tempo_list);
-	sort($list_support);
-
-	// Liste par film vu
-	$query = $db->prepare('SELECT DISTINCT `FilmVu` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search);
-	$query->execute();
-	$i = 0;
-	$tempo_list = array();
-	while ($nf_list = $query->fetch())
-	{
-		$unique_list = array($nf_list['FilmVu']);
-		foreach ($unique_list as $key => $value)
-		{
-			$tempo_list[$i] = $value;
-			$i++;
-		}
-	}
-	$query->closeCursor();
-	$list_filmvu = array_unique($tempo_list);
-	sort($list_filmvu);
-
-	// Liste par genre
-	$query = $db->prepare('SELECT DISTINCT `Genre` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search);
-	$query->execute();
-	$i = 0;
-	$tempo_list = array();
-	while ($nf_list = $query->fetch())
-	{
-		$unique_list = explode(' / ', $nf_list['Genre']);
-		foreach ($unique_list as $key => $value)
-		{
-			$unique_list2 = explode(' - ', $value);
-			foreach ($unique_list2 as $key => $value)
-			{
-				$tempo_list[$i] = $value;
-				$i++;
-			}
-		}
-	}
-	$query->closeCursor();
-	$list_genre = array_unique($tempo_list);
-	sort($list_genre);
-
-	// Liste par annee
-	$query = $db->prepare('SELECT DISTINCT `Annee` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search);
-	$query->execute();
-	$i = 0;
-	$tempo_list = array();
-	while ($nf_list = $query->fetch())
-	{
-		$unique_list = array($nf_list['Annee']);
-		foreach ($unique_list as $key => $value)
-		{
-			$tempo_list[$i] = $value;
-			$i++;
-		}
-	}
-	$query->closeCursor();
-	$list_annee = array_unique($tempo_list);
-	sort($list_annee);
 ?>
 <script>document.title += " / <?php echo $menu['name']; ?>"</script>
 <nav class="navbar navbar-default">
@@ -181,98 +146,54 @@
 						</form>
 					</div>
 				</div>
-				<?php if ($menu['type'] == 'jeuxvideo' || $menu['type'] == 'musique' || $menu['type'] == 'video') { ?>
-					<div class="col-xs-12 <?php if ($menu['type'] == 'video') echo 'col-sm-3 col-md-2'; else echo 'col-sm-4 col-md-3' ?>">
+				<?php while ($list_filter = $list_filter_query->fetch()) { ?>
+					<div class="col-xs-12 col-sm-12 col-md-3">
 						<div class="form-group">
-							<label>Filtrer par support</label>
+							<label>Filtrer par <?php echo $list_filter['name']; ?></label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
 								<div class="input-group">
-									<select class="form-control select2-support" name="<?php echo $menu['table']; ?>_search_value_support" onchange="this.form.submit()" style="width:100%;">
+									<select class="form-control select2-list-<?php echo $list_filter['type']; ?>" name="<?php echo $menu['table']; ?>_search_value_<?php echo $list_filter['type']; ?>" onchange="this.form.submit()" style="width:100%;">
 										<option></option>
 										<?php
-											foreach ($list_support as $key => $value1)
+											$query = $db->prepare('SELECT DISTINCT `'.$list_filter['type'].'` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search);
+											$query->execute();
+											$i = 0;
+											$tempo_list = array();
+											while ($nf_list = $query->fetch())
 											{
-												if ($_SESSION[$menu['table'].'_search_value_support'] == $value1) $nfselect = 'selected'; else $nfselect = '';
-												echo '<option value="'.$value1.'" '.$nfselect.'>'.$value1.'</option>';
+												$unique_list = explode(' / ', $nf_list[$list_filter['type']]);
+												foreach ($unique_list as $key => $value)
+												{
+													$unique_list2 = explode(' - ', $value);
+													foreach ($unique_list2 as $key => $value)
+													{
+														$unique_list2 = explode(', ', $value);
+														foreach ($unique_list2 as $key => $value)
+														{
+															$tempo_list[$i] = $value;
+															$i++;
+														}
+													}
+												}
+											}
+											$query->closeCursor();
+											$list = array_unique($tempo_list);
+											$list_filter['sort']($list);
+											foreach ($list as $key => $value)
+											{
+												if ($_SESSION[$menu['table'].'_search_value_'.$list_filter['type']] == $value) $nfselect = 'selected'; else $nfselect = '';
+												echo '<option value="'.$value.'" '.$nfselect.'>'.$value.'</option>';
 											}
 										?>
 									</select>
-									<?php if (!empty($_SESSION[$menu['table'].'_search_value_support'])) { ?>
-										<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_support"><i class="fa fa-close"></i></button></div>
+									<?php if (!empty($_SESSION[$menu['table'].'_search_value_'.$list_filter['type']])) { ?>
+										<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_<?php echo $list_filter['type']; ?>"><i class="fa fa-close"></i></button></div>
 									<?php } ?>
 								</div>
 							</form>
 						</div>
 					</div>
-				<?php } ?>
-				<?php if ($menu['type'] == 'video') { ?>
-					<div class="col-xs-12 col-sm-3 col-md-2">
-						<div class="form-group">
-							<label>Filtrer par vu/non vu</label>
-							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<div class="input-group">
-									<select class="form-control select2-filmvu" name="<?php echo $menu['table']; ?>_search_value_filmvu" onchange="this.form.submit()" style="width:100%;">
-										<option></option>
-										<?php
-											foreach ($list_filmvu as $key => $value2)
-											{
-												if ($_SESSION[$menu['table'].'_search_value_filmvu'] == $value2) $nfselect = 'selected'; else $nfselect = '';
-												echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
-											}
-										?>
-									</select>
-									<?php if (!empty($_SESSION[$menu['table'].'_search_value_filmvu'])) { ?>
-										<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_filmvu"><i class="fa fa-close"></i></button></div>
-									<?php } ?>
-								</div>
-							</form>
-						</div>
-					</div>
-				<?php } ?>
-				<div class="col-xs-12 <?php if ($menu['type'] == 'jeuxvideo' || $menu['type'] == 'musique') echo 'col-sm-4 col-md-3'; elseif ($menu['type'] == 'video') echo 'col-sm-3 col-md-2'; else echo 'col-sm-6 col-md-4' ?>">
-					<div class="form-group">
-						<label>Filtrer par genre</label>
-						<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-							<div class="input-group">
-								<select class="form-control select2-genre" name="<?php echo $menu['table']; ?>_search_value_genre" onchange="this.form.submit()" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_genre as $key => $value2)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_genre'] == $value2) $nfselect = 'selected'; else $nfselect = '';
-											echo '<option value="'.$value2.'" '.$nfselect.'>'.$value2.'</option>';
-										}
-									?>
-								</select>
-								<?php if (!empty($_SESSION[$menu['table'].'_search_value_genre'])) { ?>
-									<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_genre"><i class="fa fa-close"></i></button></div>
-								<?php } ?>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="col-xs-12 <?php if ($menu['type'] == 'jeuxvideo' || $menu['type'] == 'musique') echo 'col-sm-4 col-md-3'; elseif ($menu['type'] == 'video') echo 'col-sm-3 col-md-2'; else echo 'col-sm-6 col-md-4' ?>">
-					<div class="form-group">
-						<label>Filtrer par année</label>
-						<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-							<div class="input-group">
-								<select class="form-control select2-annee" name="<?php echo $menu['table']; ?>_search_value_annee" onchange="this.form.submit()" style="width:100%;">
-									<option></option>
-									<?php
-										foreach ($list_annee as $key => $value)
-										{
-											if ($_SESSION[$menu['table'].'_search_value_annee'] == $value) $nfselect = 'selected'; else $nfselect = '';
-											echo '<option value="'.$value.'" '.$nfselect.'>'.$value.'</option>';
-										}
-									?>
-								</select>
-								<?php if (!empty($_SESSION[$menu['table'].'_search_value_annee'])) { ?>
-									<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_annee"><i class="fa fa-close"></i></button></div>
-								<?php } ?>
-							</div>
-						</form>
-					</div>
-				</div>
+				<?php } $list_filter_query->closeCursor(); ?>
 			</div>
 		</div>
 	</div>
@@ -338,7 +259,7 @@
 	</nav>
 <?php } ?>
 <?php
-	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_annee']))
+	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_pays']) || !empty($_SESSION[$menu['table'].'_search_value_annee']) || !empty($_SESSION[$menu['table'].'_search_value_duree']) || !empty($_SESSION[$menu['table'].'_search_value_note']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_commentaires']) || !empty($_SESSION[$menu['table'].'_search_value_reference']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_edition']) || !empty($_SESSION[$menu['table'].'_search_value_zone']) || !empty($_SESSION[$menu['table'].'_search_value_soustitres']) || !empty($_SESSION[$menu['table'].'_search_value_audio']))
 	{
 		if ($list_search_total == 0)
 		{
