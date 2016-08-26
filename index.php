@@ -11,6 +11,8 @@
 		require_once('./includes/mysqlConstants.php');
 		require_once('./includes/mysqlConnector.php');
 		require_once('./includes/mysqlQuery.php');
+		
+		include('./update.php');
 
 		if ($config['open'] == '0')
 		{
