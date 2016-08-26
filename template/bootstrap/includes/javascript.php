@@ -62,36 +62,25 @@
 			theme: "bootstrap",
 			language: "fr"
 		});
-		$(".select2-support").select2({
-			placeholder: "Tous les supports",
-			minimumResultsForSearch: Infinity,
-			theme: "bootstrap",
-			language: "fr"
-		});
-		$(".select2-edition").select2({
-			placeholder: "Toutes les éditions",
-			minimumResultsForSearch: Infinity,
-			theme: "bootstrap",
-			language: "fr"
-		});
-		$(".select2-filmvu").select2({
-			placeholder: "Tous les vu/non vu",
-			minimumResultsForSearch: Infinity,
-			theme: "bootstrap",
-			language: "fr"
-		});
-		$(".select2-genre").select2({
-			placeholder: "Tous les genres",
-			minimumResultsForSearch: Infinity,
-			theme: "bootstrap",
-			language: "fr"
-		});
-		$(".select2-annee").select2({
-			placeholder: "Toutes les années",
-			minimumResultsForSearch: Infinity,
-			theme: "bootstrap",
-			language: "fr"
-		});
+		<?php
+			if(isset($table))
+			{
+				$select2_filter_query = $db->prepare('SELECT `id`, `name`, `type`, `sort`, `menu`, `position` FROM `site_menu_filter` WHERE `menu` = :menu ORDER BY `position`');
+				$select2_filter_query->bindValue(':menu', $table, PDO::PARAM_INT);
+				$select2_filter_query->execute();
+				while ($select2_filter = $select2_filter_query->fetch())
+				{
+					echo '$(".select2-list-'.$select2_filter['type'].'").select2({';
+						if($select2_filter['type'] == 'annee' || $select2_filter['type'] == 'note' || $select2_filter['type'] == 'reference' || $select2_filter['type'] == 'edition' || $select2_filter['type'] == 'zone') $tous = 'Toutes'; else $tous = 'Tous';
+						echo 'placeholder: "'.$tous.' les '.$select2_filter['name'].'",';
+						echo 'minimumResultsForSearch: Infinity,';
+						echo 'theme: "bootstrap",';
+						echo 'language: "fr"';
+					echo '});';
+				}
+			}
+			$select2_filter_query->closeCursor();
+		?>
 		
 		// Datepicker
 		$("#datepicker").datepicker(
