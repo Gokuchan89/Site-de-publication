@@ -7,9 +7,9 @@
 			`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 			`name` varchar(225) NOT NULL,
 			`type` varchar(225) NOT NULL,
-			`sort` varchar(225) NOT NULL,
+			`sort` enum("sort", "rsort") NOT NULL,
 			`menu` int(11) NOT NULL,
-			`position` int(11) NOT NULL,
+			`position` int(11) NOT NULL DEFAULT "0",
 			PRIMARY KEY (`id`)
 		) ENGINE MyISAM, DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;');
 		$query->closeCursor();
