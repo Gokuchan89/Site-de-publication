@@ -2,7 +2,7 @@
 <script src="./template/bootstrap/js/jquery.min.js"></script>
 <!-- BOOTSTRAP 3.3.7 -->
 <script src="./template/bootstrap/js/bootstrap.min.js"></script>
-<!-- JQUERYUI 1.11.4 -->
+<!-- JQUERY UI 1.11.4 -->
 <script src="./template/bootstrap/plugins/jquery-ui/js/jquery-ui.min.js"></script>
 <!-- LAZYLOAD 1.9.7 -->
 <script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
