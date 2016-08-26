@@ -147,7 +147,7 @@
 					</div>
 				</div>
 				<?php while ($list_filter = $list_filter_query->fetch()) { ?>
-					<div class="col-xs-12 col-sm-12 col-md-3">
+					<div class="col-xs-12 col-sm-12 col-md-2">
 						<div class="form-group">
 							<label>Filtrer par <?php echo $list_filter['name']; ?></label>
 							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
