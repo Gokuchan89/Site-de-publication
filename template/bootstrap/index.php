@@ -8,7 +8,7 @@
 	if (isset($_GET['id']) && is_numeric($_GET['id'])) $id = $_GET['id']; else $id = '';
 	if (isset($_GET['userid']) && $_GET['userid'] > '0') $userid = (int) $_GET['userid']; else $userid = $user['id'];
 
-	if ($tab > '4') $tab = '1';
+	if ($tab > '3') $tab = '1';
 	$i = 0;
 	
 	/*
