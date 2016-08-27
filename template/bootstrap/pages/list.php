@@ -126,11 +126,11 @@
 			<h4 class="panel-title">
 				Recherche + Filtres
 				<div class="pull-right">
-					<a href="#collapse" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapse"><i class="fa fa-plus"></i></a>
+					<a href="#collapse" data-toggle="collapse"><i class="fa fa-plus"></i></a>
 				</div>
 			</h4>
 		</div>
-		<div class="panel-collapse collapse <?php if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_pays'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '' || $_SESSION[$menu['table'].'_search_value_duree'] != '' || $_SESSION[$menu['table'].'_search_value_note'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_commentaires'] != '' || $_SESSION[$menu['table'].'_search_value_reference'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_edition'] != '' || $_SESSION[$menu['table'].'_search_value_zone'] != '' || $_SESSION[$menu['table'].'_search_value_soustitres'] != '' || $_SESSION[$menu['table'].'_search_value_audio'] != '') echo 'in'; ?>" role="tabpanel" aria-labelledby="heading" id="collapse">
+		<div class="panel-collapse collapse <?php if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_pays'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '' || $_SESSION[$menu['table'].'_search_value_duree'] != '' || $_SESSION[$menu['table'].'_search_value_note'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_commentaires'] != '' || $_SESSION[$menu['table'].'_search_value_reference'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_edition'] != '' || $_SESSION[$menu['table'].'_search_value_zone'] != '' || $_SESSION[$menu['table'].'_search_value_soustitres'] != '' || $_SESSION[$menu['table'].'_search_value_audio'] != '') echo 'in'; ?>" id="collapse">
 			<div class="panel-body">
 				<div class="form-group">
 					<label>Recherche par</label>
