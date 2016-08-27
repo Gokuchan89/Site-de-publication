@@ -452,8 +452,7 @@
 <div class="btn-group btn-group-justified">
 	<div class="btn-group"><a href="?op=settings" class="btn btn-default <?php if ($tab == '1') echo 'active'; ?>">Options</a></div>
 	<div class="btn-group"><a href="?op=settings&tab=2" class="btn btn-default <?php if ($tab == '2') echo 'active'; ?>">Membres</a></div>
-	<div class="btn-group"><a href="?op=settings&tab=3" class="btn btn-default <?php if ($tab == '3') echo 'active'; ?>">Menu</a></div>
-	<div class="btn-group"><a href="?op=settings&tab=4" class="btn btn-default <?php if ($tab == '4') echo 'active'; ?>">Menus + Filtres</a></div>
+	<div class="btn-group"><a href="?op=settings&tab=3" class="btn btn-default <?php if ($tab == '3') echo 'active'; ?>">Menus + Filtres</a></div>
 </div>
 <br />
 <!-- OPTIONS -->
