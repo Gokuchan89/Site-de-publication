@@ -42,7 +42,6 @@
 			return (window.innerWidth < 600) ? 3 :
 				   (window.innerWidth < 900) ? 3 : 4;
 		}
-		
 		$('.slider_detail').bxSlider(
 		{
 			slideWidth: 183,
