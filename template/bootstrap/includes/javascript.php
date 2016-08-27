@@ -79,26 +79,32 @@
 		});
 
 		// Modal
-		$('#modalMembersDell').on('show.bs.modal', function (event)
+		$('#modalMemberDell').on('show.bs.modal', function (event)
 		{
 			var button = $(event.relatedTarget)
 			var recipient = button.data('whatever')
 			var modal = $(this)
 			modal.find('.modal-content input').val(recipient)
-		})
+		});
 		$('#modalCategoryDell').on('show.bs.modal', function (event)
 		{
 			var button = $(event.relatedTarget)
 			var recipient = button.data('whatever')
 			var modal = $(this)
-			modal.find('.modal-body input').val(recipient)
-		})
+			modal.find('.modal-content input').val(recipient)
+		});
 		$('#modalMenuDell').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget)
 			var recipient = button.data('whatever')
 			var modal = $(this)
-			modal.find('.modal-body input').val(recipient)
-		})
+			modal.find('.modal-content input').val(recipient)
+		});
+		$('#modalMenuFilterDell').on('show.bs.modal', function (event) {
+			var button = $(event.relatedTarget)
+			var recipient = button.data('whatever')
+			var modal = $(this)
+			modal.find('.modal-content input').val(recipient)
+		});
 
 		//Select2
 		$(".select2").select2({
