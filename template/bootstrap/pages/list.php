@@ -120,98 +120,90 @@
 	$listing_query->execute();
 ?>
 <script>document.title += " / <?php echo $menu['name']; ?>"</script>
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12">
-					<div class="form-group">
-						<label>Recherche</label>
-						<form method="POST" action="?op=list&table=<?php echo $table; ?>" id="searchForm">
-							<div class="input-group">
-								<input type="text" class="form-control" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" id="searchField" />
-								<div class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
-								<?php if (!empty($_SESSION[$menu['table'].'_search_value'])) { ?>
-									<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value"><i class="fa fa-close"></i></button></div>
-								<?php } ?>
-							</div>
-						</form>
-					</div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="heading">
+			<h4 class="panel-title">
+				Recherche + Filtres
+				<div class="pull-right">
+					<a href="#collapse" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapse"><i class="fa fa-plus"></i></a>
 				</div>
-				<?php while ($list_filter = $list_filter_query->fetch()) { ?>
-					<div class="col-xs-12 col-sm-12 col-md-2">
-						<div class="form-group">
-							<label>Filtrer par <?php echo $list_filter['name']; ?></label>
-							<form method="POST" action="?op=list&table=<?php echo $table; ?>">
-								<div class="input-group">
-									<select class="form-control select2-list-<?php echo $list_filter['type']; ?>" name="<?php echo $menu['table']; ?>_search_value_<?php echo $list_filter['type']; ?>" onchange="this.form.submit()" style="width:100%;">
-										<option></option>
-										<?php
-											$query = $db->prepare('SELECT DISTINCT `'.$list_filter['type'].'` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search);
-											$query->execute();
-											$i = 0;
-											$tempo_list = array();
-											while ($nf_list = $query->fetch())
-											{
-												$unique_list = explode(' / ', $nf_list[$list_filter['type']]);
-												foreach ($unique_list as $key => $value)
+			</h4>
+		</div>
+		<div class="panel-collapse collapse <?php if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_pays'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '' || $_SESSION[$menu['table'].'_search_value_duree'] != '' || $_SESSION[$menu['table'].'_search_value_note'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_commentaires'] != '' || $_SESSION[$menu['table'].'_search_value_reference'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_edition'] != '' || $_SESSION[$menu['table'].'_search_value_zone'] != '' || $_SESSION[$menu['table'].'_search_value_soustitres'] != '' || $_SESSION[$menu['table'].'_search_value_audio'] != '') echo 'in'; ?>" role="tabpanel" aria-labelledby="heading" id="collapse">
+			<div class="panel-body">
+				<div class="form-group">
+					<label>Recherche par</label>
+					<form method="POST" action="?op=list&table=<?php echo $table; ?>" id="searchForm">
+						<div class="input-group">
+							<input type="text" class="form-control" name="<?php echo $menu['table']; ?>_search_value" value="<?php echo $_SESSION[$menu['table'].'_search_value']; ?>" id="searchField" placeholder="Titre, acteurs, réalisateurs" />
+							<div class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+							<?php if (!empty($_SESSION[$menu['table'].'_search_value'])) { ?>
+								<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value"><i class="fa fa-close"></i></button></div>
+							<?php } ?>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<?php while ($list_filter = $list_filter_query->fetch()) { ?>
+						<div class="col-xs-12 col-sm-12 col-md-2">
+							<div class="form-group">
+								<label>Filtrer par <?php echo $list_filter['name']; ?></label>
+								<form method="POST" action="?op=list&table=<?php echo $table; ?>">
+									<div class="input-group">
+										<select class="form-control select2-list-<?php echo $list_filter['type']; ?>" name="<?php echo $menu['table']; ?>_search_value_<?php echo $list_filter['type']; ?>" onchange="this.form.submit()" style="width:100%;">
+											<option></option>
+											<?php
+												$query = $db->prepare('SELECT DISTINCT `'.$list_filter['type'].'` FROM `'.$menu['table'].'` WHERE `Note` >= "0" '.$list_search);
+												$query->execute();
+												$i = 0;
+												$tempo_list = array();
+												while ($nf_list = $query->fetch())
 												{
-													$unique_list2 = explode(' - ', $value);
-													foreach ($unique_list2 as $key => $value)
+													$unique_list = explode(' / ', $nf_list[$list_filter['type']]);
+													foreach ($unique_list as $key => $value)
 													{
-														$unique_list2 = explode(', ', $value);
+														$unique_list2 = explode(' - ', $value);
 														foreach ($unique_list2 as $key => $value)
 														{
-															$tempo_list[$i] = $value;
-															$i++;
+															$unique_list2 = explode(', ', $value);
+															foreach ($unique_list2 as $key => $value)
+															{
+																$tempo_list[$i] = $value;
+																$i++;
+															}
 														}
 													}
 												}
-											}
-											$query->closeCursor();
-											$list = array_unique($tempo_list);
-											$list_filter['sort']($list);
-											foreach ($list as $key => $value)
-											{
-												if ($_SESSION[$menu['table'].'_search_value_'.$list_filter['type']] == $value) $nfselect = 'selected'; else $nfselect = '';
-												echo '<option value="'.$value.'" '.$nfselect.'>'.$value.'</option>';
-											}
-										?>
-									</select>
-									<?php if (!empty($_SESSION[$menu['table'].'_search_value_'.$list_filter['type']])) { ?>
-										<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_<?php echo $list_filter['type']; ?>"><i class="fa fa-close"></i></button></div>
-									<?php } ?>
-								</div>
-							</form>
+												$query->closeCursor();
+												$list = array_unique($tempo_list);
+												$list_filter['sort']($list);
+												foreach ($list as $key => $value)
+												{
+													if ($_SESSION[$menu['table'].'_search_value_'.$list_filter['type']] == $value) $nfselect = 'selected'; else $nfselect = '';
+													echo '<option value="'.$value.'" '.$nfselect.'>'.$value.'</option>';
+												}
+											?>
+										</select>
+										<?php if (!empty($_SESSION[$menu['table'].'_search_value_'.$list_filter['type']])) { ?>
+											<div class="input-group-btn"><button type="submit" class="btn btn-primary" name="<?php echo $menu['table']; ?>_search_value_<?php echo $list_filter['type']; ?>"><i class="fa fa-close"></i></button></div>
+										<?php } ?>
+									</div>
+								</form>
+							</div>
 						</div>
-					</div>
-				<?php } $list_filter_query->closeCursor(); ?>
+					<?php } $list_filter_query->closeCursor(); ?>
+				</div>
 			</div>
 		</div>
 	</div>
-</nav>
+</div>
 <?php if ($list_search_total != 0) { ?>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-body">
 				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
+					<div class="col-xs-12 col-sm-12 col-md-4">
 						<div class="form-group">
 							<label>Afficher en</label>
 							<form method="POST">
@@ -256,10 +248,10 @@
 				</div>
 			</div>
 		</div>
-	</nav>
+	</div>
 <?php } ?>
 <?php
-	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_pays']) || !empty($_SESSION[$menu['table'].'_search_value_annee']) || !empty($_SESSION[$menu['table'].'_search_value_duree']) || !empty($_SESSION[$menu['table'].'_search_value_note']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_commentaires']) || !empty($_SESSION[$menu['table'].'_search_value_reference']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_edition']) || !empty($_SESSION[$menu['table'].'_search_value_zone']) || !empty($_SESSION[$menu['table'].'_search_value_soustitres']) || !empty($_SESSION[$menu['table'].'_search_value_audio']))
+	if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_pays'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '' || $_SESSION[$menu['table'].'_search_value_duree'] != '' || $_SESSION[$menu['table'].'_search_value_note'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_commentaires'] != '' || $_SESSION[$menu['table'].'_search_value_reference'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_edition'] != '' || $_SESSION[$menu['table'].'_search_value_zone'] != '' || $_SESSION[$menu['table'].'_search_value_soustitres'] != '' || $_SESSION[$menu['table'].'_search_value_audio'] != '')
 	{
 		if ($list_search_total == 0)
 		{
