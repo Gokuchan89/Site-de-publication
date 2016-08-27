@@ -3,10 +3,12 @@
 
 	if (isset($_GET['op']) && preg_match('/^[a-z]*$/', $_GET['op'])) $op = $_GET['op']; else $op = '';
 	if (isset($_GET['tab']) && is_numeric($_GET['tab'])) $tab = $_GET['tab']; else $tab = '1';
+	if (isset($_GET['type']) && preg_match('/^[a-z_]*$/', $_GET['type'])) $type = $_GET['type']; else $type = '';
 	if (isset($_GET['table']) && is_numeric($_GET['table'])) $table = $_GET['table']; else $table = '';
 	if (isset($_GET['id']) && is_numeric($_GET['id'])) $id = $_GET['id']; else $id = '';
+	if (isset($_GET['userid']) && $_GET['userid'] > '0') $userid = (int) $_GET['userid']; else $userid = $user['id'];
 
-	if ($tab > '3') $tab = '1';
+	if ($tab > '4') $tab = '1';
 	$i = 0;
 	
 	/*
