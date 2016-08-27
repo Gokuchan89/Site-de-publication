@@ -88,65 +88,6 @@
 
 	/*
 		=================================
-		MEMBRES -> MODIFICATION
-		=================================
-	*/
-	// Modifier le rang d'un membre
-	if (isset($_['membersRankSelect']))
-	{
-		$query = $db->prepare('UPDATE `site_user` SET `rank` = :rank WHERE `id` = :id');
-		$query->bindValue(':rank', $_['membersRankSelect'], PDO::PARAM_STR);
-		$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
-		$query->execute();
-		$query->CloseCursor();
-
-		header('location: '.$_SERVER['REQUEST_URI']);
-		exit();
-	}
-
-	// Modifier l'accès d'un membre
-	if (isset($_['membersAccessButton']))
-	{
-		if ($_['membersAccess'] == '0')
-		{
-			$query = $db->prepare('UPDATE `site_user` SET `access` = :access WHERE `id` = :id');
-			$query->bindValue(':access', '1', PDO::PARAM_STR);
-			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
-			$query->execute();
-			$query->CloseCursor();
-		} else {
-			$query = $db->prepare('UPDATE `site_user` SET `access` = :access WHERE `id` = :id');
-			$query->bindValue(':access', '0', PDO::PARAM_STR);
-			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
-			$query->execute();
-			$query->CloseCursor();
-		}
-
-		header('location: '.$_SERVER['REQUEST_URI']);
-		exit();
-	}
-
-	/*
-		=================================
-		MEMBRES -> SUPPRESSION
-		=================================
-	*/
-	// Supprimer un membre
-	if (isset($_['membersDell']))
-	{
-		$query = $db->prepare('DELETE FROM `site_user` WHERE `id` = :id');
-		$query->bindValue(':id', $_['membersDell'], PDO::PARAM_INT);
-		$query->execute();
-		$query->CloseCursor();
-
-		$query = $db->query('ALTER TABLE `site_user` AUTO_INCREMENT = 1');
-
-		header('location: '.$_SERVER['REQUEST_URI']);
-		exit();
-	}
-
-	/*
-		=================================
 		MEMBRES -> AJOUT
 		=================================
 	*/
@@ -220,7 +161,66 @@
 
 	/*
 		=================================
-		MENU -> INFORMATIONS
+		MEMBRES -> MODIFICATION
+		=================================
+	*/
+	// Modifier le rang d'un membre
+	if (isset($_['membersRankSelect']))
+	{
+		$query = $db->prepare('UPDATE `site_user` SET `rank` = :rank WHERE `id` = :id');
+		$query->bindValue(':rank', $_['membersRankSelect'], PDO::PARAM_STR);
+		$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	// Modifier l'accès d'un membre
+	if (isset($_['membersAccessButton']))
+	{
+		if ($_['membersAccess'] == '0')
+		{
+			$query = $db->prepare('UPDATE `site_user` SET `access` = :access WHERE `id` = :id');
+			$query->bindValue(':access', '1', PDO::PARAM_STR);
+			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
+			$query->execute();
+			$query->CloseCursor();
+		} else {
+			$query = $db->prepare('UPDATE `site_user` SET `access` = :access WHERE `id` = :id');
+			$query->bindValue(':access', '0', PDO::PARAM_STR);
+			$query->bindValue(':id', $_['membersId'], PDO::PARAM_INT);
+			$query->execute();
+			$query->CloseCursor();
+		}
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	/*
+		=================================
+		MEMBRES -> SUPPRESSION
+		=================================
+	*/
+	// Supprimer un membre
+	if (isset($_['membersDell']))
+	{
+		$query = $db->prepare('DELETE FROM `site_user` WHERE `id` = :id');
+		$query->bindValue(':id', $_['membersDell'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		$query = $db->query('ALTER TABLE `site_user` AUTO_INCREMENT = 1');
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	/*
+		=================================
+		CATEGORIE -> INFORMATIONS
 		=================================
 	*/
 	$settings_category_query = $db->prepare('SELECT `id`, `name` FROM `site_category`');
@@ -228,86 +228,9 @@
 
 	/*
 		=================================
-		MENU -> MODIFICATION
+		CATEGORIE -> AJOUT
 		=================================
 	*/
-	// Modifier une catégorie
-	if (isset($_['categoryEditButton']))
-	{
-		$query = $db->prepare('UPDATE `site_category` SET `name` = :name WHERE `id` = :id');
-		$query->bindValue(':name', $_['categoryEditName'], PDO::PARAM_STR);
-		$query->bindValue(':id', $_['categoryEditId'], PDO::PARAM_INT);
-		$query->execute();
-		$query->CloseCursor();
-
-		header('location: '.$_SERVER['REQUEST_URI']);
-		exit();
-	}
-
-	// Modifier un menu
-	if (isset($_['menuEditButton']))
-	{
-		$query = $db->prepare('UPDATE `site_menu` SET `name` = :name, `icon` = :icon, `category` = :category, `table` = :table, `type` = :type, `position` = :position WHERE `id` = :id');
-		$query->bindValue(':name', $_['menuEditName'], PDO::PARAM_STR);
-		$query->bindValue(':icon', $_['menuEditIcon'], PDO::PARAM_STR);
-		$query->bindValue(':category', $_['menuEditCategory'], PDO::PARAM_INT);
-		$query->bindValue(':table', $_['menuEditTable'], PDO::PARAM_STR);
-		$query->bindValue(':type', $_['menuEditType'], PDO::PARAM_STR);
-		$query->bindValue(':position', $_['menuEditPosition'], PDO::PARAM_INT);
-		$query->bindValue(':id', $_['menuEditId'], PDO::PARAM_INT);
-		$query->execute();
-		$query->CloseCursor();
-
-		header('location: '.$_SERVER['REQUEST_URI']);
-		exit();
-	}
-
-	/*
-		=================================
-		MENU -> SUPPRESSION
-		=================================
-	*/
-	// Supprimer une catégorie
-	if (isset($_['categoryDell']))
-	{
-		$query = $db->prepare('DELETE FROM `site_category` WHERE `id` = :id');
-		$query->bindValue(':id', $_['categoryDell'], PDO::PARAM_INT);
-		$query->execute();
-		$query->CloseCursor();
-
-		$query = $db->query('ALTER TABLE `site_category` AUTO_INCREMENT = 1');
-
-		$query = $db->prepare('DELETE FROM `site_menu` WHERE `category` = :category');
-		$query->bindValue(':category', $_['categoryDell'], PDO::PARAM_INT);
-		$query->execute();
-		$query->CloseCursor();
-
-		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
-
-		header('location: '.$_SERVER['REQUEST_URI']);
-		exit();
-	}
-
-	// Supprimer un menu
-	if (isset($_['menuDell']))
-	{
-		$query = $db->prepare('DELETE FROM `site_menu` WHERE `id` = :id');
-		$query->bindValue(':id', $_['menuDell'], PDO::PARAM_INT);
-		$query->execute();
-		$query->CloseCursor();
-
-		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
-
-		header('location: '.$_SERVER['REQUEST_URI']);
-		exit();
-	}
-
-	/*
-		=================================
-		MENU -> AJOUT
-		=================================
-	*/
-	// Ajouter une catégorie
 	if (isset($_['categoryAddButton']))
 	{
 		// Vérification que le champ est renseigné
@@ -330,7 +253,53 @@
 		exit();
 	}
 
-	// Ajouter un menu
+	/*
+		=================================
+		CATEGORIE -> MODIFICATION
+		=================================
+	*/
+	if (isset($_['categoryEditButton']))
+	{
+		$query = $db->prepare('UPDATE `site_category` SET `name` = :name WHERE `id` = :id');
+		$query->bindValue(':name', $_['categoryEditName'], PDO::PARAM_STR);
+		$query->bindValue(':id', $_['categoryEditId'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	/*
+		=================================
+		CATEGORIE -> SUPPRESSION
+		=================================
+	*/
+	if (isset($_['categoryDell']))
+	{
+		$query = $db->prepare('DELETE FROM `site_category` WHERE `id` = :id');
+		$query->bindValue(':id', $_['categoryDell'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		$query = $db->query('ALTER TABLE `site_category` AUTO_INCREMENT = 1');
+
+		$query = $db->prepare('DELETE FROM `site_menu` WHERE `category` = :category');
+		$query->bindValue(':category', $_['categoryDell'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	/*
+		=================================
+		MENU -> AJOUT
+		=================================
+	*/
 	if (isset($_['menuAddButton']))
 	{
 		// Vérification qu'il y a au moins une catégorie
@@ -366,6 +335,46 @@
 			mkdir('./profils/'.$_['menuTable'], 0777);
 			umask($old);
 		}
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	/*
+		=================================
+		MENU -> MODIFICATION
+		=================================
+	*/
+	if (isset($_['menuEditButton']))
+	{
+		$query = $db->prepare('UPDATE `site_menu` SET `name` = :name, `icon` = :icon, `category` = :category, `table` = :table, `type` = :type, `position` = :position WHERE `id` = :id');
+		$query->bindValue(':name', $_['menuEditName'], PDO::PARAM_STR);
+		$query->bindValue(':icon', $_['menuEditIcon'], PDO::PARAM_STR);
+		$query->bindValue(':category', $_['menuEditCategory'], PDO::PARAM_INT);
+		$query->bindValue(':table', $_['menuEditTable'], PDO::PARAM_STR);
+		$query->bindValue(':type', $_['menuEditType'], PDO::PARAM_STR);
+		$query->bindValue(':position', $_['menuEditPosition'], PDO::PARAM_INT);
+		$query->bindValue(':id', $_['menuEditId'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		header('location: '.$_SERVER['REQUEST_URI']);
+		exit();
+	}
+
+	/*
+		=================================
+		MENU -> SUPPRESSION
+		=================================
+	*/
+	if (isset($_['menuDell']))
+	{
+		$query = $db->prepare('DELETE FROM `site_menu` WHERE `id` = :id');
+		$query->bindValue(':id', $_['menuDell'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
 
 		header('location: '.$_SERVER['REQUEST_URI']);
 		exit();
