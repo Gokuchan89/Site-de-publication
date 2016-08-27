@@ -646,7 +646,7 @@
 					<?php while ($settings_category = $settings_category_query->fetch()) { ?>
 						<tr>
 							<td style="width:96%;background-color:#f9f9f9;" colspan="3"><?php echo $settings_category['name']; ?></td>
-							<td class="text-center" style="background-color:#f9f9f9;"><a href="?op=settings&tab=4&type=edit_category&id=<?php echo $settings_category['id']; ?>" class="btn btn-info btn-xs" name="categoryEditButton" title="Modifier la catégorie"><i class="fa fa-pencil"></i></a></td>
+							<td class="text-center" style="background-color:#f9f9f9;"><a href="?op=settings&tab=3&type=edit_category&id=<?php echo $settings_category['id']; ?>" class="btn btn-info btn-xs" name="categoryEditButton" title="Modifier la catégorie"><i class="fa fa-pencil"></i></a></td>
 							<td class="text-center" style="background-color:#f9f9f9;"><form method="POST"><button type="button" class="btn btn-danger btn-xs" title="Supprimer la catégorie" data-toggle="modal" data-target="#modalCategoryDell" data-whatever="<?php echo $settings_category['id']; ?>"><i class="fa fa-trash-o"></i></button></form></td>
 						</tr>
 						<?php
@@ -658,14 +658,14 @@
 							<tr>
 								<td><i class="fa fa-<?php echo $settings_menu['icon']; ?>"></i></td>
 								<td style="width:89%;"><?php echo $settings_menu['name']; ?></td>
-								<td class="text-center"><a href="?op=settings&tab=4&type=edit_menu&id=<?php echo $settings_menu['id']; ?>" class="btn btn-info btn-xs" name="menuEditButton" title="Modifier le menu"><i class="fa fa-pencil"></i></a></td>
-								<td class="text-center"><a href="?op=settings&tab=4&type=edit_menu_filter&id=<?php echo $settings_menu['id']; ?>" class="btn btn-primary btn-xs" name="menuEditButton" title="Ajouter et modifier les filtres"><i class="fa fa-align-justify"></i></a></td>
+								<td class="text-center"><a href="?op=settings&tab=3&type=edit_menu&id=<?php echo $settings_menu['id']; ?>" class="btn btn-info btn-xs" name="menuEditButton" title="Modifier le menu"><i class="fa fa-pencil"></i></a></td>
+								<td class="text-center"><a href="?op=settings&tab=3&type=edit_menu_filter&id=<?php echo $settings_menu['id']; ?>" class="btn btn-primary btn-xs" name="menuEditButton" title="Ajouter et modifier les filtres"><i class="fa fa-align-justify"></i></a></td>
 								<td class="text-center"><form method="POST"><button type="button" class="btn btn-danger btn-xs" title="Supprimer le menu" data-toggle="modal" data-target="#modalMenuDell" data-whatever="<?php echo $settings_menu['id']; ?>"><i class="fa fa-trash-o"></i></button></form></td>
 							</tr>
 						<?php } $settings_menu_query->closeCursor(); ?>
 					<?php } $settings_category_query->closeCursor(); ?>
-					<tr><td colspan="5"><a href="?op=settings&tab=4&type=add_category">+ Ajouter une catégorie</a></td></tr>
-					<tr><td colspan="5"><a href="?op=settings&tab=4&type=add_menu">+ Ajouter un menu</a></td></tr>
+					<tr><td colspan="5"><a href="?op=settings&tab=3&type=add_category">+ Ajouter une catégorie</a></td></tr>
+					<tr><td colspan="5"><a href="?op=settings&tab=3&type=add_menu">+ Ajouter un menu</a></td></tr>
 				</table>
 			</div>
 		</div>
