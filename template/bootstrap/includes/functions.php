@@ -241,52 +241,84 @@
 		DETAIL -> FILTRE + RECHERCHE
 		=================================
 	*/
-	function filter($label, $value, $table_id, $table_name)
+	function filter($label, $value, $table_id, $table_name, $total)
 	{
-		echo '<form method="POST" action="?op=list&table='.$table_id.'" style="display:inline;">';
-			$list = str_replace(' / ', ' - ', $value);
-			$list_filter = explode(' - ', $list);
-			for ($i=0;$i<count($list_filter);$i++)
+		$list = str_replace(' / ', ' - ', $value);
+		$list_filter = explode(' - ', $list);
+		for ($i=0;$i<count($list_filter);$i++)
+		{
+			if ($total != 0)
 			{
+				echo '<form method="POST" action="?op=list&table='.$table_id.'" style="display:inline;">';
+					$filename = './img/supports/'.$list_filter[$i].'.png';
+					if (($i+1) == count($list_filter))
+					{
+						if (file_exists($filename))
+						{
+							echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button>';
+						} else {
+							echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button>';
+						}
+					} else {
+						if (file_exists($filename))
+						{
+							echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button> / ';
+						} else {
+							echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button> / ';
+						}
+					}
+				echo '</form>';
+			} else {
 				$filename = './img/supports/'.$list_filter[$i].'.png';
 				if (($i+1) == count($list_filter))
 				{
 					if (file_exists($filename))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button>';
+						echo '<img src="'.$filename.'" style="max-width:82px;max-height:25px;" />';
 					} else {
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button>';
+						echo $list_filter[$i];
 					}
 				} else {
 					if (file_exists($filename))
 					{
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button> / ';
+						echo '<img src="'.$filename.'" style="max-width:82px;max-height:25px;" /> / ';
 					} else {
-						echo '<button type="submit" class="nobtn" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button> / ';
+						echo $list_filter[$i].' / ';
 					}
 				}
 			}
-		echo '</form>';
+		}
 	}
 
-	function search($label, $value, $table_id, $table_name)
+	function search($label, $value, $table_id, $table_name, $total)
 	{
 		$list = str_replace("\r", '|', $value);
 		$list_search = explode('|', $list);
 		for ($i=0;$i<count($list_search);$i++)
 		{
 			echo '<li>';
-				echo '<form method="POST" action="?op=list&table='.$table_id.'">';
-					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_search[$i].'">';
-						$filename = './img/real_acteur/'.clean_img($list_search[$i]).'.jpg';
-						if (file_exists($filename))
-						{
-							echo '<img src="'.$filename.'" title="'.$list_search[$i].'" />';
-						} else {
-							echo '<img src="./img/nobody.jpg" title="'.$list_search[$i].'" />';
-						}
-					echo '</button>';
-				echo '</form>';
+				if ($total != 0)
+				{
+					echo '<form method="POST" action="?op=list&table='.$table_id.'">';
+						echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_search[$i].'">';
+							$filename = './img/real_acteur/'.clean_img($list_search[$i]).'.jpg';
+							if (file_exists($filename))
+							{
+								echo '<img src="'.$filename.'" title="'.$list_search[$i].'" />';
+							} else {
+								echo '<img src="./img/nobody.jpg" title="'.$list_search[$i].'" />';
+							}
+						echo '</button>';
+					echo '</form>';
+				} else {
+					$filename = './img/real_acteur/'.clean_img($list_search[$i]).'.jpg';
+					if (file_exists($filename))
+					{
+						echo '<img src="'.$filename.'" title="'.$list_search[$i].'" />';
+					} else {
+						echo '<img src="./img/nobody.jpg" title="'.$list_search[$i].'" />';
+					}
+				}
 			echo '</li>';
 		}
 	}
