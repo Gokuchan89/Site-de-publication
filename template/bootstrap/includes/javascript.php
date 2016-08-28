@@ -186,7 +186,6 @@
 							echo 'theme: "bootstrap",';
 							echo 'language: "fr",';
 							echo 'ajax: {},';
-							echo 'width: "element",';
 							echo 'dataAdapter: CustomData';
 						echo '});';
 					}
