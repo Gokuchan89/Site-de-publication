@@ -8,7 +8,7 @@
 	<!-- FONT-AWESOME 4.6.3 -->
 	<link rel="stylesheet" href="./template/bootstrap/plugins/font-awesome/css/font-awesome.min.css" />
 	<!-- JQUERY UI 1.11.4 -->
-	<link rel="stylesheet" href="./template/bootstrap/plugins/jquery-ui/css/black-tie/jquery-ui.min.css">
+	<link rel="stylesheet" href="./template/bootstrap/plugins/jquery-ui/css/base/jquery-ui.min.css">
 	<!-- LIGHTGALLERY 1.2.18 -->
 	<link rel="stylesheet" href="./template/bootstrap/plugins/lightgallery/css/lightgallery.min.css">
 	<!-- SELECT2 4.0.3 -->
