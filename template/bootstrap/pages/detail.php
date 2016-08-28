@@ -14,7 +14,7 @@
 	$total = array('genre', 'annee', 'support', 'acteurs', 'realisateurs');
 	for ($i=0;$i<count($total);$i++)
 	{
-		$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `type` = "'.$total[$i].'"');
+		$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `menu` = "'.$table.'" AND `type` = "'.$total[$i].'"');
 		$query->execute();
 		$$total[$i] = $query->fetchColumn();
 		$query->closeCursor();
