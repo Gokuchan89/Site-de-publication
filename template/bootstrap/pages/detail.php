@@ -142,18 +142,21 @@
 							{
 								preg_match('/^([a-zA-Z-]+)(\d.+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
 								echo '<tr height="30px">';
+								// Flags
 								if (file_exists('./img/flags/'.clean_img($audio[3]).'.png'))
 								{
 									echo '<td><img src="./img/flags/'.clean_img($audio[3]).'.png" style="max-width:20px;" title="'.$audio[3].'" /> '.$audio[3].'</td>';
 								} else {
 									echo '<td>'.$audio[3].'</td>';
 								}
+								// Audio Codec
 								if (file_exists('./img/audiocodec/'.$audio[1].'.png'))
 								{
 									echo '<td style="width:30%" class="text-center"><img src="./img/audiocodec/'.$audio[1].'.png" style="max-width:82px;max-height:25px;" title="'.$audio[1].'" /></td>';
 								} else {
 									echo '<td style="width:30%" class="text-center">'.$audio[1].'</td>';
 								}
+								// Audio Channel
 								if (file_exists('./img/audiochannel/'.$audio[2].'.png'))
 								{
 									echo '<td style="width:30%" class="text-right"><img src="./img/audiochannel/'.$audio[2].'.png" style="max-width:82px;max-height:25px;" title="'.$audio[2].'" /></td>';
