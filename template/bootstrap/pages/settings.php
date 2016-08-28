@@ -373,6 +373,13 @@
 		$query->CloseCursor();
 
 		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
+		
+		$query = $db->prepare('DELETE FROM `site_menu_filter` WHERE `menu` = :id');
+		$query->bindValue(':id', $_['menuDell'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
+
+		$query = $db->query('ALTER TABLE `site_menu_filter` AUTO_INCREMENT = 1');
 
 		header('location: '.$_SERVER['REQUEST_URI']);
 		exit();
