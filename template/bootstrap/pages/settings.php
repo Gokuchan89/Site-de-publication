@@ -865,6 +865,7 @@
 							<div class="form-group <?php if (isset($menuFilterMessage)) echo 'has-error'; ?>">
 								<label>Type du filtre</label>
 								<select class="form-control select2" name="menuFilterType" style="width:100%;">
+									<option value="acteurs">Acteurs</option>
 									<option value="annee">Année</option>
 									<option value="audio">Audio</option>
 									<option value="commentaires">Commentaires</option>
@@ -874,6 +875,7 @@
 									<option value="genre">Genre</option>
 									<option value="note">Note</option>
 									<option value="pays">Pays</option>
+									<option value="realisateurs">Réalisateurs</option>
 									<option value="reference">Référence</option>
 									<option value="soustitres">Sous-titres</option>
 									<option value="support">Support</option>
@@ -900,7 +902,7 @@
 						$settings_menu_filter_query->bindValue(':menu', $id, PDO::PARAM_INT);
 						$settings_menu_filter_query->execute();
 					?>
-					<table class="table table-bordered">
+					<table class="table table-bordered table-striped">
 						<thead>
 							<th>Position</th>
 							<th>Nom</th>
@@ -908,41 +910,44 @@
 							<th>Ordre de tri</th>
 							<th colspan="2">Action</th>
 						</thead>
-						<?php while ($settings_menu_filter = $settings_menu_filter_query->fetch()) { ?>
-							<tr>
-								<form method="POST">
-									<input type="hidden" name="menuFilterEditId" value="<?php echo $settings_menu_filter['id']; ?>" />
-									<td style="width:18%;"><input type="text" class="form-control" name="menuFilterEditPosition" value="<?php echo $settings_menu_filter['position']; ?>" /></td>
-									<td style="width:30%;"><input type="text" class="form-control" name="menuFilterEditName" value="<?php echo $settings_menu_filter['name']; ?>" /></td>
-									<td style="width:30%;">
-										<select class="form-control select2" name="menuFilterEditType" style="width:100%;">
-											<option value="annee" <?php if ($settings_menu_filter['type'] == 'annee') echo 'selected'; ?>>Année</option>
-											<option value="audio" <?php if ($settings_menu_filter['type'] == 'audio') echo 'selected'; ?>>Audio</option>
-											<option value="commentaires" <?php if ($settings_menu_filter['type'] == 'commentaires') echo 'selected'; ?>>Commentaires</option>
-											<option value="duree" <?php if ($settings_menu_filter['type'] == 'duree') echo 'selected'; ?>>Durée</option>
-											<option value="edition" <?php if ($settings_menu_filter['type'] == 'edition') echo 'selected'; ?>>Edition</option>
-											<option value="filmvu" <?php if ($settings_menu_filter['type'] == 'filmvu') echo 'selected'; ?>>Film Vu</option>
-											<option value="genre" <?php if ($settings_menu_filter['type'] == 'genre') echo 'selected'; ?>>Genre</option>
-											<option value="note" <?php if ($settings_menu_filter['type'] == 'note') echo 'selected'; ?>>Note</option>
-											<option value="pays" <?php if ($settings_menu_filter['type'] == 'pays') echo 'selected'; ?>>Pays</option>
-											<option value="reference" <?php if ($settings_menu_filter['type'] == 'reference') echo 'selected'; ?>>Référence</option>
-											<option value="soustitres" <?php if ($settings_menu_filter['type'] == 'soustitres') echo 'selected'; ?>>Sous-titres</option>
-											<option value="support" <?php if ($settings_menu_filter['type'] == 'support') echo 'selected'; ?>>Support</option>
-											<option value="zone" <?php if ($settings_menu_filter['type'] == 'zone') echo 'selected'; ?>>Zone</option>
-										</select>
-									</td>
-									<td style="width:18%;">
-										<div class="radio">
-											<label><input type="radio" name="menuFilterEditSort" value="sort" <?php if($settings_menu_filter['sort'] == 'sort') echo 'checked'; ?>> <i class="fa fa-long-arrow-down" title="Croissant"></i></label>
-											<label><input type="radio" name="menuFilterEditSort" value="rsort" <?php if($settings_menu_filter['sort'] == 'rsort') echo 'checked'; ?>> <i class="fa fa-long-arrow-up" title="Déroissant"></i></label>
-										</div>
-									</td>
-									<td class="text-center"><button type="submit" class="btn btn-success btn-xs" name="menuFilterEditButton" title="Modifier le filtre"><i class="fa fa-check"></i></button></td>
-									<td class="text-center"><button type="button" class="btn btn-danger btn-xs" title="Supprimer le filtre" data-toggle="modal" data-target="#modalMenuFilterDell" data-whatever="<?php echo $settings_menu_filter['id']; ?>"><i class="fa fa-trash-o"></i></button>
-									</td>
-								</form>
-							</tr>
-						<?php } $settings_menu_filter_query->closeCursor(); ?>
+						<tbody>
+							<?php while ($settings_menu_filter = $settings_menu_filter_query->fetch()) { ?>
+								<tr>
+									<form method="POST">
+										<input type="hidden" name="menuFilterEditId" value="<?php echo $settings_menu_filter['id']; ?>" />
+										<td style="width:18%;"><input type="text" class="form-control" name="menuFilterEditPosition" value="<?php echo $settings_menu_filter['position']; ?>" /></td>
+										<td style="width:30%;"><input type="text" class="form-control" name="menuFilterEditName" value="<?php echo $settings_menu_filter['name']; ?>" /></td>
+										<td style="width:30%;">
+											<select class="form-control select2" name="menuFilterEditType" style="width:100%;">
+												<option value="acteurs" <?php if ($settings_menu_filter['type'] == 'acteurs') echo 'selected'; ?>>Acteurs</option>
+												<option value="annee" <?php if ($settings_menu_filter['type'] == 'annee') echo 'selected'; ?>>Année</option>
+												<option value="audio" <?php if ($settings_menu_filter['type'] == 'audio') echo 'selected'; ?>>Audio</option>
+												<option value="commentaires" <?php if ($settings_menu_filter['type'] == 'commentaires') echo 'selected'; ?>>Commentaires</option>
+												<option value="duree" <?php if ($settings_menu_filter['type'] == 'duree') echo 'selected'; ?>>Durée</option>
+												<option value="edition" <?php if ($settings_menu_filter['type'] == 'edition') echo 'selected'; ?>>Edition</option>
+												<option value="filmvu" <?php if ($settings_menu_filter['type'] == 'filmvu') echo 'selected'; ?>>Film Vu</option>
+												<option value="genre" <?php if ($settings_menu_filter['type'] == 'genre') echo 'selected'; ?>>Genre</option>
+												<option value="note" <?php if ($settings_menu_filter['type'] == 'note') echo 'selected'; ?>>Note</option>
+												<option value="pays" <?php if ($settings_menu_filter['type'] == 'pays') echo 'selected'; ?>>Pays</option>
+												<option value="realisateurs" <?php if ($settings_menu_filter['type'] == 'realisateurs') echo 'selected'; ?>>Réalisateurs</option>
+												<option value="reference" <?php if ($settings_menu_filter['type'] == 'reference') echo 'selected'; ?>>Référence</option>
+												<option value="soustitres" <?php if ($settings_menu_filter['type'] == 'soustitres') echo 'selected'; ?>>Sous-titres</option>
+												<option value="support" <?php if ($settings_menu_filter['type'] == 'support') echo 'selected'; ?>>Support</option>
+												<option value="zone" <?php if ($settings_menu_filter['type'] == 'zone') echo 'selected'; ?>>Zone</option>
+											</select>
+										</td>
+										<td style="width:18%;">
+											<div class="radio">
+												<label><input type="radio" name="menuFilterEditSort" value="sort" <?php if($settings_menu_filter['sort'] == 'sort') echo 'checked'; ?>> <i class="fa fa-long-arrow-down" title="Croissant"></i></label>
+												<label><input type="radio" name="menuFilterEditSort" value="rsort" <?php if($settings_menu_filter['sort'] == 'rsort') echo 'checked'; ?>> <i class="fa fa-long-arrow-up" title="Déroissant"></i></label>
+											</div>
+										</td>
+										<td class="text-center"><button type="submit" class="btn btn-success btn-xs" name="menuFilterEditButton" title="Modifier le filtre"><i class="fa fa-check"></i></button></td>
+										<td class="text-center"><button type="button" class="btn btn-danger btn-xs" title="Supprimer le filtre" data-toggle="modal" data-target="#modalMenuFilterDell" data-whatever="<?php echo $settings_menu_filter['id']; ?>"><i class="fa fa-trash-o"></i></button></td>
+									</form>
+								</tr>
+							<?php } $settings_menu_filter_query->closeCursor(); ?>
+						</tbody>
 					</table>
 				</div>
 			</div>
