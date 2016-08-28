@@ -102,13 +102,15 @@
 			var modal = $(this)
 			modal.find('.modal-content input').val(recipient)
 		});
-		$('#modalMenuDell').on('show.bs.modal', function (event) {
+		$('#modalMenuDell').on('show.bs.modal', function (event)
+		{
 			var button = $(event.relatedTarget)
 			var recipient = button.data('whatever')
 			var modal = $(this)
 			modal.find('.modal-content input').val(recipient)
 		});
-		$('#modalMenuFilterDell').on('show.bs.modal', function (event) {
+		$('#modalMenuFilterDell').on('show.bs.modal', function (event)
+		{
 			var button = $(event.relatedTarget)
 			var recipient = button.data('whatever')
 			var modal = $(this)
@@ -116,12 +118,14 @@
 		});
 
 		//Select2
-		$(".select2").select2({
+		$('.select2').select2(
+		{
 			minimumResultsForSearch: Infinity,
 			theme: "bootstrap",
 			language: "fr"
 		});
-		$(".select2-pays").select2({
+		$('.select2-pays').select2(
+		{
 			placeholder: "Choisir votre pays",
 			theme: "bootstrap",
 			language: "fr"
@@ -134,10 +138,9 @@
 				$select2_filter_query->execute();
 				while ($select2_filter = $select2_filter_query->fetch())
 				{
-					echo '$(".select2-list-'.$select2_filter['type'].'").select2({';
+					echo '$(\'.select2-list-'.$select2_filter['type'].'\').select2({';
 						if($select2_filter['type'] == 'annee' || $select2_filter['type'] == 'note' || $select2_filter['type'] == 'reference' || $select2_filter['type'] == 'edition' || $select2_filter['type'] == 'zone') $tous = 'Toutes'; else $tous = 'Tous';
 						echo 'placeholder: "'.$tous.' les '.$select2_filter['name'].'",';
-						echo 'minimumResultsForSearch: Infinity,';
 						echo 'theme: "bootstrap",';
 						echo 'language: "fr"';
 					echo '});';
