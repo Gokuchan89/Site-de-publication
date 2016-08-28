@@ -57,11 +57,11 @@
 		// Collapse
 		$('#collapse').on("hide.bs.collapse", function()
 		{
-			$('a.a-box-tool').html('<i class="fa fa-plus"></i>');
+			$('div.div-box-tool').html('<i class="fa fa-plus"></i>');
 		});
 		$("#collapse").on("show.bs.collapse", function()
 		{
-			$('a.a-box-tool').html('<i class="fa fa-minus"></i>');
+			$('div.div-box-tool').html('<i class="fa fa-minus"></i>');
 		});
 		
 		// Datepicker
