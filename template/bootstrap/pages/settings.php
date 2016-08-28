@@ -281,14 +281,27 @@
 		$query->CloseCursor();
 
 		$query = $db->query('ALTER TABLE `site_category` AUTO_INCREMENT = 1');
+		
+		$query = $db->prepare('SELECT `id`, `category` FROM `site_menu` WHERE `category` = :category');
+		$query->bindValue(':category', $_['categoryDell'], PDO::PARAM_INT);
+		$query->execute();
+		$essai = $query->fetch();
+		$query->CloseCursor();
+		
+		$query = $db->prepare('DELETE FROM `site_menu_filter` WHERE `menu` = :menu');
+		$query->bindValue(':menu', $essai['id'], PDO::PARAM_INT);
+		$query->execute();
+		$query->CloseCursor();
 
+		$query = $db->query('ALTER TABLE `site_menu_filter` AUTO_INCREMENT = 1');
+		
 		$query = $db->prepare('DELETE FROM `site_menu` WHERE `category` = :category');
 		$query->bindValue(':category', $_['categoryDell'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
 
 		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
-
+		
 		header('location: '.$_SERVER['REQUEST_URI']);
 		exit();
 	}
@@ -374,8 +387,8 @@
 
 		$query = $db->query('ALTER TABLE `site_menu` AUTO_INCREMENT = 1');
 		
-		$query = $db->prepare('DELETE FROM `site_menu_filter` WHERE `menu` = :id');
-		$query->bindValue(':id', $_['menuDell'], PDO::PARAM_INT);
+		$query = $db->prepare('DELETE FROM `site_menu_filter` WHERE `menu` = :menu');
+		$query->bindValue(':menu', $_['menuDell'], PDO::PARAM_INT);
 		$query->execute();
 		$query->CloseCursor();
 
