@@ -57,11 +57,11 @@
 		// Collapse
 		$('#collapse').on("hide.bs.collapse", function()
 		{
-			$('a.a-box-tool').html('<i class="fa fa-plus"></i>');
+			$('div.div-box-tool').html('<i class="fa fa-plus"></i>');
 		});
 		$("#collapse").on("show.bs.collapse", function()
 		{
-			$('a.a-box-tool').html('<i class="fa fa-minus"></i>');
+			$('div.div-box-tool').html('<i class="fa fa-minus"></i>');
 		});
 		
 		// Datepicker
@@ -130,23 +130,68 @@
 			theme: "bootstrap",
 			language: "fr"
 		});
-		<?php
-			if(isset($table))
+		$.fn.select2.amd.require(
+		['select2/data/array', 'select2/utils'],
+		function(ArrayData, Utils)
+		{
+			function CustomData($element, options)
 			{
-				$select2_filter_query = $db->prepare('SELECT `id`, `name`, `type`, `sort`, `menu`, `position` FROM `site_menu_filter` WHERE `menu` = :menu ORDER BY `position`');
-				$select2_filter_query->bindValue(':menu', $table, PDO::PARAM_INT);
-				$select2_filter_query->execute();
-				while ($select2_filter = $select2_filter_query->fetch())
-				{
-					echo '$(\'.select2-list-'.$select2_filter['type'].'\').select2({';
-						if($select2_filter['type'] == 'annee' || $select2_filter['type'] == 'note' || $select2_filter['type'] == 'reference' || $select2_filter['type'] == 'edition' || $select2_filter['type'] == 'zone') $tous = 'Toutes'; else $tous = 'Tous';
-						echo 'placeholder: "'.$tous.' les '.$select2_filter['name'].'",';
-						echo 'theme: "bootstrap",';
-						echo 'language: "fr"';
-					echo '});';
-				}
+				CustomData.__super__.constructor.call(this, $element, options);
 			}
-			$select2_filter_query->closeCursor();
-		?>
+
+			function contains(str1, str2)
+			{
+				return new RegExp(str2, "i").test(str1);
+			}
+
+			Utils.Extend(CustomData, ArrayData);
+
+			CustomData.prototype.query = function(params, callback)
+			{
+				if (!("page" in params))
+				{
+					params.page = 1;
+				}
+				var pageSize = 50;
+				var results = this.$element.children().map(function(i, elem)
+				{
+					if (contains(elem.innerText, params.term))
+					{
+						return{
+							id: [elem.innerText].join(""),
+							text: elem.innerText
+						};
+					}
+				});
+				callback(
+				{
+					results: results.slice((params.page - 1) * pageSize, params.page * pageSize),
+					pagination:
+					{
+						more: results.length >= params.page * pageSize
+					}
+				});
+			};
+			<?php
+				if(isset($table))
+				{
+					$select2_filter_query = $db->prepare('SELECT `id`, `name`, `type`, `sort`, `menu`, `position` FROM `site_menu_filter` WHERE `menu` = :menu ORDER BY `position`');
+					$select2_filter_query->bindValue(':menu', $table, PDO::PARAM_INT);
+					$select2_filter_query->execute();
+					while ($select2_filter = $select2_filter_query->fetch())
+					{
+						echo '$(\'.select2-list-'.$select2_filter['type'].'\').select2({';
+							if($select2_filter['type'] == 'annee' || $select2_filter['type'] == 'note' || $select2_filter['type'] == 'reference' || $select2_filter['type'] == 'edition' || $select2_filter['type'] == 'zone') $tous = 'Toutes'; else $tous = 'Tous';
+							echo 'placeholder: "'.$tous.' les '.$select2_filter['name'].'",';
+							echo 'theme: "bootstrap",';
+							echo 'language: "fr",';
+							echo 'ajax: {},';
+							echo 'dataAdapter: CustomData';
+						echo '});';
+					}
+				}
+				$select2_filter_query->closeCursor();
+			?>
+		});
 	});
 </script>
