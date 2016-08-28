@@ -277,7 +277,7 @@
 		{
 			echo '<li>';
 				echo '<form method="POST" action="?op=list&table='.$table_id.'">';
-					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value" value="'.$list_search[$i].'">';
+					echo '<button type="submit" class="nobtn-actor" name="'.$table_name.'_search_value_'.$label.'" value="'.$list_search[$i].'">';
 						$filename = './img/real_acteur/'.clean_img($list_search[$i]).'.jpg';
 						if (file_exists($filename))
 						{
