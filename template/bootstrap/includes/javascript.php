@@ -11,7 +11,7 @@
 <!-- LIGHTGALLERY LG-VIDEO 1.2.18 -->
 <script src="./template/bootstrap/plugins/lightgallery/js/lg-video.js"></script>
 <!-- SELECT2 4.0.3 -->
-<script src="./template/bootstrap/plugins/select2/js/select2.min.js"></script>
+<script src="./template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
 <!-- SELECT2 LANG 4.0.3 -->
 <script src="./template/bootstrap/plugins/select2/js/i18n/fr.js"></script>
 <!-- HOLDER 2.9.0 -->
