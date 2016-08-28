@@ -62,58 +62,30 @@
 	$list_search = '';
 
 	// Recherche + Filtres
+	$type_array = array('acteurs', 'annee', 'audio', 'commentaires', 'duree', 'edition', 'filmvu', 'genre', 'note', 'pays', 'realisateurs', 'reference', 'soustitres', 'support', 'zone');
+	$type_verif = array('acteurs', 'audio', 'genre', 'pays', 'realisateurs', 'soustitres');
+	
 	if (!isset($_SESSION[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_pays'])) $_SESSION[$menu['table'].'_search_value_pays'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_duree'])) $_SESSION[$menu['table'].'_search_value_duree'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_note'])) $_SESSION[$menu['table'].'_search_value_note'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_acteurs'])) $_SESSION[$menu['table'].'_search_value_acteurs'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_realisateurs'])) $_SESSION[$menu['table'].'_search_value_realisateurs'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_commentaires'])) $_SESSION[$menu['table'].'_search_value_commentaires'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_reference'])) $_SESSION[$menu['table'].'_search_value_reference'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_edition'])) $_SESSION[$menu['table'].'_search_value_edition'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_zone'])) $_SESSION[$menu['table'].'_search_value_zone'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_soustitres'])) $_SESSION[$menu['table'].'_search_value_soustitres'] = '';
-	if (!isset($_SESSION[$menu['table'].'_search_value_audio'])) $_SESSION[$menu['table'].'_search_value_audio'] = '';
+	for ($i=0;$i<count($type_array);$i++)
+	{
+		if (!isset($_SESSION[$menu['table'].'_search_value_'.$type_array[$i]])) $_SESSION[$menu['table'].'_search_value_'.$type_array[$i]] = '';
+	}
 	
 	if (isset($_[$menu['table'].'_search_value'])) $_SESSION[$menu['table'].'_search_value'] = $_[$menu['table'].'_search_value'];
-	if (isset($_[$menu['table'].'_search_value_genre'])) $_SESSION[$menu['table'].'_search_value_genre'] = $_[$menu['table'].'_search_value_genre'];
-	if (isset($_[$menu['table'].'_search_value_pays'])) $_SESSION[$menu['table'].'_search_value_pays'] = $_[$menu['table'].'_search_value_pays'];
-	if (isset($_[$menu['table'].'_search_value_annee'])) $_SESSION[$menu['table'].'_search_value_annee'] = $_[$menu['table'].'_search_value_annee'];
-	if (isset($_[$menu['table'].'_search_value_duree'])) $_SESSION[$menu['table'].'_search_value_duree'] = $_[$menu['table'].'_search_value_duree'];
-	if (isset($_[$menu['table'].'_search_value_note'])) $_SESSION[$menu['table'].'_search_value_note'] = $_[$menu['table'].'_search_value_note'];
-	if (isset($_[$menu['table'].'_search_value_filmvu'])) $_SESSION[$menu['table'].'_search_value_filmvu'] = $_[$menu['table'].'_search_value_filmvu'];
-	if (isset($_[$menu['table'].'_search_value_acteurs'])) $_SESSION[$menu['table'].'_search_value_acteurs'] = $_[$menu['table'].'_search_value_acteurs'];
-	if (isset($_[$menu['table'].'_search_value_realisateurs'])) $_SESSION[$menu['table'].'_search_value_realisateurs'] = $_[$menu['table'].'_search_value_realisateurs'];
-	if (isset($_[$menu['table'].'_search_value_commentaires'])) $_SESSION[$menu['table'].'_search_value_commentaires'] = $_[$menu['table'].'_search_value_commentaires'];
-	if (isset($_[$menu['table'].'_search_value_reference'])) $_SESSION[$menu['table'].'_search_value_reference'] = $_[$menu['table'].'_search_value_reference'];
-	if (isset($_[$menu['table'].'_search_value_support'])) $_SESSION[$menu['table'].'_search_value_support'] = $_[$menu['table'].'_search_value_support'];
-	if (isset($_[$menu['table'].'_search_value_edition'])) $_SESSION[$menu['table'].'_search_value_edition'] = $_[$menu['table'].'_search_value_edition'];
-	if (isset($_[$menu['table'].'_search_value_zone'])) $_SESSION[$menu['table'].'_search_value_zone'] = $_[$menu['table'].'_search_value_zone'];
-	if (isset($_[$menu['table'].'_search_value_soustitres'])) $_SESSION[$menu['table'].'_search_value_soustitres'] = $_[$menu['table'].'_search_value_soustitres'];
-	if (isset($_[$menu['table'].'_search_value_audio'])) $_SESSION[$menu['table'].'_search_value_audio'] = $_[$menu['table'].'_search_value_audio'];
+	for ($i=0;$i<count($type_array);$i++)
+	{
+		if (isset($_[$menu['table'].'_search_value_'.$type_array[$i]])) $_SESSION[$menu['table'].'_search_value_'.$type_array[$i]] = $_[$menu['table'].'_search_value_'.$type_array[$i]];
+	}
 	
 	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_pays']) || !empty($_SESSION[$menu['table'].'_search_value_annee']) || !empty($_SESSION[$menu['table'].'_search_value_duree']) || !empty($_SESSION[$menu['table'].'_search_value_note']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_acteurs']) || !empty($_SESSION[$menu['table'].'_search_value_realisateurs']) || !empty($_SESSION[$menu['table'].'_search_value_commentaires']) || !empty($_SESSION[$menu['table'].'_search_value_reference']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_edition']) || !empty($_SESSION[$menu['table'].'_search_value_zone']) || !empty($_SESSION[$menu['table'].'_search_value_soustitres']) || !empty($_SESSION[$menu['table'].'_search_value_audio']))
 	{
 		if (!empty($_SESSION[$menu['table'].'_search_value'])) $list_search .= ' AND (`TitreVF` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%" OR `TitreVO` LIKE "%'.$_SESSION[$menu['table'].'_search_value'].'%")';
-		if (!empty($_SESSION[$menu['table'].'_search_value_genre'])) $list_search .= ' AND `Genre` LIKE "%'.$_SESSION[$menu['table'].'_search_value_genre'].'%"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_pays'])) $list_search .= ' AND `Pays` LIKE "%'.$_SESSION[$menu['table'].'_search_value_pays'].'%"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_annee'])) $list_search .= ' AND `Annee` = "'.$_SESSION[$menu['table'].'_search_value_annee'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_duree'])) $list_search .= ' AND `Duree` = "'.$_SESSION[$menu['table'].'_search_value_duree'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_note'])) $list_search .= ' AND `Note` = "'.$_SESSION[$menu['table'].'_search_value_note'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_filmvu'])) $list_search .= ' AND `FilmVu` = "'.$_SESSION[$menu['table'].'_search_value_filmvu'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_acteurs'])) $list_search .= ' AND `Acteurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value_acteurs'].'%"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_realisateurs'])) $list_search .= ' AND `Realisateurs` LIKE "%'.$_SESSION[$menu['table'].'_search_value_realisateurs'].'%"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_commentaires'])) $list_search .= ' AND `Commentaires` = "'.$_SESSION[$menu['table'].'_search_value_commentaires'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_reference'])) $list_search .= ' AND `Reference` = "'.$_SESSION[$menu['table'].'_search_value_reference'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_support'])) $list_search .= ' AND `Support` = "'.$_SESSION[$menu['table'].'_search_value_support'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_edition'])) $list_search .= ' AND `Edition` = "'.$_SESSION[$menu['table'].'_search_value_edition'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_zone'])) $list_search .= ' AND `Zone` = "'.$_SESSION[$menu['table'].'_search_value_zone'].'"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_soustitres'])) $list_search .= ' AND `SousTitres` LIKE "%'.$_SESSION[$menu['table'].'_search_value_soustitres'].'%"';
-		if (!empty($_SESSION[$menu['table'].'_search_value_audio'])) $list_search .= ' AND `Audio` LIKE "%'.$_SESSION[$menu['table'].'_search_value_audio'].'%"';
+		for ($i=0;$i<count($type_array);$i++)
+		{
+			if (in_array($type_array[$i], $type_verif)) $like = 'LIKE'; else $like = '=';
+			if (in_array($type_array[$i], $type_verif)) $percent = '%'; else $percent = '';
+			if (!empty($_SESSION[$menu['table'].'_search_value_'.$type_array[$i]])) $list_search .= ' AND `'.$type_array[$i].'` '.$like.' "'.$percent.''.$_SESSION[$menu['table'].'_search_value_'.$type_array[$i]].''.$percent.'"';
+		}
 	}
 
 	$query = $db->prepare('SELECT COUNT(`ID`) FROM `'.$menu['table'].'` WHERE `Sortie` = "NON" '.$list_search);
@@ -126,17 +98,15 @@
 	$listing_query->execute();
 ?>
 <script>document.title += " / <?php echo $menu['name']; ?>"</script>
-
-
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	<div class="panel panel-default">
 		<div class="panel-heading" role="tab" id="heading">
 			<h4 class="panel-title">
 				Recherche + Filtres
-				<div class="pull-right"><a href="#collapse" data-toggle="collapse" class="a-box-tool"><i class="fa fa-<?php if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_pays'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '' || $_SESSION[$menu['table'].'_search_value_duree'] != '' || $_SESSION[$menu['table'].'_search_value_note'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_acteurs'] != '' || $_SESSION[$menu['table'].'_search_value_realisateurs'] != '' || $_SESSION[$menu['table'].'_search_value_commentaires'] != '' || $_SESSION[$menu['table'].'_search_value_reference'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_edition'] != '' || $_SESSION[$menu['table'].'_search_value_zone'] != '' || $_SESSION[$menu['table'].'_search_value_soustitres'] != '' || $_SESSION[$menu['table'].'_search_value_audio'] != '') echo 'minus'; else echo 'plus'; ?>"></i></a></div>
+				<div class="pull-right"><a href="#collapse" data-toggle="collapse" class="a-box-tool"><i class="fa fa-<?php if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_pays']) || !empty($_SESSION[$menu['table'].'_search_value_annee']) || !empty($_SESSION[$menu['table'].'_search_value_duree']) || !empty($_SESSION[$menu['table'].'_search_value_note']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_acteurs']) || !empty($_SESSION[$menu['table'].'_search_value_realisateurs']) || !empty($_SESSION[$menu['table'].'_search_value_commentaires']) || !empty($_SESSION[$menu['table'].'_search_value_reference']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_edition']) || !empty($_SESSION[$menu['table'].'_search_value_zone']) || !empty($_SESSION[$menu['table'].'_search_value_soustitres']) || !empty($_SESSION[$menu['table'].'_search_value_audio'])) echo 'minus'; else echo 'plus'; ?>"></i></a></div>
 			</h4>
 		</div>
-		<div class="panel-collapse collapse <?php if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_pays'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '' || $_SESSION[$menu['table'].'_search_value_duree'] != '' || $_SESSION[$menu['table'].'_search_value_note'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_acteurs'] != '' || $_SESSION[$menu['table'].'_search_value_realisateurs'] != '' || $_SESSION[$menu['table'].'_search_value_commentaires'] != '' || $_SESSION[$menu['table'].'_search_value_reference'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_edition'] != '' || $_SESSION[$menu['table'].'_search_value_zone'] != '' || $_SESSION[$menu['table'].'_search_value_soustitres'] != '' || $_SESSION[$menu['table'].'_search_value_audio'] != '') echo 'in'; ?>" id="collapse">
+		<div class="panel-collapse collapse <?php if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_pays']) || !empty($_SESSION[$menu['table'].'_search_value_annee']) || !empty($_SESSION[$menu['table'].'_search_value_duree']) || !empty($_SESSION[$menu['table'].'_search_value_note']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_acteurs']) || !empty($_SESSION[$menu['table'].'_search_value_realisateurs']) || !empty($_SESSION[$menu['table'].'_search_value_commentaires']) || !empty($_SESSION[$menu['table'].'_search_value_reference']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_edition']) || !empty($_SESSION[$menu['table'].'_search_value_zone']) || !empty($_SESSION[$menu['table'].'_search_value_soustitres']) || !empty($_SESSION[$menu['table'].'_search_value_audio'])) echo 'in'; ?>" id="collapse">
 			<div class="panel-body">
 				<div class="form-group">
 					<label>Recherche par titre (VF ou VO)</label>
@@ -261,7 +231,7 @@
 	</div>
 <?php } ?>
 <?php
-	if ($_SESSION[$menu['table'].'_search_value'] != '' || $_SESSION[$menu['table'].'_search_value_genre'] != '' || $_SESSION[$menu['table'].'_search_value_pays'] != '' || $_SESSION[$menu['table'].'_search_value_annee'] != '' || $_SESSION[$menu['table'].'_search_value_duree'] != '' || $_SESSION[$menu['table'].'_search_value_note'] != '' || $_SESSION[$menu['table'].'_search_value_filmvu'] != '' || $_SESSION[$menu['table'].'_search_value_acteurs'] != '' || $_SESSION[$menu['table'].'_search_value_realisateurs'] != '' || $_SESSION[$menu['table'].'_search_value_commentaires'] != '' || $_SESSION[$menu['table'].'_search_value_reference'] != '' || $_SESSION[$menu['table'].'_search_value_support'] != '' || $_SESSION[$menu['table'].'_search_value_edition'] != '' || $_SESSION[$menu['table'].'_search_value_zone'] != '' || $_SESSION[$menu['table'].'_search_value_soustitres'] != '' || $_SESSION[$menu['table'].'_search_value_audio'] != '')
+	if (!empty($_SESSION[$menu['table'].'_search_value']) || !empty($_SESSION[$menu['table'].'_search_value_genre']) || !empty($_SESSION[$menu['table'].'_search_value_pays']) || !empty($_SESSION[$menu['table'].'_search_value_annee']) || !empty($_SESSION[$menu['table'].'_search_value_duree']) || !empty($_SESSION[$menu['table'].'_search_value_note']) || !empty($_SESSION[$menu['table'].'_search_value_filmvu']) || !empty($_SESSION[$menu['table'].'_search_value_acteurs']) || !empty($_SESSION[$menu['table'].'_search_value_realisateurs']) || !empty($_SESSION[$menu['table'].'_search_value_commentaires']) || !empty($_SESSION[$menu['table'].'_search_value_reference']) || !empty($_SESSION[$menu['table'].'_search_value_support']) || !empty($_SESSION[$menu['table'].'_search_value_edition']) || !empty($_SESSION[$menu['table'].'_search_value_zone']) || !empty($_SESSION[$menu['table'].'_search_value_soustitres']) || !empty($_SESSION[$menu['table'].'_search_value_audio']))
 	{
 		if ($list_search_total == 0)
 		{
