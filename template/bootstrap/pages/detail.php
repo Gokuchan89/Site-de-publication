@@ -11,30 +11,14 @@
 	$detail = $query->fetch();
 	$query->closeCursor();
 	
-	$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `type` = "genre"');
-	$query->execute();
-	$total_genre = $query->fetchColumn();
-	$query->closeCursor();
-	
-	$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `type` = "annee"');
-	$query->execute();
-	$total_annee = $query->fetchColumn();
-	$query->closeCursor();
-	
-	$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `type` = "realisateurs"');
-	$query->execute();
-	$total_realisateurs = $query->fetchColumn();
-	$query->closeCursor();
-	
-	$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `type` = "acteurs"');
-	$query->execute();
-	$total_acteurs = $query->fetchColumn();
-	$query->closeCursor();
-	
-	$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `type` = "support"');
-	$query->execute();
-	$total_support = $query->fetchColumn();
-	$query->closeCursor();
+	$total = array('genre', 'annee', 'support', 'acteurs', 'realisateurs');
+	for ($i=0;$i<count($total);$i++)
+	{
+		$query = $db->prepare('SELECT COUNT(`ID`) FROM `site_menu_filter` WHERE `type` = "'.$total[$i].'"');
+		$query->execute();
+		$$total[$i] = $query->fetchColumn();
+		$query->closeCursor();
+	}
 ?>
 <script>document.title += " / <?php echo $menu['name']; ?> / <?php echo $detail['TitreVF']; ?>"</script>
 
@@ -59,9 +43,9 @@
 		<div class="panel">
 			<li class="list-group-item"><i class="fa fa-pencil"></i> <?php echo $detail['TitreVF']; ?></li>
 			<?php if (!empty($detail['TitreVO'])) { ?><li class="list-group-item"><i class="fa fa-pencil"></i> <?php echo $detail['TitreVO']; ?></li><?php } ?>
-			<li class="list-group-item"><i class="fa fa-tag"></i> <?php echo filter('genre', $detail['Genre'], $menu['id'], $menu['table'], $total_genre); ?></li>
+			<li class="list-group-item"><i class="fa fa-tag"></i> <?php echo filter('genre', $detail['Genre'], $menu['id'], $menu['table'], $genre); ?></li>
 			<li class="list-group-item">
-				<i class="fa fa-calendar"></i> <?php echo filter('annee', $detail['Annee'], $menu['id'], $menu['table'], $total_annee); ?><br />
+				<i class="fa fa-calendar"></i> <?php echo filter('annee', $detail['Annee'], $menu['id'], $menu['table'], $annee); ?><br />
 				<?php
 					if ($detail['Duree'] != '0')
 					{
@@ -115,14 +99,14 @@
 		<?php if (!empty($detail['Realisateurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-users"></i> <?php if ($menu['type'] == 'jeuxvideo') echo 'Editeur(s) / Développeur(s)'; if ($menu['type'] == 'livre') echo 'Auteur(s)'; if ($menu['type'] == 'musique') echo 'Artiste(s) / Groupe'; if ($menu['type'] == 'video') echo 'Réalisateurs'; ?></h3></div>
-				<ul class="slider_detail"><?php echo search('realisateurs', $detail['Realisateurs'], $menu['id'], $menu['table'], $total_realisateurs); ?></ul>
+				<ul class="slider_detail"><?php echo search('realisateurs', $detail['Realisateurs'], $menu['id'], $menu['table'], $realisateurs); ?></ul>
 			</div>
 		<?php } ?>
 		<!-- ACTEURS -->
 		<?php if (!empty($detail['Acteurs'])) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-users"></i> Acteurs / Actrices</h3></div>
-				<ul class="slider_detail"><?php echo search('acteurs', $detail['Acteurs'], $menu['id'], $menu['table'], $total_acteurs); ?></ul>
+				<ul class="slider_detail"><?php echo search('acteurs', $detail['Acteurs'], $menu['id'], $menu['table'], $acteurs); ?></ul>
 			</div>
 		<?php } ?>
 		<!-- INFORMATIONS SUPPLEMENTAIRES -->
@@ -138,7 +122,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-paperclip"></i> Détails</h3></div>
 			<div class="panel-body">
-				<?php if (!empty($detail['Support']) && ($menu['type'] == 'jeuxvideo' || $menu['type'] == 'musique' || $menu['type'] == 'video')) { ?><i class="fa fa-tasks"></i> <strong>Support :</strong> <?php echo filter('support', $detail['Support'], $menu['id'], $menu['table'], $total_support); ?><br /><?php } ?>
+				<?php if (!empty($detail['Support']) && ($menu['type'] == 'jeuxvideo' || $menu['type'] == 'musique' || $menu['type'] == 'video')) { ?><i class="fa fa-tasks"></i> <strong>Support :</strong> <?php echo filter('support', $detail['Support'], $menu['id'], $menu['table'], $support); ?><br /><?php } ?>
 				<?php if (!empty($detail['Edition'])) { ?><i class="fa fa-inbox"></i> <strong>Edition :</strong> <?php echo $detail['Edition']; ?><br /><?php } ?>
 				<?php if (!empty($detail['Reference'])) { ?><i class="fa fa-barcode"></i> <strong>Code-barres :</strong> <?php echo $detail['Reference']; ?><br /><?php } ?>
 				<?php if (!empty($detail['EntreeDate'])) { ?><i class="fa fa-calendar"></i> <strong>Sortie le :</strong> <?php echo date_sortie(date('d F Y', strtotime($detail['EntreeDate']))); ?><br /><?php } ?>
