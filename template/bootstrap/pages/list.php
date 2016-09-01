@@ -274,7 +274,7 @@
 				<tr style="height:200px">
 					<td class="text-center">
 						<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
-						<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+						<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px100p?text=aucune \n image" alt="affiche" /></div>'; ?>
 					</td>
 					<td>
 						<div class="row"><div class="col-xs-12 col-sm-12 col-md-12"><a href="./?op=detail&table=<?php echo $menu['id']; ?>&id=<?php echo $listing['ID']; ?>"><?php echo $listing['TitreVF']; ?></a></div></div>
@@ -342,7 +342,7 @@
 				<a href="./?op=detail&table=<?php echo $menu['id']; ?>&id=<?php echo $listing['ID']; ?>">
 					<div class="thumbnail">
 						<?php $filename = sprintf('./profils/'.$menu['table'].'/affiches/Filmotech_%05d.jpg', $listing['ID']); ?>
-						<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+						<?php if (file_exists($filename)) echo '<div class="list"><img data-original="'.$filename.'" class="list-img lazy" alt="affiche" /></div>'; else echo '<div class="list"><img data-src="holder.js/100px100p?text=aucune \n image" alt="affiche" /></div>'; ?>
 						<div class="list-year text-danger"><?php echo $listing['Annee']; ?></div>
 						<div class="list-title text-info"><?php echo $listing['TitreVF']; ?></div>
 					</div>
