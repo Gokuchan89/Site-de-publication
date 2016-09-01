@@ -26,7 +26,7 @@
 						<a href="./?op=detail&table=<?php echo $home['id']; ?>&id=<?php echo $lastupdate['ID']; ?>">
 							<div class="thumbnail">
 								<?php $filename = sprintf('./profils/'.$home['table'].'/affiches/Filmotech_%05d.jpg', $lastupdate['ID']); ?>
-								<?php if (file_exists($filename)) echo '<div class="lastadd"><img data-original="'.$filename.'" class="lastadd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd"><img data-src="holder.js/100px165?text=aucune \n image" alt="affiche" /></div>'; ?>
+								<?php if (file_exists($filename)) echo '<div class="lastadd"><img data-original="'.$filename.'" class="lastadd-img lazy" alt="affiche" /></div>'; else echo '<div class="lastadd"><img data-src="holder.js/100px100p?text=aucune \n image" alt="affiche" /></div>'; ?>
 								<div class="text-info"><?php echo $lastupdate['TitreVF']; ?></div>
 							</div>
 						</a>
