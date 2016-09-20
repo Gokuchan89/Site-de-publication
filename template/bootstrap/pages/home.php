@@ -1,3 +1,6 @@
+<ol class="breadcrumb">
+	<li>Accueil</li>
+</ol>
 <?php
 	/*
 		=================================
