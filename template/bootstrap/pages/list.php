@@ -98,6 +98,11 @@
 	$listing_query->execute();
 ?>
 <script>document.title += " / <?php echo $menu['name']; ?>"</script>
+<ol class="breadcrumb">
+	<li>Accueil</li>
+	<li><?php echo $config['title']; ?></li>
+	<li><?php echo $menu['name']; ?></li>
+</ol>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	<div class="panel panel-default">
 		<div class="panel-heading" role="tab" id="heading">
