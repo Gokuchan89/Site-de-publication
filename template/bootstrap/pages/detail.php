@@ -21,7 +21,12 @@
 	}
 ?>
 <script>document.title += " / <?php echo $menu['name']; ?> / <?php echo $detail['TitreVF']; ?>"</script>
-
+<ol class="breadcrumb">
+	<li>Accueil</li>
+	<li><?php echo $config['title']; ?></li>
+	<li><?php echo $menu['name']; ?></li>
+	<li><?php echo $detail['TitreVF']; ?></li>
+</ol>
 <div class="row">
 	<?php if ($id != $detail['ID']) { ?>
 		<div class="col-xs-12 col-sm-12 col-md-12">
