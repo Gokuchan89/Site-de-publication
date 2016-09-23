@@ -11,22 +11,30 @@
 	//Définit le décalage horaire par défaut de toutes les fonctions date/heure  
 	date_default_timezone_set('Europe/Paris');
 	
-	if (!file_exists('./modules/commentaires/'.$detail['ID'].'.xml'))
+	// Création du dossier profils
+	if (!file_exists('./modules/commentaires/'.$menu['table']))
 	{
-		$file = fopen('./modules/commentaires/'.$detail['ID'].'.xml', 'w+'); 
+		$old = umask(0);
+		mkdir('./modules/commentaires/'.$menu['table'], 0777);
+		umask($old);
+	}
+	
+	if (!file_exists('./modules/commentaires/'.$menu['table'].'/'.$detail['ID'].'.xml'))
+	{
+		$file = fopen('./modules/commentaires/'.$menu['table'].'/'.$detail['ID'].'.xml', 'w+'); 
 	
 		$fichier = "<?xml version=\"1.0\" encoding=\"iso-8859-15\"?>\n";
 		$fichier = $fichier."<commentaires>\n";
 		$fichier = $fichier."</commentaires>";
 		
-		$monFichier = fopen('./modules/commentaires/'.$detail['ID'].'.xml', 'a+');
+		$monFichier = fopen('./modules/commentaires/'.$menu['table'].'/'.$detail['ID'].'.xml', 'a+');
 		fputs($monFichier, $fichier); 
 		fclose($monFichier);
 	}
 	
-	if (!file_exists('./modules/commentaires/'.$detail['ID'].'_config.xml'))
+	if (!file_exists('./modules/commentaires/'.$menu['table'].'/'.$detail['ID'].'_config.xml'))
 	{
-		$file = fopen('./modules/commentaires/'.$detail['ID'].'_config.xml', 'w+'); 
+		$file = fopen('./modules/commentaires/'.$menu['table'].'/'.$detail['ID'].'_config.xml', 'w+'); 
 	
 		$fichier = "<?xml version=\"1.0\" encoding=\"iso-8859-15\"?>\n";
 		$fichier = $fichier."<config>\n";
@@ -34,7 +42,7 @@
 		$fichier = $fichier."<dernierid>0</dernierid>\n";
 		$fichier = $fichier."</config>";
 		
-		$monFichier = fopen('./modules/commentaires/'.$detail['ID'].'_config.xml', 'a+');
+		$monFichier = fopen('./modules/commentaires/'.$menu['table'].'/'.$detail['ID'].'_config.xml', 'a+');
 		fputs($monFichier, $fichier); 
 		fclose($monFichier);
 	}
@@ -55,8 +63,8 @@
 			
 			$ok = true;
 			
-			$bibliotheque = simplexml_load_file('./modules/commentaires/'.$id.'.xml');
-			$config = simplexml_load_file('./modules/commentaires/'.$id.'_config.xml');
+			$bibliotheque = simplexml_load_file('./modules/commentaires/'.$menu['table'].'/'.$id.'.xml');
+			$config = simplexml_load_file('./modules/commentaires/'.$menu['table'].'/'.$id.'_config.xml');
 			
 			foreach ($bibliotheque->commentaire as $commentaire)
 			{
@@ -103,10 +111,10 @@
 					$configMiseAJour = $config->asXML() ;
 
 					// On écrit la config
-					$fichierconf = fopen('./modules/commentaires/'.$id.'_config.xml', 'w');
+					$fichierconf = fopen('./modules/commentaires/'.$menu['table'].'/'.$id.'_config.xml', 'w');
 					fputs($fichierconf, $configMiseAJour);
 					// et le nouveau message
-					$fichier = fopen('./modules/commentaires/'.$id.'.xml', 'w');
+					$fichier = fopen('./modules/commentaires/'.$menu['table'].'/'.$id.'.xml', 'w');
 					fputs($fichier, $baseMiseAJour);
 					
 					header('location: '.$_SERVER['REQUEST_URI']);
@@ -239,8 +247,8 @@
 		<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-comments"></i> Commentaires</h3></div>
 		<div class="panel-body">
 			<?php
-				$bibliotheque = simplexml_load_file('./modules/commentaires/'.$id.'.xml');
-				$config = simplexml_load_file('./modules/commentaires/'.$id.'_config.xml');
+				$bibliotheque = simplexml_load_file('./modules/commentaires/'.$menu['table'].'/'.$id.'.xml');
+				$config = simplexml_load_file('./modules/commentaires/'.$menu['table'].'/'.$id.'_config.xml');
 			
 				$nbmessages = $config->nbmessages;
 				settype($nbmessages, 'integer');
