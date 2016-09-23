@@ -21,12 +21,7 @@
 	}
 ?>
 <script>document.title += " / <?php echo $menu['name']; ?> / <?php echo $detail['TitreVF']; ?>"</script>
-<ol class="breadcrumb">
-	<li>Accueil</li>
-	<li><?php echo $config['title']; ?></li>
-	<li><?php echo $menu['name']; ?></li>
-	<li><?php echo $detail['TitreVF']; ?></li>
-</ol>
+
 <div class="row">
 	<?php if ($id != $detail['ID']) { ?>
 		<div class="col-xs-12 col-sm-12 col-md-12">
@@ -75,7 +70,37 @@
 				<?php if ($menu['type'] == 'video') { ?><i class="fa fa-globe"></i> <?php echo $detail['Pays']; ?><?php } ?>
 			</li>
 			<?php if ($menu['type'] == 'video') { ?>
-				<li class="list-group-item"><i class="fa fa-thumbs-o-up"></i> <?php if (file_exists('./img/stars/'.$detail['Note'].'.png')) echo '<img src="./img/stars/'.$detail['Note'].'.png" alt="note"/>'; else echo $detail['Note']; ?></li>
+				<li class="list-group-item">
+				<?php
+					if (file_exists('./commentaires/'.$id.'.xml'))
+					{
+						$bibliotheque = simplexml_load_file('./commentaires/'.$id.'.xml');
+						
+						$somme_notes = 0;
+						$i = 1;
+						
+						foreach ($bibliotheque->commentaire as $commentaire)
+						{
+							if ($i++ > 0)
+							{
+								$somme_notes += $commentaire->note;
+							}
+						}
+						if ($somme_notes > 0)
+						{
+							$moyenne = $somme_notes / ($i-1);
+						} else {
+							$moyenne = 0;
+						}
+							
+						if (file_exists('./img/stars/'.(intval($moyenne)*2).'.png')) $note = '<img src="./img/stars/'.(intval($moyenne)*2).'.png" alt="note"/>'; else $note = intval($moyenne);
+						echo '<i class="fa fa-thumbs-o-up"></i> '.$note;
+					} else {
+						if (file_exists('./img/stars/'.$detail['Note'].'.png')) $note = '<img src="./img/stars/'.$detail['Note'].'.png" alt="note"/>'; else $note = $detail['Note'];
+						echo '<i class="fa fa-thumbs-o-up"></i> '.$note;
+					}
+				?>
+				</li>
 				<li class="list-group-item text-center">
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6">
@@ -147,21 +172,18 @@
 							{
 								preg_match('/^([a-zA-Z-]+)(\d.+) ([a-zA-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+)/i', $liste_audio[$i], $audio);
 								echo '<tr height="30px">';
-								// Flags
 								if (file_exists('./img/flags/'.clean_img($audio[3]).'.png'))
 								{
 									echo '<td><img src="./img/flags/'.clean_img($audio[3]).'.png" style="max-width:20px;" title="'.$audio[3].'" /> '.$audio[3].'</td>';
 								} else {
 									echo '<td>'.$audio[3].'</td>';
 								}
-								// Audio Codec
 								if (file_exists('./img/audiocodec/'.$audio[1].'.png'))
 								{
 									echo '<td style="width:30%" class="text-center"><img src="./img/audiocodec/'.$audio[1].'.png" style="max-width:82px;max-height:25px;" title="'.$audio[1].'" /></td>';
 								} else {
 									echo '<td style="width:30%" class="text-center">'.$audio[1].'</td>';
 								}
-								// Audio Channel
 								if (file_exists('./img/audiochannel/'.$audio[2].'.png'))
 								{
 									echo '<td style="width:30%" class="text-right"><img src="./img/audiochannel/'.$audio[2].'.png" style="max-width:82px;max-height:25px;" title="'.$audio[2].'" /></td>';
@@ -196,4 +218,8 @@
 			</div>
 		<?php } ?>
 	</div>
+	<?php
+		$commentaires = '0';
+		if ($commentaires == 1 && file_exists('./commentaires')) include('./commentaires/_commentaires.php');
+	?>
 </div>
