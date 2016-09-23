@@ -76,9 +76,9 @@
 			<?php if ($menu['type'] == 'video') { ?>
 				<li class="list-group-item">
 				<?php
-					if (file_exists('./commentaires/'.$id.'.xml'))
+					if (file_exists('./modules/commentaires/'.$id.'.xml'))
 					{
-						$bibliotheque = simplexml_load_file('./commentaires/'.$id.'.xml');
+						$bibliotheque = simplexml_load_file('./modules/commentaires/'.$id.'.xml');
 						
 						$somme_notes = 0;
 						$i = 1;
@@ -223,7 +223,7 @@
 		<?php } ?>
 	</div>
 	<?php
-		$commentaires = '0';
-		if ($commentaires == 1 && file_exists('./commentaires')) include('./commentaires/_commentaires.php');
+		$commentaires = '1';
+		if ($commentaires == 1 && file_exists('./modules/commentaires')) include('./modules/commentaires/_commentaires.php');
 	?>
 </div>
