@@ -1,0 +1,10 @@
+<?php
+	include("category.class.php");
+	include("functions.class.php");
+	include("log.class.php");
+	include("log_activite.class.php");
+	include("menu.class.php");
+	include("mysql.class.php");
+	include("setting.class.php");
+	include("user.class.php");
+?>

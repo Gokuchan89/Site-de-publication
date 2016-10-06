@@ -1,0 +1,1 @@
+<a href="./data/logout.php">Déconnexion</a>
