@@ -1,7 +1,7 @@
 <?php
 	if (!file_exists("./data/db_config.inc.php"))
 	{
-		header("location: ./install.php");
+		header("location: ./");
 		exit();
 	}
 	
