@@ -32,7 +32,7 @@
 						<div class="panel-body">
 							<p class="text-center">
 								L'installation est terminée avec succès.<br/>
-								Vous pouvez utiliser votre <a href="./">site</a>.<br/>
+								Vous pouvez utiliser votre <a href="../">site</a>.<br/>
 							</p>
 							<p class="text-center text-danger">N’oubliez pas de supprimer le dossier "install" par mesure de sécurité.</p>
 						</div>
