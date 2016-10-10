@@ -386,7 +386,7 @@
 						{
 							message: "Cet identifiant est déjà utilisé",
 							type: "POST",
-							url: "./data/verif_login.php",
+							url: "./data/verif_username.php",
 							data: function(validator)
 							{
 								return {
@@ -410,7 +410,7 @@
 						{
 							message: "Cette adresse email est déjà utilisée",
 							type: "POST",
-							url: "data/verif_mail.php",
+							url: "data/verif_email.php",
 							data: function(validator)
 							{
 								return {
