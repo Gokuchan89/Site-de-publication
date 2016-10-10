@@ -1,12 +1,9 @@
 <?php
-	if (!isset($_SESSION['username']) || $_SESSION['admin'] != 1)
+	if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1)
 	{
 		header("location: ./");
 		exit();
 	}
-	
-	$setting = new Setting();
-	$logs = new Log_activite();
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,6 +31,7 @@
 						</thead>
 						<tbody>
 							<?php
+								$logs = new Log_activite();
 								$liste = $logs->getLog_activiteList();
 							?>
 							<?php foreach($liste as $log) { ?>
