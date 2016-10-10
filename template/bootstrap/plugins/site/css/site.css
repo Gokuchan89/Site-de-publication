@@ -1,6 +1,35 @@
 /*
     =================================
-    GENERAL
+    AVATAR + THEMES
+    =================================
+*/
+.avatar-theme > input[type=radio]
+{
+	display:								none;
+}
+.theme
+{
+    height:									150px;
+}
+.theme-img
+{
+	max-width:								100%;
+	max-height:								100%;
+}
+input[type=radio] + img
+{
+	cursor:									pointer;
+	border:									2px solid transparent;
+}
+input[type=radio]:checked + img
+{
+	border:									2px solid #2274a9;
+	opacity:								1;
+}
+
+/*
+    =================================
+    TABLE
     =================================
 */
 .table > thead > tr > th,
