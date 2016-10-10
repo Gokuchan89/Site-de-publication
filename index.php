@@ -24,12 +24,31 @@
 				header("location: ./login.php");
 				exit();
 			} else {
+				$user_datelastlogin = new User();
+				$user_datelastlogin->getUserDBUsername($_SESSION['username']);
+				$user_datelastlogin->setDatelastlogin(time());
+				$user_datelastlogin->SaveUser();
+				
 				$user_theme = new User();
 				$user_theme->getUserDBUsername($_SESSION['username']);
 				include("./template/".$user_theme->getTheme()."/index.php");
 			}
-		} else {
-			include("./template/bootstrap/index.php");
+		}
+		if ($setting_open->getValue() == 1)
+		{
+			if (!isset($_SESSION['username'])) 
+			{
+				include("./template/bootstrap/index.php");
+			} else {
+				$user_datelastlogin = new User();
+				$user_datelastlogin->getUserDBUsername($_SESSION['username']);
+				$user_datelastlogin->setDatelastlogin(time());
+				$user_datelastlogin->SaveUser();
+				
+				$user_theme = new User();
+				$user_theme->getUserDBUsername($_SESSION['username']);
+				include("./template/".$user_theme->getTheme()."/index.php");
+			}
 		}
 	}
 ?>
