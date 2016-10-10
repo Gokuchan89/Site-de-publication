@@ -148,7 +148,7 @@
 								<div class="row">
 									<div class="col-xs-9 col-sm-10 col-md-10">
 										<div class="form-group has-feedback">
-											<input type="text" class="form-control" name="register_captcha" placeholder="Captcha" required />
+											<input type="number" class="form-control" name="register_captcha" placeholder="Captcha" required />
 											<span class="form-control-feedback"><i class="fa fa-key"></i></span>
 										</div>
 									</div>

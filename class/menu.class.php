@@ -87,6 +87,65 @@
 					$this->id_category = $donnees['id_category'];
 				}
 			}
+	
+			// Initialisation de la liste via l'id
+			public function getMenuDBID($id)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_menu` WHERE `id` = :id");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id" => $id));
+					// Traitement des résultats
+					while ($menu = $sql->fetch(PDO::FETCH_OBJ))
+					{
+						$this->id = $menu->id;
+						$this->name = $menu->name;
+						$this->icon = $menu->icon;
+						$this->position = $menu->position;
+						$this->name_table = $menu->name_table;
+						$this->id_category = $menu->id_category;
+					}
+					return true;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Menu->getMenuDBID",
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_menu` WHERE `id` = ".$id
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+	
+			// Initialisation de la liste via l'id catégorie
+			public function getMenuDBIDCategory($id_category)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_menu` WHERE `id_category` = :id_category ORDER BY `position`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id_category" => $id_category));
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Menu->getMenuDBIDCategory",
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_menu` WHERE `id_category` = ".$id_category." ORDER BY `position`"
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
 
 			// Sauvegarde d'un nouveau menu en BDD
 			public function saveMenu()
@@ -168,6 +227,7 @@
 				{
 					// On envoi la requête
 					$sql->execute(array(
+						"id" => $this->id,
 						"name" => $this->name,
 						"icon" => $this->icon,
 						"position" => $this->position,
@@ -180,6 +240,53 @@
 						"treatment" => "Menu->majDB",
 						"error" => $e->getMessage(),
 						"request" => "UPDATE `site_menu` SET `name` = ".$this->name.", `icon` = ".$this->icon.", `position` = ".$this->position.", `name_table` = ".$this->name_table.", `id_category` = ".$this->id_category." WHERE `id` = ".$this->id
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+			
+			// Suppression d'une catégorie
+			public function deleteMenuDBID($id)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("DELETE FROM `site_menu` WHERE `id` = :id");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id" => $id));
+					return true;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Menu->deleteMenuDBID", 
+						"error" => $e->getMessage(),
+						"request" => "DELETE FROM `site_menu` WHERE `id` = ".$id
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+			
+			public function deleteMenuDBIDCategory($id_category)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("DELETE FROM `site_menu` WHERE `id_category` = :id_category");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id_category" => $id_category));
+					return true;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "User->deleteMenuDBIDCategory", 
+						"error" => $e->getMessage(),
+						"request" => "DELETE FROM `site_menu` WHERE `id_category` = ".$id_category
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();

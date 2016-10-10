@@ -42,11 +42,12 @@
 				}
 			}
 
-			// Initialisation depuis la BDD via le nom
+			// Initialisation depuis la BDD via la clé
 			public function getSettingDBKey($key)
 			{
 				// Etablissement de la connexion à MySQL
-				$Connexion = $this->mysql->getPDO();
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
 				$sql = $Connexion->prepare("SELECT * FROM `site_setting` WHERE `key` = :key");
 				try
@@ -54,10 +55,10 @@
 					// On envoi la requête
 					$sql->execute(array("key" => $key));
 					// Traitement des résultats
-					while ($user = $sql->fetch(PDO::FETCH_OBJ))
+					while ($setting = $sql->fetch(PDO::FETCH_OBJ))
 					{
-						$this->key = $user->key;
-						$this->value = $user->value;
+						$this->key = $setting->key;
+						$this->value = $setting->value;
 					}
 					return true;
 				} catch(Exception $e) {
@@ -66,7 +67,92 @@
 						"error" => $e->getMessage(),
 						"request" => "SELECT * FROM `site_setting` WHERE `key` = ".$key
 					));
-					$Log->Save();
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+
+			// Sauvegarde d'un Settings en BDD
+			public function saveSetting()
+			{
+				// Vérifier si le Settings existe déjà pour savoir si on ajoute le Settings ou si on le met à jour dans la BDD
+				if ($this->key)
+				{
+					// Vérification si l'id existe dans la BDD
+					// Etablissement de la connexion à MySQL
+					$mysql = new MySQL();
+					$Connexion = $mysql->getPDO();
+					// Préparation de la requête
+					$sql = $Connexion->prepare("SELECT * FROM `site_setting` WHERE `key` = :key");
+					try
+					{
+						// On envoi la requête
+						$sql->execute(array("key" => $this->key));
+						if ($sql->fetch(PDO::FETCH_OBJ))
+						{
+							//il y a un resultat donc on maj le Settings
+							return $this->majDB();
+						} else {
+							// il n'y a pas de resultat donc on créé le Settings
+							return $this->createDB();
+						}
+					} catch (Exception $e) {
+						return "Erreur de requête : ".$e->getMessage();
+					}
+				} else {
+					// On lance une création en BDD
+					return $this->createDB();
+				}
+			}
+
+			// Création de Settings en BDD
+			private function createDB()
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("INSERT INTO `site_setting` (`value`) values (:value)");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("value" => $this->value));
+					$this->id = $Connexion->lastInsertId();
+					return $this->id;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Setting->createDB", 
+						"error" => $e->getMessage(),
+						"request" => "INSERT INTO `site_setting` (`value`) values (".$this->value.")"
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+
+			// Mise à jour de Settings en BDD
+			private function majDB()
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("UPDATE `site_setting` SET `value` = :value WHERE `key` = :key");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array(
+						"key" => $this->key,
+						"value" => $this->value
+					));
+					return true;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Setting->majDB", 
+						"error" => $e->getMessage(),
+						"request" => "UPDATE `site_setting` SET `value` = ".$this->value." WHERE `key` = ".$this->key
+					));
+					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}

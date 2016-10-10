@@ -208,6 +208,49 @@
 				}
 			}
 
+			// Initialisation depuis la BDD via l'id
+			public function getUserDBID($id)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_user` WHERE `id` = :id");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id" => $id));
+					// Traitement des résultats
+					while ($user = $sql->fetch(PDO::FETCH_OBJ))
+					{
+						$this->id = $user->id;
+						$this->name = $user->name;
+						$this->username = $user->username;
+						$this->email = $user->email;
+						$this->password = $user->password;
+						$this->date_registration = $user->date_registration;
+						$this->date_lastlogin = $user->date_lastlogin;
+						$this->date_birthday = $user->date_birthday;
+						$this->url_website = $user->url_website;
+						$this->country = $user->country;
+						$this->avatar = $user->avatar;
+						$this->theme = $user->theme;
+						$this->status = $user->status;
+						$this->admin = $user->admin;
+						$this->access = $user->access;
+					}
+					return true;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "User->getUserDBID",
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_user` WHERE `id` = ".$id
+					));
+					$Log->saveLog();
+					return 'Erreur de requête : '.$e->getMessage();
+				}
+			}
+
 			// Initialisation depuis la BDD via le username
 			public function getUserDBUsername($username)
 			{
@@ -220,7 +263,6 @@
 				{
 					// On envoi la requête
 					$sql->execute(array("username" => $username));
-
 					// Traitement des résultats
 					while ($user = $sql->fetch(PDO::FETCH_OBJ))
 					{
@@ -264,7 +306,6 @@
 				{
 					// On envoi la requête
 					$sql->execute(array('email'=>$email));
-
 					// Traitement des résultats
 					while ($user = $sql->fetch(PDO::FETCH_OBJ))
 					{

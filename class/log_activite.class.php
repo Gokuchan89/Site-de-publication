@@ -96,6 +96,30 @@
 				}
 			}
 
+			// Récuperation de la liste
+			public function getLog_activiteList()
+			{
+				// Etablissement de la connexion à MySQL
+				$Connexion = $this->mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_log_activite`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Log_activite->getLog_activiteList", 
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_log_activite`"
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+
 			// Sauvegarde d'un log_activite en BDD
 			public function saveLog_activite()
 			{

@@ -35,8 +35,63 @@
 					$this->name = $donnees['name'];
 				}
 			}
+	
+			// Initialisation de la liste
+			public function getCategoryList()
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_category` ORDER BY `name`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Category->getCategoryList",
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_category` ORDER BY `name`"
+					));
+					$Log->Save();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+	
+			// Initialisation de la liste via l'id
+			public function getCategoryDBID($id)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_category` WHERE `id` = :id");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id" => $id));
+					// Traitement des résultats
+					while ($category = $sql->fetch(PDO::FETCH_OBJ))
+					{
+						$this->id = $category->id;
+						$this->name = $category->name;
+					}
+					return true;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Category->getCategoryDBID",
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_category` WHERE `id` = ".$id
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
 
-			// Sauvegarde d'une nouvelle catégorie en BDD
+			// Sauvegarde d'une catégorie
 			public function saveCategory()
 			{
 				// Vérifier si la catégorie existe déjà pour savoir si on ajoute la catégorie ou si on le met à jour dans la BDD
@@ -75,6 +130,7 @@
 				}
 			}
 
+			// Création d'une catégorie si elle n'existe pas
 			private function createDB()
 			{
 				// Etablissement de la connexion à MySQL
@@ -99,6 +155,7 @@
 				}
 			}
 
+			// Mise à jour d'une catégorie si elle existe
 			private function majDB()
 			{
 				// Etablissement de la connexion à MySQL
@@ -124,32 +181,32 @@
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
-	
-			// Récuperation de la liste des catégories
-			public function getCategoryList()
+			
+			// Suppression d'une catégorie
+			public function deleteCategoryDBID($id)
 			{
 				// Etablissement de la connexion à MySQL
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("SELECT * FROM `site_category` ORDER BY `name`");
+				$sql = $Connexion->prepare("DELETE FROM `site_category` WHERE `id` = :id");
 				try
 				{
 					// On envoi la requête
-					$sql->execute();
-					$donnees = $sql->fetchAll();
-					return $donnees;
+					$sql->execute(array("id" => $id));
+					return true;
 				} catch (Exception $e) {
 					$Log = new Log(array(
-						"treatment" => "Category->getCategoryList",
+						"treatment" => "Category->deleteCategoryDBID", 
 						"error" => $e->getMessage(),
-						"request" => "SELECT * FROM `site_category` ORDER BY `name`"
+						"request" => "DELETE FROM `site_category` WHERE `id` = ".$id
 					));
-					$Log->Save();
+					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
 
+			// Test si la catégorie à bien été créée pendant l'installation
 			public function testPresenceCategory($name)
 			{
 				// Etablissement de la connexion à MySQL
