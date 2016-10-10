@@ -1,10 +1,5 @@
 <?php
-	ini_set('session.gc_maxlifetime', 28800);
-	session_name('intranet');
-	session_start();
-		
-	include("../class/_classLoader.php");
-	include("../data/db_query.php");
+	include("./class/_classLoader.php");
 	
 	// On ajoute une ligne dans le log
 	$log = new log_activite();
@@ -23,5 +18,5 @@
 	session_destroy();
 	
 	// On redirige vers la page de connexion
-	header("location: ../");
+	header("location: ./");
 ?>
