@@ -35,7 +35,7 @@
 		$test[$lib_errors][] = "Écriture impossible dans le répertoire, veuillez ajouter les permissions en écriture sur tout le dossier (sudo chmod 777 -R, pensez à blinder les permissions par la suite).";
 	}
 
-	if (isset($_POST['step1']) && $_POST['step1'] == 1 && empty($test[$lib_errors]))
+	if (isset($_['step1']) && $_['step1'] == 1 && empty($test[$lib_errors]))
 	{
 		if (!empty($_['db_server']) && !empty($_['db_username']) && !empty($_['db_password']) && !empty($_['db_name']))
 		{

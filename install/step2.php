@@ -11,7 +11,7 @@
 		Functions::secure($val);
 	}
 
-	if (isset($_POST['step2']) && $_POST['step2'] == 1 && empty($test[$lib_errors]))
+	if (isset($_['step2']) && $_['step2'] == 1 && empty($test[$lib_errors]))
 	{
 		if (!empty($_['category_name']))
 		{

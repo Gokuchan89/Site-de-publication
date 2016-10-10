@@ -11,7 +11,7 @@
 		Functions::secure($val);
 	}
 
-	if (isset($_POST['step3']) && $_POST['step3'] == 1 && empty($test[$lib_errors]))
+	if (isset($_['step3']) && $_['step3'] == 1 && empty($test[$lib_errors]))
 	{
 		if (!empty($_['menu_category']) && !empty($_['menu_name']) && !empty($_['menu_icon']) && !empty($_['menu_table']))
 		{
@@ -23,7 +23,7 @@
 			$menu = new Menu();
 			$menu->setName($menu_name);
 			$menu->setIcon($menu_icon);
-			$menu->setPosition(0);
+			$menu->setPosition(1);
 			$menu->setNametable($menu_table);
 			$menu->setIDcategory($menu_category);
 			$menu->saveMenu();
@@ -52,11 +52,10 @@
 		<link rel="stylesheet" href="../template/bootstrap/css/bootstrap.min.css">
 		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 		<link rel="stylesheet" href="../template/bootstrap/plugins/bootstrap-validator/css/bootstrap-validator.min.css">
+		<!-- CHOSEN -->
+		<link rel="stylesheet" href="../template/bootstrap/plugins/chosen/css/chosen-bootstrap.css">
 		<!-- FONT-AWESOME 4.6.3 -->
 		<link rel="stylesheet" href="../template/bootstrap/plugins/font-awesome/css/font-awesome.min.css" />
-		<!-- SELECT2 4.0.3 -->
-		<link rel="stylesheet" href="../template/bootstrap/plugins/select2/css/select2.min.css">
-		<link rel="stylesheet" href="../template/bootstrap/plugins/select2/css/select2-bootstrap.min.css">
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -143,7 +142,7 @@
 								?>
 								<h4>Catégorie</h4>
 								<div class="form-group">
-									<select class="form-control select2" name="menu_category" style="width:100%;" autofocus required>
+									<select class="form-control chosen" name="menu_category" required>
 										<option></option>
 										<?php
 											$category = new Category();
@@ -197,9 +196,8 @@
 		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 		<script src="../template/bootstrap/plugins/bootstrap-validator/js/bootstrap-validator.min.js"></script>
 		<script src="../template/bootstrap/plugins/bootstrap-validator/js/i18n/fr_FR.js"></script>
-		<!-- SELECT2 4.0.3 -->
-		<script src="../template/bootstrap/plugins/select2/js/select2.full.min.js"></script>
-		<script src="../template/bootstrap/plugins/select2/js/i18n/fr.js"></script>
+		<!-- CHOSEN 1.6.2 -->
+		<script src="../template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
 		<script>
 			$("#myTabs a").click(function (e)
 			{
@@ -252,13 +250,12 @@
 				}
 			});
 
-			// Select2
-			$(".select2").select2(
+			// Chosen
+			$(".chosen").chosen(
 			{
-				minimumResultsForSearch: Infinity,
-				placeholder: "Choisir la catégorie",
-				theme: "bootstrap",
-				language: "fr"
+				disable_search: true,
+				placeholder_text_single: "Choisir une catégorie",
+				no_results_text: "Aucun résultat trouvé!"
 			});
 		</script>
 	</body>
