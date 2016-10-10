@@ -14,6 +14,8 @@
 	
 	
 	
+	if ($op == "profile") include("./template/bootstrap/pages/profile.php");
+	if ($op == "themes") include("./template/bootstrap/pages/themes.php");
 	
 	
 	if ($op == "settings") include("./template/bootstrap/pages/admin/settings.php");
@@ -26,5 +28,5 @@
 	if ($op == "logout") include("./data/logout.php");
 	
 	
-	if ($op && $op != "settings" && $op != "users" && $op != "log" && $op != "logout") include("./template/bootstrap/pages/home.php");
+	if ($op && $op != "profile" && $op != "themes" && $op != "settings" && $op != "users" && $op != "log" && $op != "logout") include("./template/bootstrap/pages/home.php");
 ?>
