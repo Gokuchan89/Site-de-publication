@@ -3,9 +3,125 @@
 <!-- BOOTSTRAP 3.3.7 -->
 <script src="./template/bootstrap/js/bootstrap.min.js"></script>
 
+<!-- Page profil -->
+<?php if ($op == 'profile') { ?>
+	<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
+	<script src="./template/bootstrap/plugins/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="./template/bootstrap/plugins/bootstrap-validator/js/i18n/fr_FR.js"></script>
+	<!-- CHOSEN 1.6.2 -->
+	<script src="./template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
+	<!-- JASNY BOOTSTRAP 3.1.3 -->
+	<script src="./template/bootstrap/plugins/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+	<!-- JQUERY UI 1.12.1 -->
+	<script src="./template/bootstrap/plugins/jquery-ui/js/jquery-ui.min.js"></script>
+	<script src="./template/bootstrap/plugins/jquery-ui/js/i18n/datepicker-fr.js"></script>
+	<script>
+		// Bootstrap validator
+		$("#profileEditForm").bootstrapValidator(
+		{
+			locale: "fr_FR",
+			fields:
+			{
+				profile_edit_email:
+				{
+					validators:
+					{
+						emailAdress:
+						{
+						},
+						notEmpty:
+						{
+						}
+					}
+				},
+				profile_edit_password1:
+				{
+					validators:
+					{
+						stringLength:
+						{
+							min: 6,
+							max: 30
+						},
+						identical:
+						{
+							field: "profile_edit_password2"
+						}
+					}
+				},
+				profile_edit_password2:
+				{
+					validators:
+					{
+						identical:
+						{
+							field: "profile_edit_password1"
+						}
+					}
+				},
+				profile_edit_datebirthday:
+				{
+					validators:
+					{
+						date:
+						{
+							format: "DD/MM/YYYY"
+						}
+					}
+				},
+				profile_edit_website:
+				{
+					validators:
+					{
+						uri:
+						{
+						}
+					}
+				}
+			}
+		});
+		
+		// Datepicker
+		$('.datepicker').datepicker(
+		{
+			firstDay: 1
+		});
+
+		// Chosen
+		$(".chosen").chosen(
+		{
+			placeholder_text_single: "Choisir un pays"
+		});
+	</script>
+<?php } ?>
 
 
 
+
+
+
+
+
+
+<!-- Page profil -->
+<?php if ($op == 'profile') { ?>
+	<script>
+		document.title += " / Profil"
+	</script>
+<?php } ?>
+
+
+
+
+<!-- Page thèmes -->
+<?php if ($op == 'themes') { ?>
+	<script>
+		document.title += " / Thèmes"
+	</script>
+<?php } ?>
+		
+		
+		
 
 
 
@@ -19,7 +135,7 @@
 	<!-- CHOSEN 1.6.2 -->
 	<script src="./template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
 	<script>
-		document.title += " / Paramètres"
+		document.title += " / Administration / Paramètres"
 	
 		var id_suppr;
 		function category_del(id)
@@ -311,7 +427,7 @@
 	<script src="./template/bootstrap/plugins/datatables/js/jquery.datatables.min.js"></script>
 	<script src="./template/bootstrap/plugins/datatables/js/datatables.bootstrap.min.js"></script>
 	<script>
-		document.title += " / Utilisateurs"
+		document.title += " / Administration / Utilisateurs"
 		
         function user_edit_access(id, tab)
         {
@@ -483,7 +599,7 @@
 	<script src="./template/bootstrap/plugins/datatables/js/jquery.datatables.min.js"></script>
 	<script src="./template/bootstrap/plugins/datatables/js/datatables.bootstrap.min.js"></script>
 	<script>
-		document.title += " / Historique d'activité"
+		document.title += " / Administration / Historique d'activité"
 		
 		// DataTables
 		$("#log_list").DataTable(

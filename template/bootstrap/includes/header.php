@@ -9,6 +9,19 @@
 	<link rel="stylesheet" href="./template/bootstrap/plugins/font-awesome/css/font-awesome.min.css" />
 	
 	
+	<!-- Page profil -->
+	<?php if ($op == 'profile') { ?>
+		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/bootstrap-validator/css/bootstrap-validator.min.css">
+		<!-- CHOSEN -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/chosen/css/chosen-bootstrap.css">
+		<!-- JASNY BOOTSTRAP 3.1.3 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css" />
+		<!-- JQUERY UI 1.12.1 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/jquery-ui/css/base/jquery-ui.min.css">
+	<?php } ?>
+	
+	
 	
 	
 	
