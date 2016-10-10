@@ -1,12 +1,18 @@
 <?php
 	include("../class/_classLoader.php");
-	
-	if (isset($_POST['register_username']))
+
+	// Protection des variables
+	$_ = array_merge($_GET, $_POST);
+	foreach ($_ as $key=>&$val)
 	{
-		$username = $_POST['register_username'];
+		Functions::secure($val);
+	}
+	
+	if (isset($_['register_username']))
+	{
 		
 		$user = new User();
-		$user->getUserDBUsername($username);
+		$user->getUserDBUsername($_['register_username']);
 		
 		if ($user->getName() != "")
 		{
@@ -20,27 +26,20 @@
 		}
 	}
 	
-	/*
-	if (isset($_POST['users_username']))
+	if (isset($_['user_add_username']))
 	{
-		$username = $_POST['users_username'];
+		$user = new User();
+		$user->getUserDBUsername($_['user_add_username']);
 		
-		$query = $db->prepare('SELECT * FROM `site_user` WHERE `username` = :username');
-		$query->bindValue('username', $username, PDO::PARAM_STR);
-		$query->execute();
-		$user = $query->fetch();
-		$query->CloseCursor();
-
-		if ($user['username'] != '')
+		if ($user->getName() != "")
 		{
 			echo json_encode(array(
-				'valid' => 'false',
+				"valid" => "false",
 			));
 		} else {
 			echo json_encode(array(
-				'valid' => 'true',
+				"valid" => "true",
 			));
 		}
 	}
-	*/
 ?>

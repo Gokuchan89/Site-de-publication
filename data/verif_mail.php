@@ -11,36 +11,31 @@
 		if ($user->getEmail() != "")
 		{
 			echo json_encode(array(
-				'valid' => 'false',
+				"valid" => "false",
 			));
 		} else {
 			echo json_encode(array(
-				'valid' => 'true',
+				"valid" => "true",
 			));
 		}
 	}
 
-	/*
-	if (isset($_POST['users_email']))
+	if (isset($_POST['user_add_email']))
 	{
-		$email = $_POST['users_email'];
+		$email = $_POST['user_add_email'];
 		
-		$query = $db->prepare('SELECT * FROM `site_user` WHERE `email` = :email');
-		$query->bindValue('email', $email, PDO::PARAM_STR);
-		$query->execute();
-		$user = $query->fetch();
-		$query->CloseCursor();
+		$user = new User();
+		$user->getUserDBEmail($email);
 
-		if ($user['email'] != '')
+		if ($user->getEmail() != "")
 		{
 			echo json_encode(array(
-				'valid' => 'false',
+				"valid" => "false",
 			));
 		} else {
 			echo json_encode(array(
-				'valid' => 'true',
+				"valid" => "true",
 			));
 		}
 	}
-	*/
 ?>

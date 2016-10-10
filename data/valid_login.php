@@ -9,6 +9,7 @@
 	{
 		$username = $_POST['username'];
 		$password = sha1($_POST['password']);
+		
 		$user = new User();
 		$user->getUserDBUsername($username);
 		
@@ -24,6 +25,7 @@
 
 					$setting_maintenance = new Setting();
 					$setting_maintenance->getSettingDBKey('maintenance');
+					
 					if ($setting_maintenance->getValue() == 0)
 					{
 						$log = new Log_activite();
@@ -31,8 +33,10 @@
 						$log->setAction("Connexion");
 						$log->setComment("Connecté avec succès (IP : ".$_SERVER['REMOTE_ADDR'].")");
 						$log->saveLog_activite();
+						
 						$user->setStatus(1);
 						$user->saveUser();
+						
 						echo "success";
 					} else {
 						if ($_SESSION['admin'] == 1)
@@ -42,8 +46,10 @@
 							$log->setAction("Connexion");
 							$log->setComment("Connecté avec succès (IP : ".$_SERVER['REMOTE_ADDR'].")");
 							$log->saveLog_activite();
+							
 							$user->setStatus(1);
 							$user->saveUser();
+							
 							echo "success";
 						} else {
 							$log = new Log_activite();
@@ -51,7 +57,9 @@
 							$log->setAction("Connexion");
 							$log->setComment("Connexion refusée car maintenance active (IP : ".$_SERVER['REMOTE_ADDR'].")");
 							$log->saveLog_activite();
+							
 							session_destroy();
+							
 							echo "maintenance";
 						}
 					}
@@ -61,6 +69,7 @@
 					$log->setAction("Connexion");
 					$log->setComment("Connexion refusée car compte inactif (IP : ".$_SERVER['REMOTE_ADDR'].")");
 					$log->saveLog_activite();
+					
 					echo "compte inactif";
 				}
 			} else {
@@ -69,6 +78,7 @@
 				$log->setAction("Connexion");
 				$log->setComment("Connexion refusée car erreur de mot de passe (IP : ".$_SERVER['REMOTE_ADDR'].")");
 				$log->saveLog_activite();
+				
 				echo "erreur";
 			}
 		} else {
@@ -77,6 +87,7 @@
 			$log->setAction("Connexion");
 			$log->setComment("Connexion refusée car erreur d'identifiant (IP : ".$_SERVER['REMOTE_ADDR'].")");
 			$log->saveLog_activite();
+			
 			echo "erreur";
 		}
 	} else {
@@ -85,6 +96,7 @@
 		$log->setAction("Connexion");
 		$log->setComment("Connexion refusée car identifiant et/ou mot de passe non renseigné (IP : ".$_SERVER['REMOTE_ADDR'].")");
 		$log->saveLog_activite();
+		
 		echo "vide";
 	}
 ?>
