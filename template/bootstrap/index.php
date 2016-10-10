@@ -10,20 +10,21 @@
 	
 	
 	
-	if (!$op) include('./template/bootstrap/pages/home.php');
+	if (!$op) include("./template/bootstrap/pages/home.php");
 	
 	
 	
 	
 	
-	if ($op == 'settings') include('./template/bootstrap/pages/admin/settings.php');
-	if ($op == 'log') include('./template/bootstrap/pages/admin/log.php');
+	if ($op == "settings") include("./template/bootstrap/pages/admin/settings.php");
+	if ($op == "users") include("./template/bootstrap/pages/admin/users.php");
+	if ($op == "log") include("./template/bootstrap/pages/admin/log.php");
 	
 	
 	
 	
-	if ($op == 'logout') include('./data/logout.php');
+	if ($op == "logout") include("./data/logout.php");
 	
 	
-	if ($op && $op != 'settings' && $op != 'log' && $op != 'logout') include('./template/bootstrap/pages/home.php');
+	if ($op && $op != "settings" && $op != "users" && $op != "log" && $op != "logout") include("./template/bootstrap/pages/home.php");
 ?>

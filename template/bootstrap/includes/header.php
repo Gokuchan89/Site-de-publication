@@ -27,6 +27,21 @@
 	
 	
 	
+	<!-- Page utilisateurs -->
+	<?php if ($op == 'users') { ?>
+		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/bootstrap-validator/css/bootstrap-validator.min.css">
+		<!-- CHOSEN -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/chosen/css/chosen-bootstrap.css">
+		<!-- DATATABLES 1.10.12 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/datatables/css/datatables.bootstrap.min.css">
+		<link rel="stylesheet" href="./template/bootstrap/plugins/datatables/css/datatables.fontawesome.css">
+	<?php } ?>
+	
+	
+	
+	
+	
 	<!-- Page historique d'activité -->
 	<?php if ($op == 'log') { ?>
 		<!-- DATATABLES 1.10.12 -->

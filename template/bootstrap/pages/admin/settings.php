@@ -7,7 +7,7 @@
 
 	// Protection des variables
 	$_ = array_merge($_GET, $_POST);
-	foreach ($_ as $key=>&$val)
+	foreach ($_ as $key => &$val)
 	{
 		Functions::secure($val);
 	}

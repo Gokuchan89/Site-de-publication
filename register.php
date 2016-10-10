@@ -18,16 +18,16 @@
 		header("location: ./");
 		exit();
 	}
-	
-	$lib_errors = "Erreurs";
-	$lib_success = "Succès";
 
 	// Protection des variables
 	$_ = array_merge($_GET, $_POST);
-	foreach ($_ as $key=>&$val)
+	foreach ($_ as $key => &$val)
 	{
 		Functions::secure($val);
 	}
+	
+	$lib_errors = "Erreurs";
+	$lib_success = "Succès";
 	
 	if (isset($_['registerButton']) && empty($test[$lib_errors]))
 	{
@@ -35,9 +35,9 @@
 		{
 			// Utilisateur
 			$register_username = $_['register_username'];
-			$register_email = $_['register_email'];
 			$register_password1 = $_['register_password1'];
 			$register_password2 = $_['register_password2'];
+			$register_email = $_['register_email'];
 			$register_date = time();
 			$register_admin = "0";
 			$register_access = "0";

@@ -291,8 +291,184 @@
 		$(".chosen").chosen(
 		{
 			disable_search: true,
-			placeholder_text_single: "Choisir une catégorie",
-			no_results_text: "Aucun résultat trouvé!"
+			placeholder_text_single: "Choisir une catégorie"
+		});
+	</script>
+<?php } ?>
+
+
+
+
+
+<!-- Page utilisateurs -->
+<?php if ($op == 'users') { ?>
+	<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
+	<script src="./template/bootstrap/plugins/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="./template/bootstrap/plugins/bootstrap-validator/js/i18n/fr_FR.js"></script>
+	<!-- CHOSEN 1.6.2 -->
+	<script src="./template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
+	<!-- DATATABLES 1.10.12 -->
+	<script src="./template/bootstrap/plugins/datatables/js/jquery.datatables.min.js"></script>
+	<script src="./template/bootstrap/plugins/datatables/js/datatables.bootstrap.min.js"></script>
+	<script>
+		document.title += " / Utilisateurs"
+		
+        function user_edit_access(id, tab)
+        {
+            $.ajax({
+                url: "./data/user_access.php",
+                type: "POST",
+                data:
+				{
+                    id: id,
+					tab: tab
+                },
+                success: function(response)
+				{
+                    var result = $.trim(response);
+                    if (result == "success")
+					{
+                       document.location.href = "./?op=users&tab="+tab;
+                    }
+                }
+            })
+        }
+	
+		var id_suppr;
+		function user_del(id)
+		{
+			id_suppr = id;
+			$("#ConfirmSupprUser").modal();
+		}
+        function delUser()
+        {
+			$.ajax({
+				url: "./data/user_del.php",
+				type: "POST",
+				data:
+				{
+					id: id_suppr
+				},
+				success: function(response)
+				{
+					var result = $.trim(response);
+					if (result == "success")
+					{
+						document.location.href = "./?op=users";
+					}
+				}
+			})
+        }
+		
+		// Bootstrap validator
+		$("#userAddForm").bootstrapValidator(
+		{
+			locale: "fr_FR",
+			fields:
+			{
+				user_add_username:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						},
+						stringLength:
+						{
+							min: 4,
+							max: 30
+						},
+						regexp:
+						{
+							regexp: /^[a-zA-Z0-9]+$/
+						},
+						remote:
+						{
+							message: "Cet identifiant est déjà utilisé",
+							type: "POST",
+							url: "./data/verif_login.php",
+							data: function(validator)
+							{
+								return {
+									user_add_username: validator.getFieldElements("user_add_username").val()
+								};
+							}
+						}
+					}
+				},
+				user_add_email:
+				{
+					validators:
+					{
+						emailAdress:
+						{
+						},
+						notEmpty:
+						{
+						},
+						remote:
+						{
+							message: "Cette adresse email est déjà utilisée",
+							type: "POST",
+							url: "data/verif_mail.php",
+							data: function(validator)
+							{
+								return {
+									user_add_email: validator.getFieldElements("user_add_email").val()
+								};
+							}
+						}
+					}
+				},
+				user_add_password1:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						},
+						stringLength:
+						{
+							min: 6,
+							max: 30
+						},
+						identical:
+						{
+							field: "user_add_password2"
+						}
+					}
+				},
+				user_add_password2:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						},
+						identical:
+						{
+							field: "user_add_password1"
+						}
+					}
+				}
+			}
+		});
+		
+		// DataTables
+		$("#users_list").DataTable(
+		{
+			'ordering': false,
+			"pageLength": 10,
+			"language":
+			{
+				"url": "./template/bootstrap/plugins/datatables/fr_FR.json"
+			}
+		});
+
+		// Chosen
+		$(".chosen").chosen(
+		{
+			disable_search: true
 		});
 	</script>
 <?php } ?>

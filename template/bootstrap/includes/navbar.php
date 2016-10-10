@@ -20,13 +20,13 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $val_category['name']; ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li <?php if ($op == "lastupdate" && $_GET['category'] == $val_category['id']) echo 'class="active"'; ?>><a href="./?op=lastupdate&category=<?php echo $val_category['id']; ?>"><i class="fa fa-dashboard"></i> Derniers ajouts</a></li>
+							<li <?php if ($op == "lastupdate" && $_GET['category'] == $val_category['id']) echo "class=\"active\""; ?>><a href="./?op=lastupdate&category=<?php echo $val_category['id']; ?>"><i class="fa fa-dashboard"></i> Derniers ajouts</a></li>
 							<?php
 								$menu = new Menu();
 								$liste_menu = $menu->getMenuDBIDCategory($val_category['id']);
 							?>
 							<?php foreach ($liste_menu as $menu => $val_menu) { ?>
-								<li <?php if ($op == 'list' && $table == $val_menu['id']) echo 'class="active"'; ?>><a href="./?op=list&table=<?php echo $val_menu['id']; ?>"><i class="fa fa-<?php echo $val_menu['icon']; ?>"></i> <?php echo $val_menu['name']; ?></a></li>
+								<li <?php if ($op == "list" && $table == $val_menu['id']) echo "class=\"active\""; ?>><a href="./?op=list&table=<?php echo $val_menu['id']; ?>"><i class="fa fa-<?php echo $val_menu['icon']; ?>"></i> <?php echo $val_menu['name']; ?></a></li>
 							<?php } ?>
 						</ul>
 					</li>

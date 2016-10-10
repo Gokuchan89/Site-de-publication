@@ -247,7 +247,7 @@
 						"request" => "SELECT * FROM `site_user` WHERE `id` = ".$id
 					));
 					$Log->saveLog();
-					return 'Erreur de requête : '.$e->getMessage();
+					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
 
@@ -336,8 +336,58 @@
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
+    
+			// Récuperation de la liste des utilisateurs actifs
+			public function getUserActiveList()
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_user` WHERE `access` = \"1\" ORDER BY `admin` DESC, `name`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "User->getUserActiveList", 
+						"error" => $e->getMessage(),
+						'request' => 'SELECT * FROM `site_user` WHERE `access` = \"1\" ORDER BY `admin` DESC, `name`'
+					));
+					$Log->saveLog();
+					return 'Erreur de requête : '.$e->getMessage();
+				}
+			}
+    
+			// Récuperation de la liste des utilisateurs inactifs
+			public function getUserInactiveList()
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_user` WHERE `access` = \"0\" ORDER BY `admin` DESC, `name`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "User->getUserInactiveList", 
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_user` WHERE `access` = \"0\" ORDER BY `admin` DESC, `name`"
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
 
-			// Sauvegarde d'un nouveau User en BDD
+			// Sauvegarde d'un nouveau utilisateur
 			public function saveUser()
 			{
 				// Vérifier si le User existe déjà pour savoir si on ajoute le user ou si on le met à jour dans la BDD
@@ -441,6 +491,29 @@
 						"treatment" => "User->majDB",
 						"error" => $e->getMessage(),
 						"request" => "UPDATE `site_user` SET `name` = ".$this->name.", `username` = ".$this->username.", `email` = ".$this->email.", `password` = ".$this->password.", `date_registration` = ".$this->date_registration.", `date_lastlogin` = ".$this->date_lastlogin.", `date_birthday` = ".$this->date_birthday.", `url_website` = ".$this->url_website.", `country` = ".$this->country.", `avatar` = ".$this->avatar.", `theme` = ".$this->theme.", `status` = ".$this->status.", `admin` = ".$this->admin.", `access` = ".$this->access." WHERE `id` = ".$this->id
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+			
+			public function deleteUserDBID($id)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare('DELETE FROM `site_user` WHERE `id` = :id');
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id" => $id));
+					return true;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "User->deleteUserDBID",
+						"error" => $e->getMessage(),
+						"request" => "DELETE FROM `site_user` WHERE `id` = ".$this->id
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
