@@ -28,6 +28,31 @@
 					return false;
 				}
 			}
+
+			/*
+				=================================
+				PROFIL -> DATE DE NAISSANCE
+				=================================
+			*/
+			public static function date_birthday($date)
+			{
+				$tabDate = explode('/' , $date);
+				$date = $tabDate[2].'-'.$tabDate[1].'-'.$tabDate[0];
+				return strtotime($date);
+			}
+
+			/*
+				=================================
+				PROFIL -> AVATAR
+				=================================
+			*/
+			public static function move_avatar($avatar, $username)
+			{
+				$extension = strtolower(substr(strrchr($avatar['name'], "."), 1));
+				$name = $username;
+				$name = "./img/avatars/".str_replace(" ", "", $name).".".$extension;
+				move_uploaded_file($avatar['tmp_name'], $name);
+			}
 		}
 	}
 ?>
