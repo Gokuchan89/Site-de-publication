@@ -138,7 +138,7 @@
 											<td>
 												<div class="btn-toolbar" role="toolbar">
 													<div class="btn-group">
-														<a href="./?op=profile&userid=<?php echo $user_active['id']; ?>" class="btn btn-success" title="Voir le profil de l'utilisateur"><i class="fa fa-search"></i></a>
+														<a href="#" class="btn btn-success" title="Voir le profil de l'utilisateur"><i class="fa fa-search"></i></a>
 														<button class="btn btn-primary" type="button" title="Modifier l'accès de l'utilisateur" onclick="user_edit_access(<?php echo $user_active['id']; ?>, <?php echo $tab; ?>)" <?php if ($user_active['id'] == 2) echo 'disabled'; ?>><i class="fa fa-check"></i></button>
 														<button class="btn btn-danger" type="button" title="Supprimer l'utilisateur" onclick="user_del(<?php echo $user_active['id']; ?>)" <?php if ($user_active['id'] == 2) echo 'disabled'; ?>><i class="fa fa-trash-o"></i></button>
 													</div>
@@ -203,7 +203,7 @@
 											<td>
 												<div class="btn-toolbar" role="toolbar">
 													<div class="btn-group">
-														<a href="./?op=profile&userid=<?php echo $user_inactive['id']; ?>" class="btn btn-success" title="Voir le profil de l'utilisateur"><i class="fa fa-search"></i></a>
+														<a href="#" class="btn btn-success" title="Voir le profil de l'utilisateur"><i class="fa fa-search"></i></a>
 														<button class="btn btn-warning" type="button" title="Modifier l'accès de l'utilisateur" onclick="user_edit_access(<?php echo $user_inactive['id']; ?>, <?php echo $tab; ?>)"><i class="fa fa-times"></i></button>
 														<button class="btn btn-danger" type="button" title="Supprimer l'utilisateur" onclick="user_del(<?php echo $user_inactive['id']; ?>)"><i class="fa fa-trash-o"></i></button>
 													</div>
