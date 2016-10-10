@@ -14,7 +14,7 @@
 		
 		include('./update.php');
 
-		if ($config['open'] == '0')
+		if ($config['open'] == 0)
 		{
 			if (!isset($_SESSION['username']))
 			{
@@ -23,8 +23,15 @@
 			} else {
 				require_once('./template/'.$user['theme'].'/index.php');
 			}
-		} else {
-			require_once('./template/bootstrap/index.php');
+		}
+		if ($config['open'] == 1)
+		{
+			if (!isset($_SESSION['username']))
+			{
+				require_once('./template/bootstrap/index.php');
+			} else {
+				require_once('./template/'.$user['theme'].'/index.php');
+			}
 		}
 	}
 ?>
