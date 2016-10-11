@@ -135,6 +135,13 @@
 			$menu->setNametable($_['menu_add_table']);
 			$menu->setIDcategory($_['menu_add_category']);
 			$menu->saveMenu();
+
+			if (!file_exists("./profils/".$_['menu_add_table']))
+			{
+				$old = umask(0);
+				mkdir("./profils/".$_['menu_add_table'], 0777);
+				umask($old);
+			}
 		} else {
 			$test[$lib_errors][] = "Il est nécessaire de fournir le nom et l'icone du menu, ainsi que le nom de la table.";
 		}
