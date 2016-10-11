@@ -28,6 +28,13 @@
 			$menu->setIDcategory($menu_category);
 			$menu->saveMenu();
 
+			if (!file_exists("./profils/".$menu_table))
+			{
+				$old = umask(0);
+				mkdir("./profils/".$menu_table, 0777);
+				umask($old);
+			}
+
 			$menu_presence = $menu->testPresenceMenu($menu_name);
 			if ($menu_presence)
 			{
