@@ -3,8 +3,37 @@
 <!-- BOOTSTRAP 3.3.7 -->
 <script src="./template/bootstrap/js/bootstrap.min.js"></script>
 
+
+
+
+
+
+
+
+
+<!-- Page derniers ajouts -->
+<?php if ($op == "lastupdate") { ?>
+	<script>
+		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_GET['category']); echo $category_name->getName(); ?> / Derniers ajouts"
+		
+		$('[data-toggle="popover"]').popover(
+		{
+			html: true,
+			trigger: "hover",
+			placement: "auto right"
+		});
+	</script>
+<?php } ?>
+
+
+
+
+
+
+
+
 <!-- Page profil -->
-<?php if ($op == 'profile') { ?>
+<?php if ($op == "profile") { ?>
 	<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 	<script src="./template/bootstrap/plugins/bootstrap-validator/js/bootstrap-validator.min.js"></script>
 	<script src="./template/bootstrap/plugins/bootstrap-validator/js/i18n/fr_FR.js"></script>
@@ -16,6 +45,8 @@
 	<script src="./template/bootstrap/plugins/jquery-ui/js/jquery-ui.min.js"></script>
 	<script src="./template/bootstrap/plugins/jquery-ui/js/i18n/datepicker-fr.js"></script>
 	<script>
+		document.title += " / Profil"
+		
 		// Bootstrap validator
 		$("#profileEditForm").bootstrapValidator(
 		{
@@ -98,23 +129,8 @@
 
 
 
-
-
-
-
-
-<!-- Page profil -->
-<?php if ($op == 'profile') { ?>
-	<script>
-		document.title += " / Profil"
-	</script>
-<?php } ?>
-
-
-
-
 <!-- Page thèmes -->
-<?php if ($op == 'themes') { ?>
+<?php if ($op == "themes") { ?>
 	<script>
 		document.title += " / Thèmes"
 	</script>
@@ -126,7 +142,7 @@
 
 
 <!-- Page paramètres -->
-<?php if ($op == 'settings') { ?>
+<?php if ($op == "settings") { ?>
 	<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 	<script src="./template/bootstrap/plugins/bootstrap-validator/js/bootstrap-validator.min.js"></script>
 	<script src="./template/bootstrap/plugins/bootstrap-validator/js/i18n/fr_FR.js"></script>
@@ -417,7 +433,7 @@
 
 
 <!-- Page utilisateurs -->
-<?php if ($op == 'users') { ?>
+<?php if ($op == "users") { ?>
 	<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 	<script src="./template/bootstrap/plugins/bootstrap-validator/js/bootstrap-validator.min.js"></script>
 	<script src="./template/bootstrap/plugins/bootstrap-validator/js/i18n/fr_FR.js"></script>
@@ -594,7 +610,7 @@
 
 
 <!-- Page historique d'activité -->
-<?php if ($op == 'log') { ?>
+<?php if ($op == "log") { ?>
 	<!-- DATATABLES 1.10.12 -->
 	<script src="./template/bootstrap/plugins/datatables/js/jquery.datatables.min.js"></script>
 	<script src="./template/bootstrap/plugins/datatables/js/datatables.bootstrap.min.js"></script>

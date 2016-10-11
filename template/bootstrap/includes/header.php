@@ -9,8 +9,13 @@
 	<link rel="stylesheet" href="./template/bootstrap/plugins/font-awesome/css/font-awesome.min.css" />
 	
 	
+	
+	
+	
+	
+	
 	<!-- Page profil -->
-	<?php if ($op == 'profile') { ?>
+	<?php if ($op == "profile") { ?>
 		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 		<link rel="stylesheet" href="./template/bootstrap/plugins/bootstrap-validator/css/bootstrap-validator.min.css">
 		<!-- CHOSEN -->
@@ -27,7 +32,7 @@
 	
 	
 	<!-- Page paramètres -->
-	<?php if ($op == 'settings') { ?>
+	<?php if ($op == "settings") { ?>
 		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 		<link rel="stylesheet" href="./template/bootstrap/plugins/bootstrap-validator/css/bootstrap-validator.min.css">
 		<!-- BOOTSTRAP WYSIHTML5 -->
@@ -41,7 +46,7 @@
 	
 	
 	<!-- Page utilisateurs -->
-	<?php if ($op == 'users') { ?>
+	<?php if ($op == "users") { ?>
 		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
 		<link rel="stylesheet" href="./template/bootstrap/plugins/bootstrap-validator/css/bootstrap-validator.min.css">
 		<!-- CHOSEN -->
@@ -56,7 +61,7 @@
 	
 	
 	<!-- Page historique d'activité -->
-	<?php if ($op == 'log') { ?>
+	<?php if ($op == "log") { ?>
 		<!-- DATATABLES 1.10.12 -->
 		<link rel="stylesheet" href="./template/bootstrap/plugins/datatables/css/datatables.bootstrap.min.css">
 		<link rel="stylesheet" href="./template/bootstrap/plugins/datatables/css/datatables.fontawesome.css">

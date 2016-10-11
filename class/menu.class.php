@@ -121,7 +121,7 @@
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
-	
+			
 			// Initialisation de la liste via l'id catégorie
 			public function getMenuDBIDCategory($id_category)
 			{
@@ -141,6 +141,31 @@
 						"treatment" => "Menu->getMenuDBIDCategory",
 						"error" => $e->getMessage(),
 						"request" => "SELECT * FROM `site_menu` WHERE `id_category` = ".$id_category." ORDER BY `position`"
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+	
+			// Récuperation de la liste des menus
+			public function getNBTotalTable($name_table)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT COUNT(*) AS nombre FROM `".$name_table."`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Menu->getNBTotalTable",
+						"error" => $e->getMessage(),
+						"request" => "SELECT COUNT(*) AS nombre FROM `".$name_table."`"
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();

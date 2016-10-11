@@ -1,5 +1,15 @@
 /*
     =================================
+    GENERAL
+    =================================
+*/
+.thumbnail
+{
+	height: 								265px;
+}
+
+/*
+    =================================
     AVATAR + THEMES
     =================================
 */
@@ -40,6 +50,59 @@ input[type=radio]:checked + img
 .table > tfoot > tr > td
 {
 	vertical-align: 						middle;
+}
+
+/*
+    =================================
+    DERNIERS AJOUTS
+    =================================
+*/
+.lastadd
+{
+	height:									265px;
+	border: 								1px solid #ccc;
+	margin-bottom: 							20px;
+}
+.lastadd:hover
+{
+	border:									1px solid #777;
+}
+.lastadd > .img
+{
+    height:									225px;
+}
+.lastadd > .img img
+{
+	max-width:								100%;
+	max-height:								100%;
+}
+.lastadd > .title
+{
+	width: 									100%;
+	height: 								40px;
+	padding: 								0 5px;
+	text-align: 							left;
+	overflow: 								hidden;
+	text-overflow: 							ellipsis;
+	font-size:								13px;
+}
+
+.popover
+{
+	min-width: 								400px;
+}
+.popover-synopsis
+{
+	min-height: 							auto;
+	max-height: 							120px;
+	overflow: 								hidden;
+	text-overflow: 							ellipsis;
+}
+.popover-real-actor
+{
+	overflow: 								hidden;
+	text-overflow: 							ellipsis;
+	white-space: 							nowrap;
 }
 
 /*

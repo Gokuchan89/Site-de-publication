@@ -11,6 +11,7 @@
 	
 	
 	if (!$op) include("./template/bootstrap/pages/home.php");
+	if ($op == "lastupdate") include("./template/bootstrap/pages/lastupdate.php");
 	
 	
 	
@@ -28,5 +29,5 @@
 	if ($op == "logout") include("./data/logout.php");
 	
 	
-	if ($op && $op != "profile" && $op != "themes" && $op != "settings" && $op != "users" && $op != "log" && $op != "logout") include("./template/bootstrap/pages/home.php");
+	if ($op && $op != "lastupdate" && $op != "profile" && $op != "themes" && $op != "settings" && $op != "users" && $op != "log" && $op != "logout") include("./template/bootstrap/pages/home.php");
 ?>
