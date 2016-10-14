@@ -47,7 +47,7 @@
 										<a href="./?op=detail&table=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;" data-toggle="popover" data-style="primary" data-title="<strong><?php echo $val_table['TitreVF']; ?></strong><br/><?php echo $val_table['Annee']; ?> | <?php echo $duree; ?> | <?php echo $val_table['Genre']; ?>" data-content="<div class='popover-synopsis'><?php echo htmlspecialchars($val_table['Synopsis'], ENT_QUOTES); ?></div><br/><div class='popover-real-actor'>Un film de : <?php echo str_replace("\r", " / ", $val_table['Realisateurs']); ?><br/>Avec : <?php echo str_replace("\r", " / ", $val_table['Acteurs']); ?></div>">
 											<div class="lastadd">
 												<?php $filename = sprintf("./profils/".$val_menu['name_table']."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
-												<div class="img"><img src="<?php echo $filename; ?>" alt="Affiche"></div>
+												<div class="img"><img data-original="<?php echo $filename; ?>" class="lazy" alt="Affiche"></div>
 												<div class="title"><?php echo $val_table['TitreVF']; ?></div>
 											</div>
 										</a>
