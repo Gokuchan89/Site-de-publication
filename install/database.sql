@@ -9,6 +9,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `site_category` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL,
+	`position` int(11) NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE MyISAM, DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
