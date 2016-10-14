@@ -95,6 +95,7 @@
 		{
 			$category = new Category();
 			$category->setName($_['category_add_name']);
+			$category->setPosition(1);
 			$category->saveCategory();
 		} else {
 			$test[$lib_errors][] = "Il est nécessaire de fournir un nom pour la catégorie.";
@@ -108,11 +109,12 @@
 	*/
 	if (isset($_['categoryEditButton']) && $_['categoryEditButton'] == 1 && empty($test[$lib_errors]))
 	{
-		if (!empty($_['category_edit_name']))
+		if (!empty($_['category_edit_position']) && !empty($_['category_edit_name']))
 		{
 			$category = new Category();
 			$category->getCategoryDBID($id);
 			$category->setName($_['category_edit_name']);
+			$category->setPosition($_['category_edit_position']);
 			$category->saveCategory();
 		} else {
 			$test[$lib_errors][] = "Il est nécessaire de fournir un nom pour la catégorie.";
@@ -371,9 +373,19 @@
 												}
 											}
 										?>
-										<div class="form-group">
-											<label>Nom de la catégorie</label>
-											<input type="text" class="form-control" name="category_edit_name" value="<?php $catgory_name = new Category(); $catgory_name->getCategoryDBID($id); echo $catgory_name->getName(); ?>" required />
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-md-4">
+												<div class="form-group">
+													<label>Position de la catégorie</label>
+													<input type="number" class="form-control" name="category_edit_position" value="<?php $category_position = new Category(); $category_position->getCategoryDBID($id); echo $category_position->getPosition(); ?>" required />
+												</div>
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-8">
+												<div class="form-group">
+													<label>Nom de la catégorie</label>
+													<input type="text" class="form-control" name="category_edit_name" value="<?php $catgory_name = new Category(); $catgory_name->getCategoryDBID($id); echo $catgory_name->getName(); ?>" required />
+												</div>
+											</div>
 										</div>
 									</div>
 									<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right">Modifier</button></div>
