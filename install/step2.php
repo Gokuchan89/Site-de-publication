@@ -19,6 +19,7 @@
 
 			$category = new Category();
 			$category->setName($category_name);
+			$category->setPosition(1);
 			$category->saveCategory();
 
 			$category_presence = $category->testPresenceCategory($category_name);
