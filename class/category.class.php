@@ -6,6 +6,7 @@
 			// Liste des attributs
 			private $id;
 			private $name;
+			private $position;
 			
 			// Liste des getteurs
 			public function getID()
@@ -16,11 +17,19 @@
 			{
 				return $this->name;
 			}
+			public function getPosition()
+			{
+				return $this->position;
+			}
 
 			// Liste des setteurs
 			public function setName($name)
 			{
 				$this->name = $name;
+			}
+			public function setPosition($name)
+			{
+				$this->position = $position;
 			}
 
 			// Initialisation
@@ -32,7 +41,11 @@
 				}
 				if (isset($donnees['name']))
 				{
-					$this->name = $donnees['name'];
+					$this->name = $donnees['position'];
+				}
+				if (isset($donnees['position']))
+				{
+					$this->position = $donnees['position'];
 				}
 			}
 	
@@ -43,7 +56,7 @@
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("SELECT * FROM `site_category` ORDER BY `name`");
+				$sql = $Connexion->prepare("SELECT * FROM `site_category` ORDER BY `position`");
 				try
 				{
 					// On envoi la requête
@@ -54,7 +67,7 @@
 					$Log = new Log(array(
 						"treatment" => "Category->getCategoryList",
 						"error" => $e->getMessage(),
-						"request" => "SELECT * FROM `site_category` ORDER BY `name`"
+						"request" => "SELECT * FROM `site_category` ORDER BY `position`"
 					));
 					$Log->Save();
 					return "Erreur de requête : ".$e->getMessage();
