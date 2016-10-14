@@ -327,11 +327,6 @@
 					{
 						notEmpty:
 						{
-						},
-						stringLength:
-						{
-							min: 4,
-							max: 30
 						}
 					}
 				},
@@ -379,11 +374,6 @@
 					{
 						notEmpty:
 						{
-						},
-						stringLength:
-						{
-							min: 4,
-							max: 30
 						}
 					}
 				},
