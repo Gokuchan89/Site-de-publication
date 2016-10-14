@@ -27,7 +27,7 @@
 			{
 				$this->name = $name;
 			}
-			public function setPosition($name)
+			public function setPosition($position)
 			{
 				$this->position = $position;
 			}
@@ -150,18 +150,21 @@
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("INSERT INTO `site_category` (`name`) values (:name)");
+				$sql = $Connexion->prepare("INSERT INTO `site_category` (`name`, `position`) values (:name, :position)");
 				try
 				{
 					// On envoi la requête
-					$sql->execute(array("name" => $this->name));
+					$sql->execute(array(
+						"name" => $this->name,
+						"position" => $this->position
+					));
 					$this->id = $Connexion->lastInsertId();
 					return $this->id;
 				} catch (Exception $e) {
 					$Log = new Log(array(
 						"treatment" => "Category->createDB",
 						"error" => $e->getMessage(),
-						"request" => "INSERT INTO `site_category` (`name`) values (".$this->name.")"
+						"request" => "INSERT INTO `site_category` (`name`, `position`) values (".$this->name.", ".$this->position.")"
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
@@ -175,20 +178,21 @@
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("UPDATE `site_category` SET `name` = :name WHERE `id` = :id");
+				$sql = $Connexion->prepare("UPDATE `site_category` SET `name` = :name, `position` = :position WHERE `id` = :id");
 				try
 				{
 					// On envoi la requête
 					$sql->execute(array(
 						"id" => $this->id,
-						"name" => $this->name
+						"name" => $this->name,
+						"position" => $this->position
 					));
 					return true;
 				} catch (Exception $e) {
 					$Log = new Log(array(
 						"treatment" => "Category->majDB",
 						"error" => $e->getMessage(),
-						"request" => "UPDATE `site_category` SET `name` = ".$this->name." WHERE `id` = ".$this->id
+						"request" => "UPDATE `site_category` SET `name` = ".$this->name.", `position` = ".$this->position." WHERE `id` = ".$this->id
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
