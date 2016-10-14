@@ -91,6 +91,7 @@
 					{
 						$this->id = $category->id;
 						$this->name = $category->name;
+						$this->position = $category->position;
 					}
 					return true;
 				} catch (Exception $e) {
