@@ -13,9 +13,18 @@
 
 <!-- Page derniers ajouts -->
 <?php if ($op == "lastupdate") { ?>
+	<!-- LAZYLOAD 1.9.7 -->
+	<script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 	<script>
 		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_GET['category']); echo $category_name->getName(); ?> / Derniers ajouts"
 		
+		// LazyLoad
+		$('img.lazy').lazyload(
+		{
+			effect : 'fadeIn'
+		});
+		
+		// Popover
 		$('[data-toggle="popover"]').popover(
 		{
 			html: true,
