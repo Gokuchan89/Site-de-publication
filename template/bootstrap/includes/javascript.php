@@ -13,11 +13,56 @@
 
 <!-- Page derniers ajouts -->
 <?php if ($op == "lastupdate") { ?>
+	<!-- SLICK 1.6.0 -->
+	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
 	<!-- LAZYLOAD 1.9.7 -->
 	<script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 	<script>
 		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_GET['category']); echo $category_name->getName(); ?> / Derniers ajouts"
 		
+		// Slick
+		$('.regular').slick(
+		{
+			infinite: true,
+			lazyLoad: 'ondemand',
+			autoplay: true,
+			autoplaySpeed: 3000,
+			slidesToShow: 6,
+			slidesToScroll: 6,
+			responsive: [
+			{
+				breakpoint: 1024,
+				settings:
+				{
+					slidesToShow: 3,
+					slidesToScroll: 3
+				}
+			},
+			{
+				breakpoint: 600,
+				settings:
+				{
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			},
+			{
+				breakpoint: 480,
+				settings:
+				{
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			}]
+		});
+		$('.embedded-gallery .slick-slide > img').each(function(){ 
+			if ($(this).attr('slider_caption'))
+			{
+				var slideCaption = $(this).attr('slider_caption');
+				$(this).parent('.slick-slide').append('<div class="slidecaption">' + slideCaption + '</div>');
+			}
+		});
+				
 		// LazyLoad
 		$('img.lazy').lazyload(
 		{
