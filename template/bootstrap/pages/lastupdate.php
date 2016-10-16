@@ -26,7 +26,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Les derniers ajouts de la catégorie <a href="./?op=list&table=<?php echo $val_menu['id']; ?>"><?php echo $val_menu['name']; ?></a><?php if ($table_total != 0) echo '<div class="pull-right">('.$setting_lastaddmax->getValue().' sur '.$table_total[0]['nombre'].')</div>'; ?></div>
 					<div class="panel-body">
-						<div class="regular slider slide--has-caption">
+						<div class="regular slider">
 							<?php
 								$table_list = new Table();
 								$table_list = $table_list->getLastupdateList($val_menu['name_table'], $setting_lastaddmax->getValue());
