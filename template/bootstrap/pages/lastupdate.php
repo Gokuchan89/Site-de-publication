@@ -26,7 +26,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Les derniers ajouts de la catégorie <a href="./?op=list&table=<?php echo $val_menu['id']; ?>"><?php echo $val_menu['name']; ?></a><?php if ($table_total != 0) echo '<div class="pull-right">('.$setting_lastaddmax->getValue().' sur '.$table_total[0]['nombre'].')</div>'; ?></div>
 					<div class="panel-body">
-						<div class="row text-center">
+						<div class="regular slider slide--has-caption">
 							<?php
 								$table_list = new Table();
 								$table_list = $table_list->getLastupdateList($val_menu['name_table'], $setting_lastaddmax->getValue());
@@ -43,15 +43,13 @@
 											$duree = floor($val_table['Duree']/60).'h '.($val_table['Duree']%60).'min';
 										}
 									?>
-									<div class="col-xs-6 col-sm-4 col-md-2">
-										<a href="./?op=detail&table=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;" data-toggle="popover" data-style="primary" data-title="<strong><?php echo $val_table['TitreVF']; ?></strong><br/><?php echo $val_table['Annee']; ?> | <?php echo $duree; ?> | <?php echo $val_table['Genre']; ?>" data-content="<div class='popover-synopsis'><?php echo htmlspecialchars($val_table['Synopsis'], ENT_QUOTES); ?></div><br/><div class='popover-real-actor'>Un film de : <?php echo str_replace("\r", " / ", $val_table['Realisateurs']); ?><br/>Avec : <?php echo str_replace("\r", " / ", $val_table['Acteurs']); ?></div>">
-											<div class="lastadd">
+										<div class="img">
+											<a href="./?op=detail&table=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;" data-container="body" data-toggle="popover" data-style="primary" data-title="<strong><?php echo $val_table['TitreVF']; ?></strong><br/><?php echo $val_table['Annee']; ?> | <?php echo $duree; ?> | <?php echo $val_table['Genre']; ?>" data-content="<div class='popover-synopsis'><?php echo htmlspecialchars($val_table['Synopsis'], ENT_QUOTES); ?></div><br/><div class='popover-real-actor'>Un film de : <?php echo str_replace("\r", " / ", $val_table['Realisateurs']); ?><br/>Avec : <?php echo str_replace("\r", " / ", $val_table['Acteurs']); ?></div>">
 												<?php $filename = sprintf("./profils/".$val_menu['name_table']."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
-												<div class="img"><img data-original="<?php echo $filename; ?>" class="lazy" alt="Affiche"></div>
-												<div class="title"><?php echo $val_table['TitreVF']; ?></div>
-											</div>
-										</a>
-									</div>
+												<img data-lazy="<?php echo $filename; ?>" alt="Affiche">
+												<div class="desc"><?php echo $val_table['TitreVF']; ?></div>
+											</a>
+										</div>
 								<?php } ?>
 							<?php } ?>
 						</div>
