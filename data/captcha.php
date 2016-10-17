@@ -3,43 +3,43 @@
 	session_name('intranet');
 	session_start();
 
-	require_once('../class/_classloader.php');
+	require_once('../class/_classLoader.php');
 	
-	// On définit la configuration :
+	// On dÃ©finit la configuration :
 	$nbr_chiffres = 6; // Nombre de chiffres qui formeront le nombre
 
-	// Là, on définit le header de la page pour la transformer en image
+	// LÃ , on dÃ©finit le header de la page pour la transformer en image
 	header ("Content-type: image/png");
 	
-	// Là, on crée notre image
+	// LÃ , on crÃ©e notre image
 	$_img = imagecreatefrompng('../img/bg_captcha.png');
 
-	// On définit maintenant les couleurs
+	// On dÃ©finit maintenant les couleurs
 	// Couleur de fond :
-	$arriere_plan = imagecolorallocate($_img, 0, 0, 0); // Au cas où on n'utiliserait pas d'image de fond, on utilise cette couleur-là.
+	$arriere_plan = imagecolorallocate($_img, 0, 0, 0); // Au cas oÃ¹ on n'utiliserait pas d'image de fond, on utilise cette couleur-lÃ .
 	// Autres couleurs :
 	$avant_plan = imagecolorallocate($_img, 255, 255, 255); // Couleur des chiffres
 
-	// Ici on crée la variable qui contiendra le nombre aléatoire
+	// Ici on crÃ©e la variable qui contiendra le nombre alÃ©atoire
 	$i = 0;
 	while($i < $nbr_chiffres)
 	{
-		$chiffre = mt_rand(0, 9); // On génère le nombre aléatoire
+		$chiffre = mt_rand(0, 9); // On gÃ©nÃ¨re le nombre alÃ©atoire
 		$chiffres[$i] = $chiffre;
 		$i++;
 	}
 	$nombre = null;
 	
-	// On explore le tableau $chiffres afin d'y afficher toutes les entrées qui s'y trouvent
+	// On explore le tableau $chiffres afin d'y afficher toutes les entrÃ©es qui s'y trouvent
 	foreach ($chiffres as $caractere)
 	{
 		$nombre .= $caractere;
 	}
 	
-	// On a fini de créer le nombre aléatoire, on le rentre maintenant dans une variable de session
+	// On a fini de crÃ©er le nombre alÃ©atoire, on le rentre maintenant dans une variable de session
 	$_SESSION['aleat_nbr'] = $nombre;
 	
-	// On détruit les variables inutiles :
+	// On dÃ©truit les variables inutiles :
 	unset($chiffre);
 	unset($i);
 	unset($caractere);
