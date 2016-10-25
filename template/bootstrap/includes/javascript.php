@@ -24,7 +24,6 @@
 		$('.regular').slick(
 		{
 			infinite: true,
-			lazyLoad: 'ondemand',
 			autoplay: true,
 			autoplaySpeed: 3000,
 			slidesToShow: 6,
@@ -76,6 +75,80 @@
 			trigger: "hover",
 			placement: "auto right"
 		});
+	</script>
+<?php } ?>
+
+
+
+
+
+
+
+
+
+<!-- Page detail -->
+<?php if ($op == "detail") { ?>
+	<!-- LIGHTGALLERY 1.2.18 -->
+	<script src="./template/bootstrap/plugins/lightgallery/js/lightgallery.js"></script>
+	<script src="./template/bootstrap/plugins/lightgallery/js/lg-video.js"></script>
+	<!-- SLICK 1.6.0 -->
+	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
+	<script>
+		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_GET['category']); echo $category_name->getName(); ?> / <?php $menu_name = new Menu(); $menu_name->getMenuDBID($_GET['menu']); echo $menu_name->getName(); ?> / <?php $table_TitreVF = new Table(); $table_TitreVF->getTableDBID($menu_table, $id); echo $table_TitreVF->getTitrevf(); ?>"
+		
+		// LightGallery
+		$("#affiche").lightGallery(
+		{
+			download: false,
+			counter: false
+		});
+		$("#bandeannonce").lightGallery(
+		{
+			counter: false
+		});
+		
+		
+		// Slick
+		$('.regular').slick(
+		{
+			infinite: false,
+			slidesToShow: 4,
+			slidesToScroll: 4,
+			responsive: [
+			{
+				breakpoint: 1024,
+				settings:
+				{
+					slidesToShow: 3,
+					slidesToScroll: 3
+				}
+			},
+			{
+				breakpoint: 600,
+				settings:
+				{
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			},
+			{
+				breakpoint: 480,
+				settings:
+				{
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			}]
+		});
+		$('.embedded-gallery .slick-slide > img').each(function(){ 
+			if ($(this).attr('slider_caption'))
+			{
+				var slideCaption = $(this).attr('slider_caption');
+				$(this).parent('.slick-slide').append('<div class="slidecaption">' + slideCaption + '</div>');
+			}
+		});
+		
+	
 	</script>
 <?php } ?>
 
@@ -204,9 +277,13 @@
 	<script src="./template/bootstrap/plugins/bootstrap-wysihtml5/js/bootstrap3-wysihtml5.all.min.js"></script>
 	<!-- CHOSEN 1.6.2 -->
 	<script src="./template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
+	<!-- CHOSEN ICON -->
+	<script src="./template/bootstrap/plugins/chosen-icon/js/chosenIcon.jquery.js"></script>
+	<!-- HOLDER 2.9.0 -->
+	<script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
 	<script>
 		document.title += " / Administration / Paramètres"
-	
+		
 		var id_suppr;
 		function category_del(id)
 		{
@@ -254,6 +331,32 @@
 					if (result == "success")
 					{
 						document.location.href = "./?op=settings&tab=2";
+					}
+				}
+			})
+        }
+	
+		var id_suppr;
+		function detail_del(id)
+		{
+			id_suppr = id;
+			$("#ConfirmSupprDetail").modal();
+		}
+        function delDetail()
+        {
+			$.ajax({
+				url: "./data/detail_del.php",
+				type: "POST",
+				data:
+				{
+					id: id_suppr
+				},
+				success: function(response)
+				{
+					var result = $.trim(response);
+					if (result == "success")
+					{
+						document.location.href = "./?op=settings&tab=3&type=detail_settings&id=<?php echo $id; ?>";
 					}
 				}
 			})
@@ -451,6 +554,74 @@
 				}
 			}
 		});
+		$("#detailAddForm").bootstrapValidator(
+		{
+			locale: "fr_FR",
+			fields:
+			{
+				detail_add_name:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				detail_add_type:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				detail_add_icon:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				}
+			}
+		});
+		$("#detailEditForm").bootstrapValidator(
+		{
+			locale: "fr_FR",
+			fields:
+			{
+				detail_edit_name:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				detail_edit_type:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				detail_edit_icon:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				}
+			}
+		});
 		
 		// Bootstrap WYSIHTML5
 		$(".textarea").wysihtml5(
@@ -468,6 +639,12 @@
 		{
 			disable_search: true,
 			placeholder_text_single: "Choisir une catégorie"
+		});
+
+		// Chosen Icon
+		$(".icon-select").chosenIcon(
+		{
+			disable_search: true
 		});
 	</script>
 <?php } ?>

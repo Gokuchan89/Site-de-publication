@@ -26,7 +26,7 @@
 								$liste_menu = $menu->getMenuDBIDCategory($val_category['id']);
 							?>
 							<?php foreach ($liste_menu as $menu => $val_menu) { ?>
-								<li <?php if ($op == "list" && $table == $val_menu['id']) echo "class=\"active\""; ?>><a href="./?op=list&table=<?php echo $val_menu['id']; ?>"><i class="fa fa-<?php echo $val_menu['icon']; ?>"></i> <?php echo $val_menu['name']; ?></a></li>
+								<li <?php if ($op == "list" && $menu == $val_menu['id']) echo "class=\"active\""; ?>><a href="./?op=list&category=<?php echo $val_category['id']; ?>&menu=<?php echo $val_menu['id']; ?>"><i class="fa fa-<?php echo $val_menu['icon']; ?>"></i> <?php echo $val_menu['name']; ?></a></li>
 							<?php } ?>
 						</ul>
 					</li>

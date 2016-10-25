@@ -27,6 +27,21 @@
 	
 	
 	
+	<!-- Page detail -->
+	<?php if ($op == "detail") { ?>
+		<!-- LIGHTGALLERY 1.2.18 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/lightgallery/css/lightgallery.min.css">
+		<!-- SLICK 1.6.0 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick.css">
+		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick-theme.css">
+	<?php } ?>
+	
+	
+	
+	
+	
+	
+	
 	<!-- Page profil -->
 	<?php if ($op == "profile") { ?>
 		<!-- BOOTSTRAP VALIDATOR 0.5.0 -->
@@ -52,6 +67,8 @@
 		<link rel="stylesheet" href="./template/bootstrap/plugins/bootstrap-wysihtml5/css/bootstrap3-wysihtml5.min.css">
 		<!-- CHOSEN -->
 		<link rel="stylesheet" href="./template/bootstrap/plugins/chosen/css/chosen-bootstrap.css">
+		<!-- CHOSEN ICON -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/chosen-icon/css/chosenIcon.css">
 	<?php } ?>
 	
 	
