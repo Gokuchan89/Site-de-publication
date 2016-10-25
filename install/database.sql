@@ -14,12 +14,13 @@ CREATE TABLE IF NOT EXISTS `site_category` (
 ) ENGINE MyISAM, DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS `site_detail` (
-	`id` int(11) NOT NULL,
+	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL,
 	`type` varchar(50) NOT NULL,
 	`icon` varchar(50) NOT NULL,
 	`options` varchar(50) DEFAULT NULL,
-	`id_menu` int(11) NOT NULL
+	`id_menu` int(11) NOT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE MyISAM, DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS `site_list` (
