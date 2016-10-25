@@ -355,10 +355,10 @@
 					$Log = new Log(array(
 						"treatment" => "User->getUserActiveList", 
 						"error" => $e->getMessage(),
-						'request' => 'SELECT * FROM `site_user` WHERE `access` = \"1\" ORDER BY `admin` DESC, `name`'
+						"request" => "SELECT * FROM `site_user` WHERE `access` = \"1\" ORDER BY `admin` DESC, `name`"
 					));
 					$Log->saveLog();
-					return 'Erreur de requête : '.$e->getMessage();
+					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
     

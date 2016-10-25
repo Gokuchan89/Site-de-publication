@@ -271,7 +271,7 @@
 				}
 			}
 			
-			// Suppression d'une catégorie
+			// Suppression d'un menu
 			public function deleteMenuDBID($id)
 			{
 				// Etablissement de la connexion à MySQL
