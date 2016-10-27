@@ -184,7 +184,6 @@
 			$detail->setName($_['detail_add_name']);
 			$detail->setType($_['detail_add_type']);
 			$detail->setIcon($_['detail_add_icon']);
-			$detail->setZone(1);
 			$detail->setIdmenu($id);
 			$detail->saveDetail();
 		} else {
