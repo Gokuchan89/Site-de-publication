@@ -1,6 +1,4 @@
 ﻿<?php
-	ini_set("session.gc_maxlifetime", 28800);
-	session_name("intranet");
 	session_start();
 
 	require_once("../class/_classLoader.php");
@@ -22,6 +20,17 @@
 					$_SESSION['name'] = $user->getName();
 					$_SESSION['username'] = $user->getUsername();
 					$_SESSION['admin'] = $user->getAdmin();
+					
+					if (!empty($_POST['remember']))
+					{
+						$cryptUsername = sha1($user->getUsername());
+						$cryptEmail = sha1($user->getEmail());
+						$cryptDateregistration = sha1($user->getDateregistration());
+						
+						$cookieCrypt = $user->getId().'------'.sha1('q$sd196^qùs$d'.$cryptUsername.'qjjfhddkfi[{)@$'.$cryptEmail.'é!è!tyuh#^{{'.$cryptDateregistration);
+						
+						setcookie("auth", $cookieCrypt, time() + 3600 * 24 * 365, "/");
+					}
 
 					$setting_maintenance = new Setting();
 					$setting_maintenance->getSettingDBKey('maintenance');
