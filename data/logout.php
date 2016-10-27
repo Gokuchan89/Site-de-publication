@@ -14,8 +14,9 @@
 	$user->setStatus(0);
 	$user->saveUser();
 	
-	// On détruit la session
+	// On détruit la session et le cookie
 	session_destroy();
+	setcookie("auth", "", time() - 3600, "/");
 	
 	// On redirige vers la page de connexion
 	header("location: ./");
