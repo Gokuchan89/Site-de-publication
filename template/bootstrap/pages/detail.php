@@ -222,6 +222,8 @@
 				<li><?php echo $menu_name; ?></li>
 				<li><?php echo $table_TitreVF; ?></li>
 			</ol>
+			<?php var_dump($_SESSION); ?>
+			<?php var_dump($_COOKIE); ?>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-8 text-center">
 					<!-- AFFICHE -->
