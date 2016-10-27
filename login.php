@@ -44,6 +44,29 @@
 	</head>
 	<body>
 		<div class="container">
+			
+			
+			
+			
+			
+			<div class="row">
+				<div class="col-md-6">
+					Contenu de la SESSION
+					<?php var_dump($_SESSION); ?>
+				</div>
+				<div class="col-md-6">
+					Contenu du COOKIE
+					<?php var_dump($_COOKIE); ?>
+				</div>
+			</div>
+		
+		
+		
+		
+		
+		
+		
+		
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 					<div class="panel panel-default">
@@ -78,6 +101,13 @@
 								<input type="password" class="form-control" id="login_password" placeholder="Mot de passe" autocomplete="off" required />
 								<span class="form-control-feedback"><i class="fa fa-lock"></i></span>
 								<!--<span id="helpBlock" class="help-block"><a href="./lost_password.php">Mot de passe oublié ?</a></span>-->
+							</div>
+							<div class="form-group">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="login_remember" /> Se souvenir de moi
+									</label>
+								</div>
 							</div>
 						</div>
 						<div class="panel-footer clearfix">
@@ -115,7 +145,13 @@
 				// Values
 				var username = $("#login_username").val();
 				var password = $("#login_password").val();
-
+				if(document.getElementById("login_remember").checked == true)
+				{
+					var remember = $("#login_remember").val();
+				} else {
+					var remember = "";
+				}
+				
 				$.ajax(
 				{
 					url: "./data/valid_login.php",
@@ -123,7 +159,8 @@
 					data:
 					{
 						username: username,
-						password: password
+						password: password,
+						remember: remember
 					},
 					success: function(response)
 					{
