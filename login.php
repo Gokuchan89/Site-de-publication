@@ -44,29 +44,6 @@
 	</head>
 	<body>
 		<div class="container">
-			
-			
-			
-			
-			
-			<div class="row">
-				<div class="col-md-6">
-					Contenu de la SESSION
-					<?php var_dump($_SESSION); ?>
-				</div>
-				<div class="col-md-6">
-					Contenu du COOKIE
-					<?php var_dump($_COOKIE); ?>
-				</div>
-			</div>
-		
-		
-		
-		
-		
-		
-		
-		
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
 					<div class="panel panel-default">
