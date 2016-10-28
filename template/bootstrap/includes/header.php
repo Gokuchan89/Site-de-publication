@@ -14,6 +14,19 @@
 	
 	
 	
+	<!-- Page recherche -->
+	<?php if ($op == "search") { ?>
+		<!-- SLICK 1.6.0 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick.css">
+		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick-theme.css">
+	<?php } ?>
+	
+	
+	
+	
+	
+	
+	
 	<!-- Page derniers ajouts -->
 	<?php if ($op == "lastupdate") { ?>
 		<!-- SLICK 1.6.0 -->
