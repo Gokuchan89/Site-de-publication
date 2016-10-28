@@ -106,7 +106,6 @@
 						"nom_base" => $nom_base,
 						"nom_table" => $nom_table
 					));
-
 					// Traitement des résultats
 					$donnees = $sql->fetch();
 					if ($donnees[0] == $nom_table)

@@ -24,7 +24,7 @@
 			private $access;
 
 			// Liste des getteurs
-			public function getID()
+			public function getId()
 			{
 				return $this->id;
 			}
@@ -305,7 +305,7 @@
 				try
 				{
 					// On envoi la requête
-					$sql->execute(array('email'=>$email));
+					$sql->execute(array("email" => $email));
 					// Traitement des résultats
 					while ($user = $sql->fetch(PDO::FETCH_OBJ))
 					{
