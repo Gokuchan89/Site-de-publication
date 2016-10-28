@@ -6,6 +6,7 @@
 	include("log_activite.class.php");
 	include("menu.class.php");
 	include("mysql.class.php");
+	include("search.class.php");
 	include("setting.class.php");
 	include("table.class.php");
 	include("user.class.php");
