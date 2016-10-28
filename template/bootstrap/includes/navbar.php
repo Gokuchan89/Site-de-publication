@@ -22,11 +22,11 @@
 						<ul class="dropdown-menu">
 							<li <?php if ($op == "lastupdate" && $_GET['category'] == $val_category['id']) echo "class=\"active\""; ?>><a href="./?op=lastupdate&category=<?php echo $val_category['id']; ?>"><i class="fa fa-dashboard"></i> Derniers ajouts</a></li>
 							<?php
-								$menu = new Menu();
-								$liste_menu = $menu->getMenuDBIDCategory($val_category['id']);
+								$menu_list = new Menu();
+								$menu_list = $menu_list->getMenuDBIDCategory($val_category['id']);
 							?>
-							<?php foreach ($liste_menu as $menu => $val_menu) { ?>
-								<li <?php if ($op == "list" && $menu == $val_menu['id']) echo "class=\"active\""; ?>><a href="./?op=list&category=<?php echo $val_category['id']; ?>&menu=<?php echo $val_menu['id']; ?>"><i class="fa fa-<?php echo $val_menu['icon']; ?>"></i> <?php echo $val_menu['name']; ?></a></li>
+							<?php foreach ($menu_list as $menu => $val_menu) { ?>
+								<li <?php if ($op == "list" && $_GET['menu'] == $val_menu['id']) echo "class=\"active\""; ?>><a href="./?op=list&category=<?php echo $val_category['id']; ?>&menu=<?php echo $val_menu['id']; ?>"><i class="fa fa-<?php echo $val_menu['icon']; ?>"></i> <?php echo $val_menu['name']; ?></a></li>
 							<?php } ?>
 						</ul>
 					</li>
@@ -52,6 +52,7 @@
 			<?php } ?>
 			<?php if (isset($_SESSION['username'])) { ?>
 				<ul class="nav navbar-nav navbar-right">
+					<li <?php if ($op == "search") echo 'class="active"'; ?>><a href="./?op=search"><i class="fa fa-search"></i></a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['name']; ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
