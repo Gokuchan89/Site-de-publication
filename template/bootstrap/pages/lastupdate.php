@@ -12,10 +12,8 @@
 			<?php
 				$menu_list = new Menu();
 				$menu_list = $menu_list->getMenuDBIDCategory($_GET['category']);
-			
-				foreach ($menu_list as $menu => $val_menu)
-				{
 			?>
+			<?php foreach ($menu_list as $menu => $val_menu) { ?>
 				<?php
 					$table_total = new Menu();
 					$table_total = $table_total->getNBTotalTable($val_menu['name_table']);
@@ -24,7 +22,7 @@
 					$setting_lastaddmax->getSettingDBKey('lastadd_max');
 				?>
 				<div class="panel panel-default">
-					<div class="panel-heading">Les derniers ajouts de la catégorie <a href="./?op=list&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>"><?php echo $val_menu['name']; ?></a><?php if ($table_total != 0) echo '<div class="pull-right">('.$setting_lastaddmax->getValue().' sur '.$table_total[0]['nombre'].')</div>'; ?></div>
+					<div class="panel-heading">Les derniers ajouts de la table <a href="./?op=list&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>"><?php echo $val_menu['name']; ?></a><?php if ($table_total != 0) echo '<div class="pull-right">('.$setting_lastaddmax->getValue().' sur '.$table_total[0]['nombre'].')</div>'; ?></div>
 					<div class="panel-body">
 						<div class="regular slider">
 							<?php
@@ -34,13 +32,13 @@
 							<?php if ($table_list != 0) { ?>
 								<?php foreach ($table_list as $table => $val_table) { ?>
 									<?php
-										if ($val_table['Duree'] < '60')
+										if ($val_table['Duree'] < "60")
 										{
-											$duree = ($val_table['Duree']%60).'min';
+											$duree = ($val_table['Duree']%60)."min";
 										}
-										elseif ($val_table['Duree'] > '60')
+										elseif ($val_table['Duree'] > "60")
 										{
-											$duree = floor($val_table['Duree']/60).'h '.($val_table['Duree']%60).'min';
+											$duree = floor($val_table['Duree']/60)."h ".($val_table['Duree']%60)."min";
 										}
 									?>
 										<div class="img">
