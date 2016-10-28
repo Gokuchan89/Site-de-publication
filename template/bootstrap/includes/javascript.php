@@ -5,10 +5,64 @@
 
 
 
-
-
-
-
+<!-- Page derniers ajouts -->
+<?php if ($op == "search") { ?>
+	<!-- SLICK 1.6.0 -->
+	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
+	<script>
+		document.title += " / Recherche"
+		
+		// Slick
+		$('.regular').slick(
+		{
+			infinite: true,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			slidesToShow: 6,
+			slidesToScroll: 6,
+			responsive: [
+			{
+				breakpoint: 1024,
+				settings:
+				{
+					slidesToShow: 3,
+					slidesToScroll: 3
+				}
+			},
+			{
+				breakpoint: 600,
+				settings:
+				{
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			},
+			{
+				breakpoint: 480,
+				settings:
+				{
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			}]
+		});
+		$('.embedded-gallery .slick-slide > img').each(function(){ 
+			if ($(this).attr('slider_caption'))
+			{
+				var slideCaption = $(this).attr('slider_caption');
+				$(this).parent('.slick-slide').append('<div class="slidecaption">' + slideCaption + '</div>');
+			}
+		});
+		
+		// Popover
+		$('[data-toggle="popover"]').popover(
+		{
+			html: true,
+			trigger: "hover",
+			placement: "auto right"
+		});
+	</script>
+<?php } ?>
 
 
 <!-- Page derniers ajouts -->
