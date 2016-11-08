@@ -1,4 +1,11 @@
 <?php
+	// Protection des variables
+	$_ = array_merge($_GET, $_POST);
+	foreach ($_ as $key => &$val)
+	{
+		Functions::secure($val);
+	}
+
 	function clean_img($texte)
 	{
 		$texte = mb_strtolower($texte, 'UTF-8');

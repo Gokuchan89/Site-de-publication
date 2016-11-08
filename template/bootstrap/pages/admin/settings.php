@@ -173,6 +173,48 @@
 
 	/*
 		=================================
+		LISTE -> AJOUT
+		=================================
+	*/
+	if (isset($_['listAddButton']) && $_['listAddButton'] == 1 && empty($test[$lib_errors]))
+	{
+		if (!empty($_['list_add_name']) && !empty($_['list_add_type']) && !empty($_['list_add_sort']))
+		{
+			$liste = new Liste();
+			$liste->setName($_['list_add_name']);
+			$liste->setType($_['list_add_type']);
+			$liste->setSort($_['list_add_sort']);
+			$liste->setPosition(1);
+			$liste->setIdmenu($id);
+			$liste->saveListe();
+		} else {
+			$test[$lib_errors][] = "Il est nécessaire de fournir le nom, le type et l'ordre de tri du filtre.";
+		}
+	}
+
+	/*
+		=================================
+		LISTE -> MODIFICATION
+		=================================
+	*/
+	if (isset($_['listEditButton']) && $_['listEditButton'] == 1 && empty($test[$lib_errors]))
+	{
+		if (!empty($_['list_edit_position']) && !empty($_['list_edit_name']) && !empty($_['list_edit_type']) && !empty($_['list_edit_sort']))
+		{
+			$liste = new Liste();
+			$liste->getListDBID($id);
+			$liste->setName($_['list_edit_name']);
+			$liste->setType($_['list_edit_type']);
+			$liste->setSort($_['list_edit_sort']);
+			$liste->setPosition($_['list_edit_position']);
+			$liste->saveListe();
+		} else {
+			$test[$lib_errors][] = "Il est nécessaire de fournir la position, le nom, le type et l'ordre de tri du filtre.";
+		}
+	}
+
+	/*
+		=================================
 		DETAIL -> AJOUT
 		=================================
 	*/
@@ -567,6 +609,21 @@
 				</div>
 			<?php } ?>
 			<?php if ($tab == 3) { ?>
+				<!-- SUPPRESSION D'UN FILTRE -->
+				<div class="modal fade" id="ConfirmSupprList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header"><h4 class="modal-title" id="myModalLabel">Supprimer un filtre</h4></div>
+							<div class="modal-body">
+								<p>Voulez-vous vraiment supprimer ce filtre ?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+								<button type="button" class="btn btn-primary" onclick="delList()" data-dismiss="modal">Oui</button>
+							</div>
+						</div>
+					</div>
+				</div>
 				<!-- SUPPRESSION D'UN MENU -->
 				<div class="modal fade" id="ConfirmSupprDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
@@ -694,7 +751,190 @@
 								</form>
 							</div>
 						<?php } ?>
+						<?php if ($type == "list_settings") { ?>
+							<div class="panel panel-default">
+								<div class="panel-heading">Ajouter un filtre</div>
+								<form method="post" action="?op=settings&tab=3&type=list_settings&id=<?php echo $id; ?>" id="listAddForm">
+									<input type="hidden" name="listAddButton" value="1">
+									<div class="panel-body">
+										<?php
+											if (!empty($test[$lib_errors]))
+											{
+												foreach ($test as $type=>$messages)
+												{
+													foreach ($messages as $message)
+													{
+														echo "<div class=\"alert alert-danger\">".$message."</div>";
+													}
+												}
+											}
+										?>
+										<div class="form-group has-feedback">
+											<label>Nom du filtre</label>
+											<input type="text" class="form-control" name="list_add_name" required />
+											<span class="form-control-feedback"><i class="fa fa-pencil"></i></span>
+										</div>
+										<div class="form-group">
+											<label>Type du filtre</label>
+											<select class="form-control chosen" name="list_add_type">
+												<option value="acteurs">Acteurs</option>
+												<option value="annee">Année</option>
+												<option value="audio">Audio</option>
+												<option value="bande_annonce">Bande-annonce</option>
+												<option value="bonus">Bonus</option>
+												<option value="commentaires">Commentaires</option>
+												<option value="duree">Durée</option>
+												<option value="edition">Edition</option>
+												<option value="entree_date">Date d'entrée</option>
+												<option value="fichier">Fichier</option>
+												<option value="film_vu">Film Vu</option>
+												<option value="genre">Genre</option>
+												<option value="nombre_support">Nombre de supports</option>
+												<option value="note">Note</option>
+												<option value="pays">Pays</option>
+												<option value="realisateurs">Réalisateurs</option>
+												<option value="reference">Référence</option>
+												<option value="soustitres">Sous-titres</option>
+												<option value="support">Support</option>
+												<option value="synopsis">Synopsis</option>
+												<option value="zone">Zone</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>Ordre de tri du filtre</label>
+											<div class="radio">
+												<label><input type="radio" name="list_add_sort" value="sort"> <i class="fa fa-long-arrow-down"></i></label>
+												<label><input type="radio" name="list_add_sort" value="rsort"> <i class="fa fa-long-arrow-up"></i></label>
+											</div>
+										</div>
+									</div>
+									<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right">Ajouter</button></div>
+								</form>
+							</div>
+						<?php } ?>
 					</div>
+					<?php if ($type == "list_settings") { ?>
+						<div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="panel panel-default">
+								<div class="panel-heading">Recherche + Filtres</div>
+								<div class="panel-body">
+									<div class="form-group">
+										<label>Recherche par titre (VF ou VO)</label>
+										<div class="input-group">
+											<input type="text" class="form-control" />
+											<div class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+										</div>
+									</div>
+									<div class="row">
+										<?php
+											$liste_list = new Liste();
+											$liste_list = $liste_list->getList($id);
+										?>
+										<?php foreach ($liste_list as $liste => $val_liste) { ?>
+											<div class="col-xs-12 col-sm-12 col-md-4">
+												<div class="form-group">
+													<label>Filtrer par <?php echo $val_liste['name']; ?></label>
+													<div class="input-group">
+														<select class="form-control chosen" style="width:100%;" disabled>
+															<option value="acteurs" <?php if ($val_liste['type'] == "acteurs") echo "selected"; ?>>Acteurs</option>
+															<option value="annee" <?php if ($val_liste['type'] == "annee") echo "selected"; ?>>Année</option>
+															<option value="audio" <?php if ($val_liste['type'] == "audio") echo "selected"; ?>>Audio</option>
+															<option value="bande_annonce" <?php if ($val_liste['type'] == "bande_annonce") echo "selected"; ?>>Bande-annonce</option>
+															<option value="bonus" <?php if ($val_liste['type'] == "bonus") echo "selected"; ?>>Bonus</option>
+															<option value="commentaires" <?php if ($val_liste['type'] == "commentaires") echo "selected"; ?>>Commentaires</option>
+															<option value="duree" <?php if ($val_liste['type'] == "duree") echo "selected"; ?>>Durée</option>
+															<option value="edition" <?php if ($val_liste['type'] == "edition") echo "selected"; ?>>Edition</option>
+															<option value="entree_date" <?php if ($val_liste['type'] == "entree_date") echo "selected"; ?>>Date d'entrée</option>
+															<option value="fichier" <?php if ($val_liste['type'] == "fichier") echo "selected"; ?>>Fichier</option>
+															<option value="film_vu" <?php if ($val_liste['type'] == "film_vu") echo "selected"; ?>>Film Vu</option>
+															<option value="genre" <?php if ($val_liste['type'] == "genre") echo "selected"; ?>>Genre</option>
+															<option value="nombre_support" <?php if ($val_liste['type'] == "nombre_support") echo "selected"; ?>>Nombre de supports</option>
+															<option value="note" <?php if ($val_liste['type'] == "note") echo "selected"; ?>>Note</option>
+															<option value="pays" <?php if ($val_liste['type']== "pays") echo "selected"; ?>>Pays</option>
+															<option value="realisateurs" <?php if ($val_liste['type'] == "realisateurs") echo "selected"; ?>>Réalisateurs</option>
+															<option value="reference" <?php if ($val_liste['type'] == "reference") echo "selected"; ?>>Référence</option>
+															<option value="soustitres" <?php if ($val_liste['type'] == "soustitres") echo "selected"; ?>>Sous-titres</option>
+															<option value="support" <?php if ($val_liste['type'] == "support") echo "selected"; ?>>Support</option>
+															<option value="synopsis" <?php if ($val_liste['type'] == "synopsis") echo "selected"; ?>>Synopsis</option>
+															<option value="zone" <?php if ($val_liste['type'] == "zone") echo "selected"; ?>>Zone</option>
+														</select>
+														<div class="input-group-btn">
+															<a href="./?op=settings&tab=3&type=list_edit&id=<?php echo $val_liste['id']; ?>" class="btn btn-info" title="Modifier le menu"><i class="fa fa-pencil"></i></a>
+															<button class="btn btn-danger" onclick="list_del(<?php echo $val_liste['id']; ?>)" title="Supprimer le menu"><i class="fa fa-trash-o"></i></button>
+														</div>
+													</div>
+												</div>
+											</div>
+										<?php } ?>
+									</div>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
+					<?php if ($type == "list_edit") { ?>
+						<div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="panel panel-default">
+								<div class="panel-heading">Modifier un filtre</div>
+								<form method="post" action="./?op=settings&tab=3&type=list_edit&id=<?php echo $id; ?>" id="listEditForm">
+									<input type="hidden" name="listEditButton" value="1" />
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-md-4">
+												<div class="form-group">
+													<label>Position du filtre</label>
+													<input type="number" class="form-control" name="list_edit_position" value="<?php $list_position = new Liste(); $list_position->getListDBID($id); echo $list_position->getPosition(); ?>" required />
+												</div>
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-8">
+												<div class="form-group">
+													<label>Nom du filtre</label>
+													<input type="text" class="form-control" name="list_edit_name" value="<?php $list_name = new Liste(); $list_name->getListDBID($id); echo $list_name->getName(); ?>" required />
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>Type du filtre</label>	
+											<select class="form-control chosen" name="list_edit_type">
+												<?php
+													$liste_type = new Liste();
+													$liste_type->getListDBID($id);
+												?>
+												<option value="acteurs" <?php if ($liste_type->getType() == "acteurs") echo "selected"; ?>>Acteurs</option>
+												<option value="annee" <?php if ($liste_type->getType() == "annee") echo "selected"; ?>>Année</option>
+												<option value="audio" <?php if ($liste_type->getType() == "audio") echo "selected"; ?>>Audio</option>
+												<option value="bande_annonce" <?php if ($liste_type->getType() == "bande_annonce") echo "selected"; ?>>Bande-annonce</option>
+												<option value="bonus" <?php if ($liste_type->getType() == "bonus") echo "selected"; ?>>Bonus</option>
+												<option value="commentaires" <?php if ($liste_type->getType() == "commentaires") echo "selected"; ?>>Commentaires</option>
+												<option value="duree" <?php if ($liste_type->getType() == "duree") echo "selected"; ?>>Durée</option>
+												<option value="edition" <?php if ($liste_type->getType() == "edition") echo "selected"; ?>>Edition</option>
+												<option value="entree_date" <?php if ($liste_type->getType() == "entree_date") echo "selected"; ?>>Date d'entrée</option>
+												<option value="fichier" <?php if ($liste_type->getType() == "fichier") echo "selected"; ?>>Fichier</option>
+												<option value="film_vu" <?php if ($liste_type->getType() == "film_vu") echo "selected"; ?>>Film Vu</option>
+												<option value="genre" <?php if ($liste_type->getType() == "genre") echo "selected"; ?>>Genre</option>
+												<option value="nombre_support" <?php if ($liste_type->getType() == "nombre_support") echo "selected"; ?>>Nombre de supports</option>
+												<option value="note" <?php if ($liste_type->getType() == "note") echo "selected"; ?>>Note</option>
+												<option value="pays" <?php if ($liste_type->getType()== "pays") echo "selected"; ?>>Pays</option>
+												<option value="realisateurs" <?php if ($liste_type->getType() == "realisateurs") echo "selected"; ?>>Réalisateurs</option>
+												<option value="reference" <?php if ($liste_type->getType() == "reference") echo "selected"; ?>>Référence</option>
+												<option value="soustitres" <?php if ($liste_type->getType() == "soustitres") echo "selected"; ?>>Sous-titres</option>
+												<option value="support" <?php if ($liste_type->getType() == "support") echo "selected"; ?>>Support</option>
+												<option value="synopsis" <?php if ($liste_type->getType() == "synopsis") echo "selected"; ?>>Synopsis</option>
+												<option value="zone" <?php if ($liste_type->getType() == "zone") echo "selected"; ?>>Zone</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>Ordre de tri du filtre</label>
+											<div class="radio">
+												<label><input type="radio" name="list_edit_sort" value="sort" <?php $list_sort = new Liste(); $list_sort->getListDBID($id); if ($list_sort->getSort() == "sort") echo "checked"; ?>> <i class="fa fa-long-arrow-down"></i></label>
+												<label><input type="radio" name="list_edit_sort" value="rsort" <?php $list_sort = new Liste(); $list_sort->getListDBID($id); if ($list_sort->getSort() == "rsort") echo "checked"; ?>> <i class="fa fa-long-arrow-up"></i></label>
+											</div>
+										</div>
+									</div>
+									<div class="panel-footer clearfix"><button type="submit" class="btn btn-success pull-right">Modifier</button></div>
+								</form>
+							</div>
+						</div>
+					<?php } ?>
 					<?php if ($type == "detail_settings") { ?>
 						<?php
 							// TitreVO
@@ -1107,28 +1347,28 @@
 													$detail_type = new Detail();
 													$detail_type->getDetailDBID($id);
 												?>
-												<option value="acteurs" <?php if ($detail_type->getType() == "acteurs") echo "selected"; ?>>Acteurs</option>
-												<option value="annee" <?php if ($detail_type->getType() == "annee") echo "selected"; ?>>Année</option>
-												<option value="audio" <?php if ($detail_type->getType() == "audio") echo "selected"; ?>>Audio</option>
-												<option value="bande_annonce" <?php if ($detail_type->getType() == "bande_annonce") echo "selected"; ?>>Bande-annonce</option>
-												<option value="bonus" <?php if ($detail_type->getType() == "bonus") echo "selected"; ?>>Bonus</option>
-												<option value="commentaires" <?php if ($detail_type->getType() == "commentaires") echo "selected"; ?>>Commentaires</option>
-												<option value="duree" <?php if ($detail_type->getType() == "duree") echo "selected"; ?>>Durée</option>
-												<option value="edition" <?php if ($detail_type->getType() == "edition") echo "selected"; ?>>Edition</option>
-												<option value="entree_date" <?php if ($detail_type->getType() == "entree_date") echo "selected"; ?>>Date d'entrée</option>
-												<option value="fichier" <?php if ($detail_type->getType() == "fichier") echo "selected"; ?>>Fichier</option>
-												<option value="film_vu" <?php if ($detail_type->getType() == "film_vu") echo "selected"; ?>>Film Vu</option>
-												<option value="genre" <?php if ($detail_type->getType() == "genre") echo "selected"; ?>>Genre</option>
-												<option value="nombre_support" <?php if ($detail_type->getType() == "nombre_support") echo "selected"; ?>>Nombre de supports</option>
-												<option value="note" <?php if ($detail_type->getType() == "note") echo "selected"; ?>>Note</option>
-												<option value="pays" <?php if ($detail_type->getType() == "pays") echo "selected"; ?>>Pays</option>
-												<option value="realisateurs" <?php if ($detail_type->getType() == "realisateurs") echo "selected"; ?>>Réalisateurs</option>
-												<option value="reference" <?php if ($detail_type->getType() == "reference") echo "selected"; ?>>Référence</option>
-												<option value="sous_titres" <?php if ($detail_type->getType() == "sous_titres") echo "selected"; ?>>Sous-titres</option>
-												<option value="support" <?php if ($detail_type->getType() == "support") echo "selected"; ?>>Support</option>
-												<option value="synopsis" <?php if ($detail_type->getType() == "synopsis") echo "selected"; ?>>Synopsis</option>
-												<option value="titre_vo" <?php if ($detail_type->getType() == "titre_vo") echo "selected"; ?>>Titre VO</option>
-												<option value="zone" <?php if ($detail_type->getType() == "zone") echo "selected"; ?>>Zone</option>
+												<option value="acteurs" <?php if ($list_type->getType() == "acteurs") echo "selected"; ?>>Acteurs</option>
+												<option value="annee" <?php if ($list_type->getType() == "annee") echo "selected"; ?>>Année</option>
+												<option value="audio" <?php if ($list_type->getType() == "audio") echo "selected"; ?>>Audio</option>
+												<option value="bande_annonce" <?php if ($list_type->getType() == "bande_annonce") echo "selected"; ?>>Bande-annonce</option>
+												<option value="bonus" <?php if ($list_type->getType() == "bonus") echo "selected"; ?>>Bonus</option>
+												<option value="commentaires" <?php if ($list_type->getType() == "commentaires") echo "selected"; ?>>Commentaires</option>
+												<option value="duree" <?php if ($list_type->getType() == "duree") echo "selected"; ?>>Durée</option>
+												<option value="edition" <?php if ($list_type->getType() == "edition") echo "selected"; ?>>Edition</option>
+												<option value="entree_date" <?php if ($list_type->getType() == "entree_date") echo "selected"; ?>>Date d'entrée</option>
+												<option value="fichier" <?php if ($list_type->getType() == "fichier") echo "selected"; ?>>Fichier</option>
+												<option value="film_vu" <?php if ($list_type->getType() == "film_vu") echo "selected"; ?>>Film Vu</option>
+												<option value="genre" <?php if ($list_type->getType() == "genre") echo "selected"; ?>>Genre</option>
+												<option value="nombre_support" <?php if ($list_type->getType() == "nombre_support") echo "selected"; ?>>Nombre de supports</option>
+												<option value="note" <?php if ($list_type->getType() == "note") echo "selected"; ?>>Note</option>
+												<option value="pays" <?php if ($list_type->getType() == "pays") echo "selected"; ?>>Pays</option>
+												<option value="realisateurs" <?php if ($list_type->getType() == "realisateurs") echo "selected"; ?>>Réalisateurs</option>
+												<option value="reference" <?php if ($list_type->getType() == "reference") echo "selected"; ?>>Référence</option>
+												<option value="sous_titres" <?php if ($list_type->getType() == "sous_titres") echo "selected"; ?>>Sous-titres</option>
+												<option value="support" <?php if ($list_type->getType() == "support") echo "selected"; ?>>Support</option>
+												<option value="synopsis" <?php if ($list_type->getType() == "synopsis") echo "selected"; ?>>Synopsis</option>
+												<option value="titre_vo" <?php if ($list_type->getType() == "titre_vo") echo "selected"; ?>>Titre VO</option>
+												<option value="zone" <?php if ($list_type->getType() == "zone") echo "selected"; ?>>Zone</option>
 											</select>
 										</div>
 										<div class="form-group">
@@ -1164,7 +1404,7 @@
 												<option value="users" data-icon="fa-users" <?php if ($detail_icon->getIcon() == "users") echo "selected"; ?>>users</option>
 											</select>
 										</div>
-										<?php if ($detail_type->getType() == "duree") { ?>
+										<?php if ($list_type->getType() == "duree") { ?>
 											<div class="form-group">
 												<label>Option du menu</label>
 												<div class="radio">
