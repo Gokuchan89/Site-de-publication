@@ -5,8 +5,6 @@
 		exit();
 	}
 	
-	ini_set("session.gc_maxlifetime", 28800);
-	session_name("intranet");
 	session_start();
 	
 	include("./class/_classLoader.php");
