@@ -2,6 +2,7 @@
 	include("category.class.php");
 	include("detail.class.php");
 	include("functions.class.php");
+	include("list.class.php");
 	include("log.class.php");
 	include("log_activite.class.php");
 	include("menu.class.php");

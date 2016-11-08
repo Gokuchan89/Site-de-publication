@@ -1,14 +1,14 @@
 <?php
-	if(!class_exists("Detail"))
+	if(!class_exists("Liste"))
 	{
-		class Detail
+		class Liste
 		{
 			// Liste des attributs
 			private $id;
 			private $name;
 			private $type;
-			private $icon;
-			private $options;
+			private $sort;
+			private $position;
 			private $id_menu;
 			
 			// Liste des getteurs
@@ -24,13 +24,13 @@
 			{
 				return $this->type;
 			}
-			public function getIcon()
+			public function getSort()
 			{
-				return $this->icon;
+				return $this->sort;
 			}
-			public function getOptions()
+			public function getPosition()
 			{
-				return $this->options;
+				return $this->position;
 			}
 			public function getIdmenu()
 			{
@@ -46,13 +46,13 @@
 			{
 				$this->type = $type;
 			}
-			public function setIcon($icon)
+			public function setSort($sort)
 			{
-				$this->icon = $icon;
+				$this->sort = $sort;
 			}
-			public function setOptions($options)
+			public function setPosition($position)
 			{
-				$this->options = $options;
+				$this->position = $position;
 			}
 			public function setIdmenu($id_menu)
 			{
@@ -74,13 +74,13 @@
 				{
 					$this->type = $donnees['type'];
 				}
-				if (isset($donnees['icon']))
+				if (isset($donnees['sort']))
 				{
-					$this->icon = $donnees['icon'];
+					$this->sort = $donnees['sort'];
 				}
-				if (isset($donnees['options']))
+				if (isset($donnees['position']))
 				{
-					$this->options = $donnees['options'];
+					$this->position = $donnees['position'];
 				}
 				if (isset($donnees['id_menu']))
 				{
@@ -88,13 +88,38 @@
 				}
 			}
 	
-			public function getDetailDBID($id)
+			// Initialisation de la liste via l'id
+			public function getList($id)
 			{
 				// Etablissement de la connexion à MySQL
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("SELECT * FROM `site_detail` WHERE `id` = :id");
+				$sql = $Connexion->prepare("SELECT * FROM `site_list` WHERE `id_menu` = :id ORDER BY `position`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array("id" => $id));
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Liste->getListDBID",
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `site_list` WHERE `id_menu` = ".$id
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+	
+			public function getListDBID($id)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `site_list` WHERE `id` = :id");
 				try
 				{
 					// On envoi la requête
@@ -105,60 +130,23 @@
 						$this->id = $menu->id;
 						$this->name = $menu->name;
 						$this->type = $menu->type;
-						$this->icon = $menu->icon;
-						$this->options = $menu->options;
+						$this->sort = $menu->sort;
+						$this->position = $menu->position;
 						$this->id_menu = $menu->id_menu;
 					}
 					return true;
 				} catch (Exception $e) {
 					$Log = new Log(array(
-						"treatment" => "Detail->getDetailDBID",
+						"treatment" => "Liste->getListDBID",
 						"error" => $e->getMessage(),
-						"request" => "SELECT * FROM `site_detail` WHERE `id` = ".$id
+						"request" => "SELECT * FROM `site_menu` WHERE `id` = ".$id
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
-
-			public function getDetailList($type, $id)
-			{
-				// Etablissement de la connexion à MySQL
-				$mysql = new MySQL();
-				$Connexion = $mysql->getPDO();
-				// Préparation de la requête
-				$sql = $Connexion->prepare("SELECT * FROM `site_detail` WHERE `type` = :type AND `id_menu` = :id");
-				try
-				{
-					// On envoi la requête
-					$sql->execute(array(
-						"type" => $type,
-						"id" => $id
-					));
-					// Traitement des résultats
-					while ($user = $sql->fetch(PDO::FETCH_OBJ))
-					{
-						$this->id = $user->id;
-						$this->name = $user->name;
-						$this->type = $user->type;
-						$this->icon = $user->icon;
-						$this->options = $user->options;
-						$this->id_menu = $user->id_menu;
-					}
-					return true;
-				} catch (Exception $e) {
-					$Log = new Log(array(
-						"treatment" => "Detail->getDetailList",
-						"error" => $e->getMessage(),
-						"request" => "SELECT * FROM `site_detail` WHERE `type` = ".$type." AND `id_menu` = ".$id
-					));
-					$Log->saveLog();
-					return "Erreur de requête : ".$e->getMessage();
-				}
-			}
-
-			// Sauvegarde d'un nouveau menu en BDD
-			public function saveDetail()
+			
+			public function saveListe()
 			{
 				// Vérifier si le menu existe déjà pour savoir si on ajoute le menu ou si on le met à jour dans la BDD
 				if ($this->id)
@@ -168,7 +156,7 @@
 					$mysql = new MySQL();
 					$Connexion = $mysql->getPDO();
 					// Préparation de la requête
-					$sql = $Connexion->prepare("SELECT * FROM `site_detail` WHERE `id` = :id");
+					$sql = $Connexion->prepare("SELECT * FROM `site_list` WHERE `id` = :id");
 					try
 					{
 						// On envoi la requête
@@ -183,9 +171,9 @@
 						}
 					} catch (Exception $e) {
 						$Log = new Log(array(
-							"treatment" => "Detail->saveDetail",
+							"treatment" => "Liste->saveListe",
 							"error" => $e->getMessage(),
-							"request" => "SELECT * FROM `site_detail` WHERE `id` = ".$this->id
+							"request" => "SELECT * FROM `site_list` WHERE `id` = ".$this->id
 						));
 						$Log->saveLog();
 						return "Erreur de requête : ".$e->getMessage();
@@ -202,24 +190,24 @@
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("INSERT INTO `site_detail` (`name`, `type`, `icon`, `options`, `id_menu`) values (:name, :type, :icon, :options, :id_menu)");
+				$sql = $Connexion->prepare("INSERT INTO `site_list` (`name`, `type`, `sort`, `position`, `id_menu`) values (:name, :type, :sort, :position, :id_menu)");
 				try
 				{
 					// On envoi la requête
 					$sql->execute(array(
 						"name" => $this->name,
 						"type" => $this->type,
-						"icon" => $this->icon,
-						"options" => $this->options,
+						"sort" => $this->sort,
+						"position" => $this->position,
 						"id_menu" => $this->id_menu
 					));
 					$this->id = $Connexion->lastInsertId();
 					return $this->id;
 				} catch (Exception $e) {
 					$Log = new Log(array(
-						"treatment" => "Detail->createDB",
+						"treatment" => "Liste->createDB",
 						"error" => $e->getMessage(),
-						"request" => "INSERT INTO `site_detail` (`name`, `type`, `icon`, `options`, `id_menu`) values (".$this->name.", ".$this->type.", ".$this->icon.", ".$this->options.", ".$this->id_menu.")"
+						"request" => "INSERT INTO `site_list` (`name`, `type`, `sort`, `position`, `id_menu`) values (".$this->name.", ".$this->type.", ".$this->sort.", ".$this->position.", ".$this->id_menu.")"
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
@@ -232,7 +220,7 @@
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("UPDATE `site_detail` SET `name` = :name, `type` = :type, `icon` = :icon, `options` = :options, `id_menu` = :id_menu WHERE `id` = :id");
+				$sql = $Connexion->prepare("UPDATE `site_list` SET `name` = :name, `type` = :type, `sort` = :sort, `position` = :position, `id_menu` = :id_menu WHERE `id` = :id");
 				try
 				{
 					// On envoi la requête
@@ -240,30 +228,29 @@
 						"id" => $this->id,
 						"name" => $this->name,
 						"type" => $this->type,
-						"icon" => $this->icon,
-						"options" => $this->options,
+						"sort" => $this->sort,
+						"position" => $this->position,
 						"id_menu" => $this->id_menu
 					));
 					return true;
 				} catch (Exception $e) {
 					$Log = new Log(array(
-						"treatment" => "Detail->majDB",
+						"treatment" => "Liste->majDB",
 						"error" => $e->getMessage(),
-						"request" => "UPDATE `site_detail` SET `name` = ".$this->name.", `type` = ".$this->type.", `icon` = ".$this->icon.", `options` = ".$this->options.", `id_menu` = ".$this->id_menu." WHERE `id` = ".$this->id
+						"request" => "UPDATE `site_list` SET `name` = ".$this->name.", `type` = ".$this->type.", `sort` = ".$this->sort.", `position` = ".$this->position.", `id_menu` = ".$this->id_menu." WHERE `id` = ".$this->id
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
 			
-			// Suppression d'un menu
-			public function deleteDetailDBID($id)
+			public function deleteListeDBID($id)
 			{
 				// Etablissement de la connexion à MySQL
 				$mysql = new MySQL();
 				$Connexion = $mysql->getPDO();
 				// Préparation de la requête
-				$sql = $Connexion->prepare("DELETE FROM `site_detail` WHERE `id` = :id");
+				$sql = $Connexion->prepare("DELETE FROM `site_list` WHERE `id` = :id");
 				try
 				{
 					// On envoi la requête
@@ -271,9 +258,9 @@
 					return true;
 				} catch (Exception $e) {
 					$Log = new Log(array(
-						"treatment" => "Detail->deleteDetailDBID", 
+						"treatment" => "Liste->deleteListeDBID", 
 						"error" => $e->getMessage(),
-						"request" => "DELETE FROM `site_detail` WHERE `id` = ".$id
+						"request" => "DELETE FROM `site_list` WHERE `id` = ".$id
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();

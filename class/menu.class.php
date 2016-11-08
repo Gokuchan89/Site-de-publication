@@ -147,7 +147,6 @@
 				}
 			}
 	
-			// Récuperation de la liste des menus
 			public function getNBTotalTable($name_table)
 			{
 				// Etablissement de la connexion à MySQL

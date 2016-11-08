@@ -48,8 +48,7 @@
 					$this->position = $donnees['position'];
 				}
 			}
-	
-			// Initialisation de la liste
+
 			public function getCategoryList()
 			{
 				// Etablissement de la connexion à MySQL
@@ -74,7 +73,6 @@
 				}
 			}
 	
-			// Initialisation de la liste via l'id
 			public function getCategoryDBID($id)
 			{
 				// Etablissement de la connexion à MySQL
@@ -105,7 +103,6 @@
 				}
 			}
 
-			// Sauvegarde d'une catégorie
 			public function saveCategory()
 			{
 				// Vérifier si la catégorie existe déjà pour savoir si on ajoute la catégorie ou si on le met à jour dans la BDD
@@ -144,7 +141,6 @@
 				}
 			}
 
-			// Création d'une catégorie si elle n'existe pas
 			private function createDB()
 			{
 				// Etablissement de la connexion à MySQL
@@ -172,7 +168,6 @@
 				}
 			}
 
-			// Mise à jour d'une catégorie si elle existe
 			private function majDB()
 			{
 				// Etablissement de la connexion à MySQL
@@ -200,7 +195,6 @@
 				}
 			}
 			
-			// Suppression d'une catégorie
 			public function deleteCategoryDBID($id)
 			{
 				// Etablissement de la connexion à MySQL
@@ -224,7 +218,6 @@
 				}
 			}
 
-			// Test si la catégorie à bien été créée pendant l'installation
 			public function testPresenceCategory($name)
 			{
 				// Etablissement de la connexion à MySQL
@@ -236,7 +229,6 @@
 				{
 					// On envoi la requête
 					$sql->execute(array("name" => $name));
-
 					// Traitement des résultats
 					$donnees = $sql->fetchColumn();
 					if ($donnees == 1)

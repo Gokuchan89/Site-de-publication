@@ -53,18 +53,6 @@
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		}
 	}
 ?>

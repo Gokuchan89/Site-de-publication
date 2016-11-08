@@ -238,7 +238,6 @@
 				}
 			}
 	
-			// Récuperation de la liste des catégories
 			public function getLastupdateList($name_table, $lastadd_max)
 			{
 				// Etablissement de la connexion à MySQL
@@ -253,8 +252,8 @@
 					$donnees = $sql->fetchAll();
 					return $donnees;
 				} catch (Exception $e) {
-					$Log=new Log(array(
-						"treatment" => 'Table->getLastupdateList',
+					$Log = new Log(array(
+						"treatment" => "Table->getLastupdateList",
 						"error" => $e->getMessage(),
 						"request" => "SELECT * FROM `".$name_table."` ORDER BY `ID` DESC LIMIT ".$lastadd_max
 					));
@@ -262,8 +261,55 @@
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
+	
+			public function getFilterList($type, $name_table, $list_search)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT DISTINCT `".$type."` FROM `".$name_table."` WHERE `Sortie` = \"NON\" ".$list_search);
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Table->getListeList",
+						"error" => $e->getMessage(),
+						"request" => "SELECT DISTINCT `".$type."` FROM `".$name_table."` WHERE `Sortie` = \"NON\" ".$list_search
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+	
+			public function getListeList($name_table, $list_search, $option_order, $option_nb_elements, $offset_list)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `".$name_table."` WHERE `Note` >= \"0\" ".$list_search." ORDER BY ".$option_order." LIMIT ".$option_nb_elements." OFFSET ".$offset_list);
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Table->getListeList",
+						"error" => $e->getMessage(),
+						"request" => "SELECT * FROM `".$name_table."` WHERE `Note` >= \"0\" ".$list_search." ORDER BY ".$option_order." LIMIT ".$option_nb_elements." OFFSET ".$offset_list
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
 
-			// Initialisation depuis la BDD via l'id
 			public function getTableDBID($name_table, $id)
 			{
 				// Etablissement de la connexion à MySQL
@@ -276,33 +322,33 @@
 					// On envoi la requête
 					$sql->execute(array("id" => $id));
 					// Traitement des résultats
-					while ($user = $sql->fetch(PDO::FETCH_OBJ))
+					while ($table = $sql->fetch(PDO::FETCH_OBJ))
 					{
-						$this->ID = $user->ID;
-						$this->TitreVF = $user->TitreVF;
-						$this->TitreVO = $user->TitreVO;
-						$this->Genre = $user->Genre;
-						$this->Annee = $user->Annee;
-						$this->Duree = $user->Duree;
-						$this->Pays = $user->Pays;
-						$this->Note = $user->Note;
-						$this->FilmVu = $user->FilmVu;
-						$this->BAType = $user->BAType;
-						$this->BAChemin = $user->BAChemin;
-						$this->MediaType = $user->MediaType;
-						$this->MediaChemin = $user->MediaChemin;
-						$this->Synopsis = $user->Synopsis;
-						$this->Realisateurs = $user->Realisateurs;
-						$this->Acteurs = $user->Acteurs;
-						$this->Bonus = $user->Bonus;
-						$this->Support = $user->Support;
-						$this->Reference = $user->Reference;
-						$this->Edition = $user->Edition;
-						$this->EntreeDate = $user->EntreeDate;
-						$this->NombreSupport = $user->NombreSupport;
-						$this->Zone = $user->Zone;
-						$this->Audio = $user->Audio;
-						$this->SousTitres = $user->SousTitres;
+						$this->ID = $table->ID;
+						$this->TitreVF = $table->TitreVF;
+						$this->TitreVO = $table->TitreVO;
+						$this->Genre = $table->Genre;
+						$this->Annee = $table->Annee;
+						$this->Duree = $table->Duree;
+						$this->Pays = $table->Pays;
+						$this->Note = $table->Note;
+						$this->FilmVu = $table->FilmVu;
+						$this->BAType = $table->BAType;
+						$this->BAChemin = $table->BAChemin;
+						$this->MediaType = $table->MediaType;
+						$this->MediaChemin = $table->MediaChemin;
+						$this->Synopsis = $table->Synopsis;
+						$this->Realisateurs = $table->Realisateurs;
+						$this->Acteurs = $table->Acteurs;
+						$this->Bonus = $table->Bonus;
+						$this->Support = $table->Support;
+						$this->Reference = $table->Reference;
+						$this->Edition = $table->Edition;
+						$this->EntreeDate = $table->EntreeDate;
+						$this->NombreSupport = $table->NombreSupport;
+						$this->Zone = $table->Zone;
+						$this->Audio = $table->Audio;
+						$this->SousTitres = $table->SousTitres;
 					}
 					return true;
 				} catch (Exception $e) {
@@ -310,6 +356,54 @@
 						"treatment" => "Table->getTableDBID",
 						"error" => $e->getMessage(),
 						"request" => "SELECT * FROM `".$name_table."` WHERE `id` = ".$id
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+	
+			public function getTotal($name_table)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT COUNT(*) AS nombre FROM `".$name_table."`");
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Table->getTotal",
+						"error" => $e->getMessage(),
+						"request" => "SELECT COUNT(*) AS nombre FROM `".$name_table."`"
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
+	
+			public function getSearchtotal($name_table, $list_search)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT COUNT(*) AS nombre FROM `".$name_table."` WHERE `Note` >= \"0\" ".$list_search);
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Table->getSearchtotal",
+						"error" => $e->getMessage(),
+						"request" => "SELECT COUNT(*) FROM `".$name_table."` WHERE `Note` >= \"0\" ".$list_search
 					));
 					$Log->saveLog();
 					return "Erreur de requête : ".$e->getMessage();
