@@ -67,15 +67,29 @@
 
 <!-- Page derniers ajouts -->
 <?php if ($op == "lastupdate") { ?>
-	<!-- SLICK 1.6.0 -->
-	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
 	<!-- LAZYLOAD 1.9.7 -->
 	<script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
+	<!-- SLICK 1.6.0 -->
+	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
 	<script>
-		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_GET['category']); echo $category_name->getName(); ?> / Derniers ajouts"
+		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_['category']); echo $category_name->getName(); ?> / Derniers ajouts"
+				
+		// LazyLoad
+		$("img.lazy").lazyload(
+		{
+			effect : "fadeIn"
+		});
+		
+		// Popover
+		$('[data-toggle="popover"]').popover(
+		{
+			html: true,
+			trigger: "hover",
+			placement: "auto right"
+		});
 		
 		// Slick
-		$('.regular').slick(
+		$(".regular").slick(
 		{
 			infinite: true,
 			autoplay: true,
@@ -115,11 +129,52 @@
 				$(this).parent('.slick-slide').append('<div class="slidecaption">' + slideCaption + '</div>');
 			}
 		});
+	</script>
+<?php } ?>
+
+
+
+
+
+
+<!-- Page liste -->
+<?php if ($op == "list") { ?>
+	<!-- CHOSEN 1.6.2 -->
+	<script src="./template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
+	<script>
+		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_['category']); echo $category_name->getName(); ?> / <?php $menu_name = new Menu(); $menu_name->getMenuDBID($_['menu']); echo $menu_name->getName(); ?> / Liste"
+		
+		// Chosen
+		<?php
+			if(isset($_['menu']))
+			{
+				$liste_list = new Liste();
+				$liste_list = $liste_list->getList($_['menu']);
 				
-		// LazyLoad
-		$('img.lazy').lazyload(
+				foreach ($liste_list as $liste => $val_liste)
+				{
+					echo "$(\".chosen_".$val_liste['type']."\").chosen({";
+						if ($val_liste['type'] == "annee" || $val_liste['type'] == "note" || $val_liste['type'] == "reference" || $val_liste['type'] == "edition" || $val_liste['type'] == "zone") $tous = "Toutes"; else $tous = "Tous";
+						echo "placeholder_text_single: \"".$tous." les ".$val_liste['name']."\",";
+						echo "width: \"100%\"";
+					echo "});";
+				}
+			}
+		?>
+		$(".chosen").chosen(
 		{
-			effect : 'fadeIn'
+			width: "100%",
+			disable_search: true
+		});
+		
+		// Collapse
+		$('#collapse').on("hide.bs.collapse", function()
+		{
+			$('div.div-box-tool').html('<i class="fa fa-plus"></i>');
+		});
+		$("#collapse").on("show.bs.collapse", function()
+		{
+			$('div.div-box-tool').html('<i class="fa fa-minus"></i>');
 		});
 		
 		// Popover
@@ -134,12 +189,6 @@
 
 
 
-
-
-
-
-
-
 <!-- Page detail -->
 <?php if ($op == "detail") { ?>
 	<!-- LIGHTGALLERY 1.2.18 -->
@@ -148,7 +197,7 @@
 	<!-- SLICK 1.6.0 -->
 	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
 	<script>
-		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_GET['category']); echo $category_name->getName(); ?> / <?php $menu_name = new Menu(); $menu_name->getMenuDBID($_GET['menu']); echo $menu_name->getName(); ?> / <?php $table_TitreVF = new Table(); $table_TitreVF->getTableDBID($menu_table, $id); echo $table_TitreVF->getTitrevf(); ?>"
+		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_['category']); echo $category_name->getName(); ?> / <?php $menu_name = new Menu(); $menu_name->getMenuDBID($_['menu']); echo $menu_name->getName(); ?> / <?php $table_TitreVF = new Table(); $table_TitreVF->getTableDBID($menu_table, $id); echo $table_TitreVF->getTitrevf(); ?>"
 		
 		// LightGallery
 		$("#affiche").lightGallery(
@@ -163,7 +212,7 @@
 		
 		
 		// Slick
-		$('.regular').slick(
+		$(".regular").slick(
 		{
 			infinite: false,
 			slidesToShow: 4,
@@ -194,15 +243,13 @@
 				}
 			}]
 		});
-		$('.embedded-gallery .slick-slide > img').each(function(){ 
-			if ($(this).attr('slider_caption'))
+		$(".embedded-gallery .slick-slide > img").each(function(){ 
+			if ($(this).attr("slider_caption"))
 			{
-				var slideCaption = $(this).attr('slider_caption');
-				$(this).parent('.slick-slide').append('<div class="slidecaption">' + slideCaption + '</div>');
+				var slideCaption = $(this).attr("slider_caption");
+				$(this).parent(".slick-slide").append("<div class=\"slidecaption\">" + slideCaption + "</div>");
 			}
 		});
-		
-	
 	</script>
 <?php } ?>
 
@@ -385,6 +432,32 @@
 					if (result == "success")
 					{
 						document.location.href = "./?op=settings&tab=2";
+					}
+				}
+			})
+        }
+	
+		var id_suppr;
+		function list_del(id)
+		{
+			id_suppr = id;
+			$("#ConfirmSupprList").modal();
+		}
+        function delList()
+        {
+			$.ajax({
+				url: "./data/list_del.php",
+				type: "POST",
+				data:
+				{
+					id: id_suppr
+				},
+				success: function(response)
+				{
+					var result = $.trim(response);
+					if (result == "success")
+					{
+						document.location.href = "./?op=settings&tab=3&type=list_settings&id=<?php echo $id; ?>";
 					}
 				}
 			})
@@ -598,6 +671,87 @@
 					}
 				},
 				menu_edit_icon:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				}
+			}
+		});
+		$("#listAddForm").bootstrapValidator(
+		{
+			locale: "fr_FR",
+			fields:
+			{
+				list_add_name:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				list_add_type:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				list_add_sort:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				}
+			}
+		});
+		$("#listEditForm").bootstrapValidator(
+		{
+			locale: "fr_FR",
+			fields:
+			{
+				list_edit_position:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						},
+						regexp:
+						{
+							regexp: /^[0-9]+$/
+						}
+					}
+				},
+				list_edit_name:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				list_edit_type:
+				{
+					validators:
+					{
+						notEmpty:
+						{
+						}
+					}
+				},
+				list_edit_sort:
 				{
 					validators:
 					{

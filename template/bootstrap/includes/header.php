@@ -40,6 +40,21 @@
 	
 	
 	
+	<!-- Page liste -->
+	<?php if ($op == "list") { ?>
+		<!-- CHOSEN -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/chosen/css/chosen-bootstrap.css">
+		<!-- SLICK 1.6.0 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick.css">
+		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick-theme.css">
+	<?php } ?>
+	
+	
+	
+	
+	
+	
+	
 	<!-- Page detail -->
 	<?php if ($op == "detail") { ?>
 		<!-- LIGHTGALLERY 1.2.18 -->
