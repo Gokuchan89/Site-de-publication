@@ -136,6 +136,10 @@
 <?php if ($op == "list") { ?>
 	<!-- CHOSEN 1.6.2 -->
 	<script src="./template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
+	<!-- HOLDER 2.9.0 -->
+	<script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
+	<!-- LAZYLOAD 1.9.7 -->
+	<script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 	<script>
 		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_['category']); echo $category_name->getName(); ?> / <?php $menu_name = new Menu(); $menu_name->getMenuDBID($_['menu']); echo $menu_name->getName(); ?> / Liste"
 		
@@ -171,13 +175,11 @@
 		{
 			$('div.div-box-tool').html('<i class="fa fa-minus"></i>');
 		});
-		
-		// Popover
-		$('[data-toggle="popover"]').popover(
+				
+		// LazyLoad
+		$("img.lazy").lazyload(
 		{
-			html: true,
-			trigger: "hover",
-			placement: "auto right"
+			effect : "fadeIn"
 		});
 	</script>
 <?php } ?>
