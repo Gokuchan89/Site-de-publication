@@ -389,7 +389,7 @@
 								<?php if (!empty($detail_Reference->getType())) echo "<i class=\"fa fa-".$detail_Reference->getIcon()."\"></i> <strong>".$detail_Reference->getName()." : </strong>".$table_Reference."<br/>"; ?>
 								<?php if (!empty($detail_EntreeDate->getType())) echo "<i class=\"fa fa-".$detail_EntreeDate->getIcon()."\"></i> <strong>".$detail_EntreeDate->getName()." : </strong>".date_sortie(date('d F Y', strtotime($table_EntreeDate)))."<br/>"; ?>
 								<?php if (!empty($detail_NombreSupport->getType())) echo "<i class=\"fa fa-".$detail_NombreSupport->getIcon()."\"></i> <strong>".$detail_NombreSupport->getName()." : </strong>".$table_NombreSupport."<br/>"; ?>
-								<?php if (!empty($detail_Zone->getType())) echo "<i class=\"fa fa-".$detail_Zone->getIcon()."\"></i> <strong>".$detail_Zone->getName()." : </strong>".$table_Zone; ?>
+								<?php if (!empty($detail_Zone->getType())) echo "<i class=\"fa fa-".$detail_Zone->getIcon()."\"></i> <strong>".$detail_Zone->getName()." : </strong>" ?><?php if (file_exists("./img/zones/".$table_Zone.".png")) echo "<img src=\"./img/zones/".$table_Zone.".png\" style=\"max-width:82px; max-height:25px;\" />"; else echo $table_Zone; ?>
 							</div>
 						</div>
 					<?php } ?>
