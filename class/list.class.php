@@ -145,6 +145,33 @@
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
+	
+			public function getNBFilter($id_menu, $type)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT COUNT(*) AS nombre FROM `site_list` WHERE `id_menu` = :id_menu AND `type` = :type");
+				try
+				{
+					// On envoi la requête
+					$sql->execute(array(
+						"id_menu" => $id_menu,
+						"type" => $type
+					));
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Liste->getNBFilter",
+						"error" => $e->getMessage(),
+						"request" => "SELECT COUNT(*) AS nombre FROM `site_list` WHERE `id_menu` = ".$id_menu." AND `type` = ".$type
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
 			
 			public function saveListe()
 			{
