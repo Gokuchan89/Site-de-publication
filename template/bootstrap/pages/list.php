@@ -437,8 +437,6 @@
 				?>
 				<div class="row">
 					<?php foreach ($table_list as $table => $val_table) { ?>
-					
-					
 						<?php
 							if ($val_table['Duree'] < "60")
 							{
@@ -449,30 +447,16 @@
 								$duree = floor($val_table['Duree']/60)."h ".($val_table['Duree']%60)."min";
 							}
 						?>
-						
-						
-						
-						<div class="col-xs-6 col-sm-4 col-md-2" style="padding-bottom: 30px;">
-							<div class="img">
-								<a href="./?op=detail&category=<?php echo $_['category']; ?>&menu=<?php echo $_['menu']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;" data-container="body" data-toggle="popover" data-style="primary" data-title="<strong><?php echo $val_table['TitreVF']; ?></strong><br/><?php echo $val_table['Annee']; ?> | <?php echo $duree; ?> | <?php echo $val_table['Genre']; ?>" data-content="<div class='popover-synopsis'><?php echo htmlspecialchars($val_table['Synopsis'], ENT_QUOTES); ?></div><br/><div class='popover-real-actor'>Un film de : <?php echo str_replace("\r", " / ", $val_table['Realisateurs']); ?><br/>Avec : <?php echo str_replace("\r", " / ", $val_table['Acteurs']); ?></div>">
+						<div class="col-xs-6 col-sm-4 col-md-2">
+							<div class="thumbnail">
+								<a href="./?op=detail&category=<?php echo $_['category']; ?>&menu=<?php echo $_['menu']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;">
 									<?php $filename = sprintf("./profils/".$menu_table->getNametable()."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
-									<img src="./img/bg_blank.png" style="background: url('<?php echo $filename; ?>') no-repeat; background-size: 100% auto;" alt="Affiche" />
-									<div class="annee text-danger"><?php echo $val_table['Annee']; ?></div>
+									<?php if (file_exists($filename)) echo "<div class=\"lastadd-list\"><img data-original=\"".$filename."\" class=\"lazy\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
+									<div class="year text-danger"><?php echo $val_table['Annee']; ?></div>
 									<div class="title"><?php echo $val_table['TitreVF']; ?></div>
 								</a>
 							</div>
 						</div>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
 					<?php } ?>
 				</div>
 			<?php } ?>
