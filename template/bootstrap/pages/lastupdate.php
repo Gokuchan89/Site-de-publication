@@ -49,10 +49,10 @@
 											$duree = floor($val_table['Duree']/60)."h ".($val_table['Duree']%60)."min";
 										}
 									?>
-									<div class="img">
-										<a href="./?op=detail&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;" data-container="body" data-toggle="popover" data-style="primary" data-title="<strong><?php echo $val_table['TitreVF']; ?></strong><br/><?php echo $val_table['Annee']; ?> | <?php echo $duree; ?> | <?php echo $val_table['Genre']; ?>" data-content="<div class='popover-synopsis'><?php echo htmlspecialchars($val_table['Synopsis'], ENT_QUOTES); ?></div><br/><div class='popover-real-actor'>Un film de : <?php echo str_replace("\r", " / ", $val_table['Realisateurs']); ?><br/>Avec : <?php echo str_replace("\r", " / ", $val_table['Acteurs']); ?></div>">
+									<div class="thumbnail">
+										<a href="./?op=detail&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;">
 											<?php $filename = sprintf("./profils/".$val_menu['name_table']."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
-											<img src="./img/bg_blank.png" style="background: url('<?php echo $filename; ?>') no-repeat; background-size: 100% auto;" alt="Affiche" />
+											<?php if (file_exists($filename)) echo "<div class=\"lastadd-list\"><img data-lazy=\"".$filename."\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
 											<div class="title"><?php echo $val_table['TitreVF']; ?></div>
 										</a>
 									</div>
