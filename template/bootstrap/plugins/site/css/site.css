@@ -74,12 +74,12 @@ div.thumbnail:hover
 {
 	border: 								1px solid #777;
 }
-div.lastadd-list
+div.lastadd-list-detail
 {
 	height:									175px;
 	text-align: 							center;
 }
-div.lastadd-list img
+div.lastadd-list-detail img
 {
 	max-width: 								100%;
 	max-height: 							100%;
