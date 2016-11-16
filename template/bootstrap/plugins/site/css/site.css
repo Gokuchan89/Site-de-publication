@@ -7,6 +7,21 @@
 {
 	height: 								265px;
 }
+.nobtn
+{
+    border:									none;
+	outline: 								none;
+    background-color:						transparent;
+	padding:								0 0 0 0;
+}
+.nobtn-actor
+{
+    border:									none;
+	outline: 								none;
+    background-color:						transparent;
+	padding:								0 0 0 0;
+	width:									100%;
+}
 
 /*
     =================================
