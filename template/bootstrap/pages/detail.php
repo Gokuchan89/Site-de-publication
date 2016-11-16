@@ -258,7 +258,7 @@
 							echo '<button type="submit" class="nobtn" name="'.$menu_table->getNametable().'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button> / ';
 						}
 					}
-				echo '</form>';
+				echo "</form>";
 			} else {
 				$filename = "./img/".$label."s/".$list_filter[$i].".png";
 				if (($i+1) == count($list_filter))
@@ -274,9 +274,51 @@
 					{
 						echo '<img src="'.$filename.'" style="max-width:82px;max-height:25px;" /> / ';
 					} else {
-						echo $list_filter[$i].' / ';
+						echo $list_filter[$i]." / ";
 					}
 				}
+			}
+		}
+	}
+
+	function search($label, $value, $category, $menu, $total)
+	{
+		$menu_table = new Menu();
+		$menu_table->getMenuDBID($menu);
+		
+		$list = str_replace("\r", "|", $value);
+		$list_search = explode("|", $list);
+		for ($i=0;$i<count($list_search);$i++)
+		{
+			if ($total != 0)
+			{
+				echo "<div class=\"thumbnail\">";
+					echo '<form method="post" action="./?op=list&category='.$category.'&menu='.$menu.'" style="display:inline;">';
+						echo '<button type="submit" class="nobtn-actor" name="'.$menu_table->getNametable().'_search_value_'.$label.'" value="'.$list_search[$i].'">';
+							$filename = "./img/real_acteur/".clean_img($list_search[$i]).".jpg";
+							if (file_exists($filename))
+							{
+								echo '<img src="'.$filename.'" alt="'.$list_search[$i].'" />';
+								echo "<div class=\"title\">".$list_search[$i]."</div>";
+							} else {
+								echo '<img src="./img/nobody.jpg" alt="'.$list_search[$i].'" />';
+								echo "<div class=\"title\">".$list_search[$i]."</div>";
+							}
+						echo "</button>";
+					echo "</form>";
+				echo "</div>";
+			} else {
+				echo "<div class=\"thumbnail\">";
+					$filename = "./img/real_acteur/".clean_img($list_search[$i]).".jpg";
+					if (file_exists($filename))
+					{
+						echo '<img src="'.$filename.'" alt="'.$list_search[$i].'" />';
+						echo "<div class=\"title\">".$list_search[$i]."</div>";
+					} else {
+						echo '<img src="./img/nobody.jpg" alt="'.$list_search[$i].'" />';
+						echo "<div class=\"title\">".$list_search[$i]."</div>";
+					}
+				echo "</div>";
 			}
 		}
 	}
@@ -390,46 +432,14 @@
 					<?php if (!empty($detail_Realisateurs->getType())) { ?>
 						<div class="panel panel-default">
 							<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-<?php echo $detail_Realisateurs->getIcon(); ?>"></i> <?php echo $detail_Realisateurs->getName(); ?></h3></div>
-							<div class="panel-body">
-								<div class="regular">
-									<?php
-										$list = str_replace("\r", "|", $table_Realisateurs);
-										$list_search = explode("|", $list);
-										for ($i = 0; $i < count($list_search); $i++)
-										{
-											echo "<div class=\"thumbnail\">";
-												$filename = "./img/castings/".clean_img($list_search[$i]).".jpg";
-												if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"".$filename."\" alt=\"".$list_search[$i]."\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"./img/nobody.jpg\" alt=\"".$list_search[$i]."\" /></div>";
-												echo "<div class=\"title\">".$list_search[$i]."</div>";
-											
-											echo "</div>";
-										}
-									?>
-								</div>
-							</div>
+							<div class="panel-body"><div class="regular"><?php echo search("realisateurs", $table_Realisateurs, $_['category'], $_['menu'], $realisateurs[0]['nombre']); ?></div></div>
 						</div>
 					<?php } ?>
 					<!-- ACTEURS -->
 					<?php if (!empty($detail_Acteurs->getType())) { ?>
 						<div class="panel panel-default">
 							<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-<?php echo $detail_Acteurs->getIcon(); ?>"></i> <?php echo $detail_Acteurs->getName(); ?></h3></div>
-							<div class="panel-body">
-								<div class="regular slider">
-									<?php
-										$list = str_replace("\r", "|", $table_Acteurs);
-										$list_search = explode("|", $list);
-										for ($i = 0; $i < count($list_search); $i++)
-										{
-											echo "<div class=\"thumbnail\">";
-												$filename = "./img/castings/".clean_img($list_search[$i]).".jpg";
-												if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"".$filename."\" alt=\"".$list_search[$i]."\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"./img/nobody.jpg\" alt=\"".$list_search[$i]."\" /></div>";
-												echo "<div class=\"title\">".$list_search[$i]."</div>";
-											
-											echo "</div>";
-										}
-									?>
-								</div>
-							</div>
+							<div class="panel-body"><div class="regular"><?php echo search("acteurs", $table_Acteurs, $_['category'], $_['menu'], $acteurs[0]['nombre']); ?></div></div>
 						</div>
 					<?php } ?>
 					<!-- INFORMATIONS SUPPLEMENTAIRES -->
