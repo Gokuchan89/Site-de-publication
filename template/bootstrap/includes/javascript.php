@@ -5,7 +5,7 @@
 
 
 
-<!-- Page derniers ajouts -->
+<!-- Page recherche -->
 <?php if ($op == "search") { ?>
 	<!-- SLICK 1.6.0 -->
 	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
@@ -67,6 +67,8 @@
 
 <!-- Page derniers ajouts -->
 <?php if ($op == "lastupdate") { ?>
+	<!-- HOLDER 2.9.0 -->
+	<script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
 	<!-- LAZYLOAD 1.9.7 -->
 	<script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 	<!-- SLICK 1.6.0 -->
@@ -80,17 +82,10 @@
 			effect : "fadeIn"
 		});
 		
-		// Popover
-		$('[data-toggle="popover"]').popover(
-		{
-			html: true,
-			trigger: "hover",
-			placement: "auto right"
-		});
-		
 		// Slick
 		$(".regular").slick(
 		{
+			lazyLoad: "ondemand",
 			infinite: true,
 			autoplay: true,
 			autoplaySpeed: 3000,
