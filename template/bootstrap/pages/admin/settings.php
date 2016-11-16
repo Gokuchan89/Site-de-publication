@@ -893,7 +893,7 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label>Type du filtre</label>	
+											<label>Type du filtre</label>
 											<select class="form-control chosen" name="list_edit_type">
 												<?php
 													$liste_type = new Liste();
@@ -1347,28 +1347,28 @@
 													$detail_type = new Detail();
 													$detail_type->getDetailDBID($id);
 												?>
-												<option value="acteurs" <?php if ($list_type->getType() == "acteurs") echo "selected"; ?>>Acteurs</option>
-												<option value="annee" <?php if ($list_type->getType() == "annee") echo "selected"; ?>>Année</option>
-												<option value="audio" <?php if ($list_type->getType() == "audio") echo "selected"; ?>>Audio</option>
-												<option value="bande_annonce" <?php if ($list_type->getType() == "bande_annonce") echo "selected"; ?>>Bande-annonce</option>
-												<option value="bonus" <?php if ($list_type->getType() == "bonus") echo "selected"; ?>>Bonus</option>
-												<option value="commentaires" <?php if ($list_type->getType() == "commentaires") echo "selected"; ?>>Commentaires</option>
-												<option value="duree" <?php if ($list_type->getType() == "duree") echo "selected"; ?>>Durée</option>
-												<option value="edition" <?php if ($list_type->getType() == "edition") echo "selected"; ?>>Edition</option>
-												<option value="entree_date" <?php if ($list_type->getType() == "entree_date") echo "selected"; ?>>Date d'entrée</option>
-												<option value="fichier" <?php if ($list_type->getType() == "fichier") echo "selected"; ?>>Fichier</option>
-												<option value="film_vu" <?php if ($list_type->getType() == "film_vu") echo "selected"; ?>>Film Vu</option>
-												<option value="genre" <?php if ($list_type->getType() == "genre") echo "selected"; ?>>Genre</option>
-												<option value="nombre_support" <?php if ($list_type->getType() == "nombre_support") echo "selected"; ?>>Nombre de supports</option>
-												<option value="note" <?php if ($list_type->getType() == "note") echo "selected"; ?>>Note</option>
-												<option value="pays" <?php if ($list_type->getType() == "pays") echo "selected"; ?>>Pays</option>
-												<option value="realisateurs" <?php if ($list_type->getType() == "realisateurs") echo "selected"; ?>>Réalisateurs</option>
-												<option value="reference" <?php if ($list_type->getType() == "reference") echo "selected"; ?>>Référence</option>
-												<option value="sous_titres" <?php if ($list_type->getType() == "sous_titres") echo "selected"; ?>>Sous-titres</option>
-												<option value="support" <?php if ($list_type->getType() == "support") echo "selected"; ?>>Support</option>
-												<option value="synopsis" <?php if ($list_type->getType() == "synopsis") echo "selected"; ?>>Synopsis</option>
-												<option value="titre_vo" <?php if ($list_type->getType() == "titre_vo") echo "selected"; ?>>Titre VO</option>
-												<option value="zone" <?php if ($list_type->getType() == "zone") echo "selected"; ?>>Zone</option>
+												<option value="acteurs" <?php if ($detail_type->getType() == "acteurs") echo "selected"; ?>>Acteurs</option>
+												<option value="annee" <?php if ($detail_type->getType() == "annee") echo "selected"; ?>>Année</option>
+												<option value="audio" <?php if ($detail_type->getType() == "audio") echo "selected"; ?>>Audio</option>
+												<option value="bande_annonce" <?php if ($detail_type->getType() == "bande_annonce") echo "selected"; ?>>Bande-annonce</option>
+												<option value="bonus" <?php if ($detail_type->getType() == "bonus") echo "selected"; ?>>Bonus</option>
+												<option value="commentaires" <?php if ($detail_type->getType() == "commentaires") echo "selected"; ?>>Commentaires</option>
+												<option value="duree" <?php if ($detail_type->getType() == "duree") echo "selected"; ?>>Durée</option>
+												<option value="edition" <?php if ($detail_type->getType() == "edition") echo "selected"; ?>>Edition</option>
+												<option value="entree_date" <?php if ($detail_type->getType() == "entree_date") echo "selected"; ?>>Date d'entrée</option>
+												<option value="fichier" <?php if ($detail_type->getType() == "fichier") echo "selected"; ?>>Fichier</option>
+												<option value="film_vu" <?php if ($detail_type->getType() == "film_vu") echo "selected"; ?>>Film Vu</option>
+												<option value="genre" <?php if ($detail_type->getType() == "genre") echo "selected"; ?>>Genre</option>
+												<option value="nombre_support" <?php if ($detail_type->getType() == "nombre_support") echo "selected"; ?>>Nombre de supports</option>
+												<option value="note" <?php if ($detail_type->getType() == "note") echo "selected"; ?>>Note</option>
+												<option value="pays" <?php if ($detail_type->getType() == "pays") echo "selected"; ?>>Pays</option>
+												<option value="realisateurs" <?php if ($detail_type->getType() == "realisateurs") echo "selected"; ?>>Réalisateurs</option>
+												<option value="reference" <?php if ($detail_type->getType() == "reference") echo "selected"; ?>>Référence</option>
+												<option value="sous_titres" <?php if ($detail_type->getType() == "sous_titres") echo "selected"; ?>>Sous-titres</option>
+												<option value="support" <?php if ($detail_type->getType() == "support") echo "selected"; ?>>Support</option>
+												<option value="synopsis" <?php if ($detail_type->getType() == "synopsis") echo "selected"; ?>>Synopsis</option>
+												<option value="titre_vo" <?php if ($detail_type->getType() == "titre_vo") echo "selected"; ?>>Titre VO</option>
+												<option value="zone" <?php if ($detail_type->getType() == "zone") echo "selected"; ?>>Zone</option>
 											</select>
 										</div>
 										<div class="form-group">
@@ -1404,7 +1404,7 @@
 												<option value="users" data-icon="fa-users" <?php if ($detail_icon->getIcon() == "users") echo "selected"; ?>>users</option>
 											</select>
 										</div>
-										<?php if ($list_type->getType() == "duree") { ?>
+										<?php if ($detail_type->getType() == "duree") { ?>
 											<div class="form-group">
 												<label>Option du menu</label>
 												<div class="radio">

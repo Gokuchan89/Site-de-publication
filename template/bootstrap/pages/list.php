@@ -352,7 +352,7 @@
 										</form>
 									</div>
 								</div>
-								<div class="col-xs-12 col-sm-4 col-md-4">
+								<div class="col-xs-12 col-sm-12 col-md-4">
 									<div class="form-group">
 										<label>Afficher x éléments</label>
 										<form method="post" action="./?op=list&category=<?php echo $_['category']; ?>&menu=<?php echo $_['menu']; ?>">
@@ -367,7 +367,7 @@
 										</form>
 									</div>
 								</div>
-								<div class="col-xs-12 col-sm-4 col-md-4">
+								<div class="col-xs-12 col-sm-12 col-md-4">
 									<div class="form-group">
 										<label>Trier par</label>
 										<form method="post">
@@ -451,7 +451,7 @@
 							<div class="thumbnail">
 								<a href="./?op=detail&category=<?php echo $_['category']; ?>&menu=<?php echo $_['menu']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;">
 									<?php $filename = sprintf("./profils/".$menu_table->getNametable()."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
-									<?php if (file_exists($filename)) echo "<div class=\"lastadd-list\"><img data-original=\"".$filename."\" class=\"lazy\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
+									<?php if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-original=\"".$filename."\" class=\"lazy\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
 									<div class="year text-danger"><?php echo $val_table['Annee']; ?></div>
 									<div class="title"><?php echo $val_table['TitreVF']; ?></div>
 								</a>

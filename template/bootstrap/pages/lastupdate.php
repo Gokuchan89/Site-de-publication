@@ -52,7 +52,7 @@
 									<div class="thumbnail">
 										<a href="./?op=detail&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;">
 											<?php $filename = sprintf("./profils/".$val_menu['name_table']."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
-											<?php if (file_exists($filename)) echo "<div class=\"lastadd-list\"><img data-lazy=\"".$filename."\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
+											<?php if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"".$filename."\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
 											<div class="title"><?php echo $val_table['TitreVF']; ?></div>
 										</a>
 									</div>
