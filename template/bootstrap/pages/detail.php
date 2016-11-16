@@ -329,15 +329,15 @@
 						<div class="panel panel-default">
 							<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-<?php echo $detail_Realisateurs->getIcon(); ?>"></i> <?php echo $detail_Realisateurs->getName(); ?></h3></div>
 							<div class="panel-body">
-								<div class="regular slider">
+								<div class="regular">
 									<?php
 										$list = str_replace("\r", "|", $table_Realisateurs);
 										$list_search = explode("|", $list);
 										for ($i = 0; $i < count($list_search); $i++)
 										{
-											echo "<div class=\"img\">";
+											echo "<div class=\"thumbnail\">";
 												$filename = "./img/castings/".clean_img($list_search[$i]).".jpg";
-												if (file_exists($filename)) echo "<img data-lazy=\"".$filename."\" alt=\"".$list_search[$i]."\"/>"; else echo "<img data-lazy=\"./img/nobody.jpg\" alt=\"".$list_search[$i]."\">";
+												if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"".$filename."\" alt=\"".$list_search[$i]."\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"./img/nobody.jpg\" alt=\"".$list_search[$i]."\" /></div>";
 												echo "<div class=\"title\">".$list_search[$i]."</div>";
 											
 											echo "</div>";
@@ -358,9 +358,9 @@
 										$list_search = explode("|", $list);
 										for ($i = 0; $i < count($list_search); $i++)
 										{
-											echo "<div class=\"img\">";
+											echo "<div class=\"thumbnail\">";
 												$filename = "./img/castings/".clean_img($list_search[$i]).".jpg";
-												if (file_exists($filename)) echo "<img data-lazy=\"".$filename."\" alt=\"".$list_search[$i]."\"/>"; else echo "<img data-lazy=\"./img/nobody.jpg\" alt=\"".$list_search[$i]."\">";
+												if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"".$filename."\" alt=\"".$list_search[$i]."\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"./img/nobody.jpg\" alt=\"".$list_search[$i]."\" /></div>";
 												echo "<div class=\"title\">".$list_search[$i]."</div>";
 											
 											echo "</div>";
