@@ -216,6 +216,70 @@
 	$table_SousTitres = new Table();
 	$table_SousTitres->getTableDBID($menu_table, $id);
 	$table_SousTitres = $table_SousTitres->getSoustitres();
+
+	/*
+		=================================
+		DETAIL -> FILTRE + RECHERCHE
+		=================================
+	*/
+	$total = array("genre", "annee", "pays", "support", "zone", "acteurs", "realisateurs");
+	for ($i = 0; $i < count($total); $i++)
+	{
+		$query = new Liste();
+		$$total[$i] = $query->getNBFilter($_['menu'], $total[$i]);
+	}
+	
+	function filter($label, $value, $category, $menu, $total)
+	{
+		$menu_table = new Menu();
+		$menu_table->getMenuDBID($menu);
+		
+		$list = str_replace(" / ", " - ", $value);
+		$list_filter = explode(" - ", $list);
+		for ($i=0; $i<count($list_filter); $i++)
+		{
+			if ($total != 0)
+			{
+				echo '<form method="post" action="./?op=list&category='.$category.'&menu='.$menu.'" style="display:inline;">';
+					$filename = "./img/".$label."s/".$list_filter[$i].".png";
+					if (($i+1) == count($list_filter))
+					{
+						if (file_exists($filename))
+						{
+							echo '<button type="submit" class="nobtn" name="'.$menu_table->getNametable().'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button>';
+						} else {
+							echo '<button type="submit" class="nobtn" name="'.$menu_table->getNametable().'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button>';
+						}
+					} else {
+						if (file_exists($filename))
+						{
+							echo '<button type="submit" class="nobtn" name="'.$menu_table->getNametable().'_search_value_'.$label.'" value="'.$list_filter[$i].'"><img src="'.$filename.'" style="max-width:82px;max-height:25px;" /></button> / ';
+						} else {
+							echo '<button type="submit" class="nobtn" name="'.$menu_table->getNametable().'_search_value_'.$label.'" value="'.$list_filter[$i].'"><div class="text-primary">'.$list_filter[$i].'</div></button> / ';
+						}
+					}
+				echo '</form>';
+			} else {
+				$filename = "./img/".$label."s/".$list_filter[$i].".png";
+				if (($i+1) == count($list_filter))
+				{
+					if (file_exists($filename))
+					{
+						echo '<img src="'.$filename.'" style="max-width:82px;max-height:25px;" />';
+					} else {
+						echo $list_filter[$i];
+					}
+				} else {
+					if (file_exists($filename))
+					{
+						echo '<img src="'.$filename.'" style="max-width:82px;max-height:25px;" /> / ';
+					} else {
+						echo $list_filter[$i].' / ';
+					}
+				}
+			}
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -240,15 +304,13 @@
 					<!-- DETAILS -->
 					<div class="panel">
 						<li class="list-group-item"><i class="fa fa-pencil"></i> <?php echo $table_TitreVF; ?></li>
-						<?php if (!empty($detail_TitreVO->getType())) echo "<li class=\"list-group-item\"><i class=\"fa fa-".$detail_TitreVO->getIcon()."\"></i> ".$table_TitreVO."</li>"; ?>
-						<?php if (!empty($detail_Genre->getType())) echo "<li class=\"list-group-item\"><i class=\"fa fa-".$detail_Genre->getIcon()."\"></i> ".$table_Genre."</li>"; ?>
-						<?php
-							if (!empty($detail_Annee->getType()) || !empty($detail_Duree->getType()) || !empty($detail_Pays->getType()))
-							{
-								echo "<li class=\"list-group-item\">";
-									if (!empty($detail_Annee->getType())) echo "<i class=\"fa fa-".$detail_Annee->getIcon()."\"></i> ".$table_Annee."<br/>";
-									if (!empty($detail_Duree->getType()))
-									{
+						<?php if (!empty($detail_TitreVO->getType())) { ?><li class="list-group-item"><i class="fa fa-<?php echo $detail_TitreVO->getIcon(); ?>"></i> <?php echo $table_TitreVO; ?></li> <?php } ?>
+						<?php if (!empty($detail_Genre->getType())) { ?> <li class="list-group-item"><i class="fa fa-<?php echo $detail_Genre->getIcon(); ?>"></i> <?php echo filter("genre", $table_Genre, $_['category'], $_['menu'], $genre[0]['nombre']); ?></li> <?php } ?>
+						<?php if (!empty($detail_Annee->getType()) || !empty($detail_Duree->getType()) || !empty($detail_Pays->getType())) { ?>
+							<li class="list-group-item">
+								<?php if (!empty($detail_Annee->getType())) { ?><i class="fa fa-<?php echo $detail_Annee->getIcon(); ?>"></i> <?php echo filter("annee", $table_Annee, $_['category'], $_['menu'], $annee[0]['nombre']); ?><br/><?php } ?>
+								<?php if (!empty($detail_Duree->getType())) { ?>
+									<?php
 										if ($detail_Duree->getOptions() == "pages")
 										{
 											$duree = $table_Duree." pages";
@@ -264,12 +326,12 @@
 												$duree = floor($table_Duree/60).'h '.($table_Duree%60).'min';
 											}
 										}
-										echo "<i class=\"fa fa-".$detail_Duree->getIcon()."\"></i> ".$duree."<br/>";
-									}
-									if (!empty($detail_Pays->getType())) echo "<i class=\"fa fa-".$detail_Pays->getIcon()."\"></i> ".$table_Pays;
-								echo "</li>";
-							}
-						?>
+									?>
+									<i class="fa fa-<?php echo $detail_Duree->getIcon(); ?>"></i> <?php echo $duree; ?><br/>
+								<?php } ?>
+								<?php if (!empty($detail_Pays->getType())) { ?><i class="fa fa-<?php echo $detail_Pays->getIcon(); ?>"></i> <?php echo filter("pays", $table_Pays, $_['category'], $_['menu'], $pays[0]['nombre']); ?><?php } ?>
+							</li>
+						<?php } ?>
 						<?php
 							if (!empty($detail_Note->getType()))
 							{
@@ -384,12 +446,12 @@
 						<div class="panel panel-default">
 							<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-paperclip"></i> Détails</h3></div>
 							<div class="panel-body">
-								<?php if (!empty($detail_Support->getType())) echo "<i class=\"fa fa-".$detail_Support->getIcon()."\"></i> <strong>".$detail_Support->getName()." : </strong>" ?><?php if (file_exists("./img/supports/".$table_Support.".png")) echo "<img src=\"./img/supports/".$table_Support.".png\" style=\"max-width:82px; max-height:25px;\" />"; else echo $table_Support; ?><br/>
+								<?php if (!empty($detail_Support->getType())) { ?><i class="fa fa-<?php echo $detail_Support->getIcon(); ?>"></i> <strong><?php echo $detail_Support->getName(); ?> : </strong><?php echo filter("support", $table_Support, $_['category'], $_['menu'], $support[0]['nombre']); ?><br/><?php } ?>
 								<?php if (!empty($detail_Edition->getType()) && !empty($table_Edition)) echo "<i class=\"fa fa-".$detail_Edition->getIcon()."\"></i> <strong>".$detail_Edition->getName()." : </strong>".$table_Edition."<br/>"; ?>
 								<?php if (!empty($detail_Reference->getType())) echo "<i class=\"fa fa-".$detail_Reference->getIcon()."\"></i> <strong>".$detail_Reference->getName()." : </strong>".$table_Reference."<br/>"; ?>
 								<?php if (!empty($detail_EntreeDate->getType())) echo "<i class=\"fa fa-".$detail_EntreeDate->getIcon()."\"></i> <strong>".$detail_EntreeDate->getName()." : </strong>".date_sortie(date('d F Y', strtotime($table_EntreeDate)))."<br/>"; ?>
 								<?php if (!empty($detail_NombreSupport->getType())) echo "<i class=\"fa fa-".$detail_NombreSupport->getIcon()."\"></i> <strong>".$detail_NombreSupport->getName()." : </strong>".$table_NombreSupport."<br/>"; ?>
-								<?php if (!empty($detail_Zone->getType())) echo "<i class=\"fa fa-".$detail_Zone->getIcon()."\"></i> <strong>".$detail_Zone->getName()." : </strong>" ?><?php if (file_exists("./img/zones/".$table_Zone.".png")) echo "<img src=\"./img/zones/".$table_Zone.".png\" style=\"max-width:82px; max-height:25px;\" />"; else echo $table_Zone; ?>
+								<?php if (!empty($detail_Zone->getType())) { ?><i class="fa fa-<?php echo $detail_Zone->getIcon(); ?>"></i> <strong><?php echo $detail_Zone->getName(); ?> : </strong><?php echo filter("zone", $table_Zone, $_['category'], $_['menu'], $zone[0]['nombre']); ?><?php } ?>
 							</div>
 						</div>
 					<?php } ?>
