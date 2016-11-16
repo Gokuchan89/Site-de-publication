@@ -384,7 +384,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading"><h3 class="panel-title"><i class="fa fa-paperclip"></i> Détails</h3></div>
 							<div class="panel-body">
-								<?php if (!empty($detail_Support->getType())) echo "<i class=\"fa fa-".$detail_Support->getIcon()."\"></i> <strong>".$detail_Support->getName()." : </strong>".$table_Support."<br/>"; ?>
+								<?php if (!empty($detail_Support->getType())) echo "<i class=\"fa fa-".$detail_Support->getIcon()."\"></i> <strong>".$detail_Support->getName()." : </strong>" ?><?php if (file_exists("./img/supports/".$table_Support.".png")) echo "<img src=\"./img/supports/".$table_Support.".png\" style=\"max-width:82px; max-height:25px;\" />"; else echo $table_Support; ?><br/>
 								<?php if (!empty($detail_Edition->getType()) && !empty($table_Edition)) echo "<i class=\"fa fa-".$detail_Edition->getIcon()."\"></i> <strong>".$detail_Edition->getName()." : </strong>".$table_Edition."<br/>"; ?>
 								<?php if (!empty($detail_Reference->getType())) echo "<i class=\"fa fa-".$detail_Reference->getIcon()."\"></i> <strong>".$detail_Reference->getName()." : </strong>".$table_Reference."<br/>"; ?>
 								<?php if (!empty($detail_EntreeDate->getType())) echo "<i class=\"fa fa-".$detail_EntreeDate->getIcon()."\"></i> <strong>".$detail_EntreeDate->getName()." : </strong>".date_sortie(date('d F Y', strtotime($table_EntreeDate)))."<br/>"; ?>
