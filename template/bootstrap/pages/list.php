@@ -240,6 +240,87 @@
 <!DOCTYPE html>
 <html>
 	<?php include('./template/bootstrap/includes/header.php'); ?>
+	
+	
+	
+	
+	
+	
+	
+	<script>
+	
+		.input-group-lg,
+		.form-group-lg {
+
+		  .chosen {
+			.input-lg();
+			// arrow vertical alignment fix
+			b {
+			  position: relative;
+			  top: 6px;
+
+			}
+		  }
+
+		  .chosen-container-single .chosen b {
+			// hide other pieces of sprite
+			height: 50%;
+		  }
+
+		  .chosen-choices {
+			// fix height
+			min-height: @input-height-large;
+
+			// larger multi-select search only intially for better post tag selection alignment
+			li:first-child input[type="text"] {
+			  height: (@input-height-large - 2);
+			}
+		  }
+		}
+
+		.input-group-sm,
+		.form-group-sm {
+
+		  .chosen {
+			.input-sm();
+			// arrow vertical alignment fix
+			b {
+			  position: relative;
+			  top: -2px;
+			}
+		  }
+
+		  .chosen-choices {
+			// fix height
+			min-height: @input-height-small;
+
+			// smaller multi-select items
+			.search-choice {
+			  margin: 4px 4px 3px;
+			  font-size: @font-size-small;
+			}
+
+			// smaller multi-select search
+			.search-field input[type="text"] {
+			  font-size: @font-size-small;
+			  height: (@input-height-small - 2);
+			}
+		  }
+		}
+
+		// Coplex custom fix so disabled text isn't cutoff
+
+		.chosen-container-multi .chosen-choices li:first-child input[type="text"] {
+		  width: 100% !important;
+		}
+
+	</script>
+	
+	
+	
+	
+	
+	
 	<body>
 		<?php include('./template/bootstrap/includes/navbar.php'); ?>
 		<div class="container">
@@ -279,7 +360,7 @@
 									$liste_list = $liste_list->getList($_['menu']);
 								?>
 								<?php foreach ($liste_list as $liste => $val_liste) { ?>
-									<div class="col-xs-12 col-sm-12 col-md-2">
+									<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 										<div class="form-group">
 											<label>Filtrer par <?php echo $val_liste['name']; ?></label>
 											<form method="post" action="./?op=list&category=<?php echo $_['category']; ?>&menu=<?php echo $_['menu']; ?>">
