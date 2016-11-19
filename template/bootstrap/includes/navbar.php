@@ -11,6 +11,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar">
 			<ul class="nav navbar-nav">
+				<?php if ($op && $op == 'detail') { ?><li><a href="javascript:history.back();"><i class="fa fa-arrow-left"></i></a></li><?php } ?>
 				<li <?php if (!$op) echo 'class="active"'; ?>><a href="./">Accueil</a></li>
 				<?php
 					$category = new Category();
