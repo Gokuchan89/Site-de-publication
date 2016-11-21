@@ -33,31 +33,31 @@
 					<div class="panel-heading">Les derniers ajouts de la table <a href="./?op=list&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>"><?php echo $val_menu['name']; ?></a><?php if ($table_total != 0) echo '<div class="pull-right">('.$setting_lastaddmax->getValue().' sur '.$table_total[0]['nombre'].')</div>'; ?></div>
 					<div class="panel-body">
 						<div class="regular">
-							<?php
-								$lastupdate_list = new Table();
-								$lastupdate_list = $lastupdate_list->getLastupdateList($val_menu['name_table'], $setting_lastaddmax->getValue());
-							?>
-							<?php if ($lastupdate_list != 0) { ?>
-								<?php foreach ($lastupdate_list as $table => $val_table) { ?>
-									<?php
-										if ($val_table['Duree'] < "60")
-										{
-											$duree = ($val_table['Duree']%60)."min";
-										}
-										elseif ($val_table['Duree'] > "60")
-										{
-											$duree = floor($val_table['Duree']/60)."h ".($val_table['Duree']%60)."min";
-										}
-									?>
-									<div class="thumbnail">
-										<a href="./?op=detail&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;">
-											<?php $filename = sprintf("./profils/".$val_menu['name_table']."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
-											<?php if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"".$filename."\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
-											<div class="title"><?php echo $val_table['TitreVF']; ?></div>
-										</a>
-									</div>
+								<?php
+									$lastupdate_list = new Table();
+									$lastupdate_list = $lastupdate_list->getLastupdateList($val_menu['name_table'], $setting_lastaddmax->getValue());
+								?>
+								<?php if ($lastupdate_list != 0) { ?>
+									<?php foreach ($lastupdate_list as $table => $val_table) { ?>
+										<?php
+											if ($val_table['Duree'] < "60")
+											{
+												$duree = ($val_table['Duree']%60)."min";
+											}
+											elseif ($val_table['Duree'] > "60")
+											{
+												$duree = floor($val_table['Duree']/60)."h ".($val_table['Duree']%60)."min";
+											}
+										?>
+											<div class="thumbnail">
+												<a href="./?op=detail&category=<?php echo $_GET['category']; ?>&menu=<?php echo $val_menu['id']; ?>&id=<?php echo $val_table['ID']; ?>" style="text-decoration: none; color: black;">
+													<?php $filename = sprintf("./profils/".$val_menu['name_table']."/affiches/Filmotech_%05d.jpg", $val_table['ID']); ?>
+													<?php if (file_exists($filename)) echo "<div class=\"lastadd-list-detail\"><img data-lazy=\"".$filename."\" alt=\"affiche\" /></div>"; else echo "<div class=\"lastadd-list-detail\"><img data-src=\"holder.js/100px100p?text=aucune \n image\" alt=\"affiche\" /></div>"; ?>
+													<div class="title"><?php echo $val_table['TitreVF']; ?></div>
+												</a>
+											</div>
+									<?php } ?>
 								<?php } ?>
-							<?php } ?>
 						</div>
 					</div>
 					<div class="panel-footer">

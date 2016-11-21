@@ -225,7 +225,16 @@
 	
 	if (!empty($_SESSION[$menu_table->getNametable()."_search_value"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_genre"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_pays"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_annee"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_duree"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_note"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_filmvu"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_acteurs"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_realisateurs"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_commentaires"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_reference"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_support"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_edition"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_zone"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_soustitres"]) || !empty($_SESSION[$menu_table->getNametable()."_search_value_audio"]))
 	{
-		if (!empty($_SESSION[$menu_table->getNametable()."_search_value"])) $list_search .= " AND (`TitreVF` LIKE \"%".$_SESSION[$menu_table->getNametable()."_search_value"]."%\" OR `TitreVO` LIKE \"%".$_SESSION[$menu_table->getNametable()."_search_value"]."%\")";
+		if (!empty($_SESSION[$menu_table->getNametable()."_search_value"]))
+		{
+			if (preg_match("/([a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ².,':() ]+) ([(][0-9]{4}+[)])/i", $_SESSION[$menu_table->getNametable()."_search_value"]))
+			{
+				preg_match("/([a-zA-Z0-9ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ².,':() ]+) ([(][0-9]{4}+[)])/i", $_SESSION[$menu_table->getNametable()."_search_value"], $search);
+				$list_search .= " AND (`TitreVF` LIKE \"%".$search[1]."%\" OR `TitreVO` LIKE \"%".$search[1]."%\") AND `Annee` = ".$search[2];
+			} else {
+				$list_search .= " AND (`TitreVF` LIKE \"%".$_SESSION[$menu_table->getNametable()."_search_value"]."%\" OR `TitreVO` LIKE \"%".$_SESSION[$menu_table->getNametable()."_search_value"]."%\")";
+			}
+		}
 		for ($i=0;$i<count($type_array);$i++)
 		{
 			if (in_array($type_array[$i], $type_verif)) $like = "LIKE"; else $like = "=";
@@ -240,87 +249,6 @@
 <!DOCTYPE html>
 <html>
 	<?php include('./template/bootstrap/includes/header.php'); ?>
-	
-	
-	
-	
-	
-	
-	
-	<script>
-	
-		.input-group-lg,
-		.form-group-lg {
-
-		  .chosen {
-			.input-lg();
-			// arrow vertical alignment fix
-			b {
-			  position: relative;
-			  top: 6px;
-
-			}
-		  }
-
-		  .chosen-container-single .chosen b {
-			// hide other pieces of sprite
-			height: 50%;
-		  }
-
-		  .chosen-choices {
-			// fix height
-			min-height: @input-height-large;
-
-			// larger multi-select search only intially for better post tag selection alignment
-			li:first-child input[type="text"] {
-			  height: (@input-height-large - 2);
-			}
-		  }
-		}
-
-		.input-group-sm,
-		.form-group-sm {
-
-		  .chosen {
-			.input-sm();
-			// arrow vertical alignment fix
-			b {
-			  position: relative;
-			  top: -2px;
-			}
-		  }
-
-		  .chosen-choices {
-			// fix height
-			min-height: @input-height-small;
-
-			// smaller multi-select items
-			.search-choice {
-			  margin: 4px 4px 3px;
-			  font-size: @font-size-small;
-			}
-
-			// smaller multi-select search
-			.search-field input[type="text"] {
-			  font-size: @font-size-small;
-			  height: (@input-height-small - 2);
-			}
-		  }
-		}
-
-		// Coplex custom fix so disabled text isn't cutoff
-
-		.chosen-container-multi .chosen-choices li:first-child input[type="text"] {
-		  width: 100% !important;
-		}
-
-	</script>
-	
-	
-	
-	
-	
-	
 	<body>
 		<?php include('./template/bootstrap/includes/navbar.php'); ?>
 		<div class="container">
@@ -510,9 +438,6 @@
 			
 			<?php if ($option_dp_type == "galerie") { ?>
 				<?php
-					$menu_list = new Menu();
-					$menu_list = $menu_list->getMenuDBID($_['menu']);
-					
 					$table_list = new Table;
 					$table_list = $table_list->getListeList($menu_table->getNametable(), $list_search, $option_order, $option_nb_elements, $offset_list);
 				?>
