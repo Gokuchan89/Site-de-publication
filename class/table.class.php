@@ -409,6 +409,30 @@
 					return "Erreur de requête : ".$e->getMessage();
 				}
 			}
+	
+			public function getAutocompleteList($name_table, $term)
+			{
+				// Etablissement de la connexion à MySQL
+				$mysql = new MySQL();
+				$Connexion = $mysql->getPDO();
+				// Préparation de la requête
+				$sql = $Connexion->prepare("SELECT * FROM `".$name_table."` WHERE (`TitreVF` LIKE \"%".$term."%\" OR `TitreVO` LIKE \"%".$term."%\") ORDER BY `TitreVF` LIMIT 0, 10");
+				try
+				{
+					// On envoi la requête
+					$sql->execute();
+					$donnees = $sql->fetchAll();
+					return $donnees;
+				} catch (Exception $e) {
+					$Log = new Log(array(
+						"treatment" => "Table->getAutocompleteList",
+						"error" => $e->getMessage(),
+						"request" => "SELECT DISTINCT `TitreVF` FROM `".$name_table."` WHERE (`TitreVF` LIKE \"%".$term."%\" OR `TitreVO` LIKE \"%".$term."%\") ORDER BY `TitreVF` LIMIT 0, 10"
+					));
+					$Log->saveLog();
+					return "Erreur de requête : ".$e->getMessage();
+				}
+			}
 		}
 	}
 ?>
