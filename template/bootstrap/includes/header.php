@@ -44,6 +44,8 @@
 	<?php if ($op == "list") { ?>
 		<!-- CHOSEN -->
 		<link rel="stylesheet" href="./template/bootstrap/plugins/chosen/css/chosen-bootstrap.css">
+		<!-- JQUERY UI 1.12.1 -->
+		<link rel="stylesheet" href="./template/bootstrap/plugins/jquery-ui/css/base/jquery-ui.min.css">
 		<!-- SLICK 1.6.0 -->
 		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick.css">
 		<link rel="stylesheet" href="./template/bootstrap/plugins/slick/css/slick-theme.css">

@@ -69,18 +69,10 @@
 <?php if ($op == "lastupdate") { ?>
 	<!-- HOLDER 2.9.0 -->
 	<script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
-	<!-- LAZYLOAD 1.9.7 -->
-	<script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 	<!-- SLICK 1.6.0 -->
 	<script src="./template/bootstrap/plugins/slick/js/slick.min.js"></script>
 	<script>
 		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_['category']); echo $category_name->getName(); ?> / Derniers ajouts"
-				
-		// LazyLoad
-		$("img.lazy").lazyload(
-		{
-			effect : "fadeIn"
-		});
 		
 		// Slick
 		$(".regular").slick(
@@ -136,12 +128,27 @@
 <?php if ($op == "list") { ?>
 	<!-- CHOSEN 1.6.2 -->
 	<script src="./template/bootstrap/plugins/chosen/js/chosen.min.js"></script>
+	<!-- JQUERY UI 1.12.1 -->
+	<script src="./template/bootstrap/plugins/jquery-ui/js/jquery-ui.min.js"></script>
 	<!-- HOLDER 2.9.0 -->
 	<script src="./template/bootstrap/plugins/holder/js/holder.min.js"></script>
 	<!-- LAZYLOAD 1.9.7 -->
 	<script src="./template/bootstrap/plugins/lazyload/js/lazyload.min.js"></script>
 	<script>
 		document.title += " / <?php $category_name = new Category(); $category_name->getCategoryDBID($_['category']); echo $category_name->getName(); ?> / <?php $menu_name = new Menu(); $menu_name->getMenuDBID($_['menu']); echo $menu_name->getName(); ?> / Liste"
+			
+		// Autocomplete
+		var id = "<?php if(isset($_['menu'])) echo $_['menu']; ?>";
+		$("#searchField").autocomplete(
+		{
+			source: "./data/autocomplete.php?id="+id,
+			minLength: 1,
+			select: function (event, ui)
+			{
+				$("#searchField").val(ui.item.label);
+				$("#searchForm").submit();
+			}
+		});
 		
 		// Chosen
 		<?php
@@ -155,7 +162,8 @@
 					echo "$(\".chosen_".$val_liste['type']."\").chosen({";
 						if ($val_liste['type'] == "annee" || $val_liste['type'] == "note" || $val_liste['type'] == "reference" || $val_liste['type'] == "edition" || $val_liste['type'] == "zone") $tous = "Toutes"; else $tous = "Tous";
 						echo "placeholder_text_single: \"".$tous." les ".$val_liste['name']."\",";
-						echo "width: \"100%\"";
+						echo "width: \"100%\",";
+						echo "no_results_text: \"Aucun résultat\"";
 					echo "});";
 				}
 			}
@@ -165,15 +173,15 @@
 			width: "100%",
 			disable_search: true
 		});
-		
+
 		// Collapse
-		$('#collapse').on("hide.bs.collapse", function()
+		$("#collapse").on("hide.bs.collapse", function()
 		{
-			$('div.div-box-tool').html('<i class="fa fa-plus"></i>');
+			$("div.div-box-tool").html("<i class=\"fa fa-plus\"></i>");
 		});
 		$("#collapse").on("show.bs.collapse", function()
 		{
-			$('div.div-box-tool').html('<i class="fa fa-minus"></i>');
+			$("div.div-box-tool").html("<i class=\"fa fa-minus\"></i>");
 		});
 				
 		// LazyLoad
