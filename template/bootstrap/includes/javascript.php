@@ -160,8 +160,7 @@
 				foreach ($liste_list as $liste => $val_liste)
 				{
 					echo "$(\".chosen_".$val_liste['type']."\").chosen({";
-						if ($val_liste['type'] == "annee" || $val_liste['type'] == "note" || $val_liste['type'] == "reference" || $val_liste['type'] == "edition" || $val_liste['type'] == "zone") $tous = "Toutes"; else $tous = "Tous";
-						echo "placeholder_text_single: \"".$tous." les ".$val_liste['name']."\",";
+						echo "placeholder_text_single: \"".ucfirst($val_liste['name'])." (Tous)\",";
 						echo "width: \"100%\",";
 						echo "no_results_text: \"Aucun résultat\"";
 					echo "});";
